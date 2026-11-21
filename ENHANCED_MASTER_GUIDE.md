@@ -2081,94 +2081,46 @@ Build correlation in the SIEM or supported Sigma workflow using the fields that 
  
 ---
  
-## AV/EDR Evasion - Recognition & Defense
- 
-*Full reference: [Tradecraft/av-edr-evasion.md](Tradecraft/av-edr-evasion.md)*
- 
-### Detection Layer Stack
- 
+## AV/EDR Recognition and Analysis
+
+*Related reference: [Tradecraft/av-edr-evasion.md](Tradecraft/av-edr-evasion.md). This overview focuses on defensive interpretation and safe analysis.*
+
+An isolated alert or memory pattern does not prove an evasion attempt. Validate telemetry coverage, correlate events by process identity and time, and compare the behavior with the host's role and expected software.
+
+### Defensive analysis workflow
+
+```mermaid
+flowchart LR
+    A[Confirm authorization<br/>and sample provenance] --> I[Use a disposable,<br/>isolated analysis VM]
+    I --> H[Record hashes and<br/>baseline VM state]
+    H --> C[Collect configured<br/>endpoint and network telemetry]
+    C --> T[Build a process and<br/>event timeline]
+    T --> V[Compare with known-good<br/>software and host role]
+    V --> R[Document evidence,<br/>uncertainty, and next steps]
+    R --> S[Revert or dispose of<br/>the analysis VM]
 ```
-Layer 1: Static Signatures        ← AV, hash matching, YARA
-Layer 2: AMSI                     ← PowerShell/script content scanning
-Layer 3: ETW Providers            ← Kernel + user-mode telemetry
-Layer 4: Kernel Callbacks         ← Process/thread/image load events
-Layer 5: User-Mode API Hooks      ← ntdll.dll inline hooks
-Layer 6: Behavioral Analytics     ← ML models, anomaly detection
-Layer 7: Network Inspection       ← DNS, TLS metadata
-```
- 
-### Recognition Patterns
- 
-**AMSI bypass in Script Block Log (Event 4104) - what to look for:**
-```
-Any of these strings appearing together = bypass attempt:
-  AmsiScanBuffer, AmsiInitialize, amsiContext, amsiInitFailed
-  [Ref].Assembly.GetType, GetField, NonPublic, SetValue
-```
- 
-**Patched ntdll function - what it looks like in memory:**
-```asm
-; AmsiScanBuffer PATCHED - bypass succeeded
-B8 57 00 07 80    mov eax, 0x80070057   ← hardcoded "clean" return
-C3                ret                   ← immediate return, no scan
- 
-; EtwEventWrite PATCHED - ETW silenced
-C3                ret                   ← single byte patch, function does nothing
-```
- 
-**Process injection Sysmon signatures:**
-```
-Event 8  (CreateRemoteThread)   ← thread injected into another process
-Event 10 (ProcessAccess)        ← cross-process memory access
-Event 25 (ProcessTampering)     ← process hollowing detected
-MEM_PRIVATE + PAGE_EXECUTE      ← RX memory not backed by a file = shellcode
-```
- 
-### Analysis Environments
- 
-**Windows - FLARE VM:**
-Install only in a clean, disposable malware-analysis VM; take a snapshot first.
-Follow Mandiant's current [FLARE-VM installation instructions](https://github.com/mandiant/flare-vm)
-and review the installer from the official repository before running it. Keep the
-execution-policy change scoped to this PowerShell process.
-```powershell
-Set-ExecutionPolicy Unrestricted -Scope Process -Force
-Unblock-File .\install.ps1
-.\install.ps1
-# Key tools: x64dbg, Ghidra, PE-bear, Procmon, Process Hacker,
-#            Regshot, FakeNet-NG, CyberChef, dnSpy, Wireshark
-```
- 
-**Linux - REMnux:**
-```bash
-curl -O https://REMnux.org/remnux          # verify SHA256 against docs.remnux.org
-chmod +x remnux && sudo mv remnux /usr/local/bin
-sudo remnux install
-# Key tools: Volatility 3, YARA, Ghidra, radare2/Cutter,
-#            oledump, pdf-parser, NetworkMiner, FakeNet-NG, inetsim
-```
- 
-**Memory scanning:**
-```powershell
-# PE-sieve - scan for injection/hollowing
-.\pe-sieve64.exe /pid 4892
- 
-# Volatility 3 - memory forensics
-python3 vol.py -f memory.dmp windows.malfind       # injected code
-python3 vol.py -f memory.dmp windows.hollowprocesses
-```
- 
-**CyberChef common recipes:**
-```
-Decode PowerShell: From Base64 → Decode text (UTF-16LE)
-Decode PS cradle:  From Base64 → Gunzip → Extract strings
-Decode shellcode:  From Hex → Disassemble x86/x64
-```
- 
-[Return to Table of Contents](#table-of-contents---enhanced-edition)
- 
----
- 
+
+### Telemetry and interpretation
+
+| Evidence | What it can show | Limitations |
+| --- | --- | --- |
+| PowerShell Script Block Logging (Windows PowerShell event 4104) | Script block content processed by PowerShell when the relevant policy and provider are configured | Logging can be disabled or incomplete, and logged scripts may contain sensitive data. Protect and restrict access to these records. |
+| AMSI integration | An application submitted content for scanning and received a status plus an AMSI scan result | Microsoft documents `AmsiScanBuffer` as returning an `HRESULT` while the scan verdict is returned separately through an `AMSI_RESULT` output parameter. An error code is not a “clean” verdict. |
+| Sysmon process events | Event 8 records CreateRemoteThread, Event 10 records ProcessAccess, and Event 25 records detected process-tampering behavior | Events are observational and configuration/version dependent. Process access and executable memory can also occur in debuggers, accessibility tools, security products, and just-in-time runtimes. Correlate with process identity, image, signature, timestamps, and expected host role. |
+| Memory and module observations | Unexpected executable memory, altered image state, or unusual module provenance can support an investigation | A single memory permission or byte pattern is not enough to establish injection or tampering. Preserve the acquisition context and validate with multiple sources. |
+
+The former example incorrectly labeled the return value `0x80070057` from `AmsiScanBuffer` as a “clean” result. Microsoft documents that function as returning an HRESULT; the actual scan result is written through its separate output parameter. The prior string list and byte-level examples also risked treating context-dependent indicators as proof, so they have been replaced with evidence-quality guidance. See [AmsiScanBuffer](https://learn.microsoft.com/en-us/windows/win32/api/amsi/nf-amsi-amsiscanbuffer), [PowerShell script-block logging](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging_windows), and [Sysmon event descriptions](https://learn.microsoft.com/en-us/windows/security/operating-system-security/sysmon/sysmon-events).
+
+### Analysis environments
+
+Use a disposable VM with a snapshot, restricted host/guest sharing, and network access disabled unless a documented exercise requires controlled egress. Do not install a malware-analysis toolkit on a daily-use host or disable host protections to make an exercise work.
+
+- [Mandiant FLARE-VM](https://github.com/mandiant/flare-vm) is designed for installation in a virtual machine. Review its current official requirements and installation steps before use.
+- [REMnux documentation](https://docs.remnux.org/) describes its analysis distribution and supported installation paths. Follow its current integrity-validation and installation instructions.
+
+Analysis artifacts and logs can contain malicious content, credentials, or personal data. Store them with access controls, record provenance and hashes, redact reports, and follow the organization's retention process.
+
+
 ## Living Off the Land - LOLBins & LOLBAs
  
 *Full reference: [Tradecraft/lolbins-lolbas.md](Tradecraft/lolbins-lolbas.md)*
