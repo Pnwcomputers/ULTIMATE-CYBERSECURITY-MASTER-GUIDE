@@ -40,44 +40,59 @@ During AD-focused engagements or assessments, or when building detection/hardeni
 
 ## AD Architecture Overview
 
+Active Directory Domain Services (AD DS) has a **logical model** (forests, domains, and organizational units) and a **physical model** (domain controllers, sites, subnets, and replication links). Keeping those views separate helps explain why an OU is not a network location and why a domain can have domain controllers in multiple sites.
+
+```mermaid
+flowchart TB
+    F[Forest: shared schema,<br/>configuration, and catalog]
+    F --> D1[Domain: corp.example]
+    F --> D2[Optional child or<br/>tree domain]
+    D1 --> OU1[Organizational units<br/>Users · computers · groups]
+    D1 --> GPO[Group Policy links<br/>site · domain · OU]
+    D1 --> T[Trust paths<br/>inside or across forests]
+
+    subgraph Physical["Physical directory and network"]
+      S1[Site A · mapped subnets] --- DC1[Domain controller<br/>AD DS · KDC · DNS as configured]
+      S2[Site B · mapped subnets] --- DC2[Domain controller<br/>AD DS · KDC · DNS as configured]
+      DC1 <-->|Directory replication| DC2
+      SYSVOL[SYSVOL content<br/>policies and scripts] -. replicated separately .- DC1
+      SYSVOL -. replicated separately .- DC2
+    end
+
+    D1 -. hosted and replicated by .-> DC1
+    D1 -. hosted and replicated by .-> DC2
 ```
-Forest
-└── Domain: corp.local
-    ├── Domain Controllers
-    │   ├── PDC Emulator (FSMO)
-    │   └── Additional DCs
-    ├── Organizational Units (OUs)
-    │   ├── Workstations
-    │   ├── Servers
-    │   └── Users
-    ├── Group Policy Objects (GPOs)
-    ├── Sites & Subnets
-    └── Trusts
-        ├── Child domains
-        └── External/forest trusts
-```
+
+The diagram is conceptual: actual domain, site, DNS, Global Catalog, and replication placement varies by deployment. A trust provides an authentication path; it does not grant a user permission to a resource by itself.
 
 ### Key AD Components
 
-| Component | Role |
+| Component | Role and security relevance |
 |---|---|
-| Domain Controller | Authenticates users, stores directory, replicates AD |
-| SYSVOL | Shared folder on DCs storing GPOs, logon scripts |
-| NTDS.dit | AD database - contains all hashes and objects |
-| Global Catalog | Cross-domain search index |
-| FSMO Roles | 5 single-master operations roles (PDC Emulator, RID Master, etc.) |
-| Kerberos KDC | Issues TGTs (krbtgt) and service tickets |
-| LDAP | Directory access protocol - used for all AD queries |
-| DNS | AD-integrated DNS is critical for domain function |
+| Forest and domain | A forest shares schema and configuration; domains partition directory data and define an administrative and replication scope. Domains in one forest have automatic two-way transitive trusts. |
+| Domain controller (DC) | Holds directory replicas and provides domain services. DCs in a domain are peers for directory data, subject to replication and role-specific operations. A DC can also host DNS and a Global Catalog. |
+| NTDS.dit | Database file for AD DS directory data on a DC. It contains directory objects and credential-related material protected by the operating system; avoid the misleading shorthand that it simply contains “all hashes.” Protect DCs and backups as highly sensitive. |
+| SYSVOL | Replicated share on DCs that holds Group Policy files and scripts. Directory metadata and SYSVOL contents use distinct replication mechanisms and should both be monitored. |
+| Global Catalog | A DC role that supports forest-wide searches using a partial replica of objects from other domains; it is not a complete copy of every domain's data. |
+| FSMO roles | Five single-master roles handle specific operations: two forest-wide roles (Schema Master and Domain Naming Master) and three per-domain roles (PDC Emulator, RID Master, and Infrastructure Master). |
+| Kerberos KDC | A service on a DC that issues ticket-granting and service tickets according to domain policy. The krbtgt account key protects TGTs; it is not an ordinary service account. |
+| LDAP and other interfaces | LDAP is a major directory access protocol, but AD DS also exposes other protocols and services. Do not assume every query or authentication event uses LDAP. |
+| DNS and sites | DNS records help clients locate AD services. Sites map IP subnets to network locations and inform DC discovery and replication topology; they are not the same as domains or OUs. |
 
 ### Trust Types
 
-| Trust | Direction | Notes |
+Trust direction and transitivity are separate properties. Their meaning is relative to the side of the relationship being described, and the resource's access-control rules still determine whether a user can access it.
+
+| Trust relationship | Typical behavior | Review notes |
 |---|---|---|
-| Parent-Child | Bidirectional, transitive | Automatic within forest |
-| Forest | Configurable | Between separate forests |
-| External | Non-transitive | Legacy, specific domain-to-domain |
-| Shortcut | Manual | Optimize auth paths |
+| Parent-child | Automatically created; two-way and transitive within a forest | Follows the domain hierarchy. |
+| Forest | Between forest roots; direction and scope are configurable | Confirm name resolution, authentication scope, and access controls on both sides. |
+| External | Between specific domains; generally non-transitive | Commonly used for a domain outside the forest; review legacy dependencies before changes. |
+| Shortcut (cross-link) | Manually created between domains in the same forest; transitive | Can shorten an authentication path; validate whether it is still needed. |
+
+For assessments, inventory the actual trust direction, transitivity, scope, DNS dependencies, and resource permissions instead of inferring access from a trust's name.
+
+**References:** Microsoft's [Active Directory logical model](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/understanding-the-active-directory-logical-model), [replication concepts](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts), [FSMO roles](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-fsmo-roles), and [Windows authentication and trust concepts](https://learn.microsoft.com/en-us/windows-server/security/windows-authentication/windows-authentication-concepts).
 
 ---
 
