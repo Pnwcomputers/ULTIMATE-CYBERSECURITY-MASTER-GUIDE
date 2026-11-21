@@ -10,6 +10,12 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 
 DIAGRAM_GUIDES = {
+    "assets/diagrams/uconsole-cm4-preserve-working-image.svg": (
+        "uConsole/CM4-SETUP.md",
+    ),
+    "assets/diagrams/bash-pipeline-exit-status.svg": (
+        "Documentation/devhints-cli-field-reference.md",
+    ),
     "assets/diagrams/opencanary-alert-validation.svg": (
         "IncidentResponse/HoneyPot/opencanary.md",
     ),

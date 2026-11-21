@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 340" role="img" aria-labelledby="title desc">
+  <title id="title">Preserving a working uConsole CM4 image</title>
+  <desc id="desc">Record the running image, make a recoverable whole-device backup, and run the read-only preflight. If an optional install is necessary, keep the script's configuration archive, inspect the package plan, and retest the device after the change.</desc>
+  <rect width="980" height="340" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="44" fill="#fff" font-size="26" font-weight="700">Preserving a working uConsole CM4 image</text>
+    <g fill="#172a40" stroke="#38bdf8" stroke-width="2">
+      <rect x="30" y="74" width="285" height="92" rx="12"/>
+      <rect x="347" y="74" width="285" height="92" rx="12"/>
+      <rect x="664" y="74" width="285" height="92" rx="12"/>
+    </g>
+    <rect x="347" y="201" width="602" height="87" rx="12" fill="#1b2c40" stroke="#a5b4fc" stroke-width="2"/>
+    <path d="M320 120h20m-6-6 6 6-6 6m303-6h20m-6-6 6 6-6 6m150 43v25m-6-6 6 6 6-6" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <g fill="#fff" font-size="19" font-weight="700">
+      <text x="47" y="107">Record the working setup</text>
+      <text x="364" y="107">Save a whole-device image</text>
+      <text x="681" y="107">Run read-only preflight</text>
+      <text x="364" y="232">If an optional installation is needed</text>
+    </g>
+    <g fill="#d7e6f4" font-size="16">
+      <text x="47" y="138">Module, OS, boot media, desktop</text>
+      <text x="364" y="138">Record how to restore it</text>
+      <text x="681" y="138">Stop if hardware or sources fail</text>
+      <text x="364" y="261">Keep the configuration archive, review the package plan, then retest.</text>
+      <text x="30" y="319">The configuration archive contains selected settings. Keep the device image for storage recovery.</text>
+    </g>
+  </g>
+</svg>

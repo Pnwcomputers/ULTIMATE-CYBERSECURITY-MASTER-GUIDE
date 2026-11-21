@@ -34,7 +34,28 @@ variables and inspection of command exit statuses. See the
 [Bash scripting reference](../Scripts/Bash/bash_scripting_cheat-sheet.md) for
 control flow and error-handling patterns.
 
+![The same Bash pipeline returns the last command's status by default or the rightmost nonzero status when pipefail is enabled](../assets/diagrams/bash-pipeline-exit-status.svg)
+
+By default a pipeline returns its last command's exit status, so an earlier failure
+can be hidden by a successful receiver. With Bash's `pipefail` option, the pipeline
+returns the status of the rightmost failing command, or zero when every stage succeeds.
+Capture `${PIPESTATUS[@]}` immediately when you need per-stage status. The next command
+can replace it. This example uses an exit-only producer and makes no file or network changes:
+
+```bash
+(
+  set +e
+  set +o pipefail
+  (exit 7) | cat
+  printf 'Default status: %s\n' "$?"
+  set -o pipefail
+  (exit 7) | cat
+  printf 'With pipefail: %s\n' "$?"
+)
+```
+
 Source pointers:
+[GNU Bash pipeline semantics](https://www.gnu.org/software/bash/manual/html_node/Pipelines.html) ·
 [Devhints Bash](https://devhints.io/bash) ·
 [GNU Bash manual](https://www.gnu.org/software/bash/manual/).
 

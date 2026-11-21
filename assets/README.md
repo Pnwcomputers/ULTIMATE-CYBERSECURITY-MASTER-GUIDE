@@ -29,6 +29,13 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [USB-to-UART safe observation](./diagrams/usb-uart-safe-observation.svg) | [BitPirate](../HardwareHacking/BitPirate.md) | Voltage checks and receive-only observation |
 | [Passive and active wireless scope](./diagrams/wireless-passive-active-boundary.svg) | [Network audit playbook](../PlayBooks/NetworkAuditPlayBook.md) | Separates passive observations from actions requiring approval |
 
+## Computing Setup and Shell Verification
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [Preserving a working CM4 image](./diagrams/uconsole-cm4-preserve-working-image.svg) | [CM4 first-boot audit](../uConsole/CM4-SETUP.md) | Distinguishes whole-device recovery, read-only preflight and optional configuration archives |
+| [Bash pipeline exit status](./diagrams/bash-pipeline-exit-status.svg) | [CLI field reference](../Documentation/devhints-cli-field-reference.md#1-shell-and-bash-safety-checks) | Shows where a successful final stage can mask an earlier failure |
+
 ## Secure Data Pipeline Operations
 
 | Diagram | Where embedded | Why it belongs |
