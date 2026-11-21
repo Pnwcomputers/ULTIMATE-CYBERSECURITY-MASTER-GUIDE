@@ -24,7 +24,7 @@ The shortcuts worth memorizing, on one printable sheet. Every entry was read fro
 | Key | Action | Why It Matters |
 |---|---|---|
 | `F5` | Preview | Fast view with colors, `%` ghosts and `#` highlights. Press it after every edit. |
-| `F6` | Render | Full geometry. Reveals real errors and is required before export. |
+| `F6` | Render | Evaluates full geometry. Run it before exporting a mesh from the GUI. The `openscad -o` command renders the geometry as part of mesh export. |
 | `F7` | Export STL | Default 3D export. In snapshots this follows Preferences → Advanced → *Toolbar Export 3D* (STL by default). |
 | `Ctrl+D` / `Ctrl+Shift+D` | Comment / uncomment | Switch features on and off while debugging. |
 | `Ctrl+Shift+V` | View All | Find the model again after you zoom off into space. |
@@ -47,14 +47,15 @@ The shortcuts worth memorizing, on one printable sheet. Every entry was read fro
 
 ## Camera Views
 
-| Shortcut | View | Shortcut | View |
-|---|---|---|---|
-| `Ctrl+4` | Top | `Ctrl+5` | Bottom |
-| `Ctrl+6` | Left | `Ctrl+7` | Right |
-| `Ctrl+8` | Front | `Ctrl+9` | Back |
-| `Ctrl+0` | Diagonal | `Ctrl+Shift+0` | Center |
-| `Ctrl+]` | Zoom in | `Ctrl+[` | Zoom out |
-| `Ctrl+Shift+V` | View All | | |
+| Shortcut | View |
+|---|---|
+| `Ctrl+4` / `Ctrl+5` | Top / bottom |
+| `Ctrl+6` / `Ctrl+7` | Left / right |
+| `Ctrl+8` / `Ctrl+9` | Front / back |
+| `Ctrl+0` | Diagonal |
+| `Ctrl+Shift+0` | Center |
+| `Ctrl+]` / `Ctrl+[` | Zoom in / out |
+| `Ctrl+Shift+V` | View All |
 
 ## Display Toggles
 
@@ -143,7 +144,7 @@ Not keyboard shortcuts, but you will type them constantly. Prefix any statement:
 
 ## Sources
 
-- OpenSCAD source, release tag `openscad-2021.01`: `src/MainWindow.ui`, `src/mainwin.cc`, `src/QGLView.cc`
+- OpenSCAD 2021.01 source: [menu shortcuts](https://github.com/openscad/openscad/blob/openscad-2021.01/src/MainWindow.ui), [GUI export and render handling](https://github.com/openscad/openscad/blob/openscad-2021.01/src/mainwin.cc), `src/QGLView.cc`
 - OpenSCAD source, `master` as of 2026-11-14: `src/gui/MainWindow.ui`, `src/gui/MainWindow.cc`, `src/gui/QGLView.cc`, `src/core/MouseConfig.h`
 - [OpenSCAD repository](https://github.com/openscad/openscad) · [OpenSCAD Cheat Sheet (language)](https://openscad.org/cheatsheet/)
 
