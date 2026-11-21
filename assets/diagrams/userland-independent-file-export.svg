@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 344" role="img" aria-labelledby="title desc">
+  <title id="title">Move UserLAnd files beyond app storage</title>
+  <desc id="desc">UserLAnd session files and export folders visible through its Android document provider can still be app-scoped. Copy data to an independently managed permitted destination, then check the copied file before deleting the original or uninstalling.</desc>
+  <rect width="1000" height="344" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="45" fill="#fff" font-size="27" font-weight="700">Move UserLAnd files beyond app storage</text>
+    <rect x="30" y="78" width="594" height="191" rx="12" fill="#142138" stroke="#a5b4fc" stroke-width="2" stroke-dasharray="7 4"/>
+    <text x="48" y="111" fill="#c7d2fe" font-size="17" font-weight="700">UserLAnd app-controlled storage</text>
+    <g fill="#172a40" stroke="#38bdf8" stroke-width="2">
+      <rect x="48" y="133" width="244" height="104" rx="10"/>
+      <rect x="344" y="133" width="260" height="104" rx="10"/>
+      <rect x="688" y="133" width="282" height="104" rx="10"/>
+    </g>
+    <path d="M299 184h37m-8-6 8 6-8 6m285-6h66m-8-6 8 6-8 6" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <g fill="#fff" font-size="18" font-weight="700">
+      <text x="65" y="171">Linux session files</text>
+      <text x="361" y="171">Export view in Android</text>
+      <text x="705" y="171">Independent destination</text>
+    </g>
+    <g fill="#d7e6f4" font-size="15">
+      <text x="65" y="206">Select only approved data.</text>
+      <text x="361" y="206">Visible files can be app-scoped.</text>
+      <text x="705" y="206">Verify the copy by readback.</text>
+      <text x="30" y="305" font-size="16">Copy outside app-specific storage before uninstalling. Keep an off-device copy for device loss.</text>
+    </g>
+  </g>
+</svg>

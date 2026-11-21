@@ -42,6 +42,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/cyberdeck-policy-zones.svg": (
         "Cyberdeck/docs/ARCHITECTURE.md",
     ),
+    "assets/diagrams/wireshark-tcp-reply-two-capture-points.svg": (
+        "Documentation/wireshark-master-filters.md",
+    ),
+    "assets/diagrams/userland-independent-file-export.svg": (
+        "Mobile/UserLAnd/readme.md",
+    ),
     "assets/diagrams/wireshark-capture-display-boundaries.svg": (
         "Documentation/wireshark.md",
     ),
