@@ -290,19 +290,53 @@ from executable syntax, then verify the boundary in authorized tests.*
 
 ## A06: Insecure Design
 
-Flaws in the design itself - missing or ineffective controls that no amount of
-clean implementation can fix.
+Insecure design is a missing or ineffective security control in requirements,
+architecture, or business logic. It is different from an implementation defect:
+a well-designed control can still be implemented incorrectly, while a design
+flaw requires changing the requirement or design so the needed control exists.
 
-- **How it is exploited:** abusing a workflow that was never threat-modeled - e.g.
-  no rate limiting on a password-reset or OTP flow, trusting client-side controls,
-  or a recovery process that leaks information.
-- **How to test:** threat-model the feature; look for missing anti-automation,
-  trust-boundary violations, and assumptions the client can break; test negative
-  and abuse cases, not just the happy path.
-- **How to defend:** threat modeling in design; secure design patterns and
-  reference architectures; establish trust boundaries; write abuse/misuse cases and
-  test them; apply defense in depth.
-- **CWE:** CWE-73, CWE-602, CWE-657. **Cheat sheet:** [Threat Modeling](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html).
+```mermaid
+flowchart LR
+    M[Model assets, components,<br/>data flows, and trust boundaries]
+      --> T[Identify and prioritize<br/>threats and abuse cases]
+      --> R[Define security requirements<br/>and control owners]
+      --> C[Design mitigations<br/>and record residual risk]
+      --> V[Validate with review,<br/>tests, and operational evidence]
+      -->|Revisit when scope,<br/>threats, or controls change| M
+```
+
+*Use the threat model to turn plausible misuse into explicit requirements and
+verification evidence; choose a level of detail that fits the system and change.*
+
+- **How it fails:** workflows allow an unintended outcome because requirements
+  omit a needed constraint or abuse case. Examples include a reset flow that
+  permits unbounded guessing, business logic that allows actions out of order,
+  or a multi-tenant design that does not establish tenant isolation. These are
+  design risks to investigate, not proof that a feature is vulnerable.
+- **How to assess:** select the feature, system boundary, and security objectives;
+  map important assets, components, data flows, stores, external entities, and
+  trust boundaries; then consider relevant threats and misuse cases. Ask what
+  happens when users repeat, race, skip, or reorder valid actions, and when an
+  actor crosses a role or tenant boundary. Rank threats by business impact and
+  likelihood, map each to a requirement or documented risk decision, and verify
+  the resulting control through design review, tests, or operational evidence.
+  Threat modeling is a structured aid, not a guarantee that every threat has
+  been found.
+- **How to defend:** define security and privacy requirements before
+  implementation; use proven patterns and platform controls; make limits,
+  authorization, tenant boundaries, and state transitions explicit; assign
+  owners to mitigations; and revisit the model when architecture, data flows,
+  threats, or dependencies change. Record accepted residual risk with an owner
+  and review point. No single threat-modeling method is required for every
+  project.
+- **Validation:** translate each selected threat into a testable acceptance
+  criterion. Exercise abuse and negative cases as well as intended use, including
+  boundary conditions and concurrent actions where applicable. Confirm that the
+  implemented control prevents the unintended state change and that monitoring
+  or recovery processes cover residual risks.
+- **CWE examples:** CWE-73, CWE-602, and CWE-657 are examples rather than a
+  complete mapping. **References:** [OWASP A06:2025](https://top10.owasp.org/2025/A06_2025-Insecure_Design/)
+  and the [OWASP Threat Modeling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html).
 
 ---
 
