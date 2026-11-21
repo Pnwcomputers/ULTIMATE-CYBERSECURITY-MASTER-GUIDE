@@ -39,7 +39,9 @@ Collect organized, passive-first OSINT findings. If a written scope authorizes d
 - `NETLAS_KEY` - [netlas.io](https://netlas.io/)
 - `PROJECTDISCOVERY_KEY` - [projectdiscovery.io](https://projectdiscovery.io/) (for Nuclei cloud)
 
-```bash
+> **Archived script excerpt.** The block below records an older template with known Bash syntax errors. Use it for historical reference. The linked guide explains the current investigation and evidence process.
+
+```text
 #!/bin/bash
 
 #############################################

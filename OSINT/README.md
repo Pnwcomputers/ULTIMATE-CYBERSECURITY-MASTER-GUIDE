@@ -193,7 +193,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 ### Essential Tools To Install First
 
-```bash
+```text
 # Core OSINT toolkit (Top 10)
 1. theHarvester - Email/subdomain harvesting
 2. Sherlock - Username search across platforms

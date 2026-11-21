@@ -106,8 +106,10 @@ site:target.com intext:"powered by" OR intext:"built with"
 Google's [Search Central update log](https://developers.google.com/search/updates) confirms that the former `cache:` operator no longer works. Archive lookup can still disclose the searched URL or material to an archive provider; verify available captures and their actual dates rather than claiming such methods always evade target logging.
 
 ### Shodan
+
+The marked reference blocks mix provider query syntax, interactive prompts and local-tool examples. Verify provider access and current field definitions before using any scoped lookup.
  
-```bash
+```text
 # Search by organization
 org:"Target Corporation"
  
@@ -135,7 +137,7 @@ shodan domain target.com
  
 ### Censys
  
-```bash
+```text
 # Search certificates
 parsed.names: target.com
  
@@ -152,7 +154,7 @@ censys view <IP>
  
 ### WHOIS & Registration Data
  
-```bash
+```text
 # WHOIS lookup
 whois target.com
 whois <IP>
@@ -211,7 +213,7 @@ cat amass.txt subfinder.txt assetfinder.txt | sort -u > all_subdomains.txt
  
 ### DNS Records
  
-```bash
+```text
 # Full DNS enumeration
 dig target.com ANY
 dig target.com MX
@@ -541,7 +543,7 @@ curl "https://ahmia.fi/search/?q=target+company"
  
 ### VirusTotal Workflows
  
-```bash
+```text
 # CLI usage
 vt file <hash>
 vt url https://suspicious-url.com
@@ -833,7 +835,7 @@ spiderfoot -s target.com -t INTERNET_NAME -o tab > results.txt
  
 A full-featured web reconnaissance framework with a console interface similar to Metasploit.
  
-```powershell
+```text
 # Windows install
 pip install recon-ng
 recon-ng
@@ -914,7 +916,7 @@ shodan alert list
  
 ### Censys CLI (Windows/Linux)
  
-```powershell
+```text
 # Install
 pip install censys
  

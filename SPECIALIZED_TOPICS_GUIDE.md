@@ -2018,44 +2018,13 @@ DETECTION METHODS:
 
 ## 26. Space Security Tools & Frameworks
 
-### SDR for Satellite Monitoring (Receive-Only - Generally Legal)
+### SDR for Public Satellite Products
 
-```bash
-# Install SatDump - comprehensive satellite decoding suite
-git clone https://github.com/SatDump/SatDump.git
-cd SatDump && mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-make -j$(nproc)
-sudo make install
-
-# NOAA weather satellite APT (137 MHz)
-# RTL-SDR + V-dipole antenna outdoors
-rtl_fm -f 137.1M -M fm -s 48k -r 48k | sox -t raw -r 48k -e signed -b 16 - noaa15.wav
-
-# ADS-B aircraft tracking (1090 MHz)
-dump1090 --net --interactive
-
-# Inmarsat STD-C (1.5 GHz) - maritime emergency beacons
-# Requires HackRF or similar (RTL-SDR bandwidth limitations)
-
-# Iridium pager decode
-gr-iridium + iridium-toolkit (see gr-iridium GitHub)
-```
+[SatDump](https://github.com/SatDump/SatDump) supports processing recorded data from supported satellites. Begin with an archived public recording and identify the exact signal and expected result. NOAA's legacy POES constellation ended operational data delivery in June 2025 and was subsequently [decommissioned](https://www.nesdis.noaa.gov/news/legacy-orbit-noaa-decommissions-the-poes-satellite-constellation). Its APT recordings remain useful as historical fixtures.
 
 ### GPS Spoofing Research (Authorized Lab Only)
 
-```bash
-# GPS-SDR-SIM - generates GPS satellite signals
-# REQUIRES: HackRF or USRP, authorized test environment (Faraday cage)
-git clone https://github.com/osqzss/gps-sdr-sim.git
-cd gps-sdr-sim && gcc gpssim.c -lm -o gps-sdr-sim
-
-# Generate simulation for a specific location
-./gps-sdr-sim -e brdc0010.24n -l 47.6062,-122.3321,0 -b 8 -d 60 -o gps_sim.bin
-
-# Transmit via HackRF (AUTHORIZED LAB ONLY - Faraday cage required)
-hackrf_transfer -t gps_sim.bin -f 1575420000 -s 2600000 -a 1 -x 0
-```
+Use synthetic receiver logs or known recordings to compare expected and observed navigation behavior. Document receiver configuration, time source, integrity indicators and limits on attribution. See the [Space Security guide](SpaceSecurity/README.md) for mission safety and signal integrity context.
 
 ### Standards & Frameworks
 
@@ -2207,21 +2176,25 @@ rtl_fm -f 162.400M -M fm -s 48k -r 48k output_noaa.raw
 
 # Scan spectrum and log to CSV (rtl_power)
 rtl_power -f 100M:1000M:1M -g 50 -i 10 -e 3600 spectrum_scan.csv
-python3 heatmap.py spectrum_scan.csv heatmap.png
 
-# Record via Python (pyrtlsdr)
+```
+
+For a supported receiver on an authorized lab signal, this Python example writes little-endian complex64 samples to a new file. Record the sample rate and center frequency beside the file so the next tool can interpret the raw bytes.
+
+```python
+import numpy as np
 from rtlsdr import RtlSdr
 
 sdr = RtlSdr()
-sdr.sample_rate = 2.048e6
-sdr.center_freq = 433.92e6
-sdr.gain = 40
-
-samples = sdr.read_samples(1024 * 1024)  # 1M samples
-sdr.close()
-
-import numpy as np
-samples.tofile('capture.iq')
+try:
+    sdr.sample_rate = 2.048e6
+    sdr.center_freq = 433.92e6
+    sdr.gain = 40
+    samples = sdr.read_samples(1024 * 1024)
+    with open("capture.cf32", "xb") as output:
+        np.asarray(samples, dtype="<c8").tofile(output)
+finally:
+    sdr.close()
 ```
 
 ### Protocol Analysis with Universal Radio Hacker (URH)

@@ -24,7 +24,9 @@ Run one command against a suspected scammer's email address and get back breach 
 - `LEAKLOOKUP_KEY` - [leak-lookup.com](https://leak-lookup.com/)
 - `INTELX_KEY` - [intelx.io](https://intelx.io/)
 
-```bash
+> **Archived script excerpt.** The block below records an older template with known Bash syntax errors. Use it for historical reference. The linked guide explains the current investigation and evidence process.
+
+```text
 #!/bin/bash
 
 #############################################
