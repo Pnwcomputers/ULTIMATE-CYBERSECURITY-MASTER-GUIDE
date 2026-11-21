@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="512" viewBox="0 0 960 512" role="img" aria-labelledby="title desc">
+<title id="title">Reading a 50 Ω Smith chart</title>
+<desc id="desc">Five example impedances illustrate different positions on a Smith chart. A, B and C lie on the real axis at 25, 50 and 100 ohms. D is above the axis at 50 plus j50 ohms. E is below it at 50 minus j50 ohms. Only B is both resonant and matched to the 50-ohm reference.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#40536d"/></marker></defs>
+<rect x="1" y="1" width="958" height="510" rx="12" fill="#f5f8fd" stroke="#c5d5e9"/>
+<text x="32" y="48" fill="#14263e" font-family="Arial, sans-serif" font-size="31" font-weight="700" text-anchor="start">Reading a 50 Ω Smith chart</text>
+<text x="32" y="79" fill="#40536d" font-family="Arial, sans-serif" font-size="19" font-weight="500" text-anchor="start">Impedance at the calibrated reference plane · Z₀ = 50 Ω</text>
+<circle cx="287" cy="281" r="177" fill="#ffffff" stroke="#4c6684" stroke-width="1.5"/>
+<circle cx="322.4" cy="281" r="141.6" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<circle cx="346.0" cy="281" r="118.0" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<circle cx="375.5" cy="281" r="88.5" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<circle cx="405.0" cy="281" r="59.0" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<circle cx="428.6" cy="281" r="35.4" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<path d="M393.20 422.60 A88.5 88.5 0 0 1 464 281" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<path d="M287.00 458.00 A177.0 177.0 0 0 1 464 281" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<path d="M180.80 422.60 A354.0 354.0 0 0 1 464 281" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<path d="M180.80 139.40 A354.0 354.0 0 0 0 464 281" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<path d="M287.00 104.00 A177.0 177.0 0 0 0 464 281" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<path d="M393.20 139.40 A88.5 88.5 0 0 0 464 281" fill="none" stroke="#bdcddf" stroke-width="1.5"/>
+<path d="M110 281 L464 281" fill="none" stroke="#4c6684" stroke-width="2"/>
+<text x="110" y="301" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle">Short</text>
+<text x="464" y="301" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle">Open</text>
+<text x="287" y="486" fill="#40536d" font-family="Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle">All points on the rim have |Γ| = 1.</text>
+<circle cx="228.0" cy="281.0" r="12" fill="#18478c" stroke="#ffffff" stroke-width="1.5"/>
+<text x="228.0" y="286.0" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">A</text>
+<circle cx="287.0" cy="281.0" r="12" fill="#18478c" stroke="#ffffff" stroke-width="1.5"/>
+<text x="287.0" y="286.0" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">B</text>
+<circle cx="346.0" cy="281.0" r="12" fill="#18478c" stroke="#ffffff" stroke-width="1.5"/>
+<text x="346.0" y="286.0" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">C</text>
+<circle cx="322.4" cy="210.2" r="12" fill="#126458" stroke="#ffffff" stroke-width="1.5"/>
+<text x="322.4" y="215.2" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">D</text>
+<circle cx="322.4" cy="351.8" r="12" fill="#8a4715" stroke="#ffffff" stroke-width="1.5"/>
+<text x="322.4" y="356.8" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">E</text>
+<rect x="515" y="107" width="408" height="352" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="538" y="143" fill="#14263e" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start">Example markers</text>
+<circle cx="547" cy="181" r="12" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<text x="547" y="186" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">A</text>
+<text x="571" y="183" fill="#14263e" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="start">25 + j0 Ω</text>
+<text x="571" y="206" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Resonant, low resistance</text>
+<circle cx="547" cy="237" r="12" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<text x="547" y="242" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">B</text>
+<text x="571" y="239" fill="#14263e" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="start">50 + j0 Ω</text>
+<text x="571" y="262" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Matched to the 50 Ω reference</text>
+<circle cx="547" cy="293" r="12" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<text x="547" y="298" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">C</text>
+<text x="571" y="295" fill="#14263e" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="start">100 + j0 Ω</text>
+<text x="571" y="318" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Resonant, high resistance</text>
+<circle cx="547" cy="349" r="12" fill="#126458" stroke="none" stroke-width="1.5"/>
+<text x="547" y="354" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">D</text>
+<text x="571" y="351" fill="#14263e" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="start">50 + j50 Ω</text>
+<text x="571" y="374" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Inductive</text>
+<circle cx="547" cy="405" r="12" fill="#8a4715" stroke="none" stroke-width="1.5"/>
+<text x="547" y="410" fill="#ffffff" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle">E</text>
+<text x="571" y="407" fill="#14263e" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="start">50 − j50 Ω</text>
+<text x="571" y="430" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Capacitive</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="493" viewBox="0 0 960 493" role="img" aria-labelledby="title desc">
+<title id="title">Assessment findings and retest decisions</title>
+<desc id="desc">A validated finding gets an owner and criteria. Retest sets the evidentiary state to fixed or mitigated when supported, or leaves the finding in follow-up if open or inconclusive. Risk acceptance is a separate approval path with a review date.</desc>
+<rect x="1" y="1" width="958" height="491" rx="12" fill="#f5f8fd" stroke="#c5d5e9"/>
+<text x="32" y="48" fill="#14263e" font-family="Arial, sans-serif" font-size="31" font-weight="700" text-anchor="start">Assessment findings and retest decisions</text>
+<text x="32" y="80" fill="#40536d" font-family="Arial, sans-serif" font-size="19" font-weight="500" text-anchor="start">Preserve evidence from the original observation through the retest</text>
+<rect x="32" y="111" width="259" height="104" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="49" y="142" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Validate and group</text>
+<text x="49" y="167" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Confirm scope and evidence.</text>
+<text x="49" y="190" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Group duplicate observations.</text>
+<rect x="350" y="111" width="260" height="104" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="367" y="142" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Track remediation</text>
+<text x="367" y="167" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Assign an owner and agree</text>
+<text x="367" y="190" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">on acceptance criteria.</text>
+<rect x="669" y="111" width="259" height="104" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="686" y="142" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Retest the control</text>
+<text x="686" y="167" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Repeat the bounded check.</text>
+<text x="686" y="190" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Save before and after results.</text>
+<path d="M291 163 H346" fill="none" stroke="#40536d" stroke-width="2"/>
+<polygon points="346,163 336,157 336,169" fill="#40536d"/>
+<path d="M610 163 H665" fill="none" stroke="#40536d" stroke-width="2"/>
+<polygon points="665,163 655,157 655,169" fill="#40536d"/>
+<path d="M798 215 V251 H165" fill="none" stroke="#40536d" stroke-width="2"/>
+<path d="M165 251 V280" fill="none" stroke="#40536d" stroke-width="2"/>
+<polygon points="165,280 159,270 171,270" fill="#40536d"/>
+<path d="M480 251 V280" fill="none" stroke="#40536d" stroke-width="2"/>
+<polygon points="480,280 474,270 486,270" fill="#40536d"/>
+<path d="M611 203 H638 V244 M638 258 V347 H658" fill="none" stroke="#40536d" stroke-width="2" stroke-dasharray="5 5"/>
+<polygon points="658,347 648,341 648,353" fill="#40536d"/>
+<rect x="32" y="285" width="265" height="126" rx="12" fill="#e8f5f0" stroke="#a7d2c9"/>
+<text x="49" y="316" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Meets criteria</text>
+<text x="49" y="341" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Record fixed or mitigated</text>
+<text x="49" y="364" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">as warranted by the evidence.</text>
+<text x="49" y="387" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Keep the retest record.</text>
+<rect x="347" y="285" width="266" height="126" rx="12" fill="#fff2e5" stroke="#e4c4a0"/>
+<text x="364" y="316" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Open or inconclusive</text>
+<text x="364" y="341" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Keep the finding in follow-up.</text>
+<text x="364" y="364" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Record the remaining gap</text>
+<text x="364" y="387" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">and the next action.</text>
+<rect x="663" y="285" width="265" height="126" rx="12" fill="#e9f1fc" stroke="#b5ceed"/>
+<text x="680" y="316" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Risk accepted</text>
+<text x="680" y="341" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Record approval, residual risk</text>
+<text x="680" y="364" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">and review date in the</text>
+<text x="680" y="387" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">exception record.</text>
+<text x="32" y="464" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Acceptance is a separate governance decision and does not require a passing retest.</text>
+</svg>

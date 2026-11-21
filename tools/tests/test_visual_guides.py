@@ -238,6 +238,15 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg": (
         "uConsole/CM5-DISPLAY-RECOVERY.md",
     ),
+    "assets/diagrams/nanovna-smith-chart-marker-positions.svg": (
+        "SDR/nanovna/02-rf-fundamentals.md",
+    ),
+    "assets/diagrams/data-processing-cadence-timeline.svg": (
+        "Data-Engineering/Phase1/data_engineering_fundamentals.md",
+    ),
+    "assets/diagrams/assessment-finding-retest-disposition.svg": (
+        "PlayBooks/assessment-findings-lifecycle.md",
+    ),
     "assets/diagrams/bento-live-response-media-boundaries.svg": (
         "IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md",
     ),

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="502" viewBox="0 0 960 502" role="img" aria-labelledby="title desc">
+<title id="title">Batch, micro-batch and record-at-a-time processing</title>
+<desc id="desc">The same eight arrivals are handled as one large batch, three smaller batches or individually in a conceptual timeline. Processing schedule alone does not determine when results become visible.</desc>
+<rect x="1" y="1" width="958" height="500" rx="12" fill="#f5f8fd" stroke="#c5d5e9"/>
+<text x="32" y="48" fill="#14263e" font-family="Arial, sans-serif" font-size="31" font-weight="700" text-anchor="start">Batch, micro-batch and record-at-a-time processing</text>
+<text x="32" y="80" fill="#40536d" font-family="Arial, sans-serif" font-size="19" font-weight="500" text-anchor="start">The same arrivals feed three processing schedules</text>
+<text x="32" y="140" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Event arrivals</text>
+<path d="M273 133 L903 133" fill="none" stroke="#40536d" stroke-width="2"/>
+<text x="910" y="111" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="end">Time</text>
+<polygon points="913,133 903,127 903,139" fill="#40536d"/>
+<circle cx="309" cy="133" r="5" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<circle cx="378" cy="133" r="5" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<circle cx="439" cy="133" r="5" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<circle cx="524" cy="133" r="5" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<circle cx="580" cy="133" r="5" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<circle cx="672" cy="133" r="5" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<circle cx="724" cy="133" r="5" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<circle cx="788" cy="133" r="5" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<rect x="32" y="169" width="896" height="69" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="51" y="196" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Batch</text>
+<text x="51" y="220" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">One larger run</text>
+<path d="M273 217 L888 217" fill="none" stroke="#a5b8cc" stroke-width="2"/>
+<rect x="280" y="185" width="532" height="22" rx="4" fill="#e1ebfc" stroke="#abc3eb"/>
+<path d="M812 196 L873 196" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="879" cy="196" r="6" fill="#18478c" stroke="none" stroke-width="1.5"/>
+<rect x="32" y="254" width="896" height="69" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="51" y="281" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Micro-batch</text>
+<text x="51" y="305" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Frequent small runs</text>
+<path d="M273 302 L888 302" fill="none" stroke="#a5b8cc" stroke-width="2"/>
+<rect x="280" y="270" width="165" height="22" rx="4" fill="#dcf1ea" stroke="#a7d2c9"/>
+<path d="M445 281 L451 281" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="455" cy="281" r="5" fill="#126458" stroke="none" stroke-width="1.5"/>
+<rect x="458" y="270" width="147" height="22" rx="4" fill="#dcf1ea" stroke="#a7d2c9"/>
+<path d="M605 281 L622 281" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="626" cy="281" r="5" fill="#126458" stroke="none" stroke-width="1.5"/>
+<rect x="629" y="270" width="161" height="22" rx="4" fill="#dcf1ea" stroke="#a7d2c9"/>
+<path d="M790 281 L807 281" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="811" cy="281" r="5" fill="#126458" stroke="none" stroke-width="1.5"/>
+<rect x="32" y="339" width="896" height="69" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="51" y="366" fill="#14263e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start">Record-at-a-time</text>
+<text x="51" y="390" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Each record can start work</text>
+<path d="M273 387 L888 387" fill="none" stroke="#a5b8cc" stroke-width="2"/>
+<path d="M309 366 L324 366" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="329" cy="366" r="5" fill="#8a4715" stroke="none" stroke-width="1.5"/>
+<path d="M378 366 L393 366" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="398" cy="366" r="5" fill="#8a4715" stroke="none" stroke-width="1.5"/>
+<path d="M439 366 L454 366" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="459" cy="366" r="5" fill="#8a4715" stroke="none" stroke-width="1.5"/>
+<path d="M524 366 L539 366" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="544" cy="366" r="5" fill="#8a4715" stroke="none" stroke-width="1.5"/>
+<path d="M580 366 L595 366" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="600" cy="366" r="5" fill="#8a4715" stroke="none" stroke-width="1.5"/>
+<path d="M672 366 L687 366" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="692" cy="366" r="5" fill="#8a4715" stroke="none" stroke-width="1.5"/>
+<path d="M724 366 L739 366" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="744" cy="366" r="5" fill="#8a4715" stroke="none" stroke-width="1.5"/>
+<path d="M788 366 L803 366" fill="none" stroke="#40536d" stroke-width="2"/>
+<circle cx="808" cy="366" r="5" fill="#8a4715" stroke="none" stroke-width="1.5"/>
+<text x="32" y="449" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Each dot on a lower row marks completion of the illustrated processing step.</text>
+<text x="32" y="474" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Measure end-to-end freshness separately. Backlogs, windows and sink writes can add delay.</text>
+</svg>

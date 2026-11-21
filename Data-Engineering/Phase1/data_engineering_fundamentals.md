@@ -219,6 +219,10 @@ Most pipeline rework traces back to a question that was never asked. The followi
 
 ## ⏱️ 5. Batch, Micro-Batch, and Streaming
 
+![The same event arrivals are handled as one large batch, three small batches, or one arrival at a time.](../../assets/diagrams/data-processing-cadence-timeline.svg)
+
+*Conceptual processing timeline. The right column below refers to record-at-a-time processing. Streaming engines can also run micro-batches. For example, see [Spark Structured Streaming triggers](https://spark.apache.org/docs/latest/streaming/apis-on-dataframes-and-datasets.html#triggers). Measure the time from arrival to consumer-visible output separately.*
+
 | Dimension | Batch | Micro-batch | Streaming |
 | --- | --- | --- | --- |
 | **Typical delay** | Minutes to a day | Seconds to minutes | Sub-second to seconds |
@@ -244,7 +248,7 @@ Start with batch. Move up only when a specific consumer requirement — not a pr
 **Streaming is justified when:**
 - A delayed decision loses value — blocking an active session, paging an on-call responder.
 - The source is genuinely continuous and unbounded.
-- The team can operate brokers, consumer groups, and lag monitoring. See the Kafka material in [data_pipelines.md](../data_pipelines.md#8-stream-and-centralize-events-with-kafka) and the Phase 2 streaming guide when published.
+- The team can operate brokers, consumer groups, and lag monitoring. See the Kafka material in [data_pipelines.md](../data_pipelines.md#8-stream-and-centralize-events-with-kafka) and [streaming and change data capture](../Phase2/streaming_cdc.md).
 
 > [!WARNING]
 > Streaming does not remove batch work; it adds to it. Streamed data still requires periodic reconciliation, backfills after logic changes, and historical reprocessing. Teams that adopt streaming without keeping a batch correction path end up unable to fix past data.

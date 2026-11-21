@@ -242,22 +242,14 @@ ignore. Ten minutes of understanding it will save you hours.
 
 ### The layout
 
-```
-                    INDUCTIVE (+jX)
-                  ┌─────────────────┐
-                 ╱                   ╲
-   SHORT       ╱                       ╲      OPEN
-  Z = 0    ───┤          ● 50Ω          ├───  Z = ∞
-  Γ = −1      ╲        (center)        ╱      Γ = +1
-               ╲                      ╱
-                 └──────────────────┘
-                   CAPACITIVE (−jX)
-```
+![A Smith chart plots 25, 50 and 100 ohms on the real axis and shows positive and negative reactance above and below it.](../../assets/diagrams/nanovna-smith-chart-marker-positions.svg)
+
+*Illustrative marker positions for a 50 Ω reference. The chart maps normalized impedance `z = Z / Z₀` to the complex reflection coefficient `Γ = (z − 1) / (z + 1)`.*
 
 - **Center point** = 50 + j0 Ω. Perfect match. This is where you want to be.
 - **Far left** = short circuit (0 Ω)
 - **Far right** = open circuit (∞ Ω)
-- **Outer circle** = |Γ| = 1, pure reactance, zero resistance — total reflection
+- **Outer circle** = |Γ| = 1 (total reflection). Finite impedances on the rim have zero resistance. The open is the infinite-impedance limit.
 - **Upper half** = inductive reactance (+jX)
 - **Lower half** = capacitive reactance (−jX)
 - **Horizontal centerline** = pure resistance, no reactance — this is the
@@ -281,8 +273,7 @@ designing a matching network.)
 | **Above centerline** | e.g. 45 + j30 | **Inductive — element is too LONG** | Shorten it, or add series capacitance |
 | **Below centerline** | e.g. 45 − j30 | **Capacitive — element is too SHORT** | Lengthen it, or add series inductance |
 
-That table is the entire basis of antenna tuning. Everything in
-[05-antenna-tuning.md](05-antenna-tuning.md) elaborates on it.
+Apply the length suggestions to a simple antenna near the resonance you are tuning. Verify the resonance and feed-line reference plane before interpreting the sign. See [antenna tuning](05-antenna-tuning.md) and the [Keysight Smith chart reference](https://www.keysight.com/us/en/assets/9018-40046/installation-guides/9018-40046.pdf).
 
 ### The loop trick
 
