@@ -52,6 +52,14 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [Processing cadence timeline](./diagrams/data-processing-cadence-timeline.svg) | [Data engineering fundamentals](../Data-Engineering/Phase1/data_engineering_fundamentals.md#5-batch-micro-batch-and-streaming) | Compares how the same arrivals are grouped and processed |
 | [Assessment finding and retest decisions](./diagrams/assessment-finding-retest-disposition.svg) | [Assessment findings lifecycle](../PlayBooks/assessment-findings-lifecycle.md#end-to-end-case-process) | Separates retest evidence from acceptance of residual risk |
 
+## Sampling, Memory and Evidence Handling
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [NanoVNA segmented sweep sampling](./diagrams/nanovna-segmented-sweep-sampling.svg) | [NanoVNA-Saver guide](../SDR/nanovna/08-pc-software-and-firmware.md#the-segmented-sweep--the-killer-feature) | Shows the effect of denser frequency sampling on a narrow dip |
+| [Python processing and memory bounds](./diagrams/python-processing-memory-bounds.svg) | [Python data processing](../Data-Engineering/Phase1/python_data_processing.md#1-stream-do-not-load) | Shows where records accumulate and where incremental processing releases them |
+| [Dionaea event and sample boundaries](./diagrams/dionaea-event-and-sample-boundaries.svg) | [Dionaea](../IncidentResponse/HoneyPot/dionaea.md) | Separates monitoring metadata from quarantined untrusted files |
+
 ## Setup and Capability Readback
 
 | Diagram | Where embedded | Why it belongs |
@@ -918,9 +926,9 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [scuba configuration assessment](./diagrams/scuba-configuration-assessment.svg) | [Guide](../Cloud/m365-scuba-assessment.md) |
 | [scuba findings to controlled change](./diagrams/scuba-findings-to-controlled-change.svg) | [Guide](../Cloud/m365-scuba-assessment.md) |
 
-## Additional Asset Awaiting Placement
+## Historical Asset With Cropped Labels
 
-- [advnacedflows.jpg](./advnacedflows.jpg) — a large image with an ambiguous filename. **Not embedded automatically** because its intended subject has not been visually verified; avoid mismatched or misleading placement. Review the image and rename or document its subject before assigning it.
+- [advnacedflows.jpg](./advnacedflows.jpg) is a simplified CPU, RAM and storage illustration. The right edge cuts through the storage node and its labels. The [Python data processing guide](../Data-Engineering/Phase1/python_data_processing.md#1-stream-do-not-load) uses an original, complete illustration to explain how file reading affects memory.
 
 ## rtl_433 Telemetry Lab Visuals
 

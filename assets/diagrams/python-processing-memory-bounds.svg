@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="456" viewBox="0 0 960 456" role="img" aria-labelledby="title desc">
+<title id="title">How a Python pipeline retains records</title>
+<desc id="desc">Eager reading holds input records together and may accumulate outputs. A lazy pipeline reads, transforms and handles one record before advancing. Largest record size, buffering and retained state still affect peak memory.</desc>
+<rect x="1" y="1" width="958" height="454" rx="12" fill="#f5f8fd" stroke="#c5d5e9"/>
+<text x="32" y="49" fill="#14263e" font-family="Arial, sans-serif" font-size="31" font-weight="700" text-anchor="start">How a Python pipeline retains records</text>
+<text x="32" y="79" fill="#40536d" font-family="Arial, sans-serif" font-size="19" font-weight="500" text-anchor="start">A lazy loop reduces memory only when later stages consume and release each record.</text>
+<rect x="32" y="112" width="896" height="123" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="48" y="143" fill="#14263e" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start">Read all rows before processing</text>
+<text x="48" y="169" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">The full input stays in memory.</text>
+<text x="48" y="192" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Collecting output in a list can retain another set of records.</text>
+<rect x="573" y="152" width="27" height="42" rx="4" fill="#e1ebfc" stroke="#a7c1e7"/>
+<rect x="607" y="152" width="27" height="42" rx="4" fill="#e1ebfc" stroke="#a7c1e7"/>
+<rect x="641" y="152" width="27" height="42" rx="4" fill="#e1ebfc" stroke="#a7c1e7"/>
+<rect x="675" y="152" width="27" height="42" rx="4" fill="#e1ebfc" stroke="#a7c1e7"/>
+<rect x="709" y="152" width="27" height="42" rx="4" fill="#e1ebfc" stroke="#a7c1e7"/>
+<rect x="743" y="152" width="27" height="42" rx="4" fill="#e1ebfc" stroke="#a7c1e7"/>
+<rect x="777" y="152" width="27" height="42" rx="4" fill="#e1ebfc" stroke="#a7c1e7"/>
+<rect x="811" y="152" width="27" height="42" rx="4" fill="#e1ebfc" stroke="#a7c1e7"/>
+<rect x="845" y="152" width="27" height="42" rx="4" fill="#e1ebfc" stroke="#a7c1e7"/>
+<text x="718" y="216" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle">Rows retained in memory</text>
+<rect x="32" y="251" width="896" height="142" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="48" y="282" fill="#14263e" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start">Consume one record at a time</text>
+<rect x="48" y="299" width="256" height="61" rx="7" fill="#e6f4ee" stroke="#a7d2c9"/>
+<text x="176" y="336" fill="#126458" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="middle">Read a record</text>
+<rect x="334" y="299" width="256" height="61" rx="7" fill="#e6f4ee" stroke="#a7d2c9"/>
+<text x="462" y="336" fill="#126458" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="middle">Transform</text>
+<rect x="620" y="299" width="256" height="61" rx="7" fill="#e6f4ee" stroke="#a7d2c9"/>
+<text x="748" y="336" fill="#126458" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="middle">Write or handle</text>
+<path d="M306 329 H324" fill="none" stroke="#40536d" stroke-width="2"/>
+<polygon points="331,329 322,324 322,334" fill="#40536d"/>
+<path d="M592 329 H610" fill="none" stroke="#40536d" stroke-width="2"/>
+<polygon points="617,329 608,324 608,334" fill="#40536d"/>
+<text x="48" y="381" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Repeat with the next record once downstream stages have consumed the current one.</text>
+<text x="32" y="429" fill="#40536d" font-family="Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start">Budget for the largest record, buffering and any state each stage keeps.</text>
+</svg>

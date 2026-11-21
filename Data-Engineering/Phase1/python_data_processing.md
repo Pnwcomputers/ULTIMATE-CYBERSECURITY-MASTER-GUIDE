@@ -79,7 +79,11 @@ Enable a practitioner to write a processing script that handles a multi-gigabyte
 
 ## 🌊 1. Stream, Do Not Load
 
-The single most common cause of a pipeline that "worked in testing" is reading an entire file into memory.
+Reading an entire file into memory can make a pipeline that worked with small test fixtures fail on real inputs.
+
+![An eager Python pipeline retains all loaded rows, while a lazy pipeline passes one record at a time through reading, transformation, and writing.](../../assets/diagrams/python-processing-memory-bounds.svg)
+
+*Conceptual memory comparison. Streaming keeps memory independent of the total row count when record sizes, buffers and retained state are bounded.*
 
 ```python
 # Unbounded — memory grows with file size
@@ -87,19 +91,19 @@ rows = open("events.csv").readlines()          # entire file in RAM
 data = json.load(open("events.json"))          # entire structure in RAM
 results = [transform(r) for r in rows]         # a second full copy
 
-# Bounded — memory stays roughly constant
-with open("events.csv", encoding="utf-8") as fh:
+# Incremental — subject to record size and retained state
+with open("events.ndjson", encoding="utf-8") as fh:
     for line in fh:                            # one line at a time
         handle(transform(line))
 ```
 
-A file object is already an iterator over lines. A generator function lets each stage of processing consume the previous one lazily, so only one record is in flight at any moment regardless of whether the file holds a thousand rows or a hundred million.
+A [Python file object](https://docs.python.org/3/tutorial/inputoutput.html#methods-of-file-objects) can be iterated line by line. For NDJSON, each line contains a record. For CSV, use a CSV reader because a quoted field may contain a newline. A generator can consume the previous stage lazily. Memory still depends on record size, parser and I/O buffers, and any state retained by a stage.
 
 | Pattern | Peak memory | Use when |
 | --- | --- | --- |
 | `fh.read()` / `json.load()` | Size of file | Small config files of known bounded size |
-| `for line in fh` | One line | Line-delimited text of any size |
-| Generator chain | One record | Multi-stage transformation of any size |
+| `for line in fh` | Largest line plus I/O buffers | Line-delimited text with bounded line size |
+| Generator chain | In-flight records, buffers and retained state | Multi-stage transformation with bounded state |
 | `list(...)` anywhere in the chain | Entire result | Only when the result is deliberately small (lookups, aggregates) |
 
 > [!WARNING]

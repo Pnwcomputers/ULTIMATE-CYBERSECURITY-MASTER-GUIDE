@@ -238,6 +238,15 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg": (
         "uConsole/CM5-DISPLAY-RECOVERY.md",
     ),
+    "assets/diagrams/python-processing-memory-bounds.svg": (
+        "Data-Engineering/Phase1/python_data_processing.md",
+    ),
+    "assets/diagrams/dionaea-event-and-sample-boundaries.svg": (
+        "IncidentResponse/HoneyPot/dionaea.md",
+    ),
+    "assets/diagrams/nanovna-segmented-sweep-sampling.svg": (
+        "SDR/nanovna/08-pc-software-and-firmware.md",
+    ),
     "assets/diagrams/nanovna-smith-chart-marker-positions.svg": (
         "SDR/nanovna/02-rf-fundamentals.md",
     ),

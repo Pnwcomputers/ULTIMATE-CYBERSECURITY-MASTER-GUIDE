@@ -49,7 +49,7 @@ This is a **repository-wide visual-content audit**, **not** a line-by-line accur
 - **Real hardware photos:** for SoloKeys revisions, PhantomDrive board revisions, NanoVNA port/cable setups and field-test gear, use clearly licensed or owner-supplied photos with verified model identification, rather than synthetic pictures presented as authentic.
 - **Screenshots:** current OS settings, SIEM dashboards and Wireshark workflows should be captured from a known version of actual software with secrets, personal data, GPS coordinates and client information redacted.
 - **Network maps:** user-specific UniFi/Proxmox/honeypot network layouts should be produced only after confirming actual VLANs, device addresses, routes and sensor placement. Example diagrams must not masquerade as a verified environment.
-- **Historical diagrams:** review the unplaced [advnacedflows.jpg](./advnacedflows.jpg) before choosing a section or renaming it; its intended topic was not established in this review.
+- **Historical diagrams:** follow-up review on 2026-11-21 identified [advnacedflows.jpg](./advnacedflows.jpg) as a CPU, RAM and storage illustration with the storage labels cropped. The [current visual index](README.md#historical-asset-with-cropped-labels) records the disposition.
 - **Diagram maintenance:** when command sequences, protocols, versions or topology change, revise the source SVG and its explanatory caption together.
 
 ## Quality gates
