@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 337" role="img" aria-labelledby="title desc">
+  <title id="title">Check an AnythingLLM flow before using real data</title>
+  <desc id="desc">Check supported blocks, credentials, and provider or tool destinations. Build and save in an isolated workspace since new flows can be enabled when saved. Run a synthetic fixture and review its actual network destinations and data fields before approving any real-data run.</desc>
+  <rect width="1000" height="337" rx="20" fill="#f3f7fa"/>
+  <g font-family="Arial,sans-serif" fill="#17334a">
+    <text x="40" y="49" font-size="27" font-weight="700">Check an AnythingLLM flow before using real data</text>
+    <text x="40" y="79" font-size="17">Use an isolated lab workspace for the first run.</text>
+    <g stroke-width="2">
+      <rect x="40" y="111" width="276" height="143" rx="15" fill="#e9f0fa" stroke="#3b6796"/>
+      <rect x="362" y="111" width="276" height="143" rx="15" fill="#fff5e5" stroke="#a75c19"/>
+      <rect x="684" y="111" width="276" height="143" rx="15" fill="#e6f3ef" stroke="#197064"/>
+    </g>
+    <g stroke="#3b6796" stroke-width="3" fill="none">
+      <path d="M321 184h34m-10-8 10 8-10 8"/>
+      <path d="M643 184h34m-10-8 10 8-10 8"/>
+    </g>
+    <g font-size="19" font-weight="700">
+      <text x="60" y="150">Before saving</text>
+      <text x="382" y="150">Test in the lab</text>
+      <text x="704" y="150">Approve the data paths</text>
+    </g>
+    <g font-size="16">
+      <text x="60" y="184">Check supported blocks.</text>
+      <text x="60" y="212">Review tools and destinations.</text>
+      <text x="382" y="184">Save and check enabled state.</text>
+      <text x="382" y="212">Use synthetic lab inputs.</text>
+      <text x="704" y="184">Inspect sent fields and requests.</text>
+      <text x="704" y="212">Approve destinations before use.</text>
+    </g>
+    <rect x="40" y="280" width="920" height="37" rx="11" fill="#e7edf4"/>
+    <text x="60" y="305" font-size="16">Review model inference, embeddings, and tools separately. Each can have its own destination.</text>
+  </g>
+</svg>

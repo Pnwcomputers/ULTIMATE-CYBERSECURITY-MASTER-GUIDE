@@ -187,15 +187,18 @@ This directory contains complete technical documentation for creating custom Age
 
 ## How To Use This Documentation
 
+![Flow setup moves from checking enabled blocks and destinations through a synthetic execution in an isolated workspace to reviewing observed requests before using approved data.](../../assets/diagrams/anythingllm-flow-readiness.svg)
+
 ### For Recreation
 
-1. **Choose a flow** from the list above
-2. **Open the corresponding .md file**
-3. **Follow the "Flow Variables" section** - Set up all variables
-4. **Follow the "Flow Blocks" section** - Create each block in order
-5. **Configure each block** exactly as documented
-6. **Save and publish** the flow
-7. **Test** using examples in "Usage Instructions"
+1. Open the flow's guide and check whether your installed release supports its blocks.
+2. Use a separate lab workspace with synthetic inputs. Review the enabled providers, tools, credentials, and destinations before creating the flow.
+3. Configure only the blocks needed for the lab, with mock endpoints or approved test endpoints for external calls. Save the flow in the lab.
+4. Check the saved flow's enabled state and test with synthetic input. Inspect the actual destinations and the fields that leave the instance before approving a real-data run.
+
+The Flow Builder is available from the workspace's agent skills page. Available blocks can vary by version, and the current upstream guide says new flows are saved as enabled. Checking the flow's scope before saving keeps a draft from becoming available unexpectedly in a shared workspace. [AnythingLLM Flow Builder documentation](https://docs.anythingllm.com/agent-flows/getting-started)
+
+Self-hosting places the application under your control. Model providers, embedding providers, and external tool destinations still need separate review. Check the data sent to each one and use only destinations approved for the input classification. [AnythingLLM embedding models](https://docs.anythingllm.com/features/embedding-models) · [AnythingLLM privacy and data handling](https://docs.anythingllm.com/features/privacy-and-data-handling)
 
 ### For Reference
 

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 537" role="img" aria-labelledby="title desc">
+  <title id="title">Separate diagnostic telemetry from required audit evidence</title>
+  <desc id="desc">The agent host correlates two paths by run ID. Minimized telemetry can include sampled traces and aggregated metrics. Required authorization and outcome events bypass diagnostic sampling, go to restricted audit storage, and can feed a minimized selection to the SIEM.</desc>
+  <rect width="1000" height="537" rx="20" fill="#f3f7fa"/>
+  <g font-family="Arial,sans-serif" fill="#17334a">
+    <text x="40" y="47" font-size="26" font-weight="700">Separate diagnostic telemetry from required audit evidence</text>
+    <rect x="312" y="76" width="376" height="82" rx="15" fill="#e7edf4" stroke="#557086" stroke-width="2"/>
+    <text x="500" y="110" text-anchor="middle" font-size="19" font-weight="700">Agent host or gateway</text>
+    <text x="500" y="137" text-anchor="middle" font-size="16">Use a shared run ID across both paths.</text>
+    <path d="M500 159v26H265v23m-7-8 7 8 7-8M500 185h235v23m-7-8 7 8 7-8" fill="none" stroke="#3b6796" stroke-width="3"/>
+    <rect x="40" y="215" width="450" height="197" rx="16" fill="#e9f0fa" stroke="#3b6796" stroke-width="2"/>
+    <rect x="510" y="215" width="450" height="197" rx="16" fill="#e6f3ef" stroke="#197064" stroke-width="2"/>
+    <text x="64" y="256" font-size="20" font-weight="700">Diagnostics</text>
+    <text x="534" y="256" font-size="20" font-weight="700">Required audit events</text>
+    <text x="64" y="290" font-size="17">Minimize fields before export.</text>
+    <text x="534" y="290" font-size="17">Capture authorization and outcome metadata.</text>
+    <text x="64" y="322" font-size="17">Sample traces and aggregate metrics.</text>
+    <text x="534" y="322" font-size="17">Verify delivery to integrity-protected storage.</text>
+    <path d="M64 346h402m68 0h402" stroke="#9daea9" stroke-width="1.5"/>
+    <text x="64" y="379" font-size="16">Use the restricted observability store.</text>
+    <text x="534" y="379" font-size="16">Send selected event fields to the SIEM.</text>
+    <rect x="40" y="440" width="920" height="66" rx="13" fill="#e7edf4"/>
+    <text x="60" y="469" font-size="16">Keep required audit events outside the diagnostic sampler.</text>
+    <text x="60" y="492" font-size="16">Use approved destinations and restrict raw prompts, credentials, and tool payloads.</text>
+  </g>
+</svg>

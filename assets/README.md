@@ -185,6 +185,13 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 |---|---|---|
 | [AI project workspace trust boundaries](./diagrams/ai-project-workspace-trust-boundaries.svg) | [AI Projects, Notebooks, GPTs, Plugins and Reusable Assistants](../AI/ai-workspaces-notebooks-and-assistants.md#step-1--establish-the-trust-boundary) | Separates project context from host permissions, connected tools, provider data paths, human verification, and evidence handoff |
 
+## AI Flow Readiness & Audit Retention
+
+| Diagram | Embedded guide | What it explains |
+|---|---|---|
+| [AnythingLLM flow readiness](./diagrams/anythingllm-flow-readiness.svg) | [AnythingLLM Agentflow documentation](../AI/AnythingLLM/README.md#how-to-use-this-documentation) | Pre-save destination review, synthetic testing, and approval before real data |
+| [AI telemetry and audit retention](./diagrams/ai-telemetry-audit-retention-paths.svg) | [AI Agent Observability](../AI/ai-observability-and-auditing.md#reference-architecture) | Diagnostic sampling, audit continuity, and minimized security events |
+
 ## Five-Layer Prompt to Evidence Handoff
 
 | Diagram | Embedded guide | Why it belongs |

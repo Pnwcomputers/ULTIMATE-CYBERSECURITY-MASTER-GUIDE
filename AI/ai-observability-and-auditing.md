@@ -15,25 +15,11 @@ Observability answers **what actually happened inside an agent workflow**, while
 
 ### Reference Architecture
 
-```text
-AI application / gateway / agent
-   |
-   +-- trace spans (request -> retrieve -> model -> tool -> verify)
-   +-- structured events (authorization, failure, approval, result)
-   +-- metrics (latency, cost, retry/queue/error counters)
-   |
-   v
-Redaction + policy filter + sampling + correlation
-   |
-   +----> Restricted observability store (traces, metrics)
-   +----> Tamper-resistant audit store
-   +----> Security event adapter -> Wazuh / SIEM
-   |
-   v
-Operator dashboards + alert rules + evidence references
-```
+![Operational telemetry can be sampled or aggregated, while required audit events go through a separate integrity-protected path. Both paths minimize sensitive data and correlate by a shared run ID.](../assets/diagrams/ai-telemetry-audit-retention-paths.svg)
 
-Do not forward full prompts, credentials or client logs to every monitoring backend. Tracing is a **new data-exfiltration surface** and requires a data-flow/privacy review.
+Capture required audit events at the authorization and outcome boundaries. Keep them out of the diagnostic trace sampler, and check that every required event arrives in the restricted audit store. Send the SIEM a minimized selection of security events, with the run ID linking back to restricted evidence where access is authorized.
+
+Collect only the fields needed for each destination. Trace sampling can reduce diagnostic volume, but sampled traces cannot demonstrate complete audit coverage. Omit prompts, credentials, and client logs by default, and verify filtering before export. [OpenTelemetry sampling](https://opentelemetry.io/docs/concepts/sampling/) · [OpenTelemetry handling of sensitive data](https://opentelemetry.io/docs/security/handling-sensitive-data/)
 
 ## 2. Define a Trace & Audit Schema
 
@@ -75,7 +61,7 @@ Production schemas should also capture tool/server version, request shape/versio
 ### Simple Python Structured Event Example
 
 ```python
-# Demonstrates structured redacted logging. No external services are contacted.
+# Demonstrates structured metadata logging with synthetic values and no network calls.
 import json, logging, datetime
 logger = logging.getLogger("ai-audit")
 logger.setLevel(logging.INFO)
@@ -98,7 +84,7 @@ def audit(event_id, tool, outcome, trace_id, target_ref):
 audit("LAB-001", "wazuh.read_alert", "success", "TRACE-LAB-001", "ALERT-LAB-001")
 ```
 
-For real deployments add authenticated transports, schema validation, length checks, redaction, durable storage, access control and retention enforcement. A stdout log is **not** tamper-proof.
+Pass approved field values from the host's authorization context. String conversion alone leaves any sensitive contents intact. For real deployments add authenticated transports, schema validation, length checks, redaction, integrity-protected durable storage, access control and retention enforcement. Standard output here demonstrates formatting only.
 
 ## 4. Metrics & Operational SLIs
 
