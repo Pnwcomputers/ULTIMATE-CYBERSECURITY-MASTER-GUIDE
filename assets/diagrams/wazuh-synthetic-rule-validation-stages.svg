@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="467" viewBox="0 0 960 467" role="img" aria-labelledby="title desc">
+<title id="title">Validate a Wazuh rule in three stages</title>
+<desc id="desc">Static preflight checks rule structure and synthetic fixtures. Wazuh logtest checks the installed decoder and rule match against supplied samples. An enrolled canary agent checks the whole delivery path to the manager and dashboard. Failures halt promotion.</desc>
+<rect x="1" y="1" width="958" height="465" rx="12" fill="#f5f8fd" stroke="#c5d5e9"/>
+<text x="32" y="50" fill="#14263e" font-family="Arial, sans-serif" font-size="31" font-weight="700" text-anchor="start">Validate a Wazuh rule in three stages</text>
+<text x="32" y="80" fill="#40536d" font-family="Arial, sans-serif" font-size="19" font-weight="500" text-anchor="start">Check what matches and what stays quiet for benign input.</text>
+<rect x="32" y="111" width="284" height="252" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<rect x="47" y="126" width="38" height="34" rx="12" fill="#e1ebfc" stroke="#aec4e6"/>
+<text x="66" y="149" fill="#18478c" font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle">1</text>
+<text x="48" y="191" fill="#14263e" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start">Offline preflight</text>
+<text x="48" y="223" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Parse rule XML</text>
+<text x="48" y="246" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Check IDs and relationships</text>
+<text x="48" y="269" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Compare expected fixture fields</text>
+<rect x="46" y="290" width="256" height="56" rx="12" fill="#e7f4ee" stroke="#b4d6cb"/>
+<text x="59" y="311" fill="#126458" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start">Evidence</text>
+<text x="59" y="332" fill="#14263e" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="start">Static and fixture checks</text>
+<rect x="338" y="111" width="284" height="252" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<rect x="353" y="126" width="38" height="34" rx="12" fill="#e1ebfc" stroke="#aec4e6"/>
+<text x="372" y="149" fill="#18478c" font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle">2</text>
+<text x="354" y="191" fill="#14263e" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start">Lab manager logtest</text>
+<text x="354" y="223" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Feed synthetic positive and</text>
+<text x="354" y="246" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">benign-negative samples</text>
+<text x="354" y="269" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Record fields, rule ID and level</text>
+<rect x="352" y="290" width="256" height="56" rx="12" fill="#e7f4ee" stroke="#b4d6cb"/>
+<text x="365" y="311" fill="#126458" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start">Evidence</text>
+<text x="365" y="332" fill="#14263e" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="start">Decoder and rule behavior</text>
+<rect x="644" y="111" width="284" height="252" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<rect x="659" y="126" width="38" height="34" rx="12" fill="#e1ebfc" stroke="#aec4e6"/>
+<text x="678" y="149" fill="#18478c" font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle">3</text>
+<text x="660" y="191" fill="#14263e" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start">Canary delivery</text>
+<text x="660" y="223" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Send a marker from a lab agent</text>
+<text x="660" y="246" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Check manager and dashboard</text>
+<text x="660" y="269" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Compare benign-negative result</text>
+<rect x="658" y="290" width="256" height="56" rx="12" fill="#e7f4ee" stroke="#b4d6cb"/>
+<text x="671" y="311" fill="#126458" font-family="Arial, sans-serif" font-size="14" font-weight="700" text-anchor="start">Evidence</text>
+<text x="671" y="332" fill="#14263e" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="start">Observed end-to-end delivery</text>
+<path d="M317 233 L325 233" fill="none" stroke="#18478c" stroke-width="2"/>
+<polygon points="336,233 325,227 325,239" fill="#18478c"/>
+<path d="M623 233 L631 233" fill="none" stroke="#18478c" stroke-width="2"/>
+<polygon points="642,233 631,227 631,239" fill="#18478c"/>
+<rect x="32" y="381" width="896" height="62" rx="12" fill="#fff1e5" stroke="#e4c4a0"/>
+<text x="49" y="406" fill="#8a4715" font-family="Arial, sans-serif" font-size="18" font-weight="700" text-anchor="start">Unexpected match, parse failure or missing telemetry</text>
+<text x="49" y="431" fill="#40536d" font-family="Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start">Stop promotion, restore the lab baseline if changed, and verify ingestion before retrying.</text>
+</svg>

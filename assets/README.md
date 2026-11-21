@@ -1,7 +1,7 @@
 <a id="diagram-and-image-asset-index"></a>
 # Diagram & Image Asset Index
 
-_Visual placements updated: 2026-11-19. Historical visual content has not been re-authenticated against live equipment._
+_Visual placements updated 2026-11-21. Figures show conceptual examples unless their captions identify live evidence._
 
 Return to [the main guide](../README.md) or [the visual reference notes](./imageplacement.md).
 
@@ -59,6 +59,13 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [NanoVNA segmented sweep sampling](./diagrams/nanovna-segmented-sweep-sampling.svg) | [NanoVNA-Saver guide](../SDR/nanovna/08-pc-software-and-firmware.md#the-segmented-sweep--the-killer-feature) | Shows the effect of denser frequency sampling on a narrow dip |
 | [Python processing and memory bounds](./diagrams/python-processing-memory-bounds.svg) | [Python data processing](../Data-Engineering/Phase1/python_data_processing.md#1-stream-do-not-load) | Shows where records accumulate and where incremental processing releases them |
 | [Dionaea event and sample boundaries](./diagrams/dionaea-event-and-sample-boundaries.svg) | [Dionaea](../IncidentResponse/HoneyPot/dionaea.md) | Separates monitoring metadata from quarantined untrusted files |
+
+## Wireless Observation and Rule Verification
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [BLE passive and active scanning](./diagrams/ble-passive-and-active-scan-evidence.svg) | [BLE scanning and privacy](../Documentation/bluetooth-passive-scanning-sniffing.md#ble-advertising-vs-scan-responses) | Shows when a scanner may transmit and receive additional advertising data |
+| [Wazuh rule validation stages](./diagrams/wazuh-synthetic-rule-validation-stages.svg) | [Wazuh synthetic rule validation](../Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md) | Connects the offline, manager and end-to-end tests to the evidence each provides |
 
 ## Setup and Capability Readback
 
@@ -683,16 +690,22 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [osint investigation request scope](./diagrams/osint-investigation-request-scope.svg) | [Guide](../OSINT/OSINT_GUIDE.md) |
 | [osint investigation identity evidence](./diagrams/osint-investigation-identity-evidence.svg) | [Guide](../OSINT/OSINT_GUIDE.md) |
 
-## Already Embedded In Hardware Chapters
+## Raster Illustrations in the Hardware Chapters
 
 | Asset | Chapter |
 |---|---|
-| [Trust boundary](./CollapsingtheTrustBoundary.jpg) | [Hardware Hacking — Chapter 1](../HardwareHacking/Chapter1.md) |
-| [UART](./UART.jpg), [SPI](./SPI.jpg), [I²C](./i2c.jpg), [JTAG](./JTAG.jpg), [Shunt setup](./ShuntSetup.jpg) | [Hardware Hacking — Chapter 2](../HardwareHacking/Chapter2.md) |
+| [UART](./UART.jpg), [SPI](./SPI.jpg), [I²C](./i2c.jpg), [JTAG](./JTAG.jpg) | [Hardware Hacking — Chapter 2](../HardwareHacking/Chapter2.md) |
 | [Clock/voltage glitch](./ClockvsVoltage.jpg), [EMFI](./ElectromagneticFaultInjection.jpg), [Laser FI](./LaserFaultInjection.jpg) | [Hardware Hacking — Chapter 3](../HardwareHacking/Chapter3.md) |
 | [SPA on RSA](./SPAonRSA.jpg) | [Hardware Hacking — Chapter 4](../HardwareHacking/Chapter4.md) |
-| [CPA correlation](./CPACorrelationProcess.jpg) | [Hardware Hacking — Chapter 5](../HardwareHacking/Chapter5.md) |
 | [Master guide banner](./cybersecurityguide.png) | [Master README](../README.md) and [START HERE](../START_HERE.md) |
+
+## Historical Hardware Illustrations
+
+| Historical asset | Current guide illustration |
+|---|---|
+| [Trust boundary](./CollapsingtheTrustBoundary.jpg) | [Hardware threat-model figure](../HardwareHacking/Chapter1.md) |
+| [Shunt setup](./ShuntSetup.jpg) | [Shunt-current figure](../HardwareHacking/Chapter2.md) |
+| [CPA correlation](./CPACorrelationProcess.jpg) | [Power measurement and evidence flow](../HardwareHacking/Chapter5.md) |
 
 ## Phishing Response Visuals
 
@@ -928,7 +941,7 @@ Original conceptual figures; source links and evidence limits appear in the guid
 
 ## Historical Asset With Cropped Labels
 
-- [advnacedflows.jpg](./advnacedflows.jpg) is a simplified CPU, RAM and storage illustration. The right edge cuts through the storage node and its labels. The [Python data processing guide](../Data-Engineering/Phase1/python_data_processing.md#1-stream-do-not-load) uses an original, complete illustration to explain how file reading affects memory.
+- [advnacedflows.jpg](./advnacedflows.jpg) is a simplified CPU, RAM and storage illustration. The right edge cuts through the storage node and its labels. The [Manjaro test bench guide](../HardwareTesting/Manjaro_Intel_TestBench.md#5-memory-and-storage-diagnostics) already embeds a complete CPU, RAM and storage comparison.
 
 ## rtl_433 Telemetry Lab Visuals
 
