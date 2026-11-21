@@ -2225,98 +2225,106 @@ Record source reliability, confidence, first/last seen, context, potential false
  
 *Full reference: [Tradecraft/network-detection.md](Tradecraft/network-detection.md)*
  
+Network monitoring produces leads that need context. Capture or analyze only traffic you are authorized to handle, define a time and storage limit, and protect packet captures and logs as potentially sensitive evidence.
+ 
+```mermaid
+flowchart LR
+    S[Authorized sensor or<br/>approved capture] --> C[Preserve time, scope,<br/>filters, and provenance]
+    C --> P[Parse into protocol<br/>and endpoint records]
+    P --> X[Correlate with endpoint,<br/>identity, DNS, and asset context]
+    X --> H[Analyst reviews competing<br/>benign explanations]
+    H --> R[Document finding,<br/>confidence, and retention]
+```
+ 
 ### NSM Stack - Linux
  
-```bash
-# Security Onion - full NSM stack (Zeek + Suricata + ELK)
-# https://docs.securityonion.net/
+Zeek and Suricata provide complementary network telemetry. Zeek logs are metadata, not a complete view of encrypted application content; available fields depend on protocol visibility and configuration.
  
-# Standalone Zeek
-sudo apt install zeek
-zeek -r capture.pcap
+| Zeek log | Common use | Limitation |
+| --- | --- | --- |
+| `conn.log` | Connection endpoints, bytes, duration, and state | Sensor placement, loss, and asymmetric traffic affect coverage. |
+| `dns.log` | Observed DNS queries and responses | Encrypted DNS or traffic outside the sensor may be absent. |
+| `http.log` | Visible HTTP metadata | HTTPS content is not decoded as HTTP without authorized decryption. |
+| `ssl.log` | TLS version, negotiated parameters, server name, and certificate details when observed | JA3/JA3S fields require compatible packages/configuration; fingerprints are not unique identifiers. |
+| `files.log` | File observations and analysis metadata | A log entry does not mean file content was extracted to disk; extraction must be configured. |
  
-# Standalone Suricata
-sudo apt install suricata
-suricata-update                    # update rules
-suricata -r capture.pcap -l /tmp/logs/
- 
-# Key Zeek logs:
-# conn.log   - all connections: src/dst, bytes, duration, state
-# dns.log    - all DNS queries and responses
-# http.log   - HTTP requests: method, host, URI, user-agent
-# ssl.log    - TLS metadata: SNI, issuer, JA3/JA3S fingerprints
-# files.log  - transferred files with MD5/SHA256
-```
+For setup and fields, use the official [Zeek documentation](https://docs.zeek.org/en/current/reference/logs/index.html) and [Suricata documentation](https://docs.suricata.io/). `zeek -r capture.pcap` and `suricata -r capture.pcap -l /tmp/logs/` are offline examples for an approved capture; update and validate rules against the installed version and local policy before using them operationally.
  
 ### Packet Capture - Windows (No Install Required)
  
 ```powershell
-# pktmon - built-in Win10 2004+
+# Example only: capture a bounded, authorized diagnostic window.
 pktmon start --capture --file C:\Temp\capture.etl
 pktmon stop
-pktmon etl2pcap C:\Temp\capture.etl --out C:\Temp\capture.pcap
+# ETL conversion produces pcapng; preserve the ETL original as well.
+pktmon etl2pcap C:\Temp\capture.etl --out C:\Temp\capture.pcapng
  
-# netsh trace - always available
+# netsh trace also supports bounded ETW/network diagnostics.
 netsh trace start capture=yes tracefile=C:\Temp\capture.etl maxsize=500
 netsh trace stop
-# Convert with etl2pcapng: https://github.com/microsoft/etl2pcapng
+# Microsoft documents pktmon and conversion options:
+# https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/pktmon
 ```
+ 
+Pktmon is an in-box cross-component diagnostic tool. Its pcapng conversion can discard packet-drop and component-path context, so retain the original ETL when those details matter. Capture files can contain credentials, personal data, and internal hostnames; restrict access, encrypt storage, and follow retention rules. See Microsoft's [pktmon conversion notes](https://learn.microsoft.com/en-us/windows-server/networking/technologies/pktmon/pktmon-pcapng-support).
  
 ### C2 Beacon Detection
  
+The following pseudocode illustrates one timing heuristic over connection timestamps. Regularity alone is not proof of command-and-control; scheduled tasks, monitoring agents, software updates, and load balancers can look similar. Validate the time range, event count, process identity, destinations, and host role before escalating.
+ 
 ```python
-# Detect beaconing - low jitter regular intervals in conn.log
 import statistics
 from collections import defaultdict
  
 connections = defaultdict(list)
-# [load timestamps per src→dst:port from conn.log]
+# Populate with approved Zeek conn.log timestamps grouped by
+# (source, destination, destination_port).
  
 for (src, dst, dport), timestamps in connections.items():
     if len(timestamps) < 10:
         continue
     timestamps.sort()
-    intervals = [timestamps[i+1] - timestamps[i] for i in range(len(timestamps)-1)]
+    intervals = [
+        timestamps[i + 1] - timestamps[i]
+        for i in range(len(timestamps) - 1)
+    ]
     mean_i = statistics.mean(intervals)
+    if mean_i <= 0:
+        continue
     stdev_i = statistics.stdev(intervals) if len(intervals) > 1 else 0
-    jitter = stdev_i / mean_i if mean_i > 0 else 0
+    jitter = stdev_i / mean_i
  
     if jitter < 0.15 and 30 < mean_i < 3600 and len(timestamps) > 15:
-        print(f"[BEACON?] {src} -> {dst}:{dport} interval={mean_i:.1f}s jitter={jitter:.3f}")
+        print(f"[REVIEW] {src} -> {dst}:{dport} "
+              f"interval={mean_i:.1f}s jitter={jitter:.3f}")
 ```
  
 ### Defender for Endpoint KQL - Key Queries
  
+This example calculates a coarse connection-rate candidate and guards against a zero-duration division. It is a triage aid, not a beacon verdict. Microsoft notes that `ConnectionSuccess` can appear even when a later network-protection decision blocks the application request, so correlate with alerts and other telemetry.
+ 
 ```kusto
-// Beacon timing - regular low-jitter outbound connections
 DeviceNetworkEvents
 | where Timestamp > ago(1h) and ActionType == "ConnectionSuccess"
 | summarize Count=count(), First=min(Timestamp), Last=max(Timestamp)
     by DeviceName, InitiatingProcessFileName, RemoteIP, RemotePort
-| extend DurationMin = datetime_diff('minute', Last, First)
-| extend ConnPerMin = Count * 1.0 / DurationMin
-| where Count > 10 and ConnPerMin between (0.5 .. 5.0)
- 
-// DNS to high-entropy domains (DGA/tunnel)
-DeviceEvents
-| where ActionType == "DnsQueryResponse"
-| extend Query = tostring(AdditionalFields.DnsQueryString)
-| where strlen(Query) > 40
-    and Query !contains "microsoft" and Query !contains "windows"
-| summarize count() by DeviceName, Query, InitiatingProcessFileName
+| extend DurationSec = datetime_diff('second', Last, First)
+| where Count > 10 and DurationSec > 0
+| extend ConnPerMin = Count * 60.0 / DurationSec
+| where ConnPerMin between (0.5 .. 5.0)
 ```
+ 
+A long DNS label is not an entropy calculation and does not establish tunneling. Use length only as one review signal, then inspect query patterns, resolver context, process lineage, volume, and approved application behavior.
  
 ### Detection Priorities
  
-```
-High:  LSASS process access from non-security tools (Sysmon Event 10)
-High:  CreateRemoteThread into non-child process (Sysmon Event 8)
-High:  Regular interval outbound connections with low jitter
-High:  DNS TXT queries at high volume to single domain (DNS tunnel)
-Med:   TLS to newly registered domains (< 30 days)
-Med:   Self-signed certificates on port 443
-Med:   Large DNS responses (> 200 bytes) to single domain
-```
+| Signal | Evidence to correlate | Caveat |
+| --- | --- | --- |
+| Process access to LSASS (Sysmon Event 10) | Process signer, user, host role, access rights, and related alerts | Security, backup, and support tools can access protected processes. |
+| Remote thread creation (Sysmon Event 8) | Source/target process lineage and endpoint detections | A single event does not establish malicious injection. |
+| Repeated outbound connections | Process, destination history, timing, DNS, proxy, and asset role | Regular traffic also comes from legitimate automation and keepalives. |
+| Unusual DNS TXT volume or response size | Client process, resolver, domain history, and baseline | TXT records and large responses have legitimate uses. |
+| Recently observed domains or unusual certificates | Registration and certificate context, destination, process, and threat-intel provenance | Age and self-signing are triage signals, not verdicts. |
  
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
  
