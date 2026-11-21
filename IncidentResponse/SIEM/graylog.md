@@ -260,11 +260,11 @@ networks:
 
 ### Step 2.3: Create Environment File (Alternative)
 
-To move selected variables out of the Compose file, create a private `.env` file beside it. Replace both markers with the values generated in Step 2.1. Keep the file, the password secret and the password hash out of version control.
+To move selected variables out of the Compose file, create a private `.env` file beside it. Fill both blank values with the locally generated values from Step 2.1 before starting Graylog. Keep the file, the password secret and the password hash out of version control.
 
 ```dotenv
-GRAYLOG_PASSWORD_SECRET=REPLACE_WITH_GENERATED_SECRET
-GRAYLOG_ROOT_PASSWORD_SHA2=REPLACE_WITH_GENERATED_HASH
+GRAYLOG_PASSWORD_SECRET=
+GRAYLOG_ROOT_PASSWORD_SHA2=
 GRAYLOG_HTTP_EXTERNAL_URI=http://192.168.1.50:9000/
 GRAYLOG_ROOT_TIMEZONE=America/Los_Angeles
 ```
