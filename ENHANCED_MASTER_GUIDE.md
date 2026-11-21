@@ -2167,80 +2167,55 @@ Microsoft's [AppLocker and App Control overview](https://learn.microsoft.com/en-
  
 ### OSINT Methodology Cycle
  
-```
-1. Planning      → Define KIQs, scope, legal authorization, OPSEC requirements
-2. Collection    → Gather from passive and active sources
-3. Processing    → Deduplicate, normalize, enrich
-4. Analysis      → Extract meaning, identify gaps, build picture
-5. Dissemination → Report, act, feed into defenses
-6. Feedback      → Refine collection based on new gaps
-```
+Use a defined question and approved scope to guide collection. A source that is public can still log a query, expose an investigator's interest, or contain personal information.
  
-### Core Tool Stack
- 
-**Passive infrastructure recon:**
-```bash
-# Subdomain enumeration
-amass enum -passive -d target.com
-subfinder -d target.com
- 
-# Certificate transparency
-curl -s "https://crt.sh/?q=%25.target.com&output=json" | jq -r '.[].name_value' | sort -u
- 
-# Shodan CLI
-shodan search org:"Target Corp"
-shodan domain target.com
- 
-# DNS records + MX (reveals email security posture)
-dig target.com TXT   # SPF, DMARC, domain verification
-dig _dmarc.target.com TXT
+```mermaid
+flowchart LR
+    Q[Define intelligence question<br/>and authorized scope] --> C[Choose sources and<br/>collection method]
+    C --> P[Record provenance,<br/>time, and limitations]
+    P --> A[Analyze and corroborate<br/>independent evidence]
+    A --> D[Disseminate with handling<br/>and confidence labels]
+    D --> F[Review usefulness,<br/>retention, and gaps]
+    F --> Q
 ```
  
-**Credential/secret exposure:**
-```bash
-trufflehog github --org=targetorg --only-verified   # leaked secrets in repos
-h8mail -t target.com                                 # email breach check
-```
+### Collection method and tool categories
  
-**Brand monitoring:**
-```bash
-dnstwist --registered target.com     # typosquatting domains
-# certstream monitoring for new certs containing your domain name
-```
+Classify how a source is accessed before collecting. “Passive” usually means no direct request to the target service; it does not mean invisible to the search provider or free of privacy, terms-of-service, or data-handling concerns.
  
-**Windows install (pip-based):**
-```powershell
-pip install shodan censys theHarvester dnstwist h8mail holehe maigret
-# TruffleHog releases: https://github.com/trufflesecurity/trufflehog/releases
-# Select a version/platform and use your approved software source. Verify any
-# publisher-provided checksum/signature and record the version you install.
-# Go tools: subfinder, amass, assetfinder, gau, waybackurls
-```
+| Collection type | Examples | Boundary to record |
+| --- | --- | --- |
+| Third-party and public records | Search engines, certificate-transparency indexes, public filings, published threat reports | Query providers may log searched names, domains, or IPs; record source and retrieval time. |
+| Public-source reputation and inventory | VirusTotal, GreyNoise, Shodan, Censys, OTX | Data may be delayed, incomplete, or submitted by other parties. Check sharing terms before uploading an artifact or identifier. |
+| Organization-owned exposure review | Approved company domains, repositories, cloud accounts, and brand-monitoring feeds | Confirm ownership and scope; treat exposed credentials as a security incident and never test them. |
+| Direct interaction | DNS brute force, zone-transfer attempts, web crawling, SMTP checks, port scans | These can contact target infrastructure. Require explicit written scope, rate limits, and stop conditions first. |
+ 
+Tools such as Amass, Subfinder, TruffleHog, and dnstwist have different modes and data sources. Review the selected command, configuration, and provider behavior for the specific run; a tool name alone does not make a collection passive or authorized.
  
 ### Threat Intelligence Platforms
  
-| Platform | Type | Best For |
-|---|---|---|
-| VirusTotal | Free/Commercial | File/URL/IP/domain reputation |
-| AlienVault OTX | Free | IOC sharing, community pulses |
-| MISP | Free (self-hosted) | Threat sharing, STIX/TAXII, team sharing |
-| OpenCTI | Free (self-hosted) | CTI platform, actor tracking, relationship mapping |
-| AbuseIPDB | Free | IP reputation, abuse reports |
-| GreyNoise | Free/Commercial | Distinguish targeted vs. internet background noise |
-| Shodan | Free/Commercial | Internet-facing asset intelligence |
+| Platform | Typical role | Handling note |
+| --- | --- | --- |
+| VirusTotal, OTX, AbuseIPDB, GreyNoise, Shodan | External reputation or observation sources | Validate recency, coverage, and disclosure terms before submitting sensitive data. |
+| MISP, OpenCTI | Internal curation, relationship analysis, and sharing workflows | Apply access controls, source markings, sharing rules, and retention policy. |
  
 ### IOC Lifecycle
  
-```
-Collection → Validation → Enrichment → Scoring → Deployment → Expiration
+An indicator is a lead, not a verdict. Keep provenance and confidence with each item; correlate it with local telemetry before taking action.
  
-Scoring factors:
-  Source reliability (1–5)
-  Recency (fresh scores higher)
-  Context (targeted vs. generic)
-  Confidence (corroborated by multiple sources)
-  Fidelity (false-positive potential)
+```mermaid
+flowchart LR
+    I[Receive indicator<br/>with source and timestamp] --> V[Validate syntax,<br/>context, and recency]
+    V --> E[Enrich and compare<br/>independent sources]
+    E --> T{Enough confidence<br/>and local relevance?}
+    T -->|No| H[Keep as a labeled<br/>investigative lead]
+    T -->|Yes| D[Create scoped detection<br/>or response proposal]
+    D --> A[Owner review, testing,<br/>and change approval]
+    A --> M[Monitor outcomes,<br/>false positives, and expiry]
+    M --> R[Revalidate or retire]
 ```
+ 
+Record source reliability, confidence, first/last seen, context, potential false positives, sharing restrictions, and an expiry or review date. A reputation match by itself does not establish compromise or actor attribution. NIST's [SP 800-150, Guide to Cyber Threat Information Sharing](https://csrc.nist.gov/pubs/sp/800/150/final) covers scoping, source selection, sharing rules, and effective use of cyber threat information.
  
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
  
