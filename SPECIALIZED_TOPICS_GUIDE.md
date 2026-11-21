@@ -184,7 +184,7 @@ Running LLMs locally provides privacy, air-gap capability, and freedom from clou
 ### Installing Ollama
 
 Use the current [official Linux download and manual-install guide](https://ollama.com/download/linux)
-or the [upstream Linux documentation](https://github.com/ollama/ollama/blob/main/docs/linux.md).
+or the [upstream Linux documentation](https://docs.ollama.com/linux).
 The convenience installer is a remote shell script; inspect it and confirm the
 artifact/source before running it with elevated privileges. For macOS, use the
 official download page or Homebrew. After installation, record the selected

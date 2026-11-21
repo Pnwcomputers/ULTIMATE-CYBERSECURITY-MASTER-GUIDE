@@ -1429,7 +1429,7 @@ index=network_traffic | stats dc(dest_port) as port_count by src_ip | where port
 
 ### Elastic Stack (Elasticsearch, Logstash, Kibana)
 
-Use the current Elastic deployment guide for a supported, pinned release and enable authentication, TLS, and the data-volume protections provided by that release. Docker Compose publishes ports on all host interfaces by default unless a host address is specified; bind management services only to the isolated monitoring interface or loopback, and confirm host firewall rules. Do not copy the retired 8.11.0 sample. See the [Docker Compose port-publishing documentation](https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/) and current [Elastic installation guidance](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html).
+Use the current Elastic deployment guide for a supported, pinned release and enable authentication, TLS, and the data-volume protections provided by that release. Docker Compose publishes ports on all host interfaces by default unless a host address is specified; bind management services only to the isolated monitoring interface or loopback, and confirm host firewall rules. Do not copy the retired 8.11.0 sample. See the [Docker Compose port-publishing documentation](https://docs.docker.com/engine/network/port-publishing/) and current [Elastic installation guidance](https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html).
 
 Send only approved logs from lab targets to the collector. Keep packet capture on a dedicated SPAN/TAP sensor interface. Do not put credentials, captures, or client reports on broadly writable volumes.
 

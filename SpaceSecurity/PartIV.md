@@ -144,7 +144,7 @@ A receiver can produce incorrect PNT when it accepts inconsistent or counterfeit
 |-----------|------------------|
 | [EASA Safety Information Bulletin 2022-02, Revision 4 (July 3, 2026)](https://www.easa.europa.eu/en/newsroom-and-events/news/easa-updates-safety-information-bulletin-gnss-interference) | Current aviation procedures and training guidance for reported GNSS outages and alterations. |
 | [EASA GNSS outages and alterations page](https://www.easa.europa.eu/en/domains/air-operations/global-navigation-satellite-system-outages-and-alterations) | Region-specific safety information, symptoms, and mitigations; the affected-region list is updated and date-sensitive. |
-| [ICAO North Atlantic operations guidance](https://www.icao.int/EURNAT/EUR%20and%20NAT%20Documents/NAT%20Documents/NAT%20Documents/NAT%20Doc%20007/NAT%20Doc%20007%2C%20Ed%20V.2025%2C%20Amd%201_eff_20MAR2025.pdf) | Operational guidance on GNSS interference, backup navigation, and aircraft surveillance limitations. |
+| [ICAO North Atlantic operations guidance](https://www.icao.int/sites/default/files/EURNAT/Documents/EUR%20and%20Nat%20Docs/NAT%20Documents/NAT%20Documents/NAT%20Doc%20007/NAT-Doc-007-EN-Edition-V.2026-1-Amd-0.pdf) | Operational guidance on GNSS interference, backup navigation, and aircraft surveillance limitations. |
 
 *These references report patterns and operational effects; they do not identify a responsible actor for every event. Treat attribution as a separately sourced finding.*
 

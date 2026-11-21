@@ -10,6 +10,9 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 
 DIAGRAM_GUIDES = {
+    "assets/diagrams/tor-browser-download-verification.svg": (
+        "Documentation/TOR.md",
+    ),
     "assets/diagrams/secure-pipeline-kafka-offset-commit.svg": (
         "Data-Engineering/data_pipelines.md",
     ),

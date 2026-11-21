@@ -60,7 +60,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 ### 1. INTERNET SCANNING & ATTACK SURFACE
 * [**SHODAN**](https://www.shodan.io/): Obtain information from SHODAN about identified IP addresses. *(Free tier · key)*
 * [**Censys**](https://censys.com/): Obtain host information from Censys.io. *(Free tier · key)*
-* [**BinaryEdge**](https://app.binaryedge.io): Obtain information on breaches, vulnerabilities, torrents and passive DNS. *(Free tier · key)*
+* **BinaryEdge (legacy)**: The old app URL no longer resolves to the service. Check [Coalition’s transition FAQ](https://help.coalitioninc.com/?article=binaryedge-transition-faq-34383910057371) for availability and account changes.
 * [**Onyphe**](https://www.onyphe.io): Check Onyphe data (threat list, geo-location, pastries, vulnerabilities)  about a given IP. *(Free tier · key)*
 * [**LeakIX**](https://leakix.net/): Search LeakIX for host data leaks, open ports, software and geoip. *(Free · key)*
 * [**FullHunt**](https://fullhunt.io/): Identify domain attack surface using FullHunt API. *(Free tier · key)*
