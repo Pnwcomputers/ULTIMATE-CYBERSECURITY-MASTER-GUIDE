@@ -575,7 +575,9 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | Diagram | Embedded guide |
 |---|---|
 | [frameworks evidence reuse](./diagrams/frameworks-evidence-reuse.svg) | [Guide](../Compliance/frameworks.md) |
-| [privacy breach notification decision paths](./diagrams/privacy-breach-notification-decision-path.svg) | [Guide](../Compliance/regulations.md) | Distinct GDPR, HIPAA, and state-law triggers |
+| [privacy breach notification decision paths](./diagrams/privacy-breach-notification-decision-path.svg) | [Guide](../Compliance/regulations.md) |
+
+Distinct GDPR, HIPAA, and state-law triggers.
 
 ## Kubernetes Security Visuals
 
@@ -648,9 +650,11 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | Diagram | Embedded guide |
 |---|---|
 | [agent security evaluation evidence](./diagrams/agent-security-evaluation-evidence.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
-| [agent threat-modeling evaluation loop](./diagrams/agent-threat-modeling-evaluation-loop.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) | Scope, map, test, review and re-scope |
+| [agent threat-modeling evaluation loop](./diagrams/agent-threat-modeling-evaluation-loop.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
 | [agent security trust boundaries](./diagrams/agent-security-trust-boundaries.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
 | [agent security action gate](./diagrams/agent-security-action-gate.svg) | [Guide](../AI/agent-threat-modeling-and-security.md) |
+
+Scope, map, test, review and re-scope.
 
 ## AWS Security Guide Visuals
 
@@ -815,9 +819,11 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | Diagram | Embedded guide |
 |---|---|
 | [container security image runtime host](./diagrams/container-security-image-runtime-host.svg) | [Guide](../ContainerSecurity/containers.md) |
-| [container escape evidence paths](./diagrams/container-escape-evidence-paths.svg) | [Guide](../ContainerSecurity/containers.md) | Distinguish direct authority exposure from software escape paths |
+| [container escape evidence paths](./diagrams/container-escape-evidence-paths.svg) | [Guide](../ContainerSecurity/containers.md) |
 | [container security isolation controls](./diagrams/container-security-isolation-controls.svg) | [Guide](../ContainerSecurity/containers.md) |
 | [container security secrets lifecycle](./diagrams/container-security-secrets-lifecycle.svg) | [Guide](../ContainerSecurity/containers.md) |
+
+Distinguish direct authority exposure from software escape paths.
 
 ## Sub-GHz RF Guide Visuals
 
@@ -955,7 +961,9 @@ Original conceptual decision map separating task intent, network-path choices, o
 | Diagram | Embedded guide |
 |---|---|
 | [Anonymity layering decision map](./diagrams/opsec-anonymity-layering-decisions.svg) | [Anonymity layering for OSINT and authorized engagements](../OPSEC/anonymity-layering.md) |
-| [VPS tunnel health checks](./diagrams/opsec-vps-tunnel-health-checks.svg) | [Anonymity layering for OSINT and authorized engagements](../OPSEC/anonymity-layering.md) | Separate listener, SSH, destination, and bypass checks |
+| [VPS tunnel health checks](./diagrams/opsec-vps-tunnel-health-checks.svg) | [Anonymity layering for OSINT and authorized engagements](../OPSEC/anonymity-layering.md) |
+
+Separate listener, SSH, destination, and bypass checks.
 
 ## Whonix And Kicksecure USB Boundaries Visual
 
