@@ -184,18 +184,35 @@ Primary references: [AWS CloudTrail Event history](https://docs.aws.amazon.com/a
 
 ## 🛠️ Assessment Tooling
 
-| Tool | Scope | Role |
+| Tool | Scope | Role and limits |
 |------|-------|------|
-| [Prowler](https://github.com/prowler-cloud/prowler) | AWS, Azure, GCP, K8s | CIS/best-practice configuration assessment |
-| [ScoutSuite](https://github.com/nccgroup/ScoutSuite) | Multi-cloud | Configuration auditing and reporting |
-| [Pacu](https://github.com/RhinoSecurityLabs/pacu) | AWS | Offensive AWS exploitation framework |
-| [ROADtools](https://github.com/dirkjanm/ROADtools) | Azure/Entra ID | Entra ID enumeration and analysis |
-| [AzureHound](https://github.com/SpecterOps/BloodHound) | Azure/Entra ID | Attack-path mapping (BloodHound collector) |
-| [Trivy](https://github.com/aquasecurity/trivy) | Images/IaC | Vulnerability and misconfiguration scanning |
+| [Prowler](https://github.com/prowler-cloud/prowler) | AWS, Azure, GCP, Kubernetes | Cloud posture checks against configurable security standards; confirm the selected provider, permissions, and check set. |
+| [ScoutSuite](https://github.com/nccgroup/ScoutSuite) | Multi-cloud | Uses provider APIs to collect configuration for a point-in-time report; protect the report as sensitive environment inventory. |
+| [Pacu](https://github.com/RhinoSecurityLabs/pacu) | AWS | Adversary-simulation framework, not a baseline scanner; use only for specifically approved, controlled scenarios. |
+| [ROADtools](https://github.com/dirkjanm/ROADtools) | Microsoft Entra ID | Identity-focused exploration and analysis; confirm tenant, account permissions, and data handling before collection. |
+| [AzureHound](https://github.com/SpecterOps/AzureHound) | Microsoft Azure and Entra ID | BloodHound data collector; collection output can expose sensitive identity and resource relationships. |
+| [Trivy](https://github.com/aquasecurity/trivy) | IaC, filesystems, repositories, and images by scan mode | Finds vulnerabilities, secrets, and selected misconfigurations. A local artifact scan does not establish the deployed cloud configuration. |
 
-Provider-native: **AWS** IAM Access Analyzer / GuardDuty / Security Hub,
-**Azure** Microsoft Defender for Cloud, **GCP** Security Command Center.
+Provider-native options include **AWS** IAM Access Analyzer, GuardDuty, and Security Hub; **Azure** Microsoft Defender for Cloud; and **Google Cloud** Security Command Center. Select services and features for the assessment objective rather than treating any one product as complete coverage.
 
+### Scope collection and protect results
+
+```mermaid
+flowchart LR
+    A[Confirm owner approval<br/>and account, tenant, or project scope] --> B{Choose assessment surface}
+    B -->|Live cloud inventory| C[Use an approved identity<br/>with only required access]
+    B -->|IaC or image artifact| D[Scan the named artifact<br/>and record its revision]
+    C --> E[Collect only required<br/>configuration and relationships]
+    D --> E
+    E --> F[Protect reports as<br/>sensitive environment data]
+    F --> G[Validate findings against<br/>provider controls and source evidence]
+    G --> H[Owner reviews remediation<br/>and authorized retest]
+    H --> I[Apply retention and<br/>delete expired exports]
+```
+
+A live inventory and an offline artifact scan answer different questions: the first observes selected cloud API data at a point in time; the second evaluates the files and scan modes supplied to it. Neither alone proves full coverage. Read-only collection can still generate audit activity, consume API quotas, and produce sensitive reports, so check tool permissions, provider logging, cost, and retention before running it.
+
+Trivy's [misconfiguration scanner documentation](https://trivy.dev/docs/latest/guide/scanner/misconfiguration/) notes that misconfiguration scanning is not enabled by default in image, filesystem, and repository scans. ScoutSuite describes itself as an API-based, point-in-time posture assessment in its [project documentation](https://github.com/nccgroup/ScoutSuite). SpecterOps identifies AzureHound as the [BloodHound data collector for Microsoft Azure](https://github.com/SpecterOps/AzureHound).
 ---
 
 ## 📂 Folder Contents
