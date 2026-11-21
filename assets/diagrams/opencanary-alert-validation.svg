@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 244" role="img" aria-labelledby="title desc">
+  <title id="title">Validate OpenCanary alert delivery</title>
+  <desc id="desc">Send a synthetic connection from an isolated lab peer, verify the decoy's local event, and confirm that a redacted copy reaches the alert destination.</desc>
+  <rect width="940" height="244" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="28" y="46" fill="#fff" font-size="26" font-weight="bold">Validate OpenCanary alert delivery</text>
+    <g fill="#172a40" stroke="#38bdf8" stroke-width="2">
+      <rect x="28" y="72" width="266" height="120" rx="12"/>
+      <rect x="337" y="72" width="266" height="120" rx="12"/>
+      <rect x="646" y="72" width="266" height="120" rx="12"/>
+    </g>
+    <path d="M301 132h29m-8-7 8 7-8 7m280-7h29m-8-7 8 7-8 7" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <g font-size="18" font-weight="bold" fill="#fff">
+      <text x="44" y="109">Isolated test peer</text>
+      <text x="353" y="109">Decoy local log</text>
+      <text x="662" y="109">Collector and alert</text>
+    </g>
+    <g font-size="15" fill="#d7e6f4">
+      <text x="44" y="142">Send a synthetic connection</text>
+      <text x="44" y="166">Record time, address and port</text>
+      <text x="353" y="142">Match source and event type</text>
+      <text x="353" y="166">Keep raw payloads restricted</text>
+      <text x="662" y="142">Confirm the redacted record</text>
+      <text x="662" y="166">Check downstream alert delivery</text>
+    </g>
+    <text x="28" y="225" font-size="16" fill="#fff">If a stage is missing, investigate the first boundary without matching evidence.</text>
+  </g>
+</svg>

@@ -19,7 +19,7 @@
 **SIEM/DIY extension:** [Native OpenCanary JSON → Wazuh](./wazuh-honeypot-integration.md), [Raspberry Pi Lab](./raspberry-pi-honeypot-lab.md) and [Proxmox isolation](./proxmox-vm-honeynet.md). A decoy can also be contacted by legitimate inventory, monitoring or authorized scans; verify context before assigning intent.
 
 ## 🎯 Purpose
-Guide for deploying [OpenCanary](https://github.com/thinkst/opencanary), a lightweight open-source honeypot, as an early-warning deception layer that emulates real services (SSH, FTP, HTTP, Telnet, MySQL, SMB) and alerts the moment anyone touches them — because nothing legitimate should ever talk to a honeypot.
+Guide for deploying [OpenCanary](https://github.com/thinkst/opencanary), a lightweight open-source honeypot, as an early-warning deception layer. Its enabled modules record specific interactions with decoy services such as SSH, FTP, and HTTP.
 
 ## ⚙️ Function
 Covers why OpenCanary was the tool that actually worked after two other honeypots failed, install and dependency troubleshooting, multi-service configuration, safely running a honeypot on a common port without losing real SSH access, email alerting, and log analysis.
@@ -56,7 +56,10 @@ Get a low-resource honeypot running and logging real attacker interaction — re
 
 ## 🎯 What a Honeypot Actually Buys You
 
-A honeypot isn't a detector for *your* network's real traffic — it's a decoy with no legitimate reason to ever be touched. Any connection attempt against it is, by definition, either a misconfiguration or an attacker/scanner. That makes its signal-to-noise ratio far better than almost any other detection source: a honeypot alert doesn't need tuning the way a Suricata ruleset or a wireless IDS alert does, because there's no legitimate baseline traffic to distinguish it from.
+A decoy can make unexpected service contacts easier to spot. Inventory, monitoring, authorized
+testing and configuration errors can also generate events. Establish which sources are expected,
+review policy and timing, and correlate an unexpected event with other evidence before assigning
+intent. Module settings, network reachability and log delivery affect what the decoy can observe.
 
 This makes it a strong **complement** to (not a replacement for) the detection layers covered elsewhere in this repo — see the [IDS/IPS guides](../IDS%26IPS/readme.md) for signature/protocol-based detection on real production traffic.
 
@@ -280,23 +283,23 @@ sudo systemctl enable opencanary
 
 ### Validate from a separate machine
 
-**Never test from the honeypot host itself** — connect from a different device on the network:
+![OpenCanary alert validation follows a synthetic connection from an isolated test peer through the decoy log to a redacted collector alert](../../assets/diagrams/opencanary-alert-validation.svg)
 
-```bash
-ssh root@<honeypot-ip>
-```
-
-Any credentials, real or fake — you're not trying to log in, you're trying to generate a logged hit. Confirm it landed:
-
-```bash
-tail -f /var/tmp/opencanary.log
-```
+1. From a separate authorized peer on the isolated lab network, open one connection to the enabled
+   decoy listener. Record the UTC time, source address and destination port. A local host test can
+   confirm the listener separately from the network path.
+2. Match the recorded attributes in the local log using the metadata filter below. When testing
+   an authentication event, use a disposable username and dummy secret. OpenCanary's SSH module
+   can record supplied passwords in the event payload. [Upstream SSH module](https://github.com/thinkst/opencanary/blob/master/opencanary/modules/ssh.py)
+3. If forwarding is enabled, confirm the corresponding redacted event reaches the collector and
+   produces the expected alert. A local event confirms collection at the decoy. Delivery requires
+   evidence at the destination.
 
 ---
 
 ## 📧 Email Alerting
 
-OpenCanary can email on every hit via its config's `handlers` block:
+OpenCanary can route events through an SMTP handler. Before using it, verify the formatter and recipients. For production notifications, forward redacted event metadata through an approved collector and keep raw authentication payloads restricted.
 
 ```json
 "handlers": {
@@ -318,25 +321,27 @@ OpenCanary can email on every hit via its config's `handlers` block:
 
 ## 🔍 Log Analysis
 
-OpenCanary logs structured JSON — one event per line:
+The file-handler configuration above writes JSON events. OpenCanary uses numeric `logtype` values.
+Its current source defines `4000` for a new SSH connection, `4002` for an SSH login attempt, and
+`2000` for an FTP login attempt. Confirm the mapping for your installed release. The following
+reader prints selected metadata fields for those events and skips malformed or unrelated records.
+[OpenCanary logger constants](https://github.com/thinkst/opencanary/blob/master/opencanary/logger.py)
 
 ```bash
-# Live tail
-tail -f /var/tmp/opencanary.log
+python3 - /var/tmp/opencanary.log <<'PY'
+import json
+import sys
 
-# Recent activity
-tail -100 /var/tmp/opencanary.log
-
-# Total events
-wc -l /var/tmp/opencanary.log
-
-# Filter by attack type
-grep "ssh.login_attempt" /var/tmp/opencanary.log
-grep "ftp.login_attempt" /var/tmp/opencanary.log
-grep "portscan" /var/tmp/opencanary.log
-
-# Unique attacker source IPs, ranked by frequency
-grep "src_host" /var/tmp/opencanary.log | grep -oP '"src_host": "\K[^"]+' | sort | uniq -c | sort -rn
+fields = ("utc_time", "node_id", "src_host", "dst_host", "dst_port", "logtype")
+with open(sys.argv[1], encoding="utf-8") as events:
+    for line in events:
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(event, dict) and event.get("logtype") in (4000, 4002, 2000):
+            print(json.dumps({name: event.get(name) for name in fields}))
+PY
 ```
 
 For centralizing these logs into a SIEM alongside your other detection sources, see **[IncidentResponse/log_agg.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/log_agg.md)** and **[IncidentResponse/SIEM/README.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/SIEM/README.md)**.
