@@ -937,7 +937,7 @@ Unit:            NanoVNA-H (3.7)  /  NanoVNA-H4
 Firmware:
 Cal slot used:           Span:              MHz –           MHz
 Points:                  Cal plane location:
-Load verification:              dB   (target: better than −35 dB)
+Check device / expected response / tolerance / actual result:
 
 ### Results
 Target frequency:                MHz
