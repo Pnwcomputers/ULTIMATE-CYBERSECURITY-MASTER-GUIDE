@@ -50,7 +50,7 @@ assert a != b
 
 | Resource | What It Covers | Caveat |
 |---|---|---|
-| [RainbowCrack Project](http://project-rainbowcrack.com/) | Historical rainbow-chain approach | Legacy software/docs; independently verify availability |
+| RainbowCrack | Historical rainbow-chain implementation | Reference by name for research history. Current downloads and maintenance status are unverified. |
 | [rainbowcrackalack](https://github.com/jtesta/rainbowcrackalack) | Time–memory tradeoff research | Specialist and historically targeted formats |
 | [Hashcat](./hashcat-guide.md) | Modern offline candidate evaluation | Not a rainbow table implementation |
 | [John the Ripper](https://github.com/openwall/john) | Alternative offline auditing | Not a substitute for salts or a proper KDF |

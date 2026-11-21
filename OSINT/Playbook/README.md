@@ -55,7 +55,7 @@ The optional `install_dependencies.sh` supports additional programs. **Do not ru
 
 ## IP Lookup: Important Security & Accuracy Change
 
-The main IP module previously queried `http://ip-api.com/json/`, a plaintext external service whose [published terms](https://ip-api.com/docs/legal) prohibit commercial use of the free endpoint. This has been removed from the main script's default path.
+The [legacy ip-api adapter](scripts/scammer_audit.sh) is an inert compatibility stub. It skips the request and leaves proxy and hosting results unknown. Use an approved, licensed HTTPS provider if those fields are needed.
 
 The updated workflow requests `https://rdap.org/ip/<IP-address>` with HTTPS-only redirects; the service routes the request to the appropriate registry. This yields **registered network allocations**, not physical position, an individual's identity, or live network reachability. The lookup still discloses the IP being researched to the bootstrap/registry provider; consent and minimization still apply. See [RDAP.org](https://about.rdap.org/) and the [ARIN RDAP guide](https://www.arin.net/resources/rdap.html).
 
