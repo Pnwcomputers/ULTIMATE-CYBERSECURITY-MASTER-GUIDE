@@ -203,7 +203,9 @@ cowrie stop
 ### Test from a separate machine
 
 ```bash
-ssh -p 2222 root@<honeypot-ip>
+# Set this to the approved local decoy test account and address.
+decoy='test-user@192.0.2.10'
+ssh -p 2222 "$decoy"
 ```
 
 Check `etc/userdb.txt` if authentication unexpectedly succeeds or fails — rules are processed top-to-bottom, first match wins.
@@ -212,13 +214,9 @@ Check `etc/userdb.txt` if authentication unexpectedly succeeds or fails — rule
 
 ## 🔍 Log & Session Analysis
 
-All activity — login attempts and full shell commands — lands in `./var/log/cowrie/cowrie.log`. Downloaded/uploaded files are preserved under `var/lib/cowrie/downloads/` for later inspection (consider running suspicious samples through the malware-handling guidance in this repo's [Incident Response](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/README.md) section rather than opening them directly).
+With the JSON output enabled, use `var/log/cowrie/cowrie.json` for structured events and `var/log/cowrie/cowrie.log` for diagnostic output. If file capture is enabled, treat saved files under `var/lib/cowrie/downloads/` as untrusted evidence and follow the [incident response guidance](../README.md).
 
-**Session replay**, one of Cowrie's standout features — recorded sessions play back with original timing:
-
-```bash
-bin/playlog var/lib/cowrie/tty/<session-id>
-```
+**Session replay.** Use the `ttylog` path recorded for the approved session, as described by the [Cowrie event reference](https://docs.cowrie.org/en/stable/OUTPUT.html#cowrie-log-closed). For a pip installation, use the `playlog` utility from the Cowrie environment. Review recordings in the isolated analysis environment.
 
 For forwarding Cowrie's output elsewhere, the project ships ready-made integration guides (ELK, Graylog, Datadog, Splunk, Prometheus, Azure Sentinel, and SQL) — see [Resources](#-resources).
 

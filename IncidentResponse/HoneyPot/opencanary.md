@@ -157,7 +157,9 @@ sudo systemctl restart sshd
 Confirm you can still reach the real SSH service on the new port **before** proceeding — getting locked out of a headless Pi over this is an easy, avoidable mistake:
 
 ```bash
-ssh -p 2222 user@<pi-ip>
+# Set this to your Pi's approved management account and address.
+pi_admin='user@192.0.2.10'
+ssh -p 2222 "$pi_admin"
 ```
 
 Only once that's confirmed working should OpenCanary be configured to bind port 22.

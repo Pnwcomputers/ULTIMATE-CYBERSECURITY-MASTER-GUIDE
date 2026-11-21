@@ -245,9 +245,7 @@ sudo ./avml memory.lime
 ### Command Syntax
 
 ```bash
-# Standard syntax
-vol -f <MEMORY_DUMP> <PLUGIN> [OPTIONS]  # installed in venv; from source use python3 vol.py
-
+# Example using the source checkout and a verified working copy
 # With output file
 python3 vol.py -f memory.dmp windows.pslist > processes.txt
 
@@ -450,9 +448,10 @@ python3 vol.py -f memory.dmp windows.netstat
 # Find process with suspicious connection
 python3 vol.py -f memory.dmp windows.netscan | grep "192.168.1.100"
 
-# Get full details on that process
-python3 vol.py -f memory.dmp windows.pslist --pid <PID>
-python3 vol.py -f memory.dmp windows.cmdline --pid <PID>
+# Replace the example PID with the one identified in this memory image.
+selected_pid=1234
+python3 vol.py -f memory.dmp windows.pslist --pid "$selected_pid"
+python3 vol.py -f memory.dmp windows.cmdline --pid "$selected_pid"
 ```
 
 ---
@@ -1058,8 +1057,8 @@ python3 vol.py -f memory.dmp windows.pslist --pid 1234
 # List available plugins
 python3 vol.py --help
 
-# Check plugin path
-python3 vol.py --plugin-dirs /path/to/plugins -f memory.dmp <plugin>
+# Inspect help for a built-in plugin without running it.
+python3 vol.py windows.pslist --help
 ```
 
 ---

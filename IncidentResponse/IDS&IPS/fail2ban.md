@@ -209,7 +209,10 @@ sudo iptables -L f2b-sshd -n --line-numbers
 **Manually unban an IP** (e.g. you locked out something legitimate, or a test ban you triggered on purpose):
 
 ```bash
-sudo fail2ban-client set sshd unbanip <ip-address>
+# Replace the example with the reviewed address in the sshd jail.
+approved_ip='192.0.2.10'
+sudo fail2ban-client status sshd
+sudo fail2ban-client set sshd unbanip "$approved_ip"
 ```
 
 **Dump the fully-resolved effective config** — invaluable when a jail isn't behaving as expected, since it shows the merged result of `jail.conf` → `jail.local` → `jail.d/*.conf`:

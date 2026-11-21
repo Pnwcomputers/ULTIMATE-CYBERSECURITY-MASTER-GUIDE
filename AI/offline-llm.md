@@ -146,13 +146,13 @@ The download may take 10-30 minutes depending on your internet speed and model s
 Once downloaded, test the model directly from the command line:
 
 ```bash
-# Start an interactive session
 ollama run dolphin-mistral
+```
 
-# Try a test prompt
+At the Ollama prompt, enter a test message. Enter `/bye` to exit. For example:
+
+```text
 >>> Hello! Can you introduce yourself?
-
-# Exit with /bye
 >>> /bye
 ```
 

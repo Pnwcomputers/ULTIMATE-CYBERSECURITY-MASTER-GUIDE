@@ -524,16 +524,8 @@ configuration review
 ## OSCP Preparation
 
 ### Exam Overview
-- **Duration**: 23 hours 45 minutes
-- **Format**: 5 machines to compromise
-- **Passing**: 70 points minimum
-- **Report**: 24 hours after exam ends
 
-### Point Distribution
-- **10 points**: Buffer overflow machine
-- **25 points**: Two machines (usually)
-- **20 points**: Two machines (usually)
-- **Total**: 100 points possible
+OffSec's [OSCP+ exam guide](https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide) describes a proctored exam with three standalone machines and an Active Directory set. It allows 23 hours and 45 minutes for the exam and a separate 24-hour report submission window. OffSec announces scaled scoring for exams starting on or after December 1, 2026 at 08:00 GMT. Check the official guide for the requirements that apply to your exam date.
 
 ### Key Skills Required
 
@@ -545,20 +537,13 @@ configuration review
 
 #### Exploitation
 - Web application vulnerabilities
-- Buffer overflow (mandatory 25 points)
+- Memory safety concepts
 - Privilege escalation (Windows & Linux)
 - Password attacks
 
 #### Buffer Overflow
-```python
-# Basic structure
-1. Fuzzing - crash the application
-2. Control EIP - find offset
-3. Bad characters - identify
-4. Find JMP ESP - use mona.py
-5. Generate shellcode - msfvenom
-6. Exploit - execute payload
-```
+
+Review how out-of-bounds writes can corrupt process memory. For defensive validation, trace crash evidence to the vulnerable code, verify bounds checks with safe regression tests, and confirm that the patched build rejects oversized input.
 
 #### Privilege Escalation
 ```bash
@@ -593,7 +578,7 @@ configuration review
 1. **Read Carefully**: Follow all exam restrictions
 2. **Document Everything**: Screenshots, commands, timestamps
 3. **Time Management**: Don't get stuck on one machine
-4. **Buffer Overflow First**: Easy 25 points
+4. **Prioritize by the exam control panel**: Use the stated objectives and your time budget.
 5. **Try Harder**: Enumerate more when stuck
 6. **Take Breaks**: Stay fresh and focused
 7. **Report Quality**: Clear, professional documentation
@@ -611,7 +596,6 @@ configuration review
 - **Poor documentation**: Screenshot everything
 - **Time mismanagement**: Budget time wisely
 - **Not reading restrictions**: Follow all rules
-- **Skipping buffer overflow**: Free 25 points
 
 ---
 
