@@ -61,7 +61,9 @@ sudo pacman -Syu
 
 ## 2. Identify and Bring Up Network Adapters
 
-```bash
+Reference blocks with angle-bracket fields document command forms. Replace the fields with locally verified values and confirm your distribution uses the named tools.
+
+```text
 # List all interfaces
 ip link show
 
@@ -189,7 +191,7 @@ sudo pacman -S blackarch-misc            # Miscellaneous tools
 
 ### Install a Specific Tool
 
-```bash
+```text
 sudo pacman -S <toolname>
 
 # Examples
@@ -204,7 +206,7 @@ sudo pacman -S nmap
 
 ## 9. Search for Tools
 
-```bash
+```text
 # Search in BlackArch repo by name
 pacman -Ss <keyword>
 
@@ -276,7 +278,7 @@ cd paru && makepkg -si
 
 Build packages manually from AUR or custom PKGBUILDs.
 
-```bash
+```text
 # Clone an AUR package and build it
 git clone https://aur.archlinux.org/<pkg>.git
 cd <pkg>
@@ -349,7 +351,7 @@ sudo systemctl enable --now paccache.timer
 
 ## 14. Kernel and Module Management
 
-```bash
+```text
 # List installed kernels
 pacman -Q | grep linux
 

@@ -166,7 +166,9 @@ Part of the **ULTIMATE CYBERSECURITY MASTER GUIDE**
 
 ### Port Scanning Quick Reference
 
-~~~bash
+The entries below are reference forms. Use the [scoped inventory guide](nmap-guide.md) to choose checks for assets you administer.
+
+~~~text
 # Top 1000 ports (default)
 nmap <target>
 

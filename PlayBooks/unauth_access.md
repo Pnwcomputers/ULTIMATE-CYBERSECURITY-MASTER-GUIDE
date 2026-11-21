@@ -607,14 +607,16 @@ Revoke-MgUserSignInSession -UserId jsmith@company.com
 Revoke-MgUserSignInSession -UserId jsmith@company.com
 ```
 
-**On-Premises:**
+**On-premises.** Confirm the server and account before using the [session logoff command](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/logoff). Signing out can discard unsaved work.
 
 ```powershell
 # Check for active sessions
 query user /server:SERVER01
 
 # Log off user
-logoff <session_id> /server:SERVER01
+# Substitute the confirmed affected session ID returned by query user.
+$affectedSessionId = 12
+logoff.exe $affectedSessionId /server:SERVER01
 
 # `0x3e7` is the Local System logon session, not the affected user's ticket cache. Do not use it as user-session cleanup. Follow the endpoint-specific procedure in the affected user's session and verify the target logon session before purging tickets.
 ```

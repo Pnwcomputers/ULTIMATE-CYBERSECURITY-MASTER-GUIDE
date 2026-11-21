@@ -46,7 +46,9 @@ Use this workflow only on hardware you own or are explicitly authorized to asses
 ### 3. Observe
 * Open a serial terminal with the documented baud rate and framing settings; do not assume one baud rate works for all targets:
    ```bash
-   screen /dev/ttyUSB0 <baud-rate>
+   serial_device='/dev/ttyUSB0'  # Replace with the identified local serial device.
+   baud_rate=115200              # Example only. Use the documented board baud rate.
+   screen "$serial_device" "$baud_rate"
    ```
 * Power on the authorized test device and record the output and settings. A boot log may appear; no output can also result from incorrect pins, voltage, baud, or an inactive UART.
 * Do not attempt to bypass login controls. A prompt, if present, does not by itself establish authorization or privilege.

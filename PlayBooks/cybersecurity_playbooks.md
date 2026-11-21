@@ -68,7 +68,7 @@ Give a security operations team a single field guide covering the most common da
 ```
 
 #### Phase 3: Investigation (1-4 hours)
-```bash
+```text
 # Email investigation
 □ Check email rules and filters
 □ Review sent items and deleted items
@@ -197,7 +197,7 @@ Get-Content "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_hi
 ```
 
 #### Phase 3: Assessment (30 minutes - 2 hours)
-```bash
+```text
 # Identify scope
 □ Number of affected systems
 □ Types of files encrypted
@@ -350,7 +350,7 @@ testdisk /dev/sda
 ```
 
 #### Phase 3: Investigation (4-48 hours)
-```bash
+```text
 # Data analysis
 □ What data was accessed?
 □ How was data exfiltrated?
@@ -686,25 +686,7 @@ nmap -sV -sC -p $(cat ports.txt) target -oA detailed
 ```
 
 ### Phase 3: Web Application Assessment (4-8 hours)
-```bash
-# Technology identification
-whatweb -a 3 https://target.com
-wappalyzer (browser extension)
-
-# Directory enumeration
-gobuster dir -u https://target.com -w /usr/share/wordlists/dirb/big.txt -x php,html,txt,pdf
-
-# Vulnerability scanning
-nikto -h https://target.com
-nuclei -u https://target.com -severity critical,high
-
-# SSL/TLS assessment
-sslyze --regular target.com
-testssl.sh https://target.com
-
-# Header analysis
-curl -I https://target.com
-```
+Use the [web assessment guide](../WebAppSecurity/methodology.md) to document permitted endpoints, technology evidence and known uncertainties before validation.
 
 ### Phase 4: Email Security Assessment (1-2 hours)
 ```bash
@@ -813,25 +795,7 @@ hydra -l admin -P passwords.txt https://target.com http-post-form "/login:userna
 ```
 
 ### Phase 3: Authorization Testing
-```bash
-# Test for:
-□ Horizontal privilege escalation
-□ Vertical privilege escalation
-□ Insecure Direct Object Reference (IDOR)
-□ Missing function level access control
-
-# IDOR testing
-# Try accessing other users' resources
-/user/profile?id=123
-/user/profile?id=124
-/api/user/123/details
-/api/user/124/details
-
-# Privilege escalation
-# Access admin functions as regular user
-/admin/users
-/api/admin/settings
-```
+Use synthetic identities and known test objects. Record the expected access decision, observed response and whether application state changed. Follow the [authorization test plan](../WebAppSecurity/methodology.md).
 
 ### Phase 4: Input Validation Testing
 
@@ -874,20 +838,7 @@ admin'--
 ```
 
 #### Command Injection
-```bash
-# Test inputs
-; ls -la
-| whoami
-& ping -c 4 attacker.com
-`cat /etc/passwd`
-$(whoami)
-
-# Common injection points
-- File upload paths
-- System command inputs
-- Ping/traceroute utilities
-- Image processing
-```
+Review how input reaches an interpreter, verify parameterization or fixed argument construction and confirm that rejected inputs leave application state unchanged. See the [OWASP control guide](../WebAppSecurity/owasp-top-10.md).
 
 #### File Upload Vulnerabilities
 ```
@@ -1090,7 +1041,7 @@ mimikatz # kerberos::golden /user:Administrator /domain:domain.com /sid:S-1-5-21
 ### Detection Use Cases
 
 #### Port Scanning Detection
-```bash
+```text
 # Snort rule
 alert tcp any any -> $HOME_NET any (msg:"Possible Port Scan"; flags:S; threshold: type threshold, track by_src, count 20, seconds 60; sid:1000001;)
 
@@ -1113,7 +1064,7 @@ ufw deny from attacker_ip
 ```
 
 #### Data Exfiltration Detection
-```bash
+```text
 # Large outbound transfers
 tcpdump -nn -r pcap_file 'greater 10000' and dst net not 10.0.0.0/8
 netstat -ant | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -nr
@@ -1130,7 +1081,7 @@ tshark -r capture.pcap -Y "dns" -T fields -e dns.qry.name | sort | uniq -c | sor
 ```
 
 #### Malware C2 Detection
-```bash
+```text
 # Indicators
 - Beaconing (regular intervals)
 - Connections to known bad IPs
@@ -1197,7 +1148,7 @@ http.request.method == "POST" || ftp-data
 ## PLAYBOOK 9: Malware Triage & Analysis
 
 ### Phase 1: Isolation & Collection
-```bash
+```text
 □ Isolate infected system
 □ Document system state
 □ Collect sample safely
@@ -1391,16 +1342,11 @@ Get-ScheduledTask | Where-Object {$_.Principal.UserId -ne "SYSTEM"}
 
 #### Services
 ```powershell
-# List services
-sc query state= all
-Get-Service
-
-# Check service binaries
-wmic service get name,displayname,pathname,startmode
-
-# Find unquoted service paths
-wmic service get name,displayname,pathname,startmode | findstr /i /v "c:\windows\\" | findstr /i /v """
+Get-CimInstance -ClassName Win32_Service |
+    Select-Object Name, DisplayName, StartMode, State, PathName
 ```
+
+Review service paths with the installed binaries and the actual file and directory ACLs. An unexpected path is a lead that requires corroboration.
 
 #### WMI Event Subscriptions
 ```powershell

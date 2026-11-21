@@ -988,28 +988,14 @@ DeviceEvents
 
 ### Windows Firewall Logging
 
-Windows Firewall can log all allowed/blocked connections natively - lightweight and always available.
+Windows Firewall can record allowed connections and dropped packets for profiles with logging enabled. Check the active profile, log location, rotation and configured connection categories first.
 
 ```powershell
-# Enable firewall logging for both profiles
-netsh advfirewall set currentprofile logging filename "C:\Windows\System32\LogFiles\Firewall\pfirewall.log"
-netsh advfirewall set currentprofile logging maxfilesize 32768
-netsh advfirewall set currentprofile logging droppedconnections enable
-netsh advfirewall set currentprofile logging allowedconnections enable
-
-# View the log (tab-delimited)
-Get-Content "C:\Windows\System32\LogFiles\Firewall\pfirewall.log" |
-    Select-Object -Skip 3 |
-    ConvertFrom-Csv -Delimiter ' ' -Header date,time,action,protocol,src-ip,dst-ip,src-port,dst-port,size,tcpflags,tcpsyn,tcpack,tcpwin,icmptype,icmpcode,info,path |
-    Where-Object { $_.action -eq "ALLOW" -and $_.dst-port -notin @("80","443","53") } |
-    Select-Object time,protocol,'src-ip','dst-ip','src-port','dst-port' |
-    Format-Table -AutoSize
-
-# Firewall log fields:
-# date time action protocol src-ip dst-ip src-port dst-port size ...
-# ALLOW = connection permitted
-# DROP  = connection blocked
+Get-NetFirewallProfile |
+    Select-Object Name, LogAllowed, LogBlocked, LogFileName, LogMaxSizeKilobytes
 ```
+
+Use the log's `#Fields:` header to interpret the actual record layout. Compare connection direction, process context, host role and timeline before treating an allowed or dropped entry as suspicious. See [Microsoft's firewall logging guidance](https://learn.microsoft.com/en-us/windows/security/threat-protection/windows-firewall/configure-the-windows-firewall-log).
 
 ### NetworkMiner (Windows/Linux) - PCAP File Analysis
 
