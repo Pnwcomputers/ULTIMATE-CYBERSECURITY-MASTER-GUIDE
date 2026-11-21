@@ -55,7 +55,7 @@ These commands operate on the installed modern utilities, **not** BlueMaho. An a
 
 | Need | Prefer |
 |---|---|
-| Owned-device management | [BlueZ](http://www.bluez.org/) |
+| Owned-device management | [BlueZ](https://github.com/bluez/bluez) |
 | BLE advertisement & connection debugging | [Nordic nRF Sniffer](https://www.nordicsemi.com/Products/Development-tools/nRF-Sniffer-for-Bluetooth-LE) |
 | Bluetooth packet analysis | [Wireshark](https://www.wireshark.org/) with correctly identified capture source |
 | Bluetooth security architecture | [Bluetooth SIG security](https://www.bluetooth.com/learn-about-bluetooth/key-attributes/bluetooth-security/) |

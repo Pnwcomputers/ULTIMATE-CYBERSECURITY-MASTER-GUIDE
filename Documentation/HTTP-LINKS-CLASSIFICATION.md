@@ -13,11 +13,11 @@ The [Link Check workflow](../.github/workflows/link-check.yml) verifies relative
 | Container-internal HTTP | `http://opensearch:9200`, `http://mongodb:27017` | Potentially appropriate inside a segmented container network; not suitable as an internet URL |
 | IMDS link-local HTTP | `http://169.254.169.254/latest` | AWS instance metadata endpoints are special host-local services; use IMDSv2 token flow and host controls; do not “fix” by changing scheme blindly |
 | Test/attack demonstration | `http://target.com`, `http://attacker/...` | Synthetic targets and offensive examples are not a recommendation to use plaintext on actual networks |
-| Signature-test endpoint | `http://testmynids.org/uid/index.html` | Deliberate HTTP signature payload from a vendor-documented IDS lab; no credentials/customer data, only in an authorized isolated test; see [Security Onion documentation](https://docs.securityonion.net/en/3/main/suricata/) |
+| Historical signature-test endpoint | `testmynids.org` | The current [Suricata verification procedure](../IncidentResponse/IDS%26IPS/suricata+zeek.md#-validation--testing) uses an approved local capture and matching benign controls. |
 | Tor onion service | `http://example.onion` (illustrative only) | Tor-specific destination; must be reviewed for authenticity, v3 address and the site's trust boundary; plain HTTP string alone does not establish public-cleartext routing |
 | External vendor reference | Public `http://` documentation or downloads | Verify canonical HTTPS replacement **and content** from the official publisher; log redirect/status, maintenance date, license and required version |
-| Historic/invalid endpoint | Previously referenced `http://timetravel.mementoweb.org/` | Replaced in [historical OSINT workflow](../Tradecraft/osint-threat-intel.md) with Internet Archive's HTTPS CDX endpoint; document API rate limits and missing capture ambiguity |
-| Commercial/unlicensed HTTP API | Previously referenced `http://ip-api.com/json/` | Removed from the remaining [OSINT investigation guide](../OSINT/Playbook/investigation_guide.md); use TLS-only RDAP for allocation metadata, not physical geolocation |
+| Historic/invalid endpoint | Previously referenced `timetravel.mementoweb.org` | Replaced in [historical OSINT workflow](../Tradecraft/osint-threat-intel.md) with Internet Archive's HTTPS CDX endpoint; document API rate limits and missing capture ambiguity |
+| Commercial/unlicensed HTTP API | Previously referenced the ip-api free HTTP endpoint | Removed from the remaining [OSINT investigation guide](../OSINT/Playbook/investigation_guide.md); use TLS-only RDAP for allocation metadata, not physical geolocation |
 
 ## Review A Public Link Completely
 

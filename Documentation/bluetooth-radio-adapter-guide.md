@@ -62,7 +62,7 @@ Ubertooth One was [retired from Great Scott Gadgets' hardware catalog in Decembe
 
 | Software | Interface | Use & Boundary |
 |---|---|---|
-| [BlueZ `bluetoothctl`](http://www.bluez.org/) | Regular HCI adapter | Discover and manage your **own** devices; policy controls |
+| [BlueZ `bluetoothctl`](https://github.com/bluez/bluez) | Regular HCI adapter | Discover and manage your **own** devices; policy controls |
 | [BlueZ `btmon`](https://manpages.debian.org/unstable/bluez/btmon.1.en.html) | Host HCI and selected controller metadata | HCI traffic from local controller; **not** universal RF sniffing |
 | [Wireshark](https://www.wireshark.org/) | HCI monitor, Nordic/TI/Ubertooth captures | Protocol dissection; depends on source |
 | [nRF Sniffer for Bluetooth LE](https://www.nordicsemi.com/Products/Development-tools/nRF-Sniffer-for-Bluetooth-LE) | Supported Nordic boards | Receive-only BLE packet analysis; may miss hopping frames |
@@ -141,7 +141,7 @@ Record adapter, USB VID/PID, board revision, antenna, firmware SHA/version, host
 
 - [Ubertooth One product](https://greatscottgadgets.com/ubertoothone/) & [Ubertooth retirement](https://greatscottgadgets.com/2022/12-22-ubertooth-retirement/)
 - [Nordic nRF Sniffer](https://www.nordicsemi.com/Products/Development-tools/nRF-Sniffer-for-Bluetooth-LE), [TI SmartRF Packet Sniffer](https://www.ti.com/tool/PACKET-SNIFFER), [TI Packet Sniffer 2](https://software-dl.ti.com/lprf/packet_sniffer_2/docs/user_guide/html/introduction.html)
-- [YARD Stick One](https://greatscottgadgets.com/yardstickone/), [BlueZ](http://www.bluez.org/)
+- [YARD Stick One](https://greatscottgadgets.com/yardstickone/), [BlueZ](https://github.com/bluez/bluez)
 - [Wi-Fi Adapter Guide](./wifi-adapter-selection-guide.md) | [Kismet](../Wardriving/kismet.md) | [Wireless Surveying](../Wardriving/README.md)
 - [Spooftooph](./spooftooph-guide.md) | [BlueMaho](./bluemaho-guide.md)
 

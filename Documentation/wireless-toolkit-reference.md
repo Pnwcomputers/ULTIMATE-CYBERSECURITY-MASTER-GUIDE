@@ -54,7 +54,7 @@ _Reference research: 2026-11-21. This is an index and tool-selection guide. Exis
 
 | Tool | Official Source | Role & Limits |
 |---|---|---|
-| BlueZ | [Project](http://www.bluez.org/) | Host stack, `bluetoothctl`, `btmon`; not unrestricted over-air snooping |
+| BlueZ | [Project](https://github.com/bluez/bluez) | Host stack, `bluetoothctl`, `btmon`; not unrestricted over-air snooping |
 | Wireshark | [Project](https://www.wireshark.org/) | HCI and sniffer-capture decode |
 | Nordic nRF Sniffer | [Product](https://www.nordicsemi.com/Products/Development-tools/nRF-Sniffer-for-Bluetooth-LE) | BLE over-air capture with compatible nRF development hardware |
 | Ubertooth | [Project](https://github.com/greatscottgadgets/ubertooth) | Retired research hardware; Classic limitations |

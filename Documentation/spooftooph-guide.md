@@ -68,7 +68,7 @@ Some controllers support name changes but not address changes. Newer Bluetooth i
 - [Bluetooth/BLE & Radio Adapter Comparison](./bluetooth-radio-adapter-guide.md)
 - [BlueMaho Historical Toolkit](./bluemaho-guide.md)
 - [Kali Spooftooph Tool Reference](https://www.kali.org/tools/spooftooph/)
-- [BlueZ](http://www.bluez.org/) and [Linux Bluetooth Security](https://www.bluetooth.com/learn-about-bluetooth/key-attributes/bluetooth-security/)
+- [BlueZ](https://github.com/bluez/bluez) and [Linux Bluetooth Security](https://www.bluetooth.com/learn-about-bluetooth/key-attributes/bluetooth-security/)
 
 ---
 
