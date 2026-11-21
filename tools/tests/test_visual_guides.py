@@ -147,6 +147,8 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/rag-ingestion-retrieval-permission-boundaries.svg": (
         "AI/rag-and-knowledge-engineering.md",
     ),
+    "assets/diagrams/ai-telemetry-audit-retention-paths.svg": ("AI/ai-observability-and-auditing.md",),
+    "assets/diagrams/anythingllm-flow-readiness.svg": ("AI/AnythingLLM/README.md",),
     "assets/diagrams/ai-structured-output-authorized-action-gates.svg": (
         "AI/structured-outputs-and-data-contracts.md",
     ),
