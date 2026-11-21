@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1130 384" role="img" aria-labelledby="title desc">
+  <title id="title">Use CSF 2.0 Profiles to prioritize improvements</title>
+  <desc id="desc">Set a consistent scope. Document current CSF outcomes and select target outcomes for that scope. Compare the profiles, prioritize gaps, assign work, and update the current profile after review. Tiers can describe the rigor of risk governance and management.</desc>
+  <rect width="1130" height="384" rx="18" fill="#0c1526"/>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#f0f9ff">
+    <text x="28" y="47" font-size="28" font-weight="700">Use CSF 2.0 Profiles to prioritize improvements</text>
+    <rect x="28" y="136" width="224" height="100" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="43" y="166" font-size="18" font-weight="700">Scope the profile</text>
+    <text x="43" y="193" font-size="16" fill="#e1edf8">Set boundaries, context</text>
+    <text x="43" y="215" font-size="16" fill="#e1edf8">and risk priorities</text>
+    <rect x="303" y="73" width="206" height="99" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="318" y="103" font-size="18" font-weight="700">Current Profile</text>
+    <text x="318" y="130" font-size="16" fill="#e1edf8">Record outcomes and</text>
+    <text x="318" y="152" font-size="16" fill="#e1edf8">how far they are met</text>
+    <rect x="303" y="200" width="206" height="99" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="318" y="230" font-size="18" font-weight="700">Target Profile</text>
+    <text x="318" y="257" font-size="16" fill="#e1edf8">Select and prioritize</text>
+    <text x="318" y="279" font-size="16" fill="#e1edf8">desired outcomes</text>
+    <rect x="573" y="136" width="217" height="100" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="588" y="166" font-size="18" font-weight="700">Compare outcomes</text>
+    <text x="588" y="193" font-size="16" fill="#e1edf8">Identify gaps within</text>
+    <text x="588" y="215" font-size="16" fill="#e1edf8">the same scope</text>
+    <rect x="845" y="136" width="257" height="100" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="860" y="166" font-size="18" font-weight="700">Prioritize the action plan</text>
+    <text x="860" y="193" font-size="16" fill="#e1edf8">Assign work and review dates.</text>
+    <text x="860" y="215" font-size="16" fill="#e1edf8">Update the profiles as needed.</text>
+    <path d="M 252 186 H 273 V 123 H 297 M 289 118 L 297 123 L 289 128" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 252 186 H 273 V 250 H 297 M 289 245 L 297 250 L 289 255" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 509 123 H 547 V 174 H 567 M 559 169 L 567 174 L 559 179" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 509 250 H 547 V 198 H 567 M 559 193 L 567 198 L 559 203" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 790 186 H 839 M 831 181 L 839 186 L 831 191" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="28" y="323" width="1074" height="36" rx="8" fill="#192b42"/>
+    <text x="28" y="346" font-size="16" fill="#d9edff">Tiers can add context about the rigor of cybersecurity risk governance and management.</text>
+  </g>
+</svg>

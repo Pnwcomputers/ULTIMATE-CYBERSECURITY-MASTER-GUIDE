@@ -108,6 +108,10 @@ For webpages and payment-page protection, separately evaluate **6.4.3** (payment
 
 The PCI SSC's **10 November 2026** [Understanding PCI DSS Service Providers guidance](https://blog.pcisecuritystandards.org/pci-ssc-publishes-new-guidance-on-understanding-pci-dss-third-party-service-providers) explains the difference between payment processors, administrative/security-impacting TPSPs, multi-tenant providers, nested providers and services that generally do not impact payment security. It also clarifies customer/TPSP evidence-sharing expectations.
 
+![PCI DSS provider evidence flow from the actual service and responsibility matrix through an applicable attestation or a request for requirement-level evidence](../assets/diagrams/pci-dss-provider-evidence-decision.svg)
+
+Check that the provider's **Attestation of Compliance (AOC)** covers the actual service and supplies evidence for the relevant requirements. Ask for the relevant sections of the provider's Report on Compliance (ROC) or SAQ D for Service Providers if more detail is needed. When there is no applicable AOC, request specific evidence for the applicable requirements and document any gaps. Keep evidence of the customer's own responsibilities and its part of shared requirements. [PCI SSC FAQ 1576](https://www.pcisecuritystandards.org/faqs/1576/)
+
 For each provider, record:
 
 1. **Specific services and access** (who can administer, reach or change what; who can indirectly affect payment security).
