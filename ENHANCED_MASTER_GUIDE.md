@@ -2002,10 +2002,7 @@ For a real assessment, define the systems, permitted methods, time window, conta
  
 ## Tradecraft Overview
  
-Operational tradecraft reference covering the full offensive/defensive cycle -
-C2 frameworks, evasion techniques, living-off-the-land, OSINT methodology,
-network detection, and Active Directory. Each file is dual-perspective:
-offensive technique context + detection artifacts + defensive hardening.
+Operational tradecraft references covering C2, evasion, living-off-the-land, OSINT, network detection, and Active Directory. Use the defensive material to understand behavior, evidence, and mitigations. Any active testing must have written authorization, a defined target scope, and agreed rules of engagement; the presence of a tool or technique in this index is not authorization to use it.
  
 ### File Index
  
@@ -2019,19 +2016,27 @@ offensive technique context + detection artifacts + defensive hardening.
 | [active-directory.md](Tradecraft/active-directory.md) | BloodHound, PowerView, Rubeus, Mimikatz, Impacket, Kerberos attacks, domain persistence, Sigma rules, hardening | Red/Blue |
  
 ### MITRE ATT&CK Coverage
- 
+
+The diagram maps the tactics named in this section to the reference files where their defensive context appears. It is an index, not a complete ATT&CK coverage claim.
+
+```mermaid
+flowchart LR
+    R[TA0043 Reconnaissance] --> O[OSINT and threat intelligence]
+    C[TA0011 Command and Control] --> C2[C2 frameworks]
+    C --> N[Network detection]
+    D[TA0005 Defense Evasion] --> E[AV/EDR recognition]
+    D --> L[Living-off-the-land]
+    X[TA0002 Execution] --> L
+    M[TA0008 Lateral Movement] --> L
+    M --> AD[Active Directory]
+    CA[TA0006 Credential Access] --> AD
+    CA --> L
+    P[TA0004 Privilege Escalation] --> AD
+    PE[TA0003 Persistence] --> AD
+    PE --> L
+    EX[TA0010 Exfiltration] --> N
 ```
-TA0043 Reconnaissance       → osint-threat-intel.md
-TA0011 Command & Control    → c2-frameworks.md, network-detection.md
-TA0005 Defense Evasion      → av-edr-evasion.md, lolbins-lolbas.md
-TA0002 Execution            → lolbins-lolbas.md
-TA0008 Lateral Movement     → lolbins-lolbas.md, active-directory.md
-TA0006 Credential Access    → active-directory.md, lolbins-lolbas.md
-TA0004 Privilege Escalation → active-directory.md
-TA0003 Persistence          → active-directory.md, lolbins-lolbas.md
-TA0010 Exfiltration         → network-detection.md
-```
- 
+
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
  
 ---
