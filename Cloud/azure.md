@@ -88,9 +88,17 @@ access path. [Role definitions](https://learn.microsoft.com/en-us/azure/role-bas
 
 ## Enumeration & Assessment
 
-Use the installed release's authentication and permission guidance before
-collection. The former bare commands omitted identity, tenant/subscription
-selection and prerequisites; they were not complete reproducible procedures.
+Choose a tool for the specific review question and follow the selected release's authentication and permission guidance. Confirm the tenant, subscription, collection categories, and owner-approved identity before making API requests. Directory and resource exports can contain sensitive identity, relationship, and infrastructure data.
+
+```mermaid
+flowchart LR
+    A[Confirm written scope:<br/>tenant · subscriptions · data] --> B[Choose tool, release,<br/>and approved identity]
+    B --> C[Collect only the<br/>approved API categories]
+    C --> D[Protect exports<br/>and record provenance]
+    D --> E[Review coverage, errors,<br/>skipped checks, and freshness]
+    E --> F[Validate findings against<br/>effective policy and owner context]
+    F --> G[Report verified results,<br/>limits, and remediation]
+```
 
 | Tool | Assessment Role | Preparation and Limits |
 |---|---|---|
@@ -99,11 +107,12 @@ selection and prerequisites; they were not complete reproducible procedures.
 | [Prowler](https://github.com/prowler-cloud/prowler) | Supported Azure configuration checks | Select authorized scopes and documented read permissions; a skipped check is not a passing control. |
 | [ScoutSuite](https://github.com/nccgroup/ScoutSuite/wiki/Setup) | Cloud configuration collection and reporting | Validate supported API/SDK versions and granted permissions before interpreting findings. |
 
-Record tenant/subscription IDs, collector version, granted permissions, coverage,
-API failures and skipped checks. Keep “not assessed” distinct from “no issue
-found.” A configuration report is not a penetration test or proof of effective
-runtime enforcement.
-
+Record tenant/subscription IDs, collector version, granted permissions, collection
+categories, coverage, API failures, and skipped checks. Keep “not assessed”
+distinct from “no issue found.” Validate candidate findings against the relevant
+effective policies and service context. A configuration report is a point-in-time
+view, not a penetration test or proof of effective runtime enforcement. Apply the
+engagement's access, retention, and deletion rules to raw exports and reports.
 ---
 
 ## Hardening & Detection
