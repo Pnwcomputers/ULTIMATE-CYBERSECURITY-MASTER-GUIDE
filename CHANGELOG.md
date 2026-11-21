@@ -1,14 +1,30 @@
-# 🔄 Change Log - November 20, 2026
+# 🔄 Change Log - November 21, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 1839
-- **Files Modified**: 3407
-- **New Files**: 1261
+- **Commits Analyzed**: 1976
+- **Files Modified**: 3699
+- **New Files**: 1275
 - **Deleted Files**: 124
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- Add OWASP A01 authorization decision diagram (#552) (`1036c60`)
+- Clarify supply chain risk and add review diagram (#544) (`cea66da`)
+- Add GCP assessment evidence workflow diagram (#542) (`24bc9c8`)
+- Add scoped Azure assessment workflow and diagram (#541) (`4dd3d3f`)
+- Add defensive Active Directory lateral-movement guidance (#525) (`75d0fcd`)
+- Correct Kerberos guidance and add protocol flow (#523) (`103566f`)
+- Correct AMSI interpretation and add safe analysis workflow (#517) (`6e6b8b2`)
+- Clarify tradecraft scope and add ATT&CK index diagram (#515) (`25c45b7`)
+- Correct blue-team analytics and metric definitions (#507) (`070e48e`)
+- Add alphabet design workflow diagram (#490) (`ec89152`)
+- Fix leetspeak examples and add overview (#488) (`0f8aece`)
+- Add a deciphering workflow overview (#484) (`f5ad1c6`)
+- Clarify CAD fit claims and add design loop visual (#448) (`ee70c69`)
+- Add scope and stop gates to Offensive AI engagement guidance (`468c467`)
+- Add AI prompt-to-evidence workflow diagram (`5c00d0d`)
+- Add HIBP breach metadata privacy diagram (`218460c`)
 - Add UserLAnd and ESP32 UART safety diagrams (#412) (`7970ad4`)
 - Add current PQC transition context (`27a7468`)
 - Continue whole-repo review and add diagrams (`0c7eea8`)
@@ -564,6 +580,18 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Make authorization testing fixture-based and evidence-driven (#556) (`0cc96a8`)
+- Correct Active Directory detection guidance (#527) (`1ca132d`)
+- Correct LOLBin claims and ASR guidance (#518) (`807d0e2`)
+- Correct SIEM ingestion guidance and diagram (#509) (`94d6578`)
+- Correct NotPetya comparison and response guidance (#502) (`f7cefac`)
+- Correct SolarWinds timeline and detection guidance (#500) (`1d298cb`)
+- Correct EternalBlue vulnerability details (#499) (`9eaa679`)
+- Fix Index of Coincidence examples (#491) (`08ba695`)
+- Fix Unicode security Hashcat example (#486) (`217a527`)
+- Correct SOC 2 and PCI DSS assurance terminology (#465) (`e61f81c`)
+- Correct Space Security foundations incident claims (#453) (`f803de9`)
+- Correct Space Security overview and authorization boundaries (#452) (`757e185`)
 - fix(uconsole): CM5 AIO v2 / NVMe / battery setup corrections + read-only --hw-check (v1.5) (#419) (`bacb5f0`)
 - Correct OpenClaw agent configuration guidance (#426) (`803b967`)
 - docs(audit): correct Windows Python examples, incident GDPR language & four diagrams (#420) (`b78c9a1`)
@@ -803,6 +831,9 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Diagram structured event parsing and quarantine (#567) (`bd0cb85`)
+- Update Tradecraft index usage guidance (#532) (`a1a188a`)
+- Update framework assurance terminology and ISO amendment (#466) (`989a687`)
 - Clarify IMDS scope and remove destructive disk demo (#395) (`ca25bed`)
 - Remove sensational legal claims from Scripts index (#386) (`88c5083`)
 - Scope wireless testing and update OWASP guidance (#371) (`bfaa1de`)
@@ -1472,6 +1503,11 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- Use supported Docker manifest inspection guidance (#472) (`e586bbc`)
+- docs: improve Hardware Hacking index safety and guidance (#459) (`feef232`)
+- docs: finish Homelab isolation and accuracy review (#458) (`fbd0400`)
+- docs(hardware testing): link Python guide to safety workflow (#430) (`79e4481`)
+- docs(space security): illustrate spacecraft bus and payload architectures (#428) (`d38c4cb`)
 - Illustrate how to document PCI DSS scoping evidence (#416) (`fa5f5f9`)
 - docs(audit): NIST 800-61r3, contact safety, Bash & five diagrams (#418) (`1726f33`)
 - docs(visuals): validate Ghidra, REMnux, Kismet, identity alerts & cyberdeck (#417) (`1c4f806`)
@@ -1680,6 +1716,107 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Diagram cache enrichment and unknown-result handling (#568) (`177d8da`)
+- Diagram Git review, deployment, and rollback flow (#566) (`62a9937`)
+- Diagram SSH server and user identity checks (#565) (`30a11fa`)
+- Visualize security API enrichment and review flow (#564) (`4d49c8f`)
+- Harden Burp workflow and tool-scope guidance (#563) (`2604531`)
+- Make web reconnaissance scope-first and evidence-based (#562) (`4992901`)
+- Clarify authorization boundaries before web testing (#561) (`a020936`)
+- Clarify secure evidence and retest reporting (#560) (`65791b2`)
+- Clarify scoped API and GraphQL assessment (#559) (`cfefb6c`)
+- Make business logic tests bounded and state-aware (#558) (`dc993ea`)
+- Make injection testing context-specific and controlled (#557) (`dcf443c`)
+- Clarify web configuration assessment behavior (#555) (`04e53f9`)
+- Align web authentication testing with A07 guidance (#554) (`9219d90`)
+- Clarify OWASP A02 effective configuration review (#553) (`9e930eb`)
+- Clarify OWASP A10 exceptional condition handling (#551) (`099dfe4`)
+- Clarify OWASP A09 logging and alerting workflow (#550) (`ae0b3b7`)
+- Clarify OWASP A08 integrity verification boundaries (#549) (`007e01c`)
+- Clarify OWASP A07 authentication lifecycle (#548) (`3757cc3`)
+- Clarify OWASP A06 secure design workflow (#547) (`036b391`)
+- Clarify OWASP A05 interpreter-specific defenses (#546) (`ece62cc`)
+- Clarify OWASP A04 cryptographic failure guidance (#545) (`a88055d`)
+- Clarify scope of OWASP AppSec references (#543) (`a59e3cd`)
+- Clarify S3 access and data protection controls (#540) (`49d230f`)
+- Make AWS assessment guidance scoped and evidence based (#539) (`7cf0993`)
+- Clarify cloud assessment tooling and data handling (#538) (`8f42c3a`)
+- Clarify authorization and rules of engagement checklist (#537) (`1870909`)
+- Clarify audit checklist evidence and scope guidance (#536) (`30a669e`)
+- Clarify blue team detection validation workflow (#535) (`58bad3b`)
+- Make red team checklist guidance rules of engagement based (#534) (`9bada63`)
+- Make checklist assessor workflow scope and evidence based (#533) (`cfabc90`)
+- Clarify Active Directory architecture and trust model (#531) (`3ba300d`)
+- Reframe AD enumeration as controlled inventory (#530) (`f4fc260`)
+- Make AD assessment checklist evidence-based (#529) (`5b80bf5`)
+- Make AD hardening guidance staged and version-aware (#528) (`3d5dc3f`)
+- Clarify Active Directory persistence defenses (#526) (`9f426c6`)
+- Make Active Directory privilege-path guidance defensive (#524) (`b769c6c`)
+- Reframe AD credential abuse for defenders (#522) (`eda7ebc`)
+- Map Active Directory risks to defensive controls (#521) (`41dcbc4`)
+- Improve network detection evidence guidance (#520) (`ea5ecb9`)
+- Clarify OSINT and IOC workflows with diagrams (#519) (`5570b5e`)
+- Replace C2 operator details with defensive detection guidance (#516) (`02b7233`)
+- Replace risky PowerShell toolkit with scoped inventory guidance (#514) (`211c28e`)
+- Replace unsafe toolkit with scoped assessment workflow (#513) (`a80925d`)
+- Replace one-size-fits-all hardening script with staged guidance (#512) (`103577f`)
+- Replace unscoped scanner with evidence-based network mapping (#511) (`8282f42`)
+- Replace unsafe lab setup with isolation design (#510) (`0258681`)
+- Improve detection rule pipeline guidance and diagram (#508) (`5f52bd1`)
+- Replace generic blue-team shell checks with review flow (#506) (`ec8d306`)
+- Replace purple-team attack steps with synthetic exercise (#505) (`6110d18`)
+- Replace live purple-team scan with safe workflow (#504) (`c8c62b1`)
+- Clarify Snowden surveillance program scope (#503) (`22c5b40`)
+- Clarify Carbanak impact and RDP role (#501) (`3092c19`)
+- Replace WannaCry exploit block with defensive guidance (#498) (`ea0c3d3`)
+- Clarify Stuxnet ingress and payload claims (#497) (`d5e9dec`)
+- Clarify Xerox MIC serial field variants (#496) (`4807d60`)
+- Clarify Tesla key-fob research scope (#495) (`74913cc`)
+- Clarify Onity lock demonstration reliability (#494) (`5750a73`)
+- Complete EUCLEAK affected-device guidance (#493) (`756c057`)
+- Clarify Unsaflok case study scope and timeline (#492) (`ea3a265`)
+- Match cipher toolkit small-caps fallback (#489) (`f4a22d6`)
+- Explain Unicode normalization and confusables (#487) (`cb5e08b`)
+- Verify classical cipher history and OTP guidance (#485) (`f2c2ec3`)
+- Separate Mary Stuart cipher timelines (#483) (`2a06d47`)
+- Clarify Solo 2 firmware trust and Linux setup (#482) (`ed9d7e4`)
+- Clarify PhantomDrive unlock and secret input (#481) (`156088a`)
+- Clarify current NIST XTS revision status (#479) (`db2ed06`)
+- Refresh security-key certification review (#477) (`a6eff34`)
+- Clarify restricted SMS and voice MFA guidance (#476) (`69494ef`)
+- Clarify TLS certificate security-strength guidance (#475) (`9c48a8d`)
+- State NIST SHA-1 transition date in algorithm reference (#474) (`588ea44`)
+- Clarify cryptography standards and transition guidance (#473) (`07f1cbf`)
+- Clarify dependency version evidence in SBOM workflow (#471) (`3bd7cb0`)
+- Clarify Kubernetes authorization scope and PSA modes (#470) (`1a28fdd`)
+- Clarify Trivy container scan scope and exit behavior (#469) (`28590f6`)
+- Clarify Container Security index tool status and scope (#468) (`0e4c00c`)
+- Clarify HIPAA scope and California privacy deadlines (#467) (`216343b`)
+- Clarify current ScubaGear execution prerequisites (#464) (`0eef16e`)
+- Clarify Google Cloud audit-log defaults and costs (#463) (`34e2594`)
+- Clarify Microsoft Entra log retention guidance (#462) (`6361132`)
+- Tighten AWS IAM, metadata, and network guidance (#461) (`d810c5d`)
+- Clarify cloud audit logging defaults and coverage (#460) (`b8c1c23`)
+- Review Space Security user-segment guidance (#457) (`de15cc2`)
+- Review Space Security appendices and references (#456) (`7b056ac`)
+- Review Space Security flight-software guidance (#455) (`3d34d09`)
+- Review Space Security ground segment guidance (#454) (`d269a11`)
+- Refresh CM5 recovery review status (#451) (`8e1e188`)
+- Mark retired mobile scripts as inert (#450) (`cc5f2ac`)
+- Restrict the MobSF example to localhost (#449) (`3bbd021`)
+- Clarify vx-underground malware intake isolation (#447) (`eb3fffe`)
+- Clarify Promptfoo evaluation data paths (`76759c6`)
+- Illustrate context authority and freshness boundaries (`89192c8`)
+- Ground prompt engineering guidance in evaluation (`ac400bc`)
+- Clarify AI workspace trust boundaries (`11efe3e`)
+- Refresh OpenClaw use cases and safety guidance (`fd45545`)
+- Clarify DomainRecon scope and evidence limits (`b205266`)
+- Make vulnerability reports evidence-led drafts (`e041e24`)
+- Clarify GitHub secret alert handling and response (`b26cdb4`)
+- Record review for OpenClaw PR 423 (`1667b81`)
+- Make CompanyOSINT source-led and scope bounded (`1025aab`)
+- Clarify authorization in email exposure review (`e909f59`)
+- Improve Nmap Analyzer evidence and scope guidance (`41adec9`)
 - Clarify OpenSCAD release and reference attribution (#427) (`309126f`)
 - Illustrate OpenSCAD transform order (#424) (`16d9ab1`)
 - Audit CloudTrail coverage and Tails backup verification (#422) (`986f175`)
@@ -1863,11 +2000,96 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `CAD/OpenSCAD/01-fundamentals.md`
+- `Data-Engineering/data_pipelines.md`
 - `REVIEW_2026-11-19.md`
-- `assets/README.md`
-- `assets/diagrams/uconsole-cm5-aio-nvme-validation.svg`
+- `Documentation/security-public-api-catalog.md`
+- `WebAppSecurity/methodology.md`
+- `WebAppSecurity/owasp-top-10.md`
+- `WebAppSecurity/README.md`
+- `Cloud/gcp.md`
+- `Cloud/azure.md`
+- `Cloud/aws.md`
+- `Cloud/README.md`
+- `Checklists/README.md`
+- `Tradecraft/README.md`
+- `Tradecraft/active-directory.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
+- `CaseStudies/hardware/tesla-model-s-key-fob-2018.md`
+- `CaseStudies/hardware/onity-locks-2012.md`
+- `CaseStudies/hardware/eucleak-yubikey-2024.md`
+- `CaseStudies/hardware/unsaflok-3m-hotel-locks.md`
+- `Cryptography/Classical/README.md`
+- `Cryptography/Classical/build-your-own.md`
+- `Cryptography/Classical/cipher_toolkit.py`
+- `Cryptography/Classical/leetspeak.md`
+- `Cryptography/Classical/alphabets.md`
+- `Cryptography/Classical/security.md`
+- `Cryptography/Classical/ciphers.md`
+- `Cryptography/Classical/deciphering-workbook.md`
+- `Cryptography/Classical/mary-queen-of-scots.md`
+- `Cryptography/solokeys-guide.md`
+- `Cryptography/phantomdrive-guide.md`
+- `Cryptography/encrypted-storage.md`
+- `Cryptography/security-keys-passkeys.md`
+- `Cryptography/applied-crypto.md`
+- `Cryptography/algorithms.md`
+- `Cryptography/README.md`
+- `ContainerSecurity/docker-cli-operations-reference.md`
+- `ContainerSecurity/software-supply-chain-assessment.md`
+- `ContainerSecurity/kubernetes.md`
+- `ContainerSecurity/containers.md`
+- `ContainerSecurity/README.md`
+- `Compliance/regulations.md`
+- `Compliance/frameworks.md`
+- `Compliance/README.md`
+- `Cloud/m365-scuba-assessment.md`
+- `HardwareHacking/README.md`
+- `Homelab/HomeLab_Setup.md`
+- `Homelab/README.md`
+- `SpaceSecurity/PartIV.md`
+- `SpaceSecurity/Appendices.md`
+- `SpaceSecurity/PartIII.md`
+- `SpaceSecurity/PartII.md`
+- `SpaceSecurity/PartI.md`
+- `SpaceSecurity/README.md`
 - `uConsole/CM5-DISPLAY-RECOVERY.md`
+- `Mobile/README.md`
+- `CAD/README.md`
+- `assets/README.md`
+- `assets/diagrams/cad-design-to-fit-verification-loop.svg`
+- `ReverseEngineering/vx-underground.md`
+- `AI/offensive_ai.md`
+- `assets/diagrams/offensive-ai-authorized-engagement-gates.svg`
+- `AI/llm-security-evaluation-promptfoo.md`
+- `assets/diagrams/promptfoo-redteam-provider-data-paths.svg`
+- `AI/context-engineering-and-memory.md`
+- `assets/diagrams/ai-context-authority-evidence-freshness.svg`
+- `AI/ai_prompts.md`
+- `AI/ai-workspaces-notebooks-and-assistants.md`
+- `assets/diagrams/ai-project-workspace-trust-boundaries.svg`
+- `AI/ai-usage-interaction-guide.md`
+- `assets/diagrams/ai-five-layer-prompt-to-evidence-handoff.svg`
+- `AI/OpenClaw/use_cases.md`
+- `assets/diagrams/openclaw-use-case-safety-workflow.svg`
+- `AI/AnythingLLM/flow-domain_recon.md`
+- `assets/diagrams/domain-recon-scope-evidence-flow.svg`
+- `AI/AnythingLLM/flow-vulnreport_gen.md`
+- `assets/diagrams/vulnerability-report-evidence-review.svg`
+- `AI/AnythingLLM/flow-github_secrets.md`
+- `assets/diagrams/github-secrets-redaction-owner-response.svg`
+- `AI/AnythingLLM/flow-company_osint.md`
+- `assets/diagrams/company-osint-source-confidence-scope.svg`
+- `AI/AnythingLLM/flow-email_osint.md`
+- `AI/AnythingLLM/flow-breacher_check.md`
+- `assets/diagrams/hibp-breach-metadata-privacy-workflow.svg`
+- `AI/AnythingLLM/flow-nmap_analyzer.md`
+- `assets/diagrams/nmap-agentflow-evidence-gates.svg`
+- `HardwareTesting/py/README.md`
+- `assets/diagrams/spacecraft-bus-payload-architecture.svg`
+- `CHANGELOG.md`
+- `CAD/OpenSCAD/01-fundamentals.md`
+- `assets/diagrams/uconsole-cm5-aio-nvme-validation.svg`
 - `uConsole/CM5-SETUP.md`
 - `uConsole/README.md`
 - `uConsole/scripts/README.md`
@@ -1875,16 +2097,11 @@
 - `uConsole/tests/test_cm5_setup.py`
 - `AI/OpenClaw/agent_skill_config.md`
 - `CAD/OpenSCAD/images/transform-order.svg`
-- `Cloud/aws.md`
 - `OPSEC/tails-usb-setup-guide.md`
 - `assets/diagrams/aws-cloudtrail-event-coverage.svg`
 - `assets/diagrams/tails-persistent-storage-backup.svg`
-- `ContainerSecurity/docker-cli-operations-reference.md`
 - `Data-Engineering/Phase3/data_recovery_replay.md`
-- `SpaceSecurity/README.md`
 - `assets/diagrams/docker-compose-change-review.svg`
-- `CHANGELOG.md`
-- `Cryptography/Classical/ciphers.md`
 - `Documentation/python.md`
 - `PlayBooks/cybersecurity_playbooks.md`
 - `Tradecraft/pentoo-linux-guide.md`
@@ -1932,17 +2149,10 @@
 - `Homelab/workflows/self-hosted_network_attacks.md`
 - `HardwareTesting/README.md`
 - `HardwareTesting/install_testbench_tools.sh`
-- `WebAppSecurity/README.md`
-- `Cryptography/README.md`
-- `Compliance/regulations.md`
-- `Compliance/README.md`
-- `Compliance/frameworks.md`
 - `Checklists/AppLocker.md`
 - `Checklists/microsoft-exchange.md`
 - `IncidentResponse/README.md`
 - `IncidentResponse/SIEM/wazuh.md`
-- `Cryptography/phantomdrive-guide.md`
-- `Documentation/security-public-api-catalog.md`
 - `Mobile/OnePlus_A6003/Kali_NetHunter.md`
 - `Mobile/OnePlus_A6003/Rooting.md`
 - `OSINT/Playbook/api_keys.conf`
@@ -1958,13 +2168,11 @@
 - `OSINT/docs/INSTALLATION.md`
 - `OSINT/scripts/Phone_OSINT.md`
 - `PlayBooks/PurpleTeam_Multi-Scrip.md`
-- `Tradecraft/active-directory.md`
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/lolbins-lolbas.md`
 - `.gitignore`
 - `AI/AnythingLLM/anything_llm_agentflows.md`
 - `AI/AnythingLLM/flow-cve_lookup.md`
-- `AI/AnythingLLM/flow-domain_recon.md`
 - `AI/AnythingLLM/flow-threat_intel.md`
 - `AI/offline-llm.md`
 - `AUDIT_FINDINGS.md`
@@ -2031,34 +2239,19 @@
 - `uConsole/CM4-SETUP.md`
 - `.github/CONTRIBUTING.md`
 - `.github/SECURITY.md`
-- `AI/AnythingLLM/flow-breacher_check.md`
-- `AI/AnythingLLM/flow-company_osint.md`
-- `AI/AnythingLLM/flow-email_osint.md`
-- `AI/AnythingLLM/flow-github_secrets.md`
-- `AI/AnythingLLM/flow-nmap_analyzer.md`
-- `AI/AnythingLLM/flow-vulnreport_gen.md`
 - `AI/OpenClaw/README.md`
-- `AI/offensive_ai.md`
 - `Checklists/Credential-Access.md`
 - `Checklists/Defense-Evasion.md`
 - `Checklists/Environment-Breakout-Checklist.md`
 - `Checklists/Initial-Access.md`
-- `Checklists/README.md`
 - `Checklists/command-and-control.md`
-- `Cloud/README.md`
-- `ContainerSecurity/README.md`
-- `Cryptography/Classical/cipher_toolkit.py`
 - `Cyberdeck/tools/evidence_manifest.py`
-- `Data-Engineering/data_pipelines.md`
 - `Documentation/Aircrack-ng_Commands.md`
 - `Documentation/blackarch.md`
 - `Documentation/wireshark.md`
-- `ENHANCED_MASTER_GUIDE.md`
 - `HardwareHacking/Chapter3.md`
 - `HardwareTesting/py/standalone_gpu_tester.py`
 - `HardwareTesting/py/stress_soak.py`
-- `Homelab/HomeLab_Setup.md`
-- `Mobile/README.md`
 - `OSINT/OSINT_GUIDE.md`
 - `OSINT/OSINT_socialmedia.md`
 - `OSINT/Playbook/investigation_guide.md`
@@ -2066,7 +2259,6 @@
 - `OSINT/scripts/Email_OSINT.md`
 - `PlayBooks/NetworkAuditPlayBook.md`
 - `README.md`
-- `ReverseEngineering/vx-underground.md`
 - `SDR/rfid.md`
 - `SPECIALIZED_TOPICS_GUIDE.md`
 - `Scripts/Bash/BashBunny/README.md`
@@ -2103,10 +2295,6 @@
 - `Scripts/SQL/add_wordpress_admin.sql`
 - `Scripts/YAML/git_finder.yaml`
 - `Scripts/lib/safe_install.sh`
-- `SpaceSecurity/PartII.md`
-- `SpaceSecurity/PartIII.md`
-- `SpaceSecurity/PartIV.md`
-- `Tradecraft/README.md`
 - `Tradecraft/c2-frameworks.md`
 - `Tradecraft/network-detection.md`
 - `Tradecraft/osint-threat-intel.md`
@@ -2140,8 +2328,6 @@
 - `Scripts/GO/scan/do_proxy_chains.py`
 - `AI/README.md`
 - `Documentation/README.md`
-- `HardwareHacking/README.md`
-- `Homelab/README.md`
 - `LEGAL.md`
 - `Scripts/pnwc_install_tools.sh`
 - `Scripts/Bash/hulkscanner.sh`
@@ -2159,12 +2345,9 @@
 - `Checklists/Domain-Escalation.md`
 - `Checklists/Lateral-Movement.md`
 - `Checklists/Windows-Privilege-Escalation.md`
-- `SpaceSecurity/Appendices.md`
-- `SpaceSecurity/PartI.md`
 - `assets/diagrams/local-llm-data-paths.svg`
 - `assets/diagrams/raspberry-pi-onboard-wifi-support.svg`
 - `Scripts/Bash/fake_sudo.sh`
-- `WebAppSecurity/owasp-top-10.md`
 - `HardwareHacking/T48_TL866-3G.md`
 - `assets/diagrams/t48-supported-chip-read-workflow.svg`
 - `HardwareHacking/BitPirate.md`
@@ -2245,7 +2428,6 @@
 - `assets/diagrams/proxmox-honeynet-vm-trust-boundaries.svg`
 - `Data-Engineering/Phase2/streaming_cdc.md`
 - `IncidentResponse/HoneyPot/wazuh-honeypot-integration.md`
-- `WebAppSecurity/methodology.md`
 - `assets/diagrams/cdc-snapshot-offset-replay-boundary.svg`
 - `assets/diagrams/honeypot-wazuh-telemetry-evidence-path.svg`
 - `assets/diagrams/recovery-point-rpo-rto-replay-timeline.svg`
@@ -2324,7 +2506,6 @@
 - `assets/diagrams/greatfet-authorized-i2c-workflow.svg`
 - `OSINT/README.md`
 - `assets/diagrams/osint-opsec-scope-decision.svg`
-- `Cryptography/Classical/security.md`
 - `assets/diagrams/unicode-idn-risk-assessment.svg`
 - `assets/diagrams/owasp-top10-2021-to-2025-changes.svg`
 - `assets/diagrams/osint-evidence-publication-decision.svg`
@@ -2335,7 +2516,6 @@
 - `assets/diagrams/gnss-authentication-and-integrity-boundaries.svg`
 - `OPSEC/anonymity-layering.md`
 - `assets/diagrams/opsec-vps-tunnel-health-checks.svg`
-- `ContainerSecurity/containers.md`
 - `assets/diagrams/container-escape-evidence-paths.svg`
 - `assets/diagrams/privacy-breach-notification-decision-path.svg`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
@@ -2416,13 +2596,11 @@
 - `Mobile/mvt-forensic-triage.md`
 - `assets/diagrams/mvt-triage-artifact-coverage.svg`
 - `assets/diagrams/mvt-triage-consent-custody.svg`
-- `Cryptography/security-keys-passkeys.md`
 - `assets/diagrams/security-key-protocol-boundaries.svg`
 - `assets/diagrams/security-key-recovery-paths.svg`
 - `assets/diagrams/opsec-malware-lab-boundaries.svg`
 - `assets/diagrams/opsec-vm-network-choices.svg`
 - `assets/diagrams/frameworks-evidence-reuse.svg`
-- `Cryptography/applied-crypto.md`
 - `assets/diagrams/applied-crypto-authentication-records.svg`
 - `assets/diagrams/applied-crypto-envelope-rotation.svg`
 - `assets/diagrams/applied-crypto-presence-verification.svg`
@@ -2445,7 +2623,6 @@
 - `PlayBooks/sop_phishing_analysis.md`
 - `assets/diagrams/phishing-response-control-boundaries.svg`
 - `assets/diagrams/phishing-response-triage.svg`
-- `ContainerSecurity/software-supply-chain-assessment.md`
 - `assets/diagrams/supply-chain-complementary-evidence.svg`
 - `assets/diagrams/supply-chain-subject-binding.svg`
 - `IncidentResponse/network_intrusion.md`
@@ -2455,11 +2632,9 @@
 - `OSINT/bellingcat-source-verification.md`
 - `assets/diagrams/source-verification-preservation-vs-claim.svg`
 - `assets/diagrams/source-verification-provenance-independence.svg`
-- `Cryptography/algorithms.md`
 - `assets/diagrams/crypto-algorithms-aead-contract.svg`
 - `assets/diagrams/crypto-algorithms-pqc-roles.svg`
 - `assets/diagrams/crypto-algorithms-primitive-roles.svg`
-- `Cryptography/encrypted-storage.md`
 - `assets/diagrams/encrypted-storage-recovery-components.svg`
 - `assets/diagrams/encrypted-storage-status-questions.svg`
 - `assets/diagrams/docker-operations-context-control.svg`
@@ -2480,7 +2655,6 @@
 - `assets/diagrams/hackrf-guide-iq-representations.svg`
 - `assets/diagrams/hackrf-guide-passband-vs-span.svg`
 - `assets/diagrams/hackrf-guide-sweep-coverage.svg`
-- `Cloud/m365-scuba-assessment.md`
 - `assets/diagrams/scuba-configuration-assessment.svg`
 - `assets/diagrams/scuba-findings-to-controlled-change.svg`
 - `SDR/sdr_hacking.md`
@@ -2488,7 +2662,6 @@
 - `assets/diagrams/advanced-sdr-em-inference.svg`
 - `assets/diagrams/advanced-sdr-evidence-ladder.svg`
 - `assets/diagrams/advanced-sdr-lorawan-security-roles.svg`
-- `Cloud/azure.md`
 - `assets/diagrams/azure-security-logging-coverage.svg`
 - `assets/diagrams/azure-security-rbac-scope.svg`
 - `assets/diagrams/azure-security-role-planes.svg`
@@ -2498,14 +2671,12 @@
 - `assets/diagrams/sdr-fundamentals-rate-bandwidth.svg`
 - `assets/diagrams/sdr-fundamentals-receiver-boundaries.svg`
 - `assets/diagrams/sdr-fundamentals-receiver-rate-accounting.svg`
-- `Cloud/gcp.md`
 - `assets/diagrams/gcp-security-audit-coverage.svg`
 - `assets/diagrams/gcp-security-policy-inheritance.svg`
 - `assets/diagrams/gcp-security-service-account-routes.svg`
 - `assets/diagrams/container-security-image-runtime-host.svg`
 - `assets/diagrams/container-security-isolation-controls.svg`
 - `assets/diagrams/container-security-secrets-lifecycle.svg`
-- `ContainerSecurity/kubernetes.md`
 - `assets/diagrams/kubernetes-security-control-boundaries.svg`
 - `assets/diagrams/kubernetes-security-network-policy-directions.svg`
 - `assets/diagrams/kubernetes-security-secret-lifecycle.svg`
@@ -2520,10 +2691,6 @@
 - `assets/diagrams/rfid-identification-authentication-authorization.svg`
 - `assets/diagrams/rfid-read-troubleshooting-evidence.svg`
 - `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md`
-- `CaseStudies/hardware/eucleak-yubikey-2024.md`
-- `CaseStudies/hardware/onity-locks-2012.md`
-- `CaseStudies/hardware/tesla-model-s-key-fob-2018.md`
-- `CaseStudies/hardware/unsaflok-3m-hotel-locks.md`
 - `assets/diagrams/carbanak-intrusion-to-financial-fraud.svg`
 - `assets/diagrams/directv-dss-authorization-boundary.svg`
 - `assets/diagrams/eternalblue-vulnerability-exploit-payload.svg`
@@ -2536,7 +2703,6 @@
 - `assets/diagrams/tesla-dst40-cloning-vs-relay.svg`
 - `assets/diagrams/unsaflok-system-trust-chain.svg`
 - `assets/diagrams/wannacry-worm-and-ransomware.svg`
-- `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
 - `assets/diagrams/xerox-docucolor-evidence-flow.svg`
 - `assets/diagrams/xerox-docucolor-grid.svg`
 - `assets/printerdots.jpg`
@@ -2545,7 +2711,6 @@
 - `tools/build_wiki.py`
 - `tools/tests/test_build_wiki.py`
 - `CAD/OpenSCAD/05-design-for-printing.md`
-- `CAD/README.md`
 - `Documentation/bjorn_pi.md`
 - `Documentation/bruce_firmware.md`
 - `SDR/README.md`
@@ -2637,7 +2802,6 @@
 - `.github/ISSUE_TEMPLATE/verification_finding.md`
 - `.github/PULL_REQUEST_TEMPLATE.md`
 - `.github/workflows/maintenance-triage.yml`
-- `AI/OpenClaw/use_cases.md`
 - `Data-Engineering/Phase2/README.md`
 - `Data-Engineering/README.md`
 - `Documentation/REPOSITORY-MAINTENANCE-OPERATIONS.md`
@@ -2648,11 +2812,6 @@
 - `tools/repository_quality_audit.py`
 - `tools/tests/test_repository_quality_audit.py`
 - `AI/ai-observability-and-auditing.md`
-- `AI/ai-usage-interaction-guide.md`
-- `AI/ai-workspaces-notebooks-and-assistants.md`
-- `AI/ai_prompts.md`
-- `AI/context-engineering-and-memory.md`
-- `AI/llm-security-evaluation-promptfoo.md`
 - `Documentation/chimerable.md`
 - `Documentation/esp-terminator.md`
 - `Documentation/fancygotchi-pwnagotchi.md`
@@ -2667,10 +2826,8 @@
 - `HardwareHacking/firmware-web-flashers.md`
 - `Wardriving/piglet.md`
 - `AI/AnythingLLM/README.md`
-- `Cryptography/Classical/README.md`
 - `Data-Engineering/Phase1/README.md`
 - `Data-Engineering/Phase3/README.md`
-- `HardwareTesting/py/README.md`
 - `IncidentResponse/Digital-Forensics/README.md`
 - `IncidentResponse/Endpoint-Visibility/README.md`
 - `IncidentResponse/HoneyPot/readme.md`
@@ -2713,7 +2870,6 @@
 - `assets/diagrams/wardriving-collection-lifecycle.svg`
 - `assets/diagrams/webapp-assessment-cycle.svg`
 - `assets/diagrams/wireless-ids-correlation.svg`
-- `Cryptography/solokeys-guide.md`
 - `assets/encrypted-storage-protection-boundaries.svg`
 - `assets/fido2-passkey-authentication-flow.svg`
 - `assets/journalist-source-data-lifecycle.svg`
@@ -2798,12 +2954,7 @@
 - `tests/hardening/test_osint_state_evidence.py`
 - `tests/hardening/test_safe_install.py`
 - `OSINT/Playbook/branding.conf.example`
-- `Cryptography/Classical/deciphering-workbook.md`
-- `Cryptography/Classical/mary-queen-of-scots.md`
-- `Cryptography/Classical/alphabets.md`
 - `Data-Engineering/Phase1/python_data_processing.md`
-- `Cryptography/Classical/build-your-own.md`
-- `Cryptography/Classical/leetspeak.md`
 - `IncidentResponse/Firewalls/openbsd_pf.md`
 - `OPSEC/talis-usb-setup-guide.md`
 - `REVIEW_2026-09-21.md`
