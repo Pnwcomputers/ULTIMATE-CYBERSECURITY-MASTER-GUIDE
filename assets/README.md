@@ -1092,3 +1092,10 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 | [OpenSCAD preset to print file](./diagrams/openscad-preset-to-export.svg) | [OpenSCAD project structure](../CAD/OpenSCAD/02-project-structure.md#command-line-export--automation) |
 | [CAD design to verified fit loop](./diagrams/cad-design-to-fit-verification-loop.svg) | [CAD & 3D Printing](../CAD/README.md#cad-design-to-fit-loop) |
 | [OpenSCAD shortcuts cheat sheet](../CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg) | [OpenSCAD keyboard shortcuts](../CAD/OpenSCAD/06-keyboard-shortcuts.md#-purpose) |
+
+## Data Modeling & Version Publication
+
+| Diagram | Embedded guide |
+|---|---|
+| [Asset and checkin join grain](./diagrams/sql-asset-checkin-join-grain.svg) | [SQL joins](../Data-Engineering/Phase1/sql_data_modeling.md#4-joins) |
+| [Complete dataset version publication](./diagrams/dataset-version-publication.svg) | [Publish complete versions](../Data-Engineering/Phase2/data_storage_file_formats.md#publication) |

@@ -132,6 +132,8 @@ Partitioning and sorting solve different problems. A date partition limits candi
 
 A reader must be able to distinguish a completed dataset from a partially written one.
 
+![Write and validate a separate dataset version before changing the current pointer. New readers can resolve the new complete version while existing readers finish on the old one.](../../assets/diagrams/dataset-version-publication.svg)
+
 1. Assign a dataset version or batch identity.
 2. Write files to a new location owned by that version.
 3. Validate row counts, schema, and file integrity.
@@ -139,7 +141,11 @@ A reader must be able to distinguish a completed dataset from a partially writte
 5. Publish a pointer to that completed version using the storage system's documented atomic or conditional operation.
 6. Keep the previous version until readers and rollback policy permit removal.
 
-For one local writer, writing a temporary manifest and replacing its name on the same filesystem is a useful visibility boundary. It does not prove crash durability without appropriate syncing, and it is not a multi-file transaction. For object storage, use immutable versioned keys and conditional pointer updates or a supported table/catalog transaction; do not translate local rename assumptions directly.
+Have each reader resolve the pointer once and keep using that manifest for the entire read. Keep its files available until readers can finish and rollback policy allows removal.
+
+For one local writer, a successful same-filesystem [`os.replace` operation](https://docs.python.org/3/library/os.html#os.replace) switches the manifest at one path. Crash durability requires separate syncing, and replacing the manifest does not make the preceding file writes a transaction.
+
+For object storage, use immutable versioned keys and a conditional pointer update or a supported table/catalog transaction. For example, on Amazon S3, `If-Match` checks the current pointer object's ETag before replacing it. If the condition fails, re-read the pointer before deciding whether to retry. [Amazon S3 conditional writes](https://docs.aws.amazon.com/AmazonS3/latest/userguide/conditional-writes.html)
 
 Use a cryptographic digest to compare exact bytes. A checksum detects corruption relative to a trusted manifest; it does not authenticate an untrusted manifest. Compression metadata can change byte hashes even when logical rows are equal, so distinguish file integrity from semantic equality. Do not assume an object-store ETag is universally an MD5 content hash.
 
