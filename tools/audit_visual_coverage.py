@@ -118,6 +118,10 @@ def visual_audit(root: Path) -> dict[str, object]:
                     invalid.append({"path": rel, "reason": "event-handler attribute"})
                 if attr == "href" and re.match(r"(?i)^(?:https?:|data:|javascript:|//)", value.strip()):
                     invalid.append({"path": rel, "reason": "external or active href"})
+    unindexed = sorted(
+        svg for svg in graphics
+        if svg.startswith("assets/") and "assets/README.md" not in refs.get(svg, ())
+    )
     unembedded = sorted(graphics - set(embeds))
     unreferenced = sorted(graphics - set(refs) - set(embeds))
     sections = {
@@ -129,6 +133,7 @@ def visual_audit(root: Path) -> dict[str, object]:
         "counts": {
             "markdown": len(docs), "svg": len(svgs),
             "svg_embedded": len(graphics & set(embeds)),
+            "asset_svg_missing_from_index": len(unindexed),
             "svg_linked_without_embedding": len((graphics & set(refs)) - set(embeds)),
             "svg_neither_linked_nor_embedded": len(unreferenced),
             "svg_missing_accessibility_metadata": len(metadata_missing),
@@ -138,6 +143,7 @@ def visual_audit(root: Path) -> dict[str, object]:
             "unreadable_markdown": len(unreadable),
         },
         "sections": sections,
+        "unindexed_asset_svgs": unindexed,
         "unembedded_svgs": unembedded,
         "unreferenced_svgs": unreferenced,
         "missing_accessibility": metadata_missing,
@@ -161,6 +167,7 @@ def markdown_report(report: dict[str, object], max_items: int = 30) -> str:
     lines += [f"| {key} | {vals['markdown']} | {vals['with_any_image']} |"
               for key, vals in report["sections"].items()]
     for key, heading in [
+        ("unindexed_asset_svgs", "Asset SVGs Missing From the Visual Index"),
         ("unembedded_svgs", "SVGs Not Yet Embedded"),
         ("unreferenced_svgs", "SVGs Without Any Markdown Reference"),
         ("missing_accessibility", "SVG Accessibility Metadata Candidates"),
@@ -190,7 +197,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path)
     parser.add_argument("--max-items", type=int, default=35)
     parser.add_argument("--strict", action="store_true",
-                        help="Fail on broken local image paths, malformed/unsafe/inaccessible SVGs and unreadable Markdown")
+                        help="Fail on broken local embeds, malformed/unsafe/inaccessible SVGs, missing index entries, or unreadable Markdown")
     opts = parser.parse_args()
     if opts.max_items < 1:
         parser.error("--max-items must be positive")
@@ -208,7 +215,8 @@ def main() -> int:
     fails = report["counts"]
     return int(opts.strict and any(fails[k] for k in (
         "broken_local_image_embeds", "svg_invalid_or_unsafe",
-        "svg_missing_accessibility_metadata", "unreadable_markdown")))
+        "svg_missing_accessibility_metadata", "asset_svg_missing_from_index",
+        "unreadable_markdown")))
 
 
 if __name__ == "__main__":
