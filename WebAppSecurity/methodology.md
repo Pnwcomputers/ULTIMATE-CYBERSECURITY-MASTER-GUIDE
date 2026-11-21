@@ -80,24 +80,35 @@ flowchart LR
 
 ## Phase 1: Reconnaissance & Mapping
 
-Build a complete picture of the application before testing it.
+Map the approved application before vulnerability testing. Discovery produces
+leads and an assessment inventory; it does not expand the authorized target set.
 
-- **Passive:** technology fingerprinting (Wappalyzer, response headers), subdomain
-  and content discovery, JS review for endpoints and secrets. See
-  [OSINT/scripts/Domain_IP_Recon.md](../OSINT/scripts/Domain_IP_Recon.md).
-- **Active:** spider/crawl the app, enumerate directories and parameters
-  (`ffuf`, `feroxbuster`), map every role's reachable functionality.
-- **Output:** an endpoint/parameter inventory and a per-role functionality map -
-  the input to every later phase.
-
-```bash
-# Content discovery (authorized scope only)
-ffuf -u https://TARGET/FUZZ -w wordlist.txt -mc 200,204,301,302,401,403
-feroxbuster -u https://TARGET -w wordlist.txt
-
-# Passive tech/endpoint hints
-curl -sI https://TARGET            # headers: server, framework, security headers
+```mermaid
+flowchart LR
+    S[Approved hosts and<br/>excluded assets] --> P[Collect passive hints<br/>and supplied documentation]
+    P --> V[Verify each candidate<br/>against written scope]
+    V --> A[Map in-scope routes,<br/>parameters, and roles]
+    A --> I[Build endpoint and<br/>per-role inventory]
+    I --> T[Use inventory to<br/>plan later phases]
 ```
+
+- **Passive hints:** review approved public sources, supplied architecture/API
+  documents, and ordinary responses from in-scope application use for technology,
+  endpoints, and likely data flows. A discovered subdomain or third-party host is
+  only a lead; verify its authorization before contacting it. Treat apparent
+  secrets in client-side code as sensitive exposure evidence; do not use them to
+  access systems.
+- **Active mapping:** within the confirmed hosts and allowed paths, walk
+  authenticated and unauthenticated flows, record methods, parameters, forms,
+  API calls, multi-step workflows, and role-specific functions. Use crawlers or
+  content discovery only within agreed request rates, time windows, and exclusions.
+  Avoid unbounded wordlists or requests that may create load or modify data.
+- **Output:** maintain an endpoint/parameter inventory with source, timestamp,
+  authentication state, role, method, data sensitivity, and scope status. Record
+  untested routes and uncertainty; use the inventory to plan later phases, not
+  as proof that every discovered route is authorized or vulnerable.
+- **Reference:** [OWASP WSTG v4.2 — Identify Application Entry Points](https://wstg.owasp.org/stable/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points/)
+  and the [Domain/IP Recon guide](../OSINT/scripts/Domain_IP_Recon.md).
 
 ---
 
