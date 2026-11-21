@@ -16,6 +16,8 @@ This corrects a common inference when adapting [h4cker's Security Onion / Proxmo
 
 *Conceptual coverage map. Security Onion requires packets to reach its sniffing interface; validate the tested path and document known gaps rather than inferring full-LAN coverage.*
 
+**Tool placement companion:** [Unified Wazuh, Snort 3, nzyme & NetAlertX Architecture](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) and [LAN TAPs, SPAN & Great Scott Throwing Star](../Documentation/network-taps-and-packet-visibility.md) describe why a properly rated network TAP or switch mirror is necessary for unrelated physical traffic. NetAlertX's host-network ARP view still does **not** cross routed VLANs without imports or collectors.
+
 ## Safe validation run
 
 1. Document topology: gateway, switches, Proxmox host interfaces, vmbr/OVS bridges, target VLANs, VM management NIC and sensor NIC. Confirm physical mirror capability before modifying the host.

@@ -149,6 +149,77 @@ Rule syntax and supported options can differ across releases. Keep rules matched
 
 ---
 
+## Snort 3 Complete Lab & Validation Workflow
+
+**Version boundary:** Snort 3 uses Lua configuration and current Snort 3 rule/DAQ behavior; do not copy Snort 2 command lines blindly. First verify [Snort 3's official installation](https://docs.snort.org/start/installation), [configuration](https://docs.snort.org/start/configuration) and [alert logging](https://docs.snort.org/start/alert_logging). The existing installation paths above remain intact.
+
+### Detection Placement & Hardware
+
+| Scenario | Snort Sees | Does Not Automatically See |
+|---|---|---|
+| Bare metal on gateway/TAP | Packets crossing the selected link | Unrelated traffic on other switch ports |
+| Proxmox sensor VM + dedicated USB/PCI capture NIC | Frames delivered via actual hardware passthrough | All unicast behind an unmanaged switch |
+| Managed-switch SPAN destination | Configured source ports/VLANs/directions | Frames dropped through oversubscription or VLANs not mirrored |
+| Virtual bridge mirror | Mirrored VM-to-VM flows | Physical traffic on a different bridge |
+| Wi-Fi USB radio on Linux | 802.11 capture only if correct driver/link type & input supported | Full deauth WIDS without a dedicated wireless monitor solution |
+
+Snort's core strength is packet/flow signatures; use [nzyme](./nzyme_wids.md) or [Kismet](../../Wardriving/kismet.md) for dedicated 802.11 management-frame defense. See [LAN TAPs & SPAN](../../Documentation/network-taps-and-packet-visibility.md).
+
+### Inspect a Installed Snort 3 Build
+
+```bash
+snort -V
+snort --help
+snort --help-module alert_json
+# Substitute the actual installed, reviewed snort.lua path:
+snort -T -c /path/to/snort.lua
+```
+
+The paths are placeholders; this does **not** install Snort or validate local signatures automatically. Snort 3 rules can be passed using `-R`, while `-c` selects Lua configuration.
+
+### Minimal Custom Detection Rule (Synthetic Lab)
+
+Create a **locally owned sample PCAP** containing one ordinary ICMP echo request, and define a lab-only rule:
+
+```snort
+alert icmp any any -> any any (msg:"PNWC LAB ICMP echo request"; itype:8; sid:1001001; rev:1;)
+```
+
+Save it as `lab.rules`. Run an offline validation on the installed binary/configuration, **not** an inline live interface:
+
+```bash
+# Review the configuration and rule file first.
+snort -T -c /path/to/snort.lua -R ./lab.rules
+# Analyze a lab capture already on disk:
+snort -q -c /path/to/snort.lua -R ./lab.rules -r ./owned-icmp-lab.pcapng -A alert_json
+```
+
+The exact DAQ/PCAP compatibility and output flags depend on the installed Snort 3 version. A matching alert proves only the synthetic rule matched the selected packet; a lack of alerts may mean the PCAP contains no matching traffic or a configuration error.
+
+### Detection Lifecycle & Tuning
+
+| Stage | Deliverable | Failure Signal |
+|---|---|---|
+| Version/config | `snort -V` and `-T` pass | Parser/DAQ/plugin mismatch |
+| Source validation | Endpoint flow observed in capture and in Snort input | No mirror/TAP source or missing direction |
+| Rule match | Original event with SID, timestamp and source | Wrong rule interface/variables or missing payload |
+| Noise control | Baseline legitimate flow rate; adjust thresholds carefully | Flood of low-value alerts |
+| JSON output | Verified `alert_json` event fields | Missing logger/config or unexpected field names |
+| Wazuh ingest | Versioned JSONL event + tested decoder/rule | Collected log not indexed or unmatched |
+| Response | Analyst-approved changes and retest | Automated block harms legitimate service |
+
+### Test & Troubleshooting Notes
+
+- **Snort IDS** observes and alerts; **inline IPS** must be deliberately placed in the packet path with supported DAQ, interfaces, failover plan and change approval. Running `-A alert_json` does **not** enable blocking.
+- Use Snort 3 rule syntax and rule IDs in a local reserved SID range; ensure no collision with existing rules.
+- In an aggregated capture, two 1 Gbps directions may exceed a 1 Gbps monitor port. Check actual capture/drop counters.
+- Parse JSON using the **actual `alert_json` schema** emitted by the selected release. A one-line JSON alert is not necessarily an event from a verified intrusion.
+- Collect only synthetic or explicitly authorized PCAPs; never commit live credentials, customer sessions or raw capture history.
+
+### Cross-Links
+
+[Wireshark Casework](../../Documentation/wireshark-defensive-investigations.md) · [Wazuh Manager & Agents](../SIEM/wazuh.md) · [nzyme WIDS](./nzyme_wids.md) · [NetAlertX Inventory](../../Documentation/netalertx-device-discovery-monitoring.md) · [Proxmox Visibility](../../Homelab/proxmox-security-monitoring-visibility.md)
+
 ## ▶️ Running in IDS vs. IPS Mode
 
 Start with passive observation. For Snort 3, validate the configuration, then test against a packet capture or a monitored interface. The paths below are examples; use the configuration, DAQ module, and interface names from the local installation.

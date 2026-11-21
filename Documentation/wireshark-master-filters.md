@@ -201,6 +201,20 @@ python3 tools/check_wireshark_filters.py
 - **Heuristic alerts:** large packets, DNS name lengths, ARP replies, SYNs and 802.11 deauth frames are evidence to contextualize, not attack confirmation.
 - **Version-specific fields:** confirm in Wireshark's field expression builder or official reference when opening a PCAP with a different Wireshark version; the catalog validator establishes syntax on the TShark build it actually runs.
 
+## Cross-Domain Investigation Playbooks
+
+These **case guides** interpret observations and avoid duplicating the canonical TSV filter catalog.
+
+| Scenario | Reference | Key Capture Distinction |
+|---|---|---|
+| Wireless deauth / rogue AP | [Deauth Detection](./wifi-deauthentication-detection.md) & [Counter-Surveillance](./counter-surveillance-wireless-threats.md) | Requires an RF monitor radio on the observed channel |
+| MITM / ARP / DHCP / IPv6 RA | [MITM Detection](./mitm-detection-prevention.md) | Endpoint/TAP/SPAN visibility and corroborating switch logs |
+| DNS poisoning, DoH/DoT, DNSSEC | [Secure DNS](./dns-hijacking-secure-dns.md) | Encrypted resolver traffic cannot be decoded as plaintext DNS |
+| VLAN tagging / ACL / DMZ | [Segmentation](./network-segmentation-dmz-acl-vlan.md) | NIC offload/SPAN may strip VLAN tags |
+| Bluetooth/BLE RF capture | [BLE Passive Scanning](./bluetooth-passive-scanning-sniffing.md) | BlueZ HCI and Nordic RF sniffers are not interchangeable |
+| Wired sensor placement | [LAN TAPs & SPAN](./network-taps-and-packet-visibility.md) | Both link directions and packet loss matter |
+| All scenarios in one checklist | [Wireshark Defensive Investigations](./wireshark-defensive-investigations.md) | Source selection → filter → corroboration → retest |
+
 ## Source of truth and related guides
 
 - [Wireshark display-filter grammar](https://www.wireshark.org/docs/man-pages/wireshark-filter)

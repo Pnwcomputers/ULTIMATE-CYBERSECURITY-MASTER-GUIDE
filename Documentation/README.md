@@ -133,6 +133,29 @@ This directory contains comprehensive technical documentation, operational proce
 | [SBC, Firmware & Radio Add-Ons](./sbc-radio-addon-compatibility.md) | Raspberry Pi, uConsole, ESP32/Flipper, USB Wi-Fi/BLE, CC1101, PN532, nRF24, GPS & Pi HATs | Compatibility matrix |
 | [LAN TAPs & Network Visibility](./network-taps-and-packet-visibility.md) | Great Scott Throwing Star, copper/fiber TAP, 1G+ active, SPAN, breakout and IDS | Network guide |
 
+### Defensive Wireless, DNS, MITM & Segmentation Playbooks
+
+| Guide | Why It Matters | Type |
+|---|---|---|
+| [Counter-Surveillance & Rogue Wireless Devices](./counter-surveillance-wireless-threats.md) | Detection and controls for Pwnagotchi, FancyGotchi, Bjorn, Piglet, Evil-M5, Flipper/Bruce | Defensive playbook |
+| [MITM Detection & Prevention](./mitm-detection-prevention.md) | ARP, DHCP, IPv6 RA, rogue AP, TLS and proxy; Wireshark validation | Defensive playbook |
+| [DNS Hijacking & Secure DNS](./dns-hijacking-secure-dns.md) | DNSSEC, DoH, DoT, DoQ, ODoH, protective DNS, incident response | Architecture guide |
+| [Network Segmentation, DMZ, ACLs & VLANs](./network-segmentation-dmz-acl-vlan.md) | 802.1Q tagging, guest/IoT isolation, NAC, SPAN/RSPAN/ERSPAN, policy matrix | Network guide |
+| [Wireshark Defensive Investigations](./wireshark-defensive-investigations.md) | Deauth, MITM, DNS, VLAN, BLE & TAP case workflows and evidence handling | Capture playbook |
+
+**Existing comprehensive pages retained:** [Pwnagotchi](./pwnagotchi_cheatsheet.md), [FancyGotchi](./fancygotchi-pwnagotchi.md), [Bjorn](./bjorn_pi.md), [Evil-M5](./evil_m5.md), [Piglet Wardriver](../Wardriving/piglet.md), [Aircrack-ng](./Aircrack-ng_Commands.md), [Wireshark](./wireshark.md) and [802.11 Deauth](./wifi-deauthentication-detection.md).
+
+### Device Discovery, Inventory & Sensor Correlation
+
+| Guide | Purpose | Type |
+|---|---|---|
+| [NetAlertX](./netalertx-device-discovery-monitoring.md) | Device arrivals/departures, authorized scans, VLAN limits, Docker, protected alerts | Device inventory |
+| [Device Discovery Platform Comparison](./network-device-discovery-comparison.md) | NetAlertX, LibreNMS, Zabbix, NetBox, ntopng, arpwatch, WatchYourLAN and other tools | Comparison |
+| [Unified Wazuh/Snort/nzyme/Kismet/NetAlertX](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) | Multi-source observability, Wazuh pipeline, Wireshark evidence & blind spots | Operations architecture |
+| [Wazuh Manager & Agents](../IncidentResponse/SIEM/wazuh.md) | SIEM, FIM, event rules and version-specific deployment | SIEM guide |
+| [Snort 3](../IncidentResponse/IDS%26IPS/snort.md) | Packet signatures, rule validation and rated TAP/SPAN sensor paths | IDS/IPS guide |
+| [nzyme](../IncidentResponse/IDS%26IPS/nzyme_wids.md) | Wi-Fi WIDS, sensor taps, coverage, alerts and false positives | WIDS guide |
+
 ### Wireless Security, WiFi & Network Tools
 | File | Description | Size/Type |
 | :--- | :--- | :--- |

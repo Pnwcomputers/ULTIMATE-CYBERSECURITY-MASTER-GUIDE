@@ -95,6 +95,22 @@ hardware or runtime claim requires a dated record of the exact board, image,
 release, configuration and observed result, as described in the
 [Repository Verification Protocol](./REPOSITORY-VERIFICATION-PROTOCOL.md).
 
+## Defensive Detection, Wireshark & Portable Build Qualification
+
+Pwnagotchi is not a uniquely identifiable wireless signature: passive 802.11 capture is normally silent, while **some** active firmware modes can generate authentication, association or deauthentication traffic. Do not assume every fork uses the same defaults. FancyGotchi themes **do not** independently enable or disable RF behavior. Match the exact Pi, image, display, USB OTG host and driver before claiming a working build.
+
+| Assessment | Lab Evidence | Defense |
+|---|---|---|
+| Baseline of owned AP | Configured SSID/BSSID, channel, PMF and authorized station | Managed wireless profiles, WPA3/PMF where supported |
+| Possible management-frame abuse | Wireshark `wlan.fc.type_subtype == 0x0c` & AP event logs | PMF protects certain post-association robust management frames |
+| Probe/association changes | Beacons, probes, AP controller logs | Rogue AP WIDS, trusted EAP-TLS certificate profiles |
+| Capture-file presence | Local PCAPNG inventory and hash | Restrict artifact access; no automatic third-party upload |
+| Software/fork drift | Release URL, checksum, config and plugin list | Backup/reflash rather than mixing incompatible images |
+
+**No guaranteed "blocking" of all deauths:** PMF does not prevent jamming or all pre-association abuse. A monitor card hears only its tuned channels.
+
+**Further reference:** [Counter-Surveillance & Wireless Threats](./counter-surveillance-wireless-threats.md), [Wireshark Filters](./wireshark-master-filters.md), [Deauth Analysis](./wifi-deauthentication-detection.md), [SBC & Add-Ons](./sbc-radio-addon-compatibility.md), [FancyGotchi](./fancygotchi-pwnagotchi.md). The radio and attack configuration must be reviewed per chosen fork.
+
 ## Related Files
 
 - [Device-first firmware references](../firmware-hardware-compatibility.md)

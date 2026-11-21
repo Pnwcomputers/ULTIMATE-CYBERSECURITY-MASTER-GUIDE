@@ -761,6 +761,21 @@ Capture **authorization ID, scope, exact device/firmware and SD revision, operat
 
 **Adjacent projects:** [Bruce firmware](./bruce_firmware.md), [Standalone Marauder](./WiFiMarauder_Guide.md), [Flipper add-ons](./flipper_zero_guide.md), [LAB5 C5 Monster / JanOS](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment), [Biscuit](../Wardriving/biscuit.md), [Wi-Fi IDS](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md).
 
+## Device-Specific Counter-Surveillance & Evidence Correlation
+
+Evil-M5 firmware is **board/build-dependent**, and the software menu is not proof that an attached radio, USB HID interface or GPS module exists. For a Cardputer/CYD or other ESP32 variant, confirm its supported target, release hash, pins, SD support and radio behavior before drawing conclusions.
+
+| Suspected Behavior | Wireshark / Controller Evidence | Defense |
+|---|---|---|
+| Rogue AP / evil twin | Own SSID compared against BSSID, RSN security suite, controller inventory and certificate validation | Trusted WPA3/EAP-TLS profiles, WIDS and validated server certificates |
+| Deauth bursts | `wlan.fc.type_subtype == 0x0c` plus time/channel, AP log correlation | PMF on supported clients/APs; PMF is **not** a jamming shield |
+| Probe observation | Probe requests visible on monitored RF channels | Limit directed probe leakage via managed profile/OS configuration |
+| Fake portal / DNS redirect | Unexpected DNS resolver, HTTP redirects and TLS certificate anomalies | Secure DNS policy, HTTPS validation and education |
+| BLE advertising | Dedicated sniffer and known owned beacon | Address randomization complicates identity attribution |
+| USB HID misuse | Endpoint USB/EDR/MDM event logs | Locked workstations, endpoint control and user approval |
+
+The same indicator can come from routine AP maintenance or a different device. Never identify hardware merely by a management-frame source MAC. [Wireshark Master Filters](./wireshark-master-filters.md), [Counter-Surveillance](./counter-surveillance-wireless-threats.md), [MITM Guide](./mitm-detection-prevention.md), [DNS Security](./dns-hijacking-secure-dns.md) and [SBC Firmware/Addon Matrix](./sbc-radio-addon-compatibility.md) provide practical validation without an active counterattack.
+
 ## 10. Blue team; defenses that actually work
 
 For each major attack class, the table below names the control that defeats it. This is the table that belongs in your book's defensive chapter and in any client deliverable.

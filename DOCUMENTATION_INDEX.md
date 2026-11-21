@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**427 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**435 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -20,11 +20,11 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Cryptography | 16 | [Open section](#cryptography) |
 | Cyberdeck | 13 | [Open section](#cyberdeck) |
 | Data-Engineering | 18 | [Open section](#data-engineering) |
-| Documentation | 68 | [Open section](#documentation) |
+| Documentation | 75 | [Open section](#documentation) |
 | HardwareHacking | 16 | [Open section](#hardwarehacking) |
 | HardwareTesting | 3 | [Open section](#hardwaretesting) |
 | Homelab | 4 | [Open section](#homelab) |
-| IncidentResponse | 41 | [Open section](#incidentresponse) |
+| IncidentResponse | 42 | [Open section](#incidentresponse) |
 | Mobile | 8 | [Open section](#mobile) |
 | OPSEC | 10 | [Open section](#opsec) |
 | OSINT | 21 | [Open section](#osint) |
@@ -291,10 +291,12 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [bluetooth-radio-adapter-guide.md](./Documentation/bluetooth-radio-adapter-guide.md) | `Documentation/bluetooth-radio-adapter-guide.md` |
 | [bruce_firmware.md](./Documentation/bruce_firmware.md) | `Documentation/bruce_firmware.md` |
 | [chimerable.md](./Documentation/chimerable.md) | `Documentation/chimerable.md` |
+| [counter-surveillance-wireless-threats.md](./Documentation/counter-surveillance-wireless-threats.md) | `Documentation/counter-surveillance-wireless-threats.md` |
 | [curated-technical-docs.md](./Documentation/curated-technical-docs.md) | `Documentation/curated-technical-docs.md` |
 | [cypherpunk-pentesting-toolkit-review.md](./Documentation/cypherpunk-pentesting-toolkit-review.md) | `Documentation/cypherpunk-pentesting-toolkit-review.md` |
 | [devhints-cli-field-reference.md](./Documentation/devhints-cli-field-reference.md) | `Documentation/devhints-cli-field-reference.md` |
 | [device-firmware-list.md](./Documentation/device-firmware-list.md) | `Documentation/device-firmware-list.md` |
+| [dns-hijacking-secure-dns.md](./Documentation/dns-hijacking-secure-dns.md) | `Documentation/dns-hijacking-secure-dns.md` |
 | [esp-terminator.md](./Documentation/esp-terminator.md) | `Documentation/esp-terminator.md` |
 | [esp32-security-firmware-catalog.md](./Documentation/esp32-security-firmware-catalog.md) | `Documentation/esp32-security-firmware-catalog.md` |
 | [evil_m5.md](./Documentation/evil_m5.md) | `Documentation/evil_m5.md` |
@@ -306,7 +308,11 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [hashcat-guide.md](./Documentation/hashcat-guide.md) | `Documentation/hashcat-guide.md` |
 | [hcxtoolshashcat.md](./Documentation/hcxtoolshashcat.md) | `Documentation/hcxtoolshashcat.md` |
 | [microcontroller_wifi_testing.md](./Documentation/microcontroller_wifi_testing.md) | `Documentation/microcontroller_wifi_testing.md` |
+| [mitm-detection-prevention.md](./Documentation/mitm-detection-prevention.md) | `Documentation/mitm-detection-prevention.md` |
 | [nemo-firmware.md](./Documentation/nemo-firmware.md) | `Documentation/nemo-firmware.md` |
+| [netalertx-device-discovery-monitoring.md](./Documentation/netalertx-device-discovery-monitoring.md) | `Documentation/netalertx-device-discovery-monitoring.md` |
+| [network-device-discovery-comparison.md](./Documentation/network-device-discovery-comparison.md) | `Documentation/network-device-discovery-comparison.md` |
+| [network-segmentation-dmz-acl-vlan.md](./Documentation/network-segmentation-dmz-acl-vlan.md) | `Documentation/network-segmentation-dmz-acl-vlan.md` |
 | [network-taps-and-packet-visibility.md](./Documentation/network-taps-and-packet-visibility.md) | `Documentation/network-taps-and-packet-visibility.md` |
 | [nmap-guide.md](./Documentation/nmap-guide.md) | `Documentation/nmap-guide.md` |
 | [pixiewps-guide.md](./Documentation/pixiewps-guide.md) | `Documentation/pixiewps-guide.md` |
@@ -325,6 +331,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [wifite-guide.md](./Documentation/wifite-guide.md) | `Documentation/wifite-guide.md` |
 | [wireless-toolkit-reference.md](./Documentation/wireless-toolkit-reference.md) | `Documentation/wireless-toolkit-reference.md` |
 | [wireshark-cheatsheet.md](./Documentation/wireshark-cheatsheet.md) | `Documentation/wireshark-cheatsheet.md` |
+| [wireshark-defensive-investigations.md](./Documentation/wireshark-defensive-investigations.md) | `Documentation/wireshark-defensive-investigations.md` |
 | [wireshark-master-filters.md](./Documentation/wireshark-master-filters.md) | `Documentation/wireshark-master-filters.md` |
 | [wireshark.md](./Documentation/wireshark.md) | `Documentation/wireshark.md` |
 | [wordlists-password-auditing.md](./Documentation/wordlists-password-auditing.md) | `Documentation/wordlists-password-auditing.md` |
@@ -403,6 +410,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [IDS&IPS/security-onion.md](./IncidentResponse/IDS%26IPS/security-onion.md) | `IncidentResponse/IDS&IPS/security-onion.md` |
 | [IDS&IPS/snort.md](./IncidentResponse/IDS%26IPS/snort.md) | `IncidentResponse/IDS&IPS/snort.md` |
 | [IDS&IPS/suricata+zeek.md](./IncidentResponse/IDS%26IPS/suricata%2Bzeek.md) | `IncidentResponse/IDS&IPS/suricata+zeek.md` |
+| [IDS&IPS/unified-network-visibility-architecture.md](./IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md) | `IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md` |
 | [README — IncidentResponse](./IncidentResponse/README.md) | `IncidentResponse/README.md` |
 | [README — IncidentResponse/SIEM](./IncidentResponse/SIEM/README.md) | `IncidentResponse/SIEM/README.md` |
 | [SIEM/detection-content-validation.md](./IncidentResponse/SIEM/detection-content-validation.md) | `IncidentResponse/SIEM/detection-content-validation.md` |

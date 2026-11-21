@@ -28,6 +28,16 @@ _Last reviewed: 2026-11-19 (documentation and internal-link review; no field col
 | [Bluetooth, BLE & Adjacent RF Hardware](../Documentation/bluetooth-radio-adapter-guide.md) | True BLE sniffers vs HCI adapters, Ubertooth, nRF52, YARD Stick One and ATtiny |
 | [Wireless Security Tool Index](../Documentation/wireless-toolkit-reference.md) | Aircrack-ng, Fern, Wifite, Pixiewps and Bluetooth tools, distinct from receive-focused wardriving |
 
+## Radio Monitoring, Device Inventory & SIEM Correlation
+
+| Tool | Best Use |
+|---|---|
+| [nzyme WIDS](../IncidentResponse/IDS%26IPS/nzyme_wids.md) | Distributed radio taps, SSID/BSSID changes, deauth detection |
+| [Kismet + Wazuh](../IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) | Passive radio alerts, rule testing and dashboard integration |
+| [NetAlertX](../Documentation/netalertx-device-discovery-monitoring.md) | Wired/DHCP/controller device presence **not** raw RF capture |
+| [Unified WIDS / IDS / Inventory Architecture](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) | Correlate without guessing a human/device identity |
+| [Wireshark Defense](../Documentation/wireshark-defensive-investigations.md) | Actual RF/packet evidence, coverage and false positives |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |

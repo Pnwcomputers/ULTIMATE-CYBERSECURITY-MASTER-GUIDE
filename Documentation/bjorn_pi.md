@@ -547,6 +547,22 @@ Every exercise in this section assumes a **fully isolated lab environment**. The
 
 ---
 
+## Service-Layer Countermeasures, Segmentation & Wireshark Correlation
+
+Bjorn runs on a Raspberry Pi but exercises **IP network services**. Do not mistake it for a Wi-Fi frame sniffer or assume its cartoon display can identify it from network traffic. Its meaningful signals are flows and logs. A device connected through Ethernet or a normal Wi-Fi association may be invisible to an RF-only WIDS.
+
+| Threat Pattern | Defensive Evidence | Mitigation |
+|---|---|---|
+| Unauthorized service inventory | Zeek `conn.log`, firewall logs, bounded Wireshark TCP SYN patterns | Default-deny inter-zone ACLs, restrict management interfaces |
+| Repeated authentication failures | SSH/SMB/IdP logs, source address and timing | MFA, lockout/rate policies and EDR |
+| File share discovery | SMB access logs, share audit, unusual access breadth | Restrict shares to identities/services required |
+| Unusual data transfer | Host audit, flow/bytes, approved destination list | Least privilege, egress rules, DLP as appropriate |
+| Persistent embedded access | Switch MAC/LLDP, DHCP, NAC and port inventory | Disable spare ports, 802.1X, quarantine VLAN |
+
+**Wireshark display filters:** `tcp.flags.syn == 1 && tcp.flags.ack == 0` is a **normal TCP handshake selector**, not proof of a scan. `smb2`, `tcp.port == 22`, and `dns` select evidence relevant to SSH/SMB/DNS, not automatic attack verdicts. Capture from a correctly configured [TAP/SPAN](./network-taps-and-packet-visibility.md); a sensor behind an unmanaged switch generally cannot see arbitrary other unicast traffic.
+
+For practical zoning, follow [VLAN/ACL/DMZ Design](./network-segmentation-dmz-acl-vlan.md), [MITM Detection](./mitm-detection-prevention.md), [Wireshark Master Filters](./wireshark-master-filters.md) and [Counter-Surveillance](./counter-surveillance-wireless-threats.md). Use an **isolated synthetic lab** to tune rules, not an unattended real network.
+
 ## 9. Blue team; defenses against Bjorn
 
 | Attack stage | Detection | Prevention |

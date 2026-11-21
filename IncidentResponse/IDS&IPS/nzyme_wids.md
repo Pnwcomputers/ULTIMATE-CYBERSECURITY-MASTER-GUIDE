@@ -95,6 +95,55 @@ The adapter list reflects the guide author's reported tests and current upstream
 
 ---
 
+## Current nzyme Versions, Radio Coverage & Defensive Setup
+
+**Version check (2026-11-21):** [nzyme 2.0.0-alpha.20](https://www.nzyme.org/news/2026/10/12/release-v200-alpha-20) was released October 12, 2026. Its node/tap configuration, secret-file permission checks, metrics and `nzyme-util` tooling may differ from older installed systems. Treat the existing hardware/Ubuntu example below as a **version-specific reference**, not a promised one-command deployment across releases. Before installation consult [official requirements](https://docs.nzyme.org/getting-started/requirements/), [upgrades](https://docs.nzyme.org/getting-started/upgrading/upgrading/) and **exact release** docs.
+
+| Component | Purpose | Qualifications |
+|---|---|---|
+| `nzyme-node` | Centralized web interface, observations and alert management | Supported Linux, correctly sized database/storage, restricted management network |
+| `nzyme-tap` | Radio/other enabled sensor interfaces and collection | Supported Linux adapter/firmware, channel/band coverage, stable power |
+| Wi-Fi radio | Receive 802.11 frames, management and RF observations | Actual monitor mode, chipset/driver, bands and antenna |
+| Optional Ethernet feed | Collect permitted wired traffic | Correct TAP/SPAN observation point; not automatically wireless frames |
+| Wazuh agent/collector | Ingest normalized events for multi-source timelines | Version-specific JSON schema and rule tests |
+| Admin/analyst | Establish monitored SSID/BSSID baseline and triage | Strong access control and retention policy |
+
+### Coverage & Sensor Qualification
+
+1. Inventory owned WLANs with known SSIDs/BSSIDs, channels, security suites, PMF state and legitimate AP/controller list.
+2. Pick the [Wi-Fi adapter](../../Documentation/wifi-adapter-selection-guide.md) based on chipset, kernel, firmware and **verified monitor mode**—not the USB brand alone.
+3. Determine whether each radio will remain on a **fixed channel** for reliable event capture or hop across legal channels for broader but incomplete coverage. More radios improve independent band/channel coverage.
+4. Measure actual frame count, sensor packet drops and tap→node report delivery. nzyme's [util/debug tooling](https://docs.nzyme.org/configuration/misc/nzyme-util/) is version-dependent; check the installed `--help`.
+5. Enable only the wireless monitoring subscriptions needed for the lab. **Do not enable active engagement/interference features** as part of passive WIDS.
+6. Record known scanner false positives: AP reboot, roaming, DFS, channel width changes, dynamic RF and PMF transition policy.
+7. Verify **one synthetic alert** reaches the node, then separately test a supported webhook/syslog integration into Wazuh.
+
+### Wireless Event Sources & Response
+
+| Detection Area | What nzyme Can Report | Required Corroboration |
+|---|---|---|
+| Disconnection activity | Deauth/disassociation counts or threshold events | Fixed-channel Wireshark frame capture, AP/client logs and PMF state |
+| Rogue/fake AP candidate | Unexpected BSSID, SSID security/fingerprint/RF track changes | Controller inventory and actual deployment changes |
+| New SSID / AP | Radio observations | Guest/lab hotspot/neighbor network may be harmless |
+| AP security drift | RSN/cipher/PMF advertisement change | AP firmware/config, legitimate transition |
+| WIDS source outage | Tap stopped, channel coverage lost | Service/USB power/driver and receiver logs |
+| Suspicious probe pattern | Client-originated management frames | Privacy randomization and normal discovery traffic |
+
+**Disconnection events do not identify a physical transmitter.** See [nzyme disconnection activity](https://docs.nzyme.org/wifi/disconnection-activity/), [network monitoring](https://docs.nzyme.org/wifi/monitoring/network-monitoring/) and [channel hopping](https://docs.nzyme.org/wifi/concepts/channel_hopping/). "Blocking deauth" is not a universal feature: PMF mitigates selected forged robust frames *after association*, but no RF sensor can magically stop jamming.
+
+### Wireshark & Wazuh Integration Acceptance
+
+| Step | Test | Pass Condition |
+|---|---|---|
+| Radio | Owned AP beacon on a known channel | Frames observed with receiver ID, channel and time |
+| Controller | Authorized AP reboot/roam | Alert classified appropriately, without false threat attribution |
+| Event transport | Synthetic nzyme event through configured webhook/syslog | Normalized JSON arrives with actual event type and timestamp |
+| Wazuh | Agent and manager parser/rule evaluation | Correct rule, severity, alert time and source |
+| Dashboard | Incident timeline with Kismet/NetAlertX/endpoint data | Events join by time/site, without falsely equating MAC addresses |
+| Recovery | Stop/restart sensor, restore permissions | No hardcoded default secrets, missing frames noted |
+
+Use the [existing nzyme→Wazuh integration](./nzyme-wazuh-integration.md), [Kismet/Wazuh lab](./kismet-wazuh-wireless-lab.md), [Wireshark Defensive Investigations](../../Documentation/wireshark-defensive-investigations.md) and [Device Identification Tools](../../Documentation/network-device-discovery-comparison.md). nzyme is WIDS, not a replacement for NetAlertX's inventory history or Snort's wired signature matching.
+
 ## 🚀 Deployment Workflow
 
 ```text

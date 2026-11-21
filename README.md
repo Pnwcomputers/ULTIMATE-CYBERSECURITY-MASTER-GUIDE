@@ -141,6 +141,27 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | [SBC, Firmware & Add-On Compatibility](./Documentation/sbc-radio-addon-compatibility.md) | Pi/uConsole/Flipper/ESP32, CC1101, NFC, GPS, HATs and Wi-Fi/Bluetooth USB support |
 | [LAN TAPs, Throwing Star & SPAN](./Documentation/network-taps-and-packet-visibility.md) | Active/passive copper, fiber, 10/100 limits, aggregation, bypass & IDS visibility |
 
+### Defensive Wireless, Network Segmentation & Wireshark
+
+| Reference | Coverage |
+|---|---|
+| [Counter-Surveillance, Rogue Devices & Detection](./Documentation/counter-surveillance-wireless-threats.md) | Pwnagotchi, FancyGotchi, Bjorn, Piglet, Evil-M5, deauth, BLE, MITM & Wireshark |
+| [MITM Detection & Prevention](./Documentation/mitm-detection-prevention.md) | ARP/DHCP/IPv6, TLS, evil twins, endpoint and switch controls |
+| [DNS Hijacking, DNSSEC, DoH, DoT & Protective DNS](./Documentation/dns-hijacking-secure-dns.md) | Modern resolver architecture, monitoring, policy and privacy |
+| [DMZs, VLANs, ACLs, 802.1Q & Port Mirroring](./Documentation/network-segmentation-dmz-acl-vlan.md) | Network zones, tagging, NAC, SPAN/RSPAN/ERSPAN, firewall policy |
+| [Wireshark Defensive Investigations](./Documentation/wireshark-defensive-investigations.md) | Cross-domain packet capture, display filters, source visibility & corroboration |
+
+### Network Device Inventory & Integrated Detection
+
+| Reference | Coverage |
+|---|---|
+| [NetAlertX Device Discovery & Tracking](./Documentation/netalertx-device-discovery-monitoring.md) | New/changed devices, multi-VLAN limits, Docker, event/alert integration |
+| [Device Discovery & Monitoring Comparison](./Documentation/network-device-discovery-comparison.md) | NetAlertX, LibreNMS, Zabbix, NetBox, ntopng, arpwatch, WatchYourLAN and related systems |
+| [Unified Wazuh, Snort, nzyme, Kismet & NetAlertX](./IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) | Sensor placement, standardized events, Wireshark correlation and validated alerts |
+| [Wazuh Deployment](./IncidentResponse/SIEM/wazuh.md) | Manager, agents, Docker, FIM, rules and integration |
+| [Snort 3 IDS/IPS](./IncidentResponse/IDS%26IPS/snort.md) | Lua, rules, packet capture, offline tests, IDS vs IPS |
+| [nzyme Wireless Detection](./IncidentResponse/IDS%26IPS/nzyme_wids.md) | Distributed monitor-mode taps, rogue AP/deauth, Wazuh |
+
 ### Curated Research & Practice:
 
 | Resource | Description |

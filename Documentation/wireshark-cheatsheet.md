@@ -63,6 +63,8 @@
 
 **Important:** An ARP reply is not automatically poisoning; a SYN isn't automatically a scan; a deauth isn't automatically spoofed; a long DNS name isn't automatically exfiltration. Encrypted traffic generally reveals metadata, not application contents.
 
+**Cross-domain workflows:** [Wireshark Defensive Investigations](./wireshark-defensive-investigations.md) extends this quick sheet with authorized deauth, rogue AP, MITM, DHCP/ARP, DNS hijack, VLAN, BLE and TAP/SPAN evidence tables. For correct capture hardware, use [Wi-Fi Adapters](./wifi-adapter-selection-guide.md), [Bluetooth RF Sniffers](./bluetooth-radio-adapter-guide.md) and [LAN TAPs](./network-taps-and-packet-visibility.md). This cheat sheet remains the short copy/paste filter reference.
+
 ## In a client visit or blue-team incident
 
 1. **Find device:** `ip.addr == 192.0.2.10` → Statistics → Conversations.

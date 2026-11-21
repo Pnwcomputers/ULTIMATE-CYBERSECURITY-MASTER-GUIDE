@@ -230,6 +230,29 @@ There is no perfect packet-only authenticity test for **unprotected** Wi-Fi mana
 
 Avoid equating arbitrary OUI, signal strength, sequence numbers, or any one disconnect code with the physical attacker's identity. Use separate observers only as supporting evidence.
 
+## Preventing Forged Deauthentication vs Detecting Radio Interference
+
+**Blocking is not universal:** Protected Management Frames (PMF / 802.11w) cryptographically protect **certain robust management frames after association**, including relevant deauthentication/disassociation exchanges when fully negotiated. It does **not** stop an RF jammer, all unprotected pre-association frames, channel interference or every availability attack. WPA3 generally requires PMF; WPA2/WPA3 transition networks can have weaker client compatibility settings.
+
+| Defensive Measure | Helps With | Cannot Guarantee |
+|---|---|---|
+| Require PMF on compatible AP/client | Forged post-association robust management frames | No RF interference or full evil-twin elimination |
+| WPA3-SAE or enterprise EAP-TLS | Stronger authentication; reduces some offline credential risks | No universal management-frame or application security |
+| Kismet/nzyme on fixed-channel receivers | Burst counts and source/channel correlations | Full spectrum coverage with one radio |
+| Controller/AP logs | Actual client disconnect reason, PMF negotiated, roaming/DFS | Real transmitter attribution from spoofable fields |
+| Managed Wi-Fi profiles | Autojoin/rogue AP prevention and certificate trust | Stops all lookalike SSIDs on air |
+| Physical channel/spectrum study | Separates RF noise or interference from frame events | Conclusive source attribution |
+
+### Wireshark Detection & Alert Review
+
+- `wlan.fc.type_subtype == 0x0c` selects deauthentication frames.
+- `wlan.fc.type_subtype == 0x0a` selects disassociation frames.
+- `wlan.fc.type_subtype == 0x08` selects beacons to corroborate BSSID/channel/advertised security.
+- Use **I/O Graphs** over a bounded window for suspicious bursts, but normalize to ordinary roaming/AP restart patterns; AP/client event logs supply needed independent context.
+- Monitor mode and actual capture coverage depend on chipset, band and legal channel; switched Ethernet SPAN **cannot produce wireless management frames** by itself.
+
+See [Counter-Surveillance](./counter-surveillance-wireless-threats.md), [Wireshark Advanced Capture](./wireshark.md), [Wi-Fi Adapter Selection](./wifi-adapter-selection-guide.md), [MITM Detection](./mitm-detection-prevention.md) and [Network Segmentation](./network-segmentation-dmz-acl-vlan.md). Do not attempt to "block" a suspected attacker through retaliatory deauthentication.
+
 ## 9. Response and hardening
 
 - Preserve original PCAP and AP/client logs, timestamps, hashes, and case notes; do not share neighboring stations' identifiers.
