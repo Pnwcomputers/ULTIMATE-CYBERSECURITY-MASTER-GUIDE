@@ -52,8 +52,11 @@ headline change is a new **Govern** function, making **six** core functions:
 5. **Respond (RS)** - act on incidents
 6. **Recover (RC)** - restore capabilities
 
-- **Use it for:** a flexible program backbone; maps well to other frameworks.
-- **Not a certification** - it is a framework you self-adopt/assess against.
+- **Use it for:** organizing cybersecurity outcomes and planning improvements. An organization can adopt and assess its program using the framework.
+
+![CSF 2.0 Profile workflow from shared scope through Current and Target Profiles, comparison, and a prioritized action plan](../assets/diagrams/csf-profiles-gap-and-action-plan.svg)
+
+Use the **Current Profile** to describe the CSF outcomes the organization achieves or is working toward within a defined scope. Use the **Target Profile** to identify priority outcomes for the same scope. Compare the profiles, prioritize the gaps, and update the profiles as the plan progresses. Tiers can add context about the rigor of risk governance and management. [NIST CSF 2.0, Sections 3.1 and 3.2](https://csrc.nist.gov/pubs/cswp/29/the-nist-cybersecurity-framework-csf-20/final)
 
 ---
 

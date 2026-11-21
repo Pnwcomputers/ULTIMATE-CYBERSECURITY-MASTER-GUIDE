@@ -1079,6 +1079,13 @@ Manufacturer-published sampling limits by active-channel count. Use the detailed
 |---|---|
 | [LA1010 active-channel sample-rate tradeoff](./diagrams/la1010-active-channel-sample-rate.svg) | [LA1010 guide](../HardwareHacking/LA1010.md#active-channel-tradeoff) |
 
+## Profiles and Provider Evidence
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [CSF 2.0 Profiles and action plan](./diagrams/csf-profiles-gap-and-action-plan.svg) | [Security Control Frameworks](../Compliance/frameworks.md#nist-cybersecurity-framework-csf-20) | Compares observed and target outcomes within the same scope to prioritize gaps |
+| [PCI DSS provider evidence decision](./diagrams/pci-dss-provider-evidence-decision.svg) | [PCI DSS Scoping & Segmentation](../Compliance/pci-dss-scoping.md#service-providers-remote-it--shared-responsibility) | Checks the provider's evidence against the service used and assigned responsibilities |
+
 ## PCI DSS Scope Worksheet Visual
 
 | Diagram | Embedded guide |
