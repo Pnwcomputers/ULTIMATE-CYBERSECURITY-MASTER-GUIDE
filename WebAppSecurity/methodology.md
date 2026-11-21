@@ -188,17 +188,26 @@ flowchart LR
 
 ![Web authorization model contrasting authorized regular-user owned records, another user's records and privileged functions with a server-side subject-object-action decision](../assets/diagrams/webapp-object-authorization-role-matrix.svg)
 
-*Conceptual testing matrix for preapproved synthetic accounts.* [OWASP WSTG's authorization testing](https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/05-Authorization/02-Bypassing_Authorization_Schema/) differentiates horizontal and vertical privilege checks. [OWASP API1:2023](https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/) requires object-level authorization for each relevant operation. Do not infer a server-side denial from hidden navigation or the presence of login alone.
+*Conceptual testing matrix for preapproved synthetic accounts.* [OWASP WSTG authorization testing](https://wstg.owasp.org/latest/4-Web_Application_Security_Testing/05-Authorization/02-Bypassing_Authorization_Schema/) covers horizontal and vertical privilege checks. [OWASP API1:2023](https://api-security.owasp.org/editions/2023/en/0xa1-broken-object-level-authorization/) addresses object-level authorization. See [A01 Broken Access Control](owasp-top-10.md#a01-broken-access-control) for the control model.
 
-Maps to [A01 Broken Access Control](owasp-top-10.md#a01-broken-access-control) - a major risk class. Automated scanning alone cannot establish complete horizontal, vertical, and per-object authorization coverage.
+Test only the identities, objects, actions, endpoints, and rate limits in the
+written scope. Use known test fixtures rather than broad identifier enumeration.
 
-- **Horizontal:** with two same-role accounts, replay each user's requests as the
-  other; increment/swap object identifiers (IDOR).
-- **Vertical:** attempt admin/privileged functionality as a low-privileged user;
-  request privileged endpoints directly (forced browsing).
-- **Method/param tampering:** change HTTP verbs, toggle role parameters, remove
-  authorization headers.
-- Use Burp *Autorize*/*Auth Analyzer* to systematize the two-account replay.
+- **Horizontal and tenant boundaries:** use two authorized accounts to verify
+  each can access only its own known test objects; check relevant cross-tenant
+  boundaries with approved fixtures.
+- **Vertical and function access:** request privileged routes and actions directly
+  using a lower-privileged test identity. Do not treat hidden links or UI state as
+  authorization.
+- **Object and property access:** for approved objects, test read, update, delete,
+  export, and sensitive-field operations where applicable. Vary HTTP methods and
+  request properties only within scope; client-supplied roles or ownership fields
+  must not confer permission.
+- **Evidence:** for denied reads and writes, capture the response and verify the
+  underlying test-object state did not change. Record identity, action, object,
+  expected policy, observed result, and coverage gaps. Burp *Autorize* or
+  *Auth Analyzer* can help replay requests, but automated results require manual
+  verification.
 
 ---
 
