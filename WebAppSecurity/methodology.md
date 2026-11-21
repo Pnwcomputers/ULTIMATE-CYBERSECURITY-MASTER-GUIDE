@@ -334,11 +334,35 @@ See the API/GraphQL phase above, and record authorization, inputs, impact and re
 
 ## Phase 9: Reporting
 
-- Each finding: title, severity (with CVSS where useful), affected endpoint,
-  reproducible steps/evidence, impact, and **remediation**.
-- Map findings to [OWASP Top 10](owasp-top-10.md) categories and CWE IDs.
-- Separate confirmed vulnerabilities from informational/hardening observations.
-- Provide an executive summary and a prioritized remediation roadmap.
+```mermaid
+flowchart LR
+    V[Validate finding<br/>and evidence] --> R[Redact sensitive data<br/>and record scope]
+    R --> S[Explain impact,<br/>severity, and confidence]
+    S --> O[Assign remediation<br/>owner and action]
+    O --> T[Retest the change<br/>against the original case]
+    T -->|Resolved| C[Close with evidence]
+    T -->|Not resolved or accepted| X[Track residual risk,<br/>owner, and next review]
+```
+
+- **Finding record:** include a concise title, affected application/version and
+  endpoint, preconditions, reproducible steps, observed behavior, impact,
+  evidence, confidence, and actionable remediation. Distinguish directly
+  observed facts from inferred consequences.
+- **Evidence handling:** use designated test identities and synthetic data where
+  possible. Redact tokens, credentials, personal data, and unrelated customer
+  content; store any necessary unredacted evidence only through the approved
+  secure evidence process. Preserve enough context to reproduce the result
+  without exposing secrets.
+- **Severity and mapping:** explain severity using the engagement's agreed
+  methodology. If using CVSS, identify the version and relevant vector; treat the
+  score as one input alongside business context and exploitability. Map to
+  applicable [OWASP Top 10](owasp-top-10.md) categories and CWE IDs, and label
+  uncertainty, exclusions, and coverage limitations.
+- **Report and follow-up:** separate confirmed vulnerabilities from observations
+  and recommendations. Provide an executive summary and prioritized actions
+  with owners and target dates. Retest the original case after remediation and
+  record the result; track accepted residual risk with an owner and review date.
+  See the repository's [assessment findings lifecycle](../PlayBooks/assessment-findings-lifecycle.md).
 
 ---
 
