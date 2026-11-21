@@ -14,6 +14,10 @@ The [new offline rule regression test](../tools/tests/test_wazuh_rule_contracts.
 | [nzyme](../IncidentResponse/IDS&IPS/nzyme-wazuh/nzyme_wids_rules.xml) | Normalized nzyme events | 100352, 100354 |
 | [Honeypot](../IncidentResponse/HoneyPot/lab/honeypot_rules.xml) | DIY HTTP / ESP32 / OpenCanary / Cowrie | 100400, 100401, 100402 |
 
+![Three validation stages check XML and fixtures offline, verify a decoder and rule on the lab manager, and trace an enrolled canary event through to the dashboard.](../assets/diagrams/wazuh-synthetic-rule-validation-stages.svg)
+
+*Conceptual validation sequence. [Wazuh logtest](https://documentation.wazuh.com/current/user-manual/ruleset/testing.html) evaluates submitted samples with the manager's rules and decoders. An enrolled canary exercise separately verifies delivery and alert visibility. Record both positive and benign-negative outcomes.*
+
 ## Offline Preflight
 
 ~~~bash

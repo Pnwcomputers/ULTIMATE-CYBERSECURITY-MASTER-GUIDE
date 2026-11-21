@@ -238,6 +238,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg": (
         "uConsole/CM5-DISPLAY-RECOVERY.md",
     ),
+    "assets/diagrams/ble-passive-and-active-scan-evidence.svg": (
+        "Documentation/bluetooth-passive-scanning-sniffing.md",
+    ),
+    "assets/diagrams/wazuh-synthetic-rule-validation-stages.svg": (
+        "Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md",
+    ),
     "assets/diagrams/python-processing-memory-bounds.svg": (
         "Data-Engineering/Phase1/python_data_processing.md",
     ),

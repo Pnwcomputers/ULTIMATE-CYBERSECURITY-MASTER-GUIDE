@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="486" viewBox="0 0 960 486" role="img" aria-labelledby="title desc">
+<title id="title">BLE passive and active scanning</title>
+<desc id="desc">In passive scan mode the receiver listens to an owned advertiser without sending a scan request. In active scan mode the scanner may request additional data from a scannable advertiser and receive its response. A device list alone does not establish scan mode.</desc>
+<rect x="1" y="1" width="958" height="484" rx="12" fill="#f5f8fd" stroke="#c5d5e9"/>
+<text x="32" y="50" fill="#14263e" font-family="Arial, sans-serif" font-size="31" font-weight="700" text-anchor="start">BLE passive and active scanning</text>
+<text x="32" y="80" fill="#40536d" font-family="Arial, sans-serif" font-size="19" font-weight="500" text-anchor="start">A device list can look similar in either mode. The over-the-air exchange differs.</text>
+<rect x="32" y="111" width="438" height="302" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="50" y="148" fill="#14263e" font-family="Arial, sans-serif" font-size="24" font-weight="700" text-anchor="start">Passive scan</text>
+<text x="50" y="175" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Receiver listens</text>
+<rect x="50" y="193" width="171" height="38" rx="12" fill="#eef6ff" stroke="#c5d5e9"/>
+<rect x="285" y="193" width="167" height="38" rx="12" fill="#eef6ff" stroke="#c5d5e9"/>
+<text x="135" y="218" fill="#14263e" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">Owned advertiser</text>
+<text x="368" y="218" fill="#14263e" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">Receiver</text>
+<path d="M135 231 L135 386" fill="none" stroke="#bccadd" stroke-width="2"/>
+<path d="M368 231 L368 386" fill="none" stroke="#bccadd" stroke-width="2"/>
+<text x="251" y="252" fill="#18478c" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">Advertising packet</text>
+<path d="M135 264 L357 264" fill="none" stroke="#18478c" stroke-width="2"/>
+<polygon points="368,264 357,258 357,270" fill="#18478c"/>
+<text x="251" y="310" fill="#40536d" font-family="Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle">No scan request goes out.</text>
+<text x="251" y="337" fill="#40536d" font-family="Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle">Device details may be absent.</text>
+<rect x="490" y="111" width="438" height="302" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="508" y="148" fill="#14263e" font-family="Arial, sans-serif" font-size="24" font-weight="700" text-anchor="start">Active scan</text>
+<text x="508" y="175" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Scanner may request more data</text>
+<rect x="508" y="193" width="171" height="38" rx="12" fill="#eaf6ef" stroke="#c5d5e9"/>
+<rect x="743" y="193" width="167" height="38" rx="12" fill="#eaf6ef" stroke="#c5d5e9"/>
+<text x="593" y="218" fill="#14263e" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">Owned advertiser</text>
+<text x="826" y="218" fill="#14263e" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">Receiver</text>
+<path d="M593 231 L593 386" fill="none" stroke="#bccadd" stroke-width="2"/>
+<path d="M826 231 L826 386" fill="none" stroke="#bccadd" stroke-width="2"/>
+<text x="709" y="252" fill="#18478c" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">Advertising packet</text>
+<path d="M593 264 L815 264" fill="none" stroke="#18478c" stroke-width="2"/>
+<polygon points="826,264 815,258 815,270" fill="#18478c"/>
+<text x="709" y="298" fill="#8a4715" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">Scan request, if eligible</text>
+<text x="709" y="345" fill="#126458" font-family="Arial, sans-serif" font-size="16" font-weight="700" text-anchor="middle">Scan response, if received</text>
+<path d="M826 310 L604 310" fill="none" stroke="#8a4715" stroke-width="2"/>
+<polygon points="593,310 604,304 604,316" fill="#8a4715"/>
+<path d="M593 357 L815 357" fill="none" stroke="#126458" stroke-width="2"/>
+<polygon points="826,357 815,351 815,363" fill="#126458"/>
+<text x="32" y="456" fill="#40536d" font-family="Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start">Check controller scan settings before treating discovery as receive-only.</text>
+</svg>

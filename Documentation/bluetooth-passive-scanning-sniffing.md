@@ -22,6 +22,10 @@ A Bluetooth device can be **discovered**, its controller's **HCI events** can be
 
 ## BLE Advertising vs Scan Responses
 
+![An owned BLE advertiser sends an advertising packet in both panels. Only the active scanner sends a scan request and may receive a scan response.](../assets/diagrams/ble-passive-and-active-scan-evidence.svg)
+
+*Conceptual exchange for an owned advertiser. The scan request is conditional on the advertisement type and scanner policy. See the [Bluetooth Core Link Layer specification](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core_v7.0/out/en/low-energy-controller/linklayer-ll--specification.html) for the scanning-state rules.*
+
 BLE advertisements carry information such as supported service UUIDs, flags, optional local names and manufacturer data. A scannable advertiser can respond to an **active scan request** with an additional scan-response payload. Passive scans do not request this extra information, so missing names or service details can be expected. Newer extended advertising changes packet structure and uses secondary advertising channels; support depends on the sniffer firmware and PHY.
 
 | Observation | Interpretation | What It Does Not Prove |

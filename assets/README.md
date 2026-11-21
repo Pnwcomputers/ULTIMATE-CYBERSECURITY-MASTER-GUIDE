@@ -1,7 +1,7 @@
 <a id="diagram-and-image-asset-index"></a>
 # Diagram & Image Asset Index
 
-_Visual placements updated: 2026-11-19. Historical visual content has not been re-authenticated against live equipment._
+_Visual placements updated 2026-11-21. Figures show conceptual examples unless their captions identify live evidence._
 
 Return to [the main guide](../README.md) or [the visual reference notes](./imageplacement.md).
 
@@ -59,6 +59,13 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [NanoVNA segmented sweep sampling](./diagrams/nanovna-segmented-sweep-sampling.svg) | [NanoVNA-Saver guide](../SDR/nanovna/08-pc-software-and-firmware.md#the-segmented-sweep--the-killer-feature) | Shows the effect of denser frequency sampling on a narrow dip |
 | [Python processing and memory bounds](./diagrams/python-processing-memory-bounds.svg) | [Python data processing](../Data-Engineering/Phase1/python_data_processing.md#1-stream-do-not-load) | Shows where records accumulate and where incremental processing releases them |
 | [Dionaea event and sample boundaries](./diagrams/dionaea-event-and-sample-boundaries.svg) | [Dionaea](../IncidentResponse/HoneyPot/dionaea.md) | Separates monitoring metadata from quarantined untrusted files |
+
+## Wireless Observation and Rule Verification
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [BLE passive and active scanning](./diagrams/ble-passive-and-active-scan-evidence.svg) | [BLE scanning and privacy](../Documentation/bluetooth-passive-scanning-sniffing.md#ble-advertising-vs-scan-responses) | Shows when a scanner may transmit and receive additional advertising data |
+| [Wazuh rule validation stages](./diagrams/wazuh-synthetic-rule-validation-stages.svg) | [Wazuh synthetic rule validation](../Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md) | Connects the offline, manager and end-to-end tests to the evidence each provides |
 
 ## Setup and Capability Readback
 
