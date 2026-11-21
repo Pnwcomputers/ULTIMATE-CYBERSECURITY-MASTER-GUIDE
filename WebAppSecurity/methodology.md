@@ -113,12 +113,37 @@ Burp Suite (Community or Professional) is the core interception proxy.
 
 Maps to [A02 Security Misconfiguration](owasp-top-10.md#a02-security-misconfiguration)
 and [A04 Cryptographic Failures](owasp-top-10.md#a04-cryptographic-failures).
+Assess effective settings in the approved environment against its requirements;
+a missing or permissive-looking header alone does not establish impact.
 
-- TLS configuration and certificate validity; HSTS.
-- Security headers: CSP, `X-Content-Type-Options`, `Referrer-Policy`, frame options.
-- Exposed files: `.git/`, backups, `/actuator`, `.env`, source maps, admin consoles.
-- CORS policy (test with a rogue `Origin`); cookie flags (`HttpOnly`, `Secure`, `SameSite`).
-- Default credentials on any administrative surface.
+```mermaid
+flowchart LR
+    S[Confirm environment<br/>and approved targets] --> T[Review TLS, certificates,<br/>headers, cookies, and CORS]
+    T --> X[Check scoped exposed<br/>routes, files, and defaults]
+    X --> B[Compare with baseline<br/>and intended behavior]
+    B --> E[Record evidence,<br/>impact, and exceptions]
+    E --> R[Remediate and<br/>retest in scope]
+```
+
+- **TLS and browser controls:** verify HTTPS behavior, certificate chain and
+  hostname validation, and relevant HSTS behavior. Review CSP,
+  `X-Content-Type-Options`, `Referrer-Policy`, framing controls, and cookie
+  `Secure`, `HttpOnly`, and `SameSite` attributes in context. Check the
+  actual value, duplicates, placement, and browser behavior where relevant.
+- **CORS:** use a controlled test origin and the approved browser/application
+  context to determine whether an untrusted origin can read sensitive responses,
+  including when credentials are involved. Review preflight behavior and
+  allowlisted origins, methods, and headers. CORS governs browser access to
+  responses; it is not server-side authorization, and an `Origin` value can be
+  spoofed by non-browser clients.
+- **Exposure and defaults:** within approved hosts and paths, check specifically
+  scoped files, backups, debug/sample routes, admin surfaces, and default
+  credentials using approved test accounts. Do not broaden discovery beyond the
+  signed scope or retrieve sensitive files merely to prove exposure.
+- **Evidence:** record the environment, request/response or configuration
+  observation, applicable baseline, demonstrated impact, and remediation. See
+  the [OWASP WSTG browser security controls](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Additional_Browser_Security_Controls/)
+  and [CORS testing guidance](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side/07-Cross_Origin_Resource_Sharing/).
 
 ---
 
