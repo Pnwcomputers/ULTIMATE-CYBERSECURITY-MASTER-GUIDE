@@ -182,7 +182,7 @@ These are Bash expansions, **not** commands to type on their own:
 The following `if [[ ... ]]; then` statements are **individual condition headers**, not a complete executable program. Put the desired body and a matching `fi` after each condition; define the referenced variables first. Integer operators `-eq`, `-gt`, etc. are arithmetic comparisons, not string comparisons.
 
 ### Integer Comparison
-```bash
+```text
 if [[ "${VAR1}" -eq "${VAR2}" ]]; then    # Equal
 if [[ "${VAR1}" -ne "${VAR2}" ]]; then    # Not equal
 if [[ "${VAR1}" -gt "${VAR2}" ]]; then    # Greater than
@@ -192,7 +192,7 @@ if [[ "${VAR1}" -le "${VAR2}" ]]; then    # Less/equal
 ```
 
 ### String Comparison
-```bash
+```text
 if [[ "${STR1}" == "${STR2}" ]]; then     # Equal
 if [[ "${STR1}" != "${STR2}" ]]; then     # Not equal
 if [[ -z "${STR}" ]]; then                # Empty string
@@ -201,7 +201,7 @@ if [[ "${STR}" =~ pattern ]]; then        # Regex match
 ```
 
 ### File Tests
-```bash
+```text
 if [[ -f "${FILE}" ]]; then               # File exists
 if [[ -d "${DIR}" ]]; then                # Directory exists
 if [[ -r "${FILE}" ]]; then               # Readable

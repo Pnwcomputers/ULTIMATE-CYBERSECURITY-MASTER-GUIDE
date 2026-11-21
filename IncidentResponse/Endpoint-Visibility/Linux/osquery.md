@@ -129,10 +129,12 @@ choco install osquery -y
 ### Verify Installation
 
 ```bash
-# Linux
 osqueryi --version
+```
 
-# Windows (PowerShell)
+On Windows, use PowerShell:
+
+```powershell
 & "C:\Program Files\osquery\osqueryi.exe" --version
 ```
 
@@ -145,10 +147,12 @@ Osqueryi is the interactive shell for ad-hoc queries.
 ### Start Interactive Shell
 
 ```bash
-# Linux
 sudo osqueryi
+```
 
-# Windows (run as Administrator)
+On Windows, use PowerShell with the permissions required by the selected tables:
+
+```powershell
 & "C:\Program Files\osquery\osqueryi.exe"
 ```
 
@@ -992,16 +996,13 @@ sudo journalctl -u osqueryd -f
 ### Queries Not Returning Data
 
 ```bash
-# Test query interactively
 sudo osqueryi --config_path /etc/osquery/osquery.conf
+```
 
-# Check table availability
-.schema <table_name>
+Use `.schema processes` at the osquery prompt to inspect an example table. Replace `processes` with your query's table. Then inspect osquery's event publishers and build information:
 
-# Verify events are enabled
+```sql
 SELECT * FROM osquery_events;
-
-# Check for errors
 SELECT * FROM osquery_info;
 ```
 

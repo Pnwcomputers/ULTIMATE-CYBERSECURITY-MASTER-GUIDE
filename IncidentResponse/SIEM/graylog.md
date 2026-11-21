@@ -260,23 +260,22 @@ networks:
 
 ### Step 2.3: Create Environment File (Alternative)
 
-Instead of inline environment variables, create `.env`:
+To move selected variables out of the Compose file, create a private `.env` file beside it. Fill both blank values with the locally generated values from Step 2.1 before starting Graylog. Keep the file, the password secret and the password hash out of version control.
 
-```bash
-# Graylog Configuration - use the values you generated in Step 2.1.
-# Do not copy sample values: a published password hash is a published password.
-GRAYLOG_PASSWORD_SECRET=<output of: pwgen -N 1 -s 96>
-GRAYLOG_ROOT_PASSWORD_SHA2=<sha256 hash of YOUR admin password>
+```dotenv
+GRAYLOG_PASSWORD_SECRET=
+GRAYLOG_ROOT_PASSWORD_SHA2=
 GRAYLOG_HTTP_EXTERNAL_URI=http://192.168.1.50:9000/
 GRAYLOG_ROOT_TIMEZONE=America/Los_Angeles
 ```
 
-Update docker-compose.yml to use the env file:
+Add `env_file` under the existing Graylog service. Remove duplicate entries for moved variables from the service's `environment` mapping. [Docker Compose precedence](https://docs.docker.com/compose/how-tos/environment-variables/envvars-precedence/) gives those inline entries priority.
 
 ```yaml
-graylog:
-  env_file:
-    - .env
+services:
+  graylog:
+    env_file:
+      - .env
 ```
 
 ### Step 2.4: Start the Stack

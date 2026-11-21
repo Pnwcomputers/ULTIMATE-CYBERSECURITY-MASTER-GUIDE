@@ -299,15 +299,18 @@ WSL2 has some critical differences from bare-metal Linux that affect hardware ha
 winget install --interactive --exact dorssel.usbipd-win
 ```
 
-This is **non-negotiable** for hardware work. Without it, no Flipper, HackRF, RTL-SDR, Ubertooth, ESP board, FTDI adapter, or J-Link can be seen by WSL.
+Use [Microsoft's USB passthrough instructions](https://learn.microsoft.com/en-us/windows/wsl/connect-usb) for a supported WSL 2 setup. Device passthrough and Linux driver support are separate checks.
 
-**USB passthrough workflow (run in PowerShell as admin):**
+Keep a WSL 2 shell open. In PowerShell, replace the example bus ID with the ID from `usbipd list` for your device. Sharing with `bind` requires elevation. Attaching and detaching can run from a regular PowerShell session.
+
 ```powershell
 usbipd list
-usbipd bind --busid <BUSID>          # one-time per device
-usbipd attach --wsl --busid <BUSID>  # each time you want to use it
-usbipd detach --busid <BUSID>        # to release
+$usbBusId = '4-4'  # Replace with the selected device's bus ID.
+usbipd bind --busid $usbBusId
+usbipd attach --wsl --busid $usbBusId
 ```
+
+When finished, release the device with `usbipd detach --busid $usbBusId`.
 
 ### 12.3 Enable systemd in WSL
 
@@ -604,10 +607,10 @@ site:*.target.com -www
 | Maltego      | GUI - drag-and-drop              | Visual link analysis and entity relationship mapping.      |
 
 **Recon-ng Quick Start:**
-```bash
+```text
 recon-ng
 [recon-ng][default] > workspaces create <case_name>
-[recon-ng][case_name] > marketplace install all
+[recon-ng][case_name]  (review selected modules before adding them)
 [recon-ng][case_name] > modules search
 ```
 

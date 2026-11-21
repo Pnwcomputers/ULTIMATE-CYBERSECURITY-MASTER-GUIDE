@@ -197,7 +197,7 @@ guidance](https://www.kali.org/docs/general-use/kali-apt-sources/)
 
 All peripherals are controlled via GPIO using `aiov2_ctl` ([GitHub](https://github.com/hackergadgets/aiov2_ctl)):
 
-```bash
+```text
 aiov2_ctl                           # Show current GPIO state
 aiov2_ctl <FEATURE> <on|off>        # Toggle: GPS, LORA, SDR, USB
 aiov2_ctl --status                  # Detailed status (GPIO + battery + power)
