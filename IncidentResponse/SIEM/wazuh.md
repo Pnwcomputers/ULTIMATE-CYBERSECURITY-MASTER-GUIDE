@@ -56,6 +56,76 @@ Allow these ports only from the intended endpoint or administrator networks. Do 
 
 ---
 
+## Current Version Selection & Security Architecture (2026-11-21)
+
+The existing installation walkthrough provides a **Docker-oriented Wazuh 4.x deployment reference**. Official [Wazuh 4.x release notes](https://documentation.wazuh.com/current/release-notes/index-4x.html) list **4.14.10 (2026-11-05)**; Wazuh **5.0 prereleases** have appeared but are **not interchangeable** with 4.x manager/agent rules, configuration or container layouts. Pin a tested release family and image tags rather than mixing `latest` packages. Confirm the actual stable status before any new installation.
+
+| Component | Function | Visibility & Trust Requirements |
+|---|---|---|
+| Wazuh manager | Agent enrollment, decoders, rules, correlation | Restrict agent connections and enrollment to management/endpoint networks |
+| Wazuh indexer | Searchable alert/event storage | Protected TLS, credentials, disk, backups and retention |
+| Wazuh dashboard & API | Analyst access and administrative actions | Management/VPN only, identity policy and certificate validation |
+| Windows/Linux/macOS agents | Host logs, inventory, file integrity/security state (OS support varies) | Version-compatible agent, minimal monitored paths and valid time |
+| Kismet/nzyme collector | RF-derived event metadata | Needs an **actual** supported monitor radio & channel coverage |
+| Snort/Suricata collector | Wired IDS alerts | Needs real TAP/SPAN/vSwitch mirror traffic; ordinary VM NIC is insufficient |
+| NetAlertX | Device inventory & arrival/departure observations | Same-L2 ARP or multi-VLAN imports/collectors; not a packet IDS |
+
+### Deployment & Exposure Checklist
+
+1. Record exact OS/kernel/CPU architecture and **Wazuh 4.x or 5.x** target. Do not apply 4.x-only rules or file paths to 5.x without a separate validation.
+2. Size storage for alert indexing, FIM changes, vulnerability data and retention. Configure NTP and restricted DNS.
+3. Pin Docker images or official repository commits and review `docker compose config` before exposing services.
+4. Restrict agent transport (commonly TCP `1514` in 4.x), enrollment (commonly TCP `1515`), dashboard and API to explicit trusted subnets; review release-specific ports/certificates.
+5. Verify generated certificates, dashboard credentials, log rotation, health, snapshots and restoration **before agents are deployed**.
+6. Configure agents with narrowly scoped `<localfile>` JSON event sources; redacted lab events should be tested first.
+7. Use **manual triage** before any active response. Never have a speculative NetAlertX or RF alert automatically block a switch port, disable a user or deauthenticate a client.
+8. Validate manager rules on the installed engine using [Synthetic Rule Validation](../../Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md), not only XML parsing.
+
+### Cross-Source JSON Event Flow
+
+```text
+NetAlertX presence -----------\
+Kismet/nzyme radio alerts ------> protected JSONL or supported collector
+Snort 3 packet signatures -----/        |
+                                          v
+                         Wazuh agent (localfile json)
+                                          |
+                                 Manager decode/rules
+                                          |
+                        Indexer -> analyst dashboard
+                                          |
+                              reviewed incident action
+```
+
+On a Wazuh 4.x-compatible agent the following **example** instructs the log collector to read a protected newline-delimited JSON file produced by an approved integration; **it does not create that integration or an alert rule**:
+
+```xml
+<localfile>
+  <log_format>json</log_format>
+  <location>/var/log/pnwc-security-events.jsonl</location>
+</localfile>
+```
+
+The path must exist and be readable by the agent. A JSON record may be collected without producing a matched alert; add and validate decoder/rule logic after confirming the actual event schema. For a **fictional** event:
+
+```json
+{"source":"netalertx","event_type":"lab_device_seen","asset":"synthetic-device-01","site":"test","vlan":"30","timestamp":"2026-11-21T12:00:00Z"}
+```
+
+Verify permitted logs reach the agent, manager and dashboard *separately*. Use [Wazuh log collection reference](https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/localfile.html), [Wazuh agent guide](https://documentation.wazuh.com/current/user-manual/agent/index.html) and [Wazuh architecture](https://documentation.wazuh.com/current/getting-started/architecture.html).
+
+### Coverage & Reporting Matrix
+
+| Signal | Evidence | Independent Corroboration |
+|---|---|---|
+| Device appears on management VLAN | NetAlertX + switch/NAC log | Approved asset, switch port, authenticated user/device ID |
+| Host's monitored file changes | Wazuh FIM event | Authorized change ticket and endpoint owner |
+| New rogue SSID or deauth burst | nzyme/Kismet alert | AP controller, Wireshark monitor capture, PMF state |
+| Signature detection from Snort | IDS alert with rule SID / packet or flow | Packet PCAP, host logs and allowed maintenance |
+| Unexpected DNS response | DNS/Zeek/Wireshark + resolver log | CDNs, split DNS and DNSSEC validation |
+
+**Full companion guides:** [NetAlertX](../../Documentation/netalertx-device-discovery-monitoring.md), [Snort 3](../IDS%26IPS/snort.md), [nzyme](../IDS%26IPS/nzyme_wids.md), [Wireshark Casework](../../Documentation/wireshark-defensive-investigations.md), [Segmentation & SPAN](../../Documentation/network-segmentation-dmz-acl-vlan.md).
+
 ## 🛠️ Part 1: Preparing the Server
 
 ### Step 1.1: Update the System

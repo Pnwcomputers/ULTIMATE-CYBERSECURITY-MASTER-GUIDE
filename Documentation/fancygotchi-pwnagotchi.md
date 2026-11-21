@@ -51,6 +51,18 @@ For any authorized evaluation, use an isolated owned-AP bench and establish
 transmit/default behavior before powering the device in an uncontrolled RF area.
 This guide does not reproduce its automated deauthentication or cracking workflow.
 
+## Compatibility, UI, RF Behavior & Defensive Telemetry
+
+| Build | Firmware / Theme Role | Additional Hardware | Detection Boundary |
+|---|---|---|---|
+| Raspberry Pi + supported Pwnagotchi fork | **Actual** Linux image and Wi-Fi behavior | Board-specific e-ink/OLED, optional compatible external Wi-Fi | Monitor activity depends on software mode and NIC |
+| V0r-T3x FancyGotchi | UI/theme/plugin layer for compatible Pi image | Same Pi/display; install plugin and assets | **A theme is not a radio scanner** |
+| FancyGotchi CYD Port | Separate ESP32 touchscreen firmware | CYD revision/display and onboard ESP32 radio | Board-specific startup/default RF behavior; test safely |
+
+For a display failure, restore a known image/theme backup and inspect logs before changing radio settings. For a defensive investigation, look for **behavior**—new BSSIDs, management-frame bursts, unusual AP-side events—not the cartoon face/theme.
+
+Capture only through a [qualified Wi-Fi radio](./wifi-adapter-selection-guide.md) and correlate with [Wireshark](./wireshark.md), [802.11 Deauth Detection](./wifi-deauthentication-detection.md), [Counter-Surveillance](./counter-surveillance-wireless-threats.md) and [SBC Platform Matrix](./sbc-radio-addon-compatibility.md).
+
 ## Related Guides
 
 | Resource | Use |

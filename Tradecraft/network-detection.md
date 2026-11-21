@@ -39,6 +39,8 @@ Enable blue team practitioners to build an effective network detection stack, wr
 
 ---
 
+**Integrated observability:** [Wazuh + Snort 3 + nzyme + Kismet + NetAlertX](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) separates wired packet signatures, wireless management frames, endpoint logs and device-presence changes. Place monitoring interfaces correctly with [LAN TAPs, SPAN & packet mirrors](../Documentation/network-taps-and-packet-visibility.md), validate with [Wireshark's cross-domain playbook](../Documentation/wireshark-defensive-investigations.md), and treat [NetAlertX](../Documentation/netalertx-device-discovery-monitoring.md) as asset inventory—not a passive packet recorder.
+
 ## Detection Architecture
 
 ![Network monitoring diagram distinguishing edge, DMZ and east-west capture points, source packet evidence, Zeek/Suricata event processing and SIEM review](../assets/diagrams/network-detection-sensor-coverage-and-evidence.svg)

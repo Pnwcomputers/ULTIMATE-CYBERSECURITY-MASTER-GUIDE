@@ -23,6 +23,8 @@ that every project release supports every revision of a listed device.
 | [Dedicated Radio Hardware](#dedicated-radio-hardware) | BLE sniffers, RF, RFID and LoRa devices |
 | [Installation Methods](#installation-methods) | Project installer versus generic uploader versus other formats |
 
+**Host & peripheral compatibility:** The [SBC, Firmware & Radio Add-On Matrix](./sbc-radio-addon-compatibility.md) maps Linux Pi/uConsole hosts, M5Stack/ESP32/Flipper targets, CC1101, PN532/NFC, nRF24, GNSS, Pi HATs and required drivers. Its classifications distinguish native functions, ordinary USB client connectivity and **conditional** monitor/sniffer or GPIO integration. Also see [Passive BLE Scanning](./bluetooth-passive-scanning-sniffing.md) and [LAN TAPs](./network-taps-and-packet-visibility.md).
+
 ## How To Read The List
 
 ![Device-first firmware decision flow separating hardware identification, upstream target compatibility, installation format and post-flash qualification](../assets/diagrams/device-firmware-compatibility-selection.svg)

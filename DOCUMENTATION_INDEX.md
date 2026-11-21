@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**405 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**435 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -20,23 +20,23 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Cryptography | 16 | [Open section](#cryptography) |
 | Cyberdeck | 13 | [Open section](#cyberdeck) |
 | Data-Engineering | 18 | [Open section](#data-engineering) |
-| Documentation | 53 | [Open section](#documentation) |
+| Documentation | 75 | [Open section](#documentation) |
 | HardwareHacking | 16 | [Open section](#hardwarehacking) |
 | HardwareTesting | 3 | [Open section](#hardwaretesting) |
 | Homelab | 4 | [Open section](#homelab) |
-| IncidentResponse | 41 | [Open section](#incidentresponse) |
+| IncidentResponse | 42 | [Open section](#incidentresponse) |
 | Mobile | 8 | [Open section](#mobile) |
 | OPSEC | 10 | [Open section](#opsec) |
-| OSINT | 20 | [Open section](#osint) |
+| OSINT | 21 | [Open section](#osint) |
 | PDF | 1 | [Open section](#pdf) |
 | PlayBooks | 16 | [Open section](#playbooks) |
 | ReverseEngineering | 5 | [Open section](#reverseengineering) |
 | SDR | 23 | [Open section](#sdr) |
 | Scripts | 8 | [Open section](#scripts) |
 | SpaceSecurity | 6 | [Open section](#spacesecurity) |
-| Tradecraft | 9 | [Open section](#tradecraft) |
+| Tradecraft | 14 | [Open section](#tradecraft) |
 | Wardriving | 12 | [Open section](#wardriving) |
-| WebAppSecurity | 4 | [Open section](#webappsecurity) |
+| WebAppSecurity | 5 | [Open section](#webappsecurity) |
 | assets | 3 | [Open section](#assets) |
 | uConsole | 7 | [Open section](#uconsole) |
 
@@ -286,33 +286,55 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [bjorn_pi.md](./Documentation/bjorn_pi.md) | `Documentation/bjorn_pi.md` |
 | [blackarch.md](./Documentation/blackarch.md) | `Documentation/blackarch.md` |
 | [ble-capture-sniffle.md](./Documentation/ble-capture-sniffle.md) | `Documentation/ble-capture-sniffle.md` |
+| [bluemaho-guide.md](./Documentation/bluemaho-guide.md) | `Documentation/bluemaho-guide.md` |
+| [bluetooth-passive-scanning-sniffing.md](./Documentation/bluetooth-passive-scanning-sniffing.md) | `Documentation/bluetooth-passive-scanning-sniffing.md` |
+| [bluetooth-radio-adapter-guide.md](./Documentation/bluetooth-radio-adapter-guide.md) | `Documentation/bluetooth-radio-adapter-guide.md` |
 | [bruce_firmware.md](./Documentation/bruce_firmware.md) | `Documentation/bruce_firmware.md` |
 | [chimerable.md](./Documentation/chimerable.md) | `Documentation/chimerable.md` |
+| [counter-surveillance-wireless-threats.md](./Documentation/counter-surveillance-wireless-threats.md) | `Documentation/counter-surveillance-wireless-threats.md` |
 | [curated-technical-docs.md](./Documentation/curated-technical-docs.md) | `Documentation/curated-technical-docs.md` |
 | [cypherpunk-pentesting-toolkit-review.md](./Documentation/cypherpunk-pentesting-toolkit-review.md) | `Documentation/cypherpunk-pentesting-toolkit-review.md` |
 | [devhints-cli-field-reference.md](./Documentation/devhints-cli-field-reference.md) | `Documentation/devhints-cli-field-reference.md` |
 | [device-firmware-list.md](./Documentation/device-firmware-list.md) | `Documentation/device-firmware-list.md` |
+| [dns-hijacking-secure-dns.md](./Documentation/dns-hijacking-secure-dns.md) | `Documentation/dns-hijacking-secure-dns.md` |
 | [esp-terminator.md](./Documentation/esp-terminator.md) | `Documentation/esp-terminator.md` |
 | [esp32-security-firmware-catalog.md](./Documentation/esp32-security-firmware-catalog.md) | `Documentation/esp32-security-firmware-catalog.md` |
 | [evil_m5.md](./Documentation/evil_m5.md) | `Documentation/evil_m5.md` |
 | [fancygotchi-pwnagotchi.md](./Documentation/fancygotchi-pwnagotchi.md) | `Documentation/fancygotchi-pwnagotchi.md` |
+| [fern-wifi-cracker-guide.md](./Documentation/fern-wifi-cracker-guide.md) | `Documentation/fern-wifi-cracker-guide.md` |
 | [firmware-web-flashers.md](./Documentation/firmware-web-flashers.md) | `Documentation/firmware-web-flashers.md` |
 | [flipper_zero_guide.md](./Documentation/flipper_zero_guide.md) | `Documentation/flipper_zero_guide.md` |
 | [ghostesp-revival.md](./Documentation/ghostesp-revival.md) | `Documentation/ghostesp-revival.md` |
+| [hashcat-guide.md](./Documentation/hashcat-guide.md) | `Documentation/hashcat-guide.md` |
 | [hcxtoolshashcat.md](./Documentation/hcxtoolshashcat.md) | `Documentation/hcxtoolshashcat.md` |
 | [microcontroller_wifi_testing.md](./Documentation/microcontroller_wifi_testing.md) | `Documentation/microcontroller_wifi_testing.md` |
+| [mitm-detection-prevention.md](./Documentation/mitm-detection-prevention.md) | `Documentation/mitm-detection-prevention.md` |
 | [nemo-firmware.md](./Documentation/nemo-firmware.md) | `Documentation/nemo-firmware.md` |
+| [netalertx-device-discovery-monitoring.md](./Documentation/netalertx-device-discovery-monitoring.md) | `Documentation/netalertx-device-discovery-monitoring.md` |
+| [network-device-discovery-comparison.md](./Documentation/network-device-discovery-comparison.md) | `Documentation/network-device-discovery-comparison.md` |
+| [network-segmentation-dmz-acl-vlan.md](./Documentation/network-segmentation-dmz-acl-vlan.md) | `Documentation/network-segmentation-dmz-acl-vlan.md` |
+| [network-taps-and-packet-visibility.md](./Documentation/network-taps-and-packet-visibility.md) | `Documentation/network-taps-and-packet-visibility.md` |
+| [nmap-guide.md](./Documentation/nmap-guide.md) | `Documentation/nmap-guide.md` |
+| [pixiewps-guide.md](./Documentation/pixiewps-guide.md) | `Documentation/pixiewps-guide.md` |
 | [pwnagotchi_cheatsheet.md](./Documentation/pwnagotchi_cheatsheet.md) | `Documentation/pwnagotchi_cheatsheet.md` |
 | [python.md](./Documentation/python.md) | `Documentation/python.md` |
+| [rainbow-tables-guide.md](./Documentation/rainbow-tables-guide.md) | `Documentation/rainbow-tables-guide.md` |
 | [references.md](./Documentation/references.md) | `Documentation/references.md` |
+| [sbc-radio-addon-compatibility.md](./Documentation/sbc-radio-addon-compatibility.md) | `Documentation/sbc-radio-addon-compatibility.md` |
 | [security-public-api-catalog.md](./Documentation/security-public-api-catalog.md) | `Documentation/security-public-api-catalog.md` |
+| [spooftooph-guide.md](./Documentation/spooftooph-guide.md) | `Documentation/spooftooph-guide.md` |
 | [upstream-security-projects-register.md](./Documentation/upstream-security-projects-register.md) | `Documentation/upstream-security-projects-register.md` |
 | [virtualmachines.md](./Documentation/virtualmachines.md) | `Documentation/virtualmachines.md` |
 | [vscode.md](./Documentation/vscode.md) | `Documentation/vscode.md` |
+| [wifi-adapter-selection-guide.md](./Documentation/wifi-adapter-selection-guide.md) | `Documentation/wifi-adapter-selection-guide.md` |
 | [wifi-deauthentication-detection.md](./Documentation/wifi-deauthentication-detection.md) | `Documentation/wifi-deauthentication-detection.md` |
+| [wifite-guide.md](./Documentation/wifite-guide.md) | `Documentation/wifite-guide.md` |
+| [wireless-toolkit-reference.md](./Documentation/wireless-toolkit-reference.md) | `Documentation/wireless-toolkit-reference.md` |
 | [wireshark-cheatsheet.md](./Documentation/wireshark-cheatsheet.md) | `Documentation/wireshark-cheatsheet.md` |
+| [wireshark-defensive-investigations.md](./Documentation/wireshark-defensive-investigations.md) | `Documentation/wireshark-defensive-investigations.md` |
 | [wireshark-master-filters.md](./Documentation/wireshark-master-filters.md) | `Documentation/wireshark-master-filters.md` |
 | [wireshark.md](./Documentation/wireshark.md) | `Documentation/wireshark.md` |
+| [wordlists-password-auditing.md](./Documentation/wordlists-password-auditing.md) | `Documentation/wordlists-password-auditing.md` |
 
 ## HardwareHacking
 
@@ -388,6 +410,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [IDS&IPS/security-onion.md](./IncidentResponse/IDS%26IPS/security-onion.md) | `IncidentResponse/IDS&IPS/security-onion.md` |
 | [IDS&IPS/snort.md](./IncidentResponse/IDS%26IPS/snort.md) | `IncidentResponse/IDS&IPS/snort.md` |
 | [IDS&IPS/suricata+zeek.md](./IncidentResponse/IDS%26IPS/suricata%2Bzeek.md) | `IncidentResponse/IDS&IPS/suricata+zeek.md` |
+| [IDS&IPS/unified-network-visibility-architecture.md](./IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) | `IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md` |
 | [README — IncidentResponse](./IncidentResponse/README.md) | `IncidentResponse/README.md` |
 | [README — IncidentResponse/SIEM](./IncidentResponse/SIEM/README.md) | `IncidentResponse/SIEM/README.md` |
 | [SIEM/detection-content-validation.md](./IncidentResponse/SIEM/detection-content-validation.md) | `IncidentResponse/SIEM/detection-content-validation.md` |
@@ -450,6 +473,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [scripts/Domain_IP_Recon.md](./OSINT/scripts/Domain_IP_Recon.md) | `OSINT/scripts/Domain_IP_Recon.md` |
 | [scripts/Email_OSINT.md](./OSINT/scripts/Email_OSINT.md) | `OSINT/scripts/Email_OSINT.md` |
 | [scripts/Phone_OSINT.md](./OSINT/scripts/Phone_OSINT.md) | `OSINT/scripts/Phone_OSINT.md` |
+| [sherlock-guide.md](./OSINT/sherlock-guide.md) | `OSINT/sherlock-guide.md` |
 
 ## PDF
 
@@ -549,10 +573,15 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [av-edr-evasion.md](./Tradecraft/av-edr-evasion.md) | `Tradecraft/av-edr-evasion.md` |
 | [c2-frameworks.md](./Tradecraft/c2-frameworks.md) | `Tradecraft/c2-frameworks.md` |
 | [evasion.md](./Tradecraft/evasion.md) | `Tradecraft/evasion.md` |
+| [hydra-guide.md](./Tradecraft/hydra-guide.md) | `Tradecraft/hydra-guide.md` |
 | [lolbins-lolbas.md](./Tradecraft/lolbins-lolbas.md) | `Tradecraft/lolbins-lolbas.md` |
+| [metasploit-framework-guide.md](./Tradecraft/metasploit-framework-guide.md) | `Tradecraft/metasploit-framework-guide.md` |
 | [network-detection.md](./Tradecraft/network-detection.md) | `Tradecraft/network-detection.md` |
 | [osint-threat-intel.md](./Tradecraft/osint-threat-intel.md) | `Tradecraft/osint-threat-intel.md` |
 | [pentoo-linux-guide.md](./Tradecraft/pentoo-linux-guide.md) | `Tradecraft/pentoo-linux-guide.md` |
+| [routersploit-guide.md](./Tradecraft/routersploit-guide.md) | `Tradecraft/routersploit-guide.md` |
+| [seeker-geolocation-threat-analysis.md](./Tradecraft/seeker-geolocation-threat-analysis.md) | `Tradecraft/seeker-geolocation-threat-analysis.md` |
+| [zphisher-threat-analysis.md](./Tradecraft/zphisher-threat-analysis.md) | `Tradecraft/zphisher-threat-analysis.md` |
 
 ## Wardriving
 
@@ -579,6 +608,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [methodology.md](./WebAppSecurity/methodology.md) | `WebAppSecurity/methodology.md` |
 | [owasp-assessment-and-nuclei.md](./WebAppSecurity/owasp-assessment-and-nuclei.md) | `WebAppSecurity/owasp-assessment-and-nuclei.md` |
 | [owasp-top-10.md](./WebAppSecurity/owasp-top-10.md) | `WebAppSecurity/owasp-top-10.md` |
+| [sqlmap-guide.md](./WebAppSecurity/sqlmap-guide.md) | `WebAppSecurity/sqlmap-guide.md` |
 
 ## assets
 

@@ -139,6 +139,10 @@ hcxhashtool -i hash.hc22000 -o unique.hc22000
 ---
 
 ## Related Files
+- [hashcat-guide.md](hashcat-guide.md) - Canonical general-purpose Hashcat setup, devices and synthetic offline audit
+- [wordlists-password-auditing.md](wordlists-password-auditing.md) - Wordlists, rules, candidate provenance and hygiene
+- [rainbow-tables-guide.md](rainbow-tables-guide.md) - Precomputed lookups vs salts and password KDFs
+- [wifi-adapter-selection-guide.md](wifi-adapter-selection-guide.md) - Verified USB chipset, monitor mode and capture compatibility
 - [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Traditional active-deauth workflow, WEP, WPS attacks
 - [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Automated passive PMKID/handshake capture using hcxtools output
