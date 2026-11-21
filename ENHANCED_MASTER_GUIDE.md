@@ -2081,7 +2081,7 @@ Build correlation in the SIEM or supported Sigma workflow using the fields that 
  
 ---
  
-## AV/EDR Recognition and Analysis
+## AV/EDR Evasion - Recognition & Defense
 
 *Related reference: [Tradecraft/av-edr-evasion.md](Tradecraft/av-edr-evasion.md). This overview focuses on defensive interpretation and safe analysis.*
 
