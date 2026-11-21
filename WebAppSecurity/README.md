@@ -129,8 +129,8 @@ A web assessment generally proceeds in phases (detailed in
 
 ## 📚 Resources
 
-- [OWASP Top 10](https://owasp.org/Top10/) - the current final risk list (2025; 2021 superseded)
-- [OWASP Web Security Testing Guide (WSTG)](https://owasp.org/www-project-web-security-testing-guide/) - the definitive testing methodology
+- [OWASP Top 10:2025](https://top10.owasp.org/) - current awareness document for broad risk prioritization; it is not a comprehensive test plan or compliance standard.
+- [OWASP Web Security Testing Guide (WSTG) v4.2](https://wstg.owasp.org/v4.2/) - versioned practical test scenarios; adapt them to scope and threat model, and do not treat the guide as a rigid checklist or compliance standard.
 - [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/) - verifiable security requirements
 - [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) - concise defensive guidance per topic
 - [PortSwigger Web Security Academy](https://portswigger.net/web-security) - free, hands-on labs
