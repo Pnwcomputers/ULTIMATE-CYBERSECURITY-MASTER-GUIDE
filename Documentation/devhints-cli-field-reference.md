@@ -81,7 +81,7 @@ collect only relevant logs and redact before sharing.
 Source pointers:
 [Devhints find](https://devhints.io/find) ·
 [Devhints grep](https://devhints.io/grep) ·
-[GNU findutils](https://www.gnu.org/software/findutils/manual/html_mono/find.html).
+[GNU findutils](https://www.gnu.org/software/findutils/manual/).
 
 ## 3. HTTP and TLS diagnostics with curl
 
