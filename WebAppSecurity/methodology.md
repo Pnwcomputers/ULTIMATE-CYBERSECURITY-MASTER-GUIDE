@@ -107,7 +107,7 @@ flowchart LR
   authentication state, role, method, data sensitivity, and scope status. Record
   untested routes and uncertainty; use the inventory to plan later phases, not
   as proof that every discovered route is authorized or vulnerable.
-- **Reference:** [OWASP WSTG v4.2 — Identify Application Entry Points](https://wstg.org/stable/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points/)
+- **Reference:** [OWASP WSTG v4.2 — Identify Application Entry Points](https://wstg.owasp.org/stable/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points/)
   and the [Domain/IP Recon guide](../OSINT/scripts/Domain_IP_Recon.md).
 
 ---
