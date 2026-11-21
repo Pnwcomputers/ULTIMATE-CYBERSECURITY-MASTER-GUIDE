@@ -64,33 +64,60 @@ Key changes include:
 
 ## A01: Broken Access Control
 
-The most prevalent risk in both 2021 and 2025. The application fails to enforce
-what an authenticated user is allowed to do.
+The application fails to enforce what an authenticated or unauthenticated
+principal is allowed to do. The risk spans access to functions and individual
+objects or properties, including cross-user and cross-tenant boundaries.
 
-- **How it is exploited:** changing an identifier to access another user's data
-  (IDOR / horizontal), reaching admin functionality as a normal user (vertical),
-  forced browsing to unlinked endpoints, or tampering with a JWT/cookie role claim.
-- **How to test:** with two accounts of different privilege, replay each request
-  as the other (Burp's *Autorize*/*Auth Analyzer* extensions help); enumerate
-  object IDs; request admin routes directly; verify server-side enforcement rather
-  than hidden-in-the-UI controls.
-- **How to defend:** deny access by default and enforce authorization
-  **server-side on every request**. Verify that the authenticated principal
-  is permitted to perform the requested action on the specific object,
-  including applicable ownership, role, and tenant-boundary checks.
-  Use opaque or unpredictable identifiers only as **defense in depth**,
-  never as a substitute for authorization. Centralize access-control
-  logic and log authorization failures without recording credentials
-  or unnecessary sensitive data.
-- **Validation:** in an authorized test environment, create two ordinary
-  users with separate private objects. Confirm that each user can perform
-  permitted actions on their own objects but cannot read, modify, delete,
-  or export the other user's private objects, even when the identifier
-  is known. Also test administrative functions with an ordinary account
-  and cross-tenant access where applicable. Verify both the response and
-  resulting data state; an error response alone does not prove that an
-  unauthorized change was prevented.
-- **CWE:** CWE-284, CWE-639, CWE-862. **Cheat sheet:** [Authorization](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html).
+```mermaid
+flowchart LR
+    Q[Request] --> I[Establish principal<br/>and authentication context]
+    I --> P[Evaluate principal, action,<br/>resource, and relevant context]
+    R[Server-side policy:<br/>role · ownership · tenant · state] --> P
+    P -->|All required checks pass| A[Permit requested action]
+    P -->|Missing or failed check| D[Deny by default]
+    D --> L[Record useful denial context<br/>without secrets]
+    U[UI, API, direct URL,<br/>and alternate routes] --> Q
+```
+
+*Authorization must be enforced at the server-side decision point for each
+request and each protected object or action.*
+
+- **How it fails:** a user-controlled identifier selects another user's record
+  without an ownership check (object-level/IDOR); a regular user reaches a
+  privileged function; hidden UI controls are treated as a security boundary;
+  a property can be read or changed outside the caller's permission; or tenant,
+  workflow-state, cross-origin, or server-side request restrictions are missing.
+  Altering a role or identity claim must never grant access unless the server
+  validates the authentication context and independently authorizes the action.
+- **How to assess:** use authorized test identities with different roles and
+  separate private objects. Compare allowed and denied requests across UI, API,
+  direct routes, object properties, and workflow states; include cross-tenant
+  cases where applicable. Verify server-side checks still apply when a known
+  identifier is supplied. For denial responses, inspect the resulting data state
+  as well: an error response alone does not prove that no unauthorized change
+  occurred. Test server-side request destinations and cross-origin behavior only
+  where they are part of the approved scope.
+- **How to defend:** deny by default and authorize server-side on every request,
+  checking the principal, requested action, specific resource, and relevant
+  ownership, tenant, and state constraints. Centralize or consistently reuse
+  policy logic while enforcing checks at each access path. Limit sensitive
+  properties and operations to explicit permissions. Treat opaque or
+  unpredictable identifiers as defense in depth, never as authorization.
+  Constrain server-side request destinations and browser cross-origin behavior
+  with controls appropriate to those risks. Log authorization failures with
+  investigation context while excluding credentials and unnecessary sensitive
+  data.
+- **Validation:** confirm users can perform permitted actions on their own
+  objects but cannot read, modify, delete, export, or invoke functions outside
+  their permissions, even when identifiers and routes are known. Exercise
+  role, tenant, ownership, and workflow boundaries. Confirm denied requests
+  leave data unchanged and that alternate API or direct-request paths enforce
+  the same policy.
+- **CWE examples:** CWE-284 (improper access control), CWE-639 (authorization
+  bypass through user-controlled key), CWE-862 (missing authorization), and
+  CWE-863 (incorrect authorization). The 2025 category maps to many additional
+  weaknesses, including SSRF and path traversal. **Reference:** [OWASP A01:2025](https://top10.owasp.org/2025/A01_2025-Broken_Access_Control/)
+  and the [Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html).
 
 ---
 
