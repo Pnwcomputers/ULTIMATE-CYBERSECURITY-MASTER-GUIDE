@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 874 252" role="img" aria-labelledby="title desc">
+  <title id="title">Kafka consumer commit and replay</title>
+  <desc id="desc">A consumer reads a partition record, waits for durable output, then commits the next offset. A crash after output but before offset commit can replay the record.</desc>
+  <rect width="874" height="252" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="26" y="44" fill="#fff" font-size="26" font-weight="bold">Kafka consumer commit and replay</text>
+    <rect x="26" y="72" width="250" height="129" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="42" y="109" fill="#fff" font-size="18" font-weight="bold">Read a partition record</text>
+    <text x="42" y="138" fill="#d7e6f4" font-size="15">Record offset 42</text>
+    <text x="42" y="160" fill="#d7e6f4" font-size="15">Process with a stable event ID</text>
+    <rect x="312" y="72" width="250" height="129" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="328" y="109" fill="#fff" font-size="18" font-weight="bold">Wait for durable output</text>
+    <text x="328" y="138" fill="#d7e6f4" font-size="15">Persist the event at the sink</text>
+    <text x="328" y="160" fill="#d7e6f4" font-size="15">Keep the event ID for deduplication</text>
+    <rect x="598" y="72" width="250" height="129" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="614" y="109" fill="#fff" font-size="18" font-weight="bold">Commit the next offset</text>
+    <text x="614" y="138" fill="#d7e6f4" font-size="15">Commit offset 43</text>
+    <text x="614" y="160" fill="#d7e6f4" font-size="15">Advance only through completed work</text>
+    <path d="M283 137h22m-7-6 7 6-7 6m264-6h22m-7-6 7 6-7 6" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <text x="26" y="232" fill="#fff" font-size="16">Crash after persistence and before offset commit: record 42 can be replayed.</text>
+  </g>
+</svg>

@@ -7,6 +7,14 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
+## Secure Data Pipeline Operations
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [Kafka consumer commit and replay](./diagrams/secure-pipeline-kafka-offset-commit.svg) | [Kafka delivery](../Data-Engineering/data_pipelines.md#8-stream-and-centralize-events-with-kafka) | Shows the replay window between a durable output and committing the next offset |
+| [Ansible deployment and verification](./diagrams/secure-pipeline-ansible-canary.svg) | [Ansible deployment](../Data-Engineering/data_pipelines.md#9-automate-deployments-with-ansible) | Shows target selection, limited preview, application, and independent verification |
+| [Trace an event through the pipeline](./diagrams/secure-pipeline-event-readback.svg) | [Integrated pipeline](../Data-Engineering/data_pipelines.md#10-build-the-integrated-pipeline) | Shows how to reconcile a synthetic event across processing and sink persistence |
+
 ## Container Operations
 
 | Diagram | Where embedded | Why it belongs |

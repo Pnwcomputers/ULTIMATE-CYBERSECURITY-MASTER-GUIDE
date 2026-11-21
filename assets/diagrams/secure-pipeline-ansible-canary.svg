@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 874 252" role="img" aria-labelledby="title desc">
+  <title id="title">Ansible deployment and verification</title>
+  <desc id="desc">Confirm the target host, preview supported changes, apply to one canary, and separately check service health and convergence.</desc>
+  <rect width="874" height="252" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="26" y="44" fill="#fff" font-size="26" font-weight="bold">Ansible deployment and verification</text>
+    <rect x="26" y="72" width="250" height="129" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="42" y="109" fill="#fff" font-size="18" font-weight="bold">Confirm the canary</text>
+    <text x="42" y="138" fill="#d7e6f4" font-size="15">Verify inventory and SSH trust</text>
+    <text x="42" y="160" fill="#d7e6f4" font-size="15">Limit the play to collector1</text>
+    <rect x="312" y="72" width="250" height="129" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="328" y="109" fill="#fff" font-size="18" font-weight="bold">Preview and apply</text>
+    <text x="328" y="138" fill="#d7e6f4" font-size="15">Review supported check results</text>
+    <text x="328" y="160" fill="#d7e6f4" font-size="15">Validate configuration on apply</text>
+    <rect x="598" y="72" width="250" height="129" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="614" y="109" fill="#fff" font-size="18" font-weight="bold">Verify the target</text>
+    <text x="614" y="138" fill="#d7e6f4" font-size="15">Check configuration and health</text>
+    <text x="614" y="160" fill="#d7e6f4" font-size="15">Repeat to check convergence</text>
+    <path d="M283 137h22m-7-6 7 6-7 6m264-6h22m-7-6 7 6-7 6" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <text x="26" y="232" fill="#fff" font-size="16">Check mode can skip tasks. An unchanged second run tests convergence.</text>
+  </g>
+</svg>

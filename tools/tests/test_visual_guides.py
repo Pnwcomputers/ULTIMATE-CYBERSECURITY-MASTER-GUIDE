@@ -10,6 +10,15 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 
 DIAGRAM_GUIDES = {
+    "assets/diagrams/secure-pipeline-kafka-offset-commit.svg": (
+        "Data-Engineering/data_pipelines.md",
+    ),
+    "assets/diagrams/secure-pipeline-ansible-canary.svg": (
+        "Data-Engineering/data_pipelines.md",
+    ),
+    "assets/diagrams/secure-pipeline-event-readback.svg": (
+        "Data-Engineering/data_pipelines.md",
+    ),
     "assets/diagrams/purple-team-emulation-detection-loop.svg": (
         "PlayBooks/purple-team-detection-validation.md",
         "PlayBooks/PurpleTeam_Detailed.md",

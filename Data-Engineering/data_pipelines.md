@@ -769,10 +769,10 @@ docker exec -i lab-kafka /opt/kafka/bin/kafka-console-producer.sh \
   < out/enriched-redis.jsonl
 docker exec lab-kafka /opt/kafka/bin/kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 --topic security.enriched.v1 \
-  --group lab-inspect-v1 --from-beginning --max-messages 2
+  --group lab-inspect-v1 --from-beginning --max-messages 2 --timeout-ms 10000
 ```
 
-**Expected:** Two JSON records appear; their order need not match the input because there are multiple partitions and no key was specified. A reused consumer group may already have offsets. Use a new group name for a fresh replay; `--from-beginning` does not override valid committed offsets.
+**Expected on a fresh topic after one publish:** Two JSON records appear. With several partitions and no explicit key, their order may differ from the input. The consumer exits after two records or when it waits 10 seconds without receiving a record. Confirm both fixture event IDs in the output. A new group with `--from-beginning` can replay earlier retained publishes. A reused group with valid offsets resumes from those positions. [Kafka 4.1.2 console consumer options](https://github.com/apache/kafka/blob/4.1.2/tools/src/main/java/org/apache/kafka/tools/consumer/ConsoleConsumerOptions.java)
 
 ### ⚙️ Secure client configuration template
 
@@ -797,6 +797,8 @@ Use `--producer.config client.properties` for the console producer, `--consumer.
 On the broker side, configure TLS listeners, reachable `advertised.listeners`, client authentication, authorizer policy, and separate producer/consumer/admin permissions. Secure inter-broker and controller traffic as well. A successful TLS handshake is not evidence of topic authorization. Listener and authentication settings must be checked against [Kafka broker configuration](https://kafka.apache.org/41/configuration/broker-configs/). See [Kafka security overview](https://kafka.apache.org/41/security/security-overview/).
 
 ### 📘 Delivery and scale decisions
+
+![A Kafka consumer writes a record durably before committing the next offset, with replay possible after a crash between those steps](../assets/diagrams/secure-pipeline-kafka-offset-commit.svg)
 
 For a production producer, explicitly review `acks=all`, `enable.idempotence=true`, delivery timeouts, retries, and batching. Idempotence limits duplicates from producer retries; it does not deduplicate arbitrary replayed input or an external SIEM write. `acks=all` works with the in-sync replica set and broker/topic settings; it is not a promise that every configured replica acknowledged. See [Kafka producer configuration](https://kafka.apache.org/41/configuration/producer-configs/).
 
@@ -898,20 +900,24 @@ The template module validates a temporary file before replacing the destination.
 
 ### ✅ Run and verify
 
+![The Ansible workflow confirms the canary host, reviews a preview and verifies configuration, health and convergence after applying](../assets/diagrams/secure-pipeline-ansible-canary.svg)
+
 ```bash
 ansible-inventory -i ansible/inventory.ini --graph
-ansible collectors -i ansible/inventory.ini -m ansible.builtin.ping
+ansible collector1 -i ansible/inventory.ini -m ansible.builtin.ping
 ansible-playbook -i ansible/inventory.ini ansible/site.yml --syntax-check
-ansible-playbook -i ansible/inventory.ini ansible/site.yml --check --diff --ask-become-pass
-ansible-playbook -i ansible/inventory.ini ansible/site.yml --ask-become-pass
-ansible-playbook -i ansible/inventory.ini ansible/site.yml --ask-become-pass
+ansible-playbook -i ansible/inventory.ini ansible/site.yml --limit collector1 --list-hosts
+# Confirm the listed target is collector1 before previewing or applying.
+ansible-playbook -i ansible/inventory.ini ansible/site.yml --limit collector1 --check --diff --ask-become-pass
+ansible-playbook -i ansible/inventory.ini ansible/site.yml --limit collector1 --ask-become-pass
+ansible-playbook -i ansible/inventory.ini ansible/site.yml --limit collector1 --ask-become-pass
 ```
 
 `ansible.builtin.ping` tests Ansible connectivity and remote Python execution, not ICMP. The inventory uses `collector.lab.example`, which does not match the earlier SSH alias `security-collector`; do not assume the alias settings apply. Select the key through an SSH agent or add `--private-key ~/.ssh/security-lab-ed25519` to remote Ansible commands. Keep host-key checking enabled and enroll trust for the actual inventory endpoint. See [Ansible connection details](https://docs.ansible.com/projects/ansible/latest/inventory_guide/connection_details.html).
 
 **Expected:** The first application creates the directory and file. The second should report no changes unless something altered the target state. Inspect `/etc/security-pipeline/pipeline.json` on the target. For the earlier `scp` exercise, optionally copy its nonsecret contents into local `config/pipeline.json`.
 
-Check mode is a prediction, not a full deployment test. Some tasks do not support it, and later tasks can depend on changes that check mode did not actually create. Diff output can disclose secrets. See [Ansible check and diff mode](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html).
+Check mode is a prediction, not a full deployment test. Some tasks do not support it, and later tasks can depend on changes that check mode did not actually create. A task with `check_mode: false` can still run normally. Review task-level settings before previewing and restrict `--diff` to nonsecret lab data. See [Ansible CLI options](https://docs.ansible.com/projects/ansible/latest/cli/ansible-playbook.html) and [Ansible check and diff mode](https://docs.ansible.com/projects/ansible/latest/playbook_guide/playbooks_checkmode.html).
 
 ### 📘 Expand safely
 
@@ -934,16 +940,19 @@ Rollback means selecting a known-good revision, applying it, and checking servic
 After completing the individual exercises, run:
 
 ```bash
-. .venv/bin/activate
-python scripts/parse_ssh.py fixtures/auth.txt out/quarantine.jsonl fixture-auth-v1 \
-  > out/events.jsonl
-python scripts/enrich.py redis < out/events.jsonl > out/enriched-redis.jsonl
-docker exec -i lab-kafka /opt/kafka/bin/kafka-console-producer.sh \
-  --bootstrap-server localhost:9092 --topic security.enriched.v1 \
-  < out/enriched-redis.jsonl
+(
+  set -e
+  . .venv/bin/activate
+  python scripts/parse_ssh.py fixtures/auth.txt out/quarantine.jsonl fixture-auth-v1 \
+    > out/events.jsonl
+  python scripts/enrich.py redis < out/events.jsonl > out/enriched-redis.jsonl
+  docker exec -i lab-kafka /opt/kafka/bin/kafka-console-producer.sh \
+    --bootstrap-server localhost:9092 --topic security.enriched.v1 \
+    < out/enriched-redis.jsonl
+)
 ```
 
-This connects parsing, cache enrichment, and broker ingestion. TLS and SSH were practiced independently, while Git tracks the source and Ansible deploys a sample configuration. Do not describe this milestone as a fully encrypted, continuously deployed pipeline.
+The commands run in a subshell that stops before publishing if parsing or enrichment exits with an error. Run the bounded consumer check from Section 8 and match the observed IDs to the generated file. Use a clean lab topic when you need to attribute output to a single run. Each successful publish appends records. TLS and SSH were practiced independently, while Git tracks the source and Ansible deploys a sample configuration. Do not describe this milestone as a fully encrypted, continuously deployed pipeline.
 
 ### 🧪 Milestone B: continuously processed architecture
 
@@ -988,6 +997,10 @@ You must implement or select the actual TLS log collector and continuous worker 
 
 ### ✅ Acceptance checks
 
+![A synthetic event is verified at source, at enrichment and publish, and by reading the same event ID back from the sink](../assets/diagrams/secure-pipeline-event-readback.svg)
+
+Use one synthetic valid event with a stable ID and one deliberately invalid fixture. Record the source position, event ID, available broker partition/offset, final sink result, and quarantine outcome. These observations support tracing and reconciliation across replay and failure drills.
+
 | Test | Required observation |
 | --- | --- |
 | Incorrect certificate hostname | Client rejects the connection |
@@ -1029,7 +1042,7 @@ Removing the Kafka container discards this lab's broker data. Keep fixture code 
 | Event time is shifted | Missing/wrong source timezone | Inspect original timestamp and collector time assumptions |
 | Cache misses increase | TTL, eviction, importer failure, or key mismatch | Compare canonical keys and feed refresh metrics |
 | Cache failure marked clean | Error and negative result were conflated | Keep unavailable separate from no-match |
-| Kafka bootstrap succeeds but reads fail | Advertised broker names are unreachable | Resolve and connect to every advertised endpoint |
+| Kafka bootstrap succeeds but reads fail | Advertised broker endpoints may be unreachable, or topic authorization may fail | Verify the required endpoints from the client network and inspect client errors for authorization failures |
 | Kafka consumer appears idle | Existing group offsets or no assigned partitions | Inspect group offsets, lag, and partition assignments |
 | Kafka duplicates appear | Replay or output-before-commit crash window | Trace event IDs and sink idempotency behavior |
 | Ansible always changes | Shell tasks, timestamps, unstable templates | Inspect diffs and use state-aware modules |
@@ -1112,6 +1125,10 @@ This review checked the guide against the linked official documentation and perf
 | Ansible | Playbook syntax checked successfully | Deployment attempt could not start Ansible's local RPC server in the verification environment; apply/idempotence remain unverified |
 | Kafka | Cross-checked image example and CLI/configuration guidance against Apache documentation | Docker was unavailable, so broker startup and produce/consume were not executed |
 | SSH | Checked options and trust guidance against OpenSSH manuals | No remote server configuration was modified or tested |
+
+Follow-up for sections 8–13 checked the Kafka 4.1.2 consumer options and Ansible CLI and check-mode
+behavior against upstream references. Bash syntax checks and a local command-stub fixture validated
+the file-based path's order and failure behavior. No broker, remote Ansible target, or SIEM was contacted.
 
 Local checks used Python 3.12.14, OpenSSL 3.0.13, redis-py 8.1.0, pymemcache 4.0.0, and ansible-core 2.21.4. These identify the verification environment; they are not a recommendation to freeze on those versions indefinitely. Revalidate with your selected supported releases before deployment.
 
