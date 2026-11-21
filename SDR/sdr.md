@@ -1143,7 +1143,7 @@ rate and conditioning. Pass prediction and decoding are separate functions;
 Check current mission status and the exact satellite/downlink before receiving.
 LRPT processing requires the appropriate complex-IQ/digital receiver chain;
 recording an FM-demodulated audio stream is not a generic substitute.
-Use the matching [SatDump documentation](https://docs.satdump.org/) and an
+Use the matching [SatDump project and usage notes](https://github.com/SatDump/SatDump) and an
 archived test recording before live reception.
 
 ---
@@ -1600,7 +1600,7 @@ unverified package names, global pip installation and incomplete source builds.
 | HackRF | [Official host software](https://hackrf.readthedocs.io/en/latest/installing_hackrf_software.html) |
 | rtl_433 | [Upstream build instructions](https://github.com/merbanan/rtl_433/blob/master/docs/BUILDING.md) |
 | gr-satellites | [Upstream project](https://github.com/daniestevez/gr-satellites) |
-| SatDump | [Official documentation](https://docs.satdump.org/) |
+| SatDump | [Upstream project](https://github.com/SatDump/SatDump) |
 
 Record versions, use a suitable isolated environment and verify device permissions
 against the installed package rather than assuming a group change is always needed.

@@ -80,7 +80,7 @@ document.
 
 ![NanoVNA calibration reference plane at test-cable end showing OPEN/SHORT/LOAD steps for one-port S11 and separate CH0-to-CH1 transmission standards for S21](../../assets/diagrams/nanovna-s11-s21-calibration-plane.svg)
 
-*Conceptual fixture illustration.* [NanoRFE's calibration reference](https://nanorfe.org/nanovna-calibration.html) places OPEN, SHORT and LOAD at the desired connector reference plane. Some NanoVNA revisions differ in their isolation/THRU menu sequence, so follow the [specific instrument's manual](https://nanorfe.org/nanovna-v2-user-manual.html). When a cable is changed after calibration, its loss and phase are no longer corrected by the saved calibration.
+*Conceptual fixture illustration.* [NanoRFE's calibration reference](https://nanorfe.com/nanovna-calibration.html) places OPEN, SHORT and LOAD at the desired connector reference plane. Some NanoVNA revisions differ in their isolation/THRU menu sequence, so follow the manual for your model (for example, the [NanoVNA V2 manual](https://nanorfe.com/nanovna-v2-user-manual.html)). When a cable is changed after calibration, its loss and phase are no longer corrected by the saved calibration.
 
 > **Whatever you attach the calibration standards to becomes the zero point of
 > your measurement.**

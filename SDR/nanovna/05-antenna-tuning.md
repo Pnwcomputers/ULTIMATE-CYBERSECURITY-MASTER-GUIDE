@@ -57,7 +57,7 @@ Make small, traceable adjustments and compare the final result with the baseline
 
 ![NanoVNA S11 calibration at the connector reference plane and the distinct roles of antenna reactance, resistance and impedance matching](../../assets/diagrams/nanovna-s11-resonance-vs-match.svg)
 
-*Conceptual one-port setup, not a lab capture.* [NanoVNA calibration guidance](https://nanorfe.org/nanovna-calibration.html) describes the cable-end reference plane; [S11 antenna interpretation](https://nanovna.nl/en/guides/antenna-swr) distinguishes impedance match from radiation efficiency. A favorable SWR alone does not demonstrate gain, pattern or usable bandwidth.
+*Conceptual one-port setup, not a lab capture.* [NanoVNA calibration guidance](https://nanorfe.com/nanovna-calibration.html) describes the cable-end reference plane; [S11 antenna interpretation](https://nanovna.nl/en/guides/antenna-swr) distinguishes impedance match from radiation efficiency. A favorable SWR alone does not demonstrate gain, pattern or usable bandwidth.
 
 For a simple antenna, distinguish the measured **reactive part X** and **resistive part R** of feedpoint impedance. They are useful diagnostics, but there is no universal tuning order for every loaded, multiband or coupled antenna:
 

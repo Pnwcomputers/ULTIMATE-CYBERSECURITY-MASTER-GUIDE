@@ -449,7 +449,7 @@ This guide is an educational reference, not a certification of device compatibil
 
 - **Proxmark3 Iceman Wiki**: [RfidResearchGroup/proxmark3](https://github.com/RfidResearchGroup/proxmark3/wiki)
 - **Proxmark Forum**: [RRG Proxmark3 GitHub & Documentation](https://github.com/RfidResearchGroup/proxmark3)
-- **NFC / MIFARE background**: [nfc-tools.org](https://nfc-tools.org/)
+- **NFC technology background**: [NFC Forum](https://nfc-forum.org/learn/NFC-technology/)
 - **Flipper Zero Docs**: [docs.flipper.net](https://docs.flipper.net/)
 
 ### Tooling

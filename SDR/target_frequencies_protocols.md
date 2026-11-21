@@ -373,7 +373,7 @@ GNSS signals can be below the apparent noise floor of an ordinary waterfall. A m
 
 **NOAA APT status:** NOAA-18 was passivated June 6, 2025; NOAA-19 was decommissioned August 13, 2025; NOAA-15 followed August 19, 2025. Do not present those three as active beginner reception targets. Source: [NOAA POES retirement announcement](https://www.nesdis.noaa.gov/news/legacy-orbit-noaa-decommissions-the-poes-satellite-constellation).
 
-References: [ESA GPS signal plan](https://gssc.esa.int/navipedia/index.php/GPS_Signal_Plan), [ESA Galileo signal plan](https://gssc.esa.int/navipedia/index.php/Galileo_Signal_Plan), [GOES-R HRIT/EMWIN](https://www.goes-r.gov/users/hrit.html), [SatDump documentation](https://docs.satdump.org/), [AMSAT satellite status](https://www.amsat.org/status/).
+References: [ESA GPS signal plan](https://gssc.esa.int/navipedia/index.php/GPS_Signal_Plan), [ESA Galileo signal plan](https://gssc.esa.int/navipedia/index.php/Galileo_Signal_Plan), [GOES-R HRIT/EMWIN](https://www.goes-r.gov/users/hrit.html), [SatDump project](https://github.com/SatDump/SatDump), [AMSAT satellite status](https://www.amsat.org/status/).
 
 ## 11. Drones, UWB, radar, and microwave systems
 

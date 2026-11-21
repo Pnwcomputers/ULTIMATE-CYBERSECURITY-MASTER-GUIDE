@@ -57,7 +57,7 @@ Related: [domain/IP recon](../OSINT/scripts/Domain_IP_Recon.md) · [email OSINT]
 | CISA Known Exploited Vulnerabilities | Prioritize known-exploited CVEs over score-only queues | **Official public JSON feed**, not the directory's third-party RapidAPI wrapper | [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) |
 | GitHub Global Security Advisories | Package/ecosystem vulnerabilities (GHSA) | Official companion; public read API | [GitHub REST](https://docs.github.com/en/rest/security-advisories/global-advisories) |
 | GitGuardian | Detect exposed secrets in repositories you may inspect | Reference; credentials and data-handling review | [API docs](https://docs.gitguardian.com/api-docs/api-reference) |
-| CRXcavator | Risk review for browser extensions | Reference; key | [API docs](https://crxcavator.io/apidocs) |
+| CRXcavator | Historical browser-extension risk review reference | API documentation unavailable during the November 2026 recheck | Verify current support before planning an integration |
 
 **Decision workflow:** verify installed product/version and exposure → read vendor guidance → correlate NVD/GHSA → mark KEV where present → determine patch/mitigation priority and ownership. KEV inclusion means exploitation has been observed somewhere, **not** that this particular asset was compromised.
 
