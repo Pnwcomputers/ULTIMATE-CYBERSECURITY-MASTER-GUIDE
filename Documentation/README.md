@@ -109,6 +109,22 @@ This directory contains comprehensive technical documentation, operational proce
 
 ## 📂 Current Documentation
 
+### Dedicated Wireless, Bluetooth & Credential Tool Guides
+
+| Resource | Description | Type |
+|---|---|---|
+| [Wireless Tool Ecosystem](./wireless-toolkit-reference.md) | Directory of Wi-Fi/Bluetooth tools and active/passive boundaries | Index |
+| [Wi-Fi Adapter Selection](./wifi-adapter-selection-guide.md) | Chipsets, drivers, bands, monitor mode, injection & Linux/Kali compatibility | Hardware guide |
+| [Bluetooth, BLE & RF Hardware](./bluetooth-radio-adapter-guide.md) | Ubertooth, Nordic, TI, Silicon Labs, YARD Stick One, ATtiny & platform matrix | Hardware guide |
+| [Fern WiFi Cracker](./fern-wifi-cracker-guide.md) | GUI auditing, dependencies, historical capabilities & defensive labs | Tool guide |
+| [Wifite2 & Wifite3](./wifite-guide.md) | Toolchain comparison, adapter support, scoped automation & safeguards | Tool guide |
+| [Pixiewps](./pixiewps-guide.md) | WPS weak-entropy analysis, applicability & remediation | Tool guide |
+| [Spooftooph](./spooftooph-guide.md) | Bluetooth identifier manipulation threat model, controls & compatibility | Tool guide |
+| [BlueMaho](./bluemaho-guide.md) | Legacy Bluetooth suite, source review & modern equivalents | Historical guide |
+| [Hashcat](./hashcat-guide.md) | General offline password auditing with synthetic hashes | Tool guide |
+| [Wordlists & Candidates](./wordlists-password-auditing.md) | SecLists, Crunch, CeWL, CUPP, John & secure handling | Reference |
+| [Rainbow Tables](./rainbow-tables-guide.md) | Precomputed chains, salted KDFs & defensive design | Reference |
+
 ### Wireless Security, WiFi & Network Tools
 | File | Description | Size/Type |
 | :--- | :--- | :--- |

@@ -122,6 +122,17 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | [RouterSploit](./Tradecraft/routersploit-guide.md) | Embedded-device research & safe labs |
 | [Metasploit Framework](./Tradecraft/metasploit-framework-guide.md) | Module research, controlled labs & detection |
 
+### Wireless, Bluetooth & Password-Auditing Reference
+
+| Reference | Coverage |
+|---|---|
+| [Complete Wireless Security Toolkit](./Documentation/wireless-toolkit-reference.md) | Aircrack-ng, Kismet, Fern, Wifite, Pixiewps, Spooftooph, BlueMaho & other pertinent tools |
+| [Wi-Fi Adapter Comparison](./Documentation/wifi-adapter-selection-guide.md) | ALFA, Atheros, MediaTek, Realtek, Linux/Kali, monitor mode, injection, band & driver matrices |
+| [Bluetooth/BLE & RF Adapter Comparison](./Documentation/bluetooth-radio-adapter-guide.md) | Ubertooth, Nordic nRF52, TI, EFR32, YARD Stick One, ATtiny & platform limitations |
+| [Hashcat](./Documentation/hashcat-guide.md) | General offline password audit, synthetic labs & backends |
+| [Wordlists & Candidate Generation](./Documentation/wordlists-password-auditing.md) | SecLists, Crunch, CeWL, CUPP, John & safe dataset handling |
+| [Rainbow Tables](./Documentation/rainbow-tables-guide.md) | Precomputation vs salts, KDFs & historical tools |
+
 ### Curated Research & Practice:
 
 | Resource | Description |

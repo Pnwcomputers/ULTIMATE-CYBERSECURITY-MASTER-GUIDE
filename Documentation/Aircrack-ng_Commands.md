@@ -187,6 +187,20 @@ john --wordlist=wordlist.txt hash.txt
 
 ---
 
+## Toolchain Selection & Adapter Compatibility
+
+| Related Guide | Why Use It |
+|---|---|
+| [Wi-Fi Adapter Selection](./wifi-adapter-selection-guide.md) | Check chipset/revision, driver, 2.4/5/6 GHz and monitor/injection separately |
+| [Kismet](../Wardriving/kismet.md) | Receive-focused survey, GPS logs and WIDS rather than attack automation |
+| [Fern WiFi Cracker](./fern-wifi-cracker-guide.md) | Historical graphical wrapper, dependent on Aircrack-ng |
+| [Wifite2 & Wifite3](./wifite-guide.md) | Separate automation projects, active-method risks and hardware matrices |
+| [Pixiewps](./pixiewps-guide.md) | Specific weak WPS entropy, not generic WPA2 cracking |
+| [Hashcat](./hashcat-guide.md) | General offline auditing; see [HCX](./hcxtoolshashcat.md) for WPA2 format 22000 |
+| [Wireless Tool Ecosystem](./wireless-toolkit-reference.md) | All related Wi-Fi, Bluetooth & radio references |
+
+Note that Aircrack-ng includes both receive-focused capture utilities and tools that **actively transmit**. Monitor mode alone does not prove packet injection works. For WPS, inspect AP configuration and firmware first; the existence of a PIN or WPS advertisement is not proof of a recoverable secret.
+
 ## Additional Resources 📚
 
 - Aircrack-ng documentation: https://www.aircrack-ng.org/documentation.html

@@ -20,6 +20,14 @@ _Last reviewed: 2026-11-19 (documentation and internal-link review; no field col
 | [C5 Wardriver](./esp32-c5-wardriver.md) | Official installer, board-specific power/wiring, Normal/Node/Core roles and SD log checks. |
 | [Piglet](./piglet.md) | XIAO/T-Dongle builds, standalone versus node logs and opt-in upload configuration. |
 
+## Wi-Fi & Bluetooth Adapter Selection
+
+| Resource | Role & Compatibility Boundary |
+|---|---|
+| [Wi-Fi Adapter / Chipset Matrix](../Documentation/wifi-adapter-selection-guide.md) | Linux/Kali/Raspberry Pi hardware, 2.4/5/6 GHz, driver, monitor/injection and verification |
+| [Bluetooth, BLE & Adjacent RF Hardware](../Documentation/bluetooth-radio-adapter-guide.md) | True BLE sniffers vs HCI adapters, Ubertooth, nRF52, YARD Stick One and ATtiny |
+| [Wireless Security Tool Index](../Documentation/wireless-toolkit-reference.md) | Aircrack-ng, Fern, Wifite, Pixiewps and Bluetooth tools, distinct from receive-focused wardriving |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |
