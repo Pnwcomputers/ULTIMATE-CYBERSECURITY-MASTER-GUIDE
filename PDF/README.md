@@ -95,7 +95,7 @@ This directory contains **curated PDF reference materials, cheat sheets, and tec
 | **[Web_application_Firewall__.pdf](./Web_application_Firewall__.pdf)** | Web Application Firewall (WAF) bypass techniques | WAF Bypass |
 | **[IDOR_Guide.pdf](./IDOR_Guide.pdf)** | Insecure Direct Object Reference (IDOR) exploitation | IDOR Attacks |
 | **[zero-day-hunter.pdf](./zero-day-hunter.pdf)** | Unverified novelty-style vulnerability-research resource list; non-authoritative | Research (unverified) |
-| **[ReactJs_Cheatsheet.pdf](./ReactJs_Cheatsheet.pdf)** | ReactJS security considerations and cheat sheet | Frontend Security |
+| **[ReactJs_Cheatsheet.pdf](./ReactJs_Cheatsheet.pdf)** | Illustrated React syntax, components and routing examples | Frontend Development |
 
 ### Wireless Security
 
@@ -942,4 +942,19 @@ These PDFs are imported third-party reference material. The source PDFs have not
 | [Zero-Day Hunter](./zero-day-hunter.pdf) | A novelty-style, unverified resource list, not an authoritative guide or vetted route into vulnerability research. |
 | [SAST Scanners Cheat Sheet](../Documentation/SAST.Scanners.-.We.Hack.Purple.Cheat.Sheet.pdf) | Dated January 2022; use as a historical tool catalogue and check active support before selecting a scanner. |
 
-The repository contains 20 PDFs (18 in this folder and two in `Documentation/`). Six larger PDFs could not be read through the available repository connection and remain unreviewed: `IDOR_Guide.pdf`, `Linux_Privilege_Escalation.pdf`, `Network_101_1738356173.pdf`, `OSCP_Cheat_Sheet.pdf`, `docker-pen-test.pdf`, and `ssh-pen-testing.pdf`. The image-only React cheat sheet was not visually reviewed page by page. See [the whole-repository review](../REVIEW_2026-11-19.md) for coverage and limitations.
+### Follow-up reference screening (2026-11-20)
+
+| PDF | Finding and current reference |
+| --- | --- |
+| [IDOR Guide](./IDOR_Guide.pdf) | Pages 33–35 discuss randomized identifiers and server-side access controls. UUIDs can make enumeration harder. Enforce an object-level authorization check on every request. [OWASP IDOR prevention](https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html) |
+| [Linux Privilege Escalation](./Linux_Privilege_Escalation.pdf) | Page 4 suggests matching kernel versions to exploit reports. A version string alone gives incomplete evidence of patch status because distributions can backport fixes. Use the installed package release and vendor advisory. [Red Hat security backporting](https://access.redhat.com/security/updates/backporting) |
+| [Network 101](./Network_101_1738356173.pdf) | Introductory networking slides with private-address examples. Private address assignment describes address scope. Apply segmentation and firewall policy separately when controlling traffic. [RFC 1918](https://www.rfc-editor.org/rfc/rfc1918) |
+| [OSCP Cheat Sheet](./OSCP_Cheat_Sheet.pdf) | Image-based practice notes include tool and exploitation examples. Use OffSec's current guide for exam rules and permitted tools. [OffSec exam guide](https://help.offsec.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide) |
+| [Docker Penetration Testing](./docker-pen-test.pdf) | Pages 8–11 discuss remote daemon access, page 16 shows an Ubuntu 16.04 image, and page 20 uses the Docker socket. Treat the environment as historical. Keep the daemon socket restricted and protect approved remote access with SSH or TLS. [Docker daemon access](https://docs.docker.com/engine/security/protect-access/) |
+| [SSH Penetration Testing](./ssh-pen-testing.pdf) | Pages 23–25 demonstrate forwarding. Review the actual bind address and forwarding scope, and verify the server host key before using a tunnel. [OpenSSH client configuration](https://man.openbsd.org/ssh_config) |
+| [React Cheat Sheet](./ReactJs_Cheatsheet.pdf) | All nine pages are introductory development material. Page 5 uses the array index as a key. Use stable item IDs when items can be inserted, removed or reordered. [React list keys](https://react.dev/learn/rendering-lists) |
+
+The repository contains 20 PDFs, with 18 in this folder and two in `Documentation/`. The follow-up used
+embedded text for five references, OCR for the 14-page OSCP sheet, and rendered pages for the nine-page
+React sheet. Commands in the PDFs were not executed. See the [repository review log](../REVIEW_2026-11-19.md)
+for the scope and limits of the review.
