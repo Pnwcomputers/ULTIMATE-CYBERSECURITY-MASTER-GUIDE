@@ -1,6 +1,6 @@
 # Security API Catalog and Integration Cookbook
 
-**Reviewed:** November 2, 2026. **Scope:** APIs relevant to authorized OSINT, vulnerability prioritization, incident response, external asset discovery, web/API testing and data pipelines.
+**Reviewed:** November 20, 2026. **Scope:** APIs relevant to authorized OSINT, vulnerability prioritization, incident response, external asset discovery, web/API testing and data pipelines.
 
 [Documentation](README.md) · [OSINT](../OSINT/README.md) · [Incident response](../IncidentResponse/README.md) · [Data ingestion](../Data-Engineering/Phase2/api_file_ingestion.md) · [Repository](../README.md)
 
@@ -158,7 +158,23 @@ jq '{version:.openapi, paths:(.paths | keys)}' ./approved-openapi.json
 6. **Validation:** use synthetic data first; get consent before public site submissions or sample uploads. Test rate limits, schema drift, conflicting intelligence and recovery.
 7. **SIEM design:** normalize enrichment outputs, correlate with local alerts, add human-review gates, document retention. [Wazuh](../IncidentResponse/SIEM/wazuh.md) should not ingest raw API keys.
 
-Suggested future workflow (**not deployed**): in-scope inventory → passive exposure/DNS queries → NVD + GHSA + KEV prioritization → approved reputation lookups → time-stamped JSON → [SIEM](../IncidentResponse/SIEM/README.md) triage and analyst review.
+**Suggested future workflow (not deployed):**
+
+```mermaid
+flowchart LR
+    A[In-scope inventory] --> P[Confirm permitted data<br/>and minimize indicators]
+    P --> D[Passive exposure and<br/>DNS context]
+    D --> V[Vulnerability context:<br/>NVD · GHSA · KEV]
+    V --> R[Approved reputation<br/>lookups, if allowed]
+    R --> Q{Validate provider status,<br/>schema, and provenance}
+    Q -->|Valid result| J[Timestamped, minimized<br/>JSON with source metadata]
+    Q -->|Error, unknown, or conflict| U[Mark unknown; preserve<br/>for analyst review]
+    J --> H[SIEM triage and<br/>human review]
+    U --> H
+```
+
+*Illustrative data flow only; no integration is deployed. Provider results inform triage and do not independently establish that an asset is safe or compromised.*
+
 
 ## Source and review boundaries
 
