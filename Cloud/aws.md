@@ -65,14 +65,15 @@ policies, create keys, or pass a privileged role).
 
 ![Access controls, stored-data protection and selected logging address separate S3 risks](../assets/diagrams/aws-s3-independent-controls.svg)
 
-*Figure 2 — Original conceptual control map. See [S3 Block Public Access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) and [CloudTrail data events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html).*
+*Figure 2 — Original conceptual control map. These safeguards address different risks and are not substitutes for one another. See AWS documentation for [Block Public Access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html), [Object Ownership](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html), [default encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingEncryption.html), and [CloudTrail data events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-data-events-with-cloudtrail.html).*
 
-- **Public buckets/objects** - the classic breach; check bucket policy, ACLs, and
-  the account-level **Block Public Access** setting.
-- **Review (authorized):** `aws s3 ls s3://BUCKET` uses the caller's credentials by default; success does not prove public access, and bucket listing differs from object reading. Evaluate bucket/access-point policy, Object Ownership, applicable Block Public Access settings, and intended principals.
-- **Defend:** enable Block Public Access account-wide; use bucket policies over
-  ACLs (disable ACLs); enable default encryption and versioning; log access.
-
+- **Assess exposure:** Review bucket and access-point policies, Object Ownership and ACL state, and organization-, account-, and bucket-level Block Public Access settings. S3 applies the most restrictive applicable Block Public Access settings. A setting that blocks public access does not mean every cross-account grant is blocked.
+- **Interpret access checks carefully:** `aws s3 ls s3://BUCKET` uses the caller's credentials by default. Success does not prove public access; bucket listing and object reading are different permissions. Validate intended access paths and effective policy before reporting exposure.
+- **Block public access:** AWS recommends enabling all four Block Public Access settings at account and bucket levels. Confirm application dependencies and any explicitly approved public-content use before rollout; inspect policies and ACLs as well, since the settings are guardrails rather than a complete inventory of every access grant.
+- **Use policy-based access where compatible:** New general-purpose buckets default to Bucket owner enforced Object Ownership, which disables ACLs. Review legacy integrations and cross-account upload behavior before changing an existing bucket; then use bucket or access-point policies for access control.
+- **Protect data at rest:** S3 automatically applies SSE-S3 to new object uploads by default. Choose SSE-KMS where the use case needs customer-managed key controls, and review existing-object requirements separately. Encryption does not prevent an authorized principal from reading data.
+- **Plan recovery deliberately:** Versioning can preserve prior object versions after overwrites or deletes. Enable it where the recovery and retention requirements justify the storage, lifecycle, and data-handling consequences; versioning alone is not a backup or immutable-retention plan.
+- **Select access logging intentionally:** CloudTrail trails and event data stores do not log S3 object-level data events by default, and data events incur charges. Select the required buckets and API operations, then verify delivery, retention, and access to the resulting logs.
 ---
 
 ## IMDS, SSRF, and Role Credentials
