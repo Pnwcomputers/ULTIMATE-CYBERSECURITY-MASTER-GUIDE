@@ -104,22 +104,27 @@ scope instance-role permissions tightly. See [AWS metadata options](https://docs
 
 ## Enumeration & Assessment
 
-```bash
-# Identify the caller; this does not enumerate effective permissions
-aws sts get-caller-identity
-# For an actual IAM user only: one subset of its policies
-aws iam list-attached-user-policies --user-name NAME
+Start with the approved account, regions, services, and collection purpose. Use a dedicated assessment identity with the minimum permissions needed for the selected checks. Confirming the caller identity does not show its effective permissions; listing a user's attached policies omits permissions inherited through groups, roles, resource policies, permission boundaries, session policies, and organization controls.
 
-# Configuration assessment (CIS / best practice)
-prowler aws                       # https://github.com/prowler-cloud/prowler
-scout aws                         # https://github.com/nccgroup/ScoutSuite
+```mermaid
+flowchart LR
+    A[Confirm written scope:<br/>account · regions · services] --> B[Choose a posture tool<br/>and minimum-permission identity]
+    B --> C[Collect only approved<br/>configuration evidence]
+    C --> D[Protect raw output<br/>and generated reports]
+    D --> E[Validate each result against<br/>effective policies and context]
+    E --> F[Report coverage, gaps,<br/>uncertainty, and evidence]
+    F --> G[Owner-approved remediation<br/>and scoped retest]
 ```
 
-- **Prowler** - CIS AWS Benchmark and hundreds of checks; good for compliance evidence.
-- **ScoutSuite** - multi-cloud config audit with an HTML report.
-- **Pacu** - offensive AWS exploitation framework (enumeration, privesc modules) -
-  authorized engagements only. <https://github.com/RhinoSecurityLabs/pacu>
+| Tool | Appropriate use | Limits to record |
+|---|---|---|
+| [Prowler](https://github.com/prowler-cloud/prowler) | Run selected cloud posture checks, including AWS checks mapped to security standards. | Record the provider, check set, benchmark version, identity permissions, and exclusions. A scanner report is evidence to review, not a compliance determination. |
+| [ScoutSuite](https://github.com/nccgroup/ScoutSuite) | Gather configuration through cloud APIs for a point-in-time review and offline report analysis. | Results reflect the account and permissions at collection time; the report can contain sensitive configuration and identity data. |
+| [Pacu](https://github.com/RhinoSecurityLabs/pacu) | Adversary-simulation framework for specifically approved, controlled testing. | It is not a posture or compliance scanner. Do not run exploitation modules as part of a configuration inventory. |
 
+Validate candidate IAM findings against the complete request context and all applicable policy types; AWS's [policy evaluation model](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html) describes how these controls interact. Document failed or unavailable checks rather than interpreting missing data as a secure result.
+
+Protect collected account inventory and reports under the engagement's data-handling rules. No account configuration should be changed during discovery unless that change is separately approved and recorded.
 ---
 
 ## Privilege Escalation Paths
