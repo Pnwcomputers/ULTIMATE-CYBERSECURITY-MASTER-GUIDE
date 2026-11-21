@@ -520,18 +520,57 @@ actionable alert reaches someone who can respond.*
 
 ## A10: Mishandling of Exceptional Conditions
 
-New in 2025: error-handling and edge-case logic that fails insecurely.
+New in the 2025 list, A10 covers failures to prevent, detect, or respond safely
+to unusual conditions such as invalid or missing input, resource exhaustion,
+dependency timeouts, permission errors, partial transactions, and concurrent
+state changes.
 
-- **How it is exploited:** fail-open logic (an error path that grants access),
-  inconsistent state after a partial failure, information disclosure through error
-  messages, or race conditions in exceptional paths.
-- **How to test:** force error and edge conditions (malformed input, timeouts,
-  concurrent requests); observe whether failures fail **open** or closed; check
-  error responses for leaked internals; test race conditions on state-changing ops.
-- **How to defend:** fail closed by default; handle errors explicitly and
-  uniformly; avoid leaking internals in messages; make state changes atomic; test
-  exceptional paths as first-class scenarios.
-- **CWE:** CWE-755, CWE-209, CWE-362. **Cheat sheet:** [Error Handling](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
+```mermaid
+flowchart LR
+    I[Validate inputs and<br/>bound resources] --> O[Perform operation<br/>with explicit state]
+    O -->|Success| C[Commit and report<br/>the expected result]
+    O -->|Failure or timeout| H[Handle at the point<br/>of failure]
+    H --> R[Rollback or restore<br/>a consistent state]
+    R --> E[Return safe error;<br/>record useful context]
+    E --> M[Monitor and alert<br/>when risk warrants]
+    R -->|Retry only when safe<br/>and idempotent| O
+```
+
+*The safe response depends on the operation: deny or fail closed for security
+decisions, preserve transaction consistency for state changes, and use explicit
+safe-degradation behavior for availability where appropriate.*
+
+- **How it fails:** exceptional input or environment states leave the application
+  in an unknown or inconsistent state; a missing privilege or dependency result
+  is treated as success; partial updates are not rolled back; retries repeat a
+  non-idempotent operation; race conditions bypass a check; or error responses
+  expose sensitive implementation details.
+- **How to assess:** identify critical operations and their expected state
+  transitions. In a controlled environment, exercise malformed or missing input,
+  permission and dependency failures, timeouts, resource limits, partial
+  transaction failures, and concurrent requests. Verify the decision made at the
+  point of failure, the resulting data state, retry behavior, user-visible error,
+  and relevant logs. Check that security-sensitive decisions do not become
+  permissive when a dependency or policy check fails.
+- **How to defend:** validate required inputs and bound resource use; handle
+  expected failures close to where they occur and provide a global fallback for
+  unexpected errors. Define explicit state and transaction boundaries; roll back
+  incomplete changes or use compensating actions where atomic rollback is not
+  possible. Retry only operations designed to be idempotent, with limits and
+  backoff. Fail closed for authorization and other security decisions, while
+  designing any availability fallback explicitly and safely. Return a concise
+  error that does not reveal internals, and log appropriate diagnostic context
+  without secrets; alert on repeated or high-risk patterns.
+- **Validation:** verify each important operation either completes fully or
+  leaves a documented consistent state after failure; no partial unauthorized
+  action persists; repeated requests do not duplicate effects; and error messages,
+  logs, metrics, and alerts give responders useful but appropriately limited
+  information. Include race and timeout cases in regression coverage.
+- **CWE examples:** CWE-755 (improper handling of exceptional conditions),
+  CWE-209 (sensitive information in error messages), and CWE-362 (race
+  condition); the category maps to additional weaknesses. **References:**
+  [OWASP A10:2025](https://top10.owasp.org/2025/A10_2025-Mishandling_of_Exceptional_Conditions/)
+  and the [OWASP Error Handling Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Error_Handling_Cheat_Sheet.html).
 
 ---
 
