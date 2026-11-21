@@ -1932,272 +1932,29 @@ flowchart LR
 
 ### Complete Security Toolkit
 
-```python
-#!/usr/bin/env python3
-# security_toolkit.py - Comprehensive security toolkit
+The former Python example bundled active port scanning, service probing, web requests, DNS queries, packet capture, and password-hash guessing without a target-scope gate or consistent rate limits. Its simple checks could also mislabel results: an HTTP 200 response does not establish a vulnerability, an error-page mention of “SQL” does not prove injection, and digest length cannot identify arbitrary password-hash formats. The HTML report inserted untrusted values without escaping and overwrote its output path by default.
 
-import socket
-import threading
-import subprocess
-import requests
-import hashlib
-import os
-from datetime import datetime
+Use an assessment workflow that makes authorization, collection, evidence review, and data handling explicit:
 
-class SecurityToolkit:
-    def __init__(self):
-        self.results = {}
-    
-    def port_scanner(self, target, ports=range(1, 1001)):
-        """Scan ports on target host"""
-        print(f"[*] Scanning {target} for open ports...")
-        open_ports = []
-        
-        def scan_port(port):
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(1)
-            result = sock.connect_ex((target, port))
-            if result == 0:
-                open_ports.append(port)
-                print(f"[+] Port {port} is open")
-            sock.close()
-        
-        threads = []
-        for port in ports:
-            thread = threading.Thread(target=scan_port, args=(port,))
-            threads.append(thread)
-            thread.start()
-        
-        for thread in threads:
-            thread.join()
-        
-        self.results['open_ports'] = sorted(open_ports)
-        return open_ports
-    
-    def banner_grabbing(self, target, ports):
-        """Grab service banners"""
-        print(f"[*] Grabbing banners from {target}...")
-        banners = {}
-        
-        for port in ports:
-            try:
-                sock = socket.socket()
-                sock.settimeout(2)
-                sock.connect((target, port))
-                
-                # Send probe
-                sock.send(b"HEAD / HTTP/1.0\r\n\r\n")
-                banner = sock.recv(1024).decode('utf-8', errors='ignore')
-                
-                banners[port] = banner.strip()
-                print(f"[+] Port {port}: {banner[:50]}...")
-                
-                sock.close()
-            except:
-                pass
-        
-        self.results['banners'] = banners
-        return banners
-    
-    def web_vulnerability_scanner(self, url):
-        """Basic web vulnerability scanner"""
-        print(f"[*] Scanning {url} for vulnerabilities...")
-        vulnerabilities = []
-        
-        # Check for common files
-        common_files = [
-            '/admin', '/login', '/wp-admin', '/phpmyadmin',
-            '/backup.sql', '/.git', '/.env', '/config.php'
-        ]
-        
-        for file in common_files:
-            test_url = url + file
-            try:
-                response = requests.get(test_url, timeout=3)
-                if response.status_code == 200:
-                    vulnerabilities.append({
-                        'type': 'Exposed File',
-                        'url': test_url,
-                        'status': response.status_code
-                    })
-                    print(f"[!] Found: {test_url}")
-            except:
-                pass
-        
-        # Check for SQL injection
-        sql_payloads = ["'", "' OR '1'='1", "1' OR '1' = '1"]
-        for payload in sql_payloads:
-            test_url = f"{url}?id={payload}"
-            try:
-                response = requests.get(test_url, timeout=3)
-                if "sql" in response.text.lower() or "mysql" in response.text.lower():
-                    vulnerabilities.append({
-                        'type': 'Possible SQL Injection',
-                        'url': test_url,
-                        'payload': payload
-                    })
-                    print(f"[!] Possible SQLi: {test_url}")
-            except:
-                pass
-        
-        self.results['web_vulns'] = vulnerabilities
-        return vulnerabilities
-    
-    def hash_cracker(self, hash_value, wordlist_path):
-        """Crack hash using wordlist"""
-        print(f"[*] Cracking hash: {hash_value}")
-        
-        hash_types = {
-            32: 'MD5',
-            40: 'SHA1',
-            64: 'SHA256'
-        }
-        
-        hash_type = hash_types.get(len(hash_value), 'Unknown')
-        print(f"[*] Detected hash type: {hash_type}")
-        
-        try:
-            with open(wordlist_path, 'r', encoding='utf-8', errors='ignore') as f:
-                for line in f:
-                    word = line.strip()
-                    
-                    # Try different hash types
-                    if len(hash_value) == 32:
-                        test_hash = hashlib.md5(word.encode()).hexdigest()
-                    elif len(hash_value) == 40:
-                        test_hash = hashlib.sha1(word.encode()).hexdigest()
-                    elif len(hash_value) == 64:
-                        test_hash = hashlib.sha256(word.encode()).hexdigest()
-                    else:
-                        continue
-                    
-                    if test_hash == hash_value.lower():
-                        print(f"[+] Hash cracked! Password: {word}")
-                        return word
-        except FileNotFoundError:
-            print(f"[-] Wordlist not found: {wordlist_path}")
-        
-        print("[-] Hash not cracked")
-        return None
-    
-    def network_sniffer(self, interface='eth0', count=10):
-        """Capture a bounded number of packets on a validated interface."""
-        import os
-        import re
-        from pathlib import Path
-
-        if not isinstance(interface, str) or not re.fullmatch(r"[A-Za-z0-9_.:-]{1,32}", interface):
-            print("[-] Invalid interface name")
-            return
-        if isinstance(count, bool) or not isinstance(count, int) or not 1 <= count <= 1000:
-            print("[-] Packet count must be an integer from 1 to 1000")
-            return
-
-        output = Path("capture.pcap")
-        try:
-            # Exclusive creation prevents overwriting a previous capture.
-            fd = os.open(output, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-            os.close(fd)
-        except FileExistsError:
-            print("[-] capture.pcap already exists; preserve it and choose another name")
-            return
-
-        print(f"[*] Sniffing on {interface} ({count} packets)...")
-        try:
-            subprocess.run(
-                ["tcpdump", "-i", interface, "-c", str(count), "-w", str(output)],
-                check=True,
-                timeout=300,
-            )
-            print(f"[+] Captured packets saved to {output}")
-        except (subprocess.CalledProcessError, FileNotFoundError, subprocess.TimeoutExpired, PermissionError) as exc:
-            print(f"[-] Packet capture failed: {exc}")
-    
-    def dns_enumeration(self, domain):
-        """Enumerate DNS records"""
-        print(f"[*] Enumerating DNS for {domain}...")
-        
-        record_types = ['A', 'AAAA', 'MX', 'NS', 'TXT', 'SOA']
-        dns_records = {}
-        
-        for rtype in record_types:
-            try:
-                result = subprocess.run(
-                    ['dig', '+short', domain, rtype],
-                    capture_output=True,
-                    text=True,
-                    timeout=5
-                )
-                if result.stdout.strip():
-                    dns_records[rtype] = result.stdout.strip().split('\n')
-                    print(f"[+] {rtype}: {dns_records[rtype]}")
-            except:
-                pass
-        
-        self.results['dns'] = dns_records
-        return dns_records
-    
-    def generate_report(self, output_file='security_report.html'):
-        """Generate HTML report of findings"""
-        html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Security Assessment Report</title>
-            <style>
-                body {{ font-family: Arial; margin: 40px; }}
-                h1 {{ color: #333; }}
-                h2 {{ color: #666; border-bottom: 2px solid #666; }}
-                .vulnerability {{ background: #ffe6e6; padding: 10px; margin: 10px 0; }}
-                .info {{ background: #e6f3ff; padding: 10px; margin: 10px 0; }}
-            </style>
-        </head>
-        <body>
-            <h1>Security Assessment Report</h1>
-            <p>Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
-        """
-        
-        # Add open ports
-        if 'open_ports' in self.results:
-            html += "<h2>Open Ports</h2><ul>"
-            for port in self.results['open_ports']:
-                html += f"<li>Port {port}</li>"
-            html += "</ul>"
-        
-        # Add web vulnerabilities
-        if 'web_vulns' in self.results:
-            html += "<h2>Web Vulnerabilities</h2>"
-            for vuln in self.results['web_vulns']:
-                html += f"<div class='vulnerability'>"
-                html += f"<strong>{vuln['type']}</strong><br>"
-                html += f"URL: {vuln['url']}<br>"
-                html += "</div>"
-        
-        html += "</body></html>"
-        
-        with open(output_file, 'w') as f:
-            f.write(html)
-        
-        print(f"[+] Report saved to {output_file}")
-
-# Example usage
-if __name__ == "__main__":
-    toolkit = SecurityToolkit()
-    
-    # Port scanning
-    target = "192.168.1.100"
-    open_ports = toolkit.port_scanner(target, range(1, 101))
-    
-    # Banner grabbing
-    if open_ports:
-        toolkit.banner_grabbing(target, open_ports[:5])
-    
-    # Web scanning
-    # toolkit.web_vulnerability_scanner("http://example.com")
-    
-    # Generate report
-    toolkit.generate_report()
+```mermaid
+flowchart LR
+    A[Written authorization<br/>assets, methods, window] --> B[Select approved tool<br/>and bounded settings]
+    B --> C[Use staging or<br/>in-scope systems only]
+    C --> D[Collect minimum<br/>necessary evidence]
+    D --> E[Validate findings<br/>and record limitations]
+    E --> F[Redact sensitive data]
+    F --> G[Access-controlled report<br/>with retention date]
 ```
+
+| Activity | What the simple example gets wrong | Safer review practice |
+| --- | --- | --- |
+| Port and service inventory | Starts connections to a caller-supplied host and launches one thread per requested port, with no scope control or concurrency limit. | Use an approved inventory source or organization-approved scanner with a fixed target list, rate limits, a maintenance window, and an identified contact. |
+| Web application testing | Probes common paths and sends SQL-like input to a URL; response codes or keywords alone are not reliable vulnerability evidence. | Use a staging application or explicitly authorized target, define allowed test cases and stop conditions, and follow the [OWASP Web Security Testing Guide](https://owasp.org/www-project-web-security-testing-guide/). |
+| Password-hash review | Guesses the algorithm from string length and tests fast MD5, SHA-1, or SHA-256 digests as if they represented general password storage. | Avoid collecting real credentials or hashes in a general-purpose toolkit. For an authorized audit, use approved identity-system reporting and handle any legacy hash data as highly sensitive. OWASP explains why password storage should use salted, adaptive algorithms such as Argon2id, bcrypt, or PBKDF2 in its [Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html). |
+| Packet capture | Captures packets to a fixed filename, with no filtering, consent model, or explicit handling of partial captures and sensitive contents. | Capture only on an authorized interface, for an approved purpose and limited duration; restrict access, minimize captured data, and securely dispose of it under the evidence-retention policy. |
+| Reporting | Writes unescaped tool output into HTML, may overwrite an existing report, and omits several collected result types. | Escape untrusted content, create output safely, redact sensitive values, include source/time/scope and limitations, and protect reports with access controls and a retention date. |
+
+NIST's [SP 800-115](https://csrc.nist.gov/pubs/sp/800/115/final) describes planning, conducting, analyzing, and reporting technical security assessments. Tool output is evidence to validate, not a verdict by itself. Keep this repository's examples non-invasive; select maintained tooling through the organization's approved process and follow the written scope and rules of engagement.
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
