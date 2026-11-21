@@ -121,7 +121,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 * [**Trashpanda**](https://got-hacked.wtf): Queries Trashpanda to gather intelligence about mentions of target in pastesites. *(Free tier · key)*
 * [**Grayhat Warfare**](https://buckets.grayhatwarfare.com/): Find bucket names matching the keyword extracted from a domain from Grayhat API. *(Free tier · key)*
 * [**Hunter.io**](https://hunter.io/): Check for e-mail addresses and names on hunter.io. *(Free tier · key)*
-* [**EmailRep**](https://emailrep.io/): Search EmailRep.io for email address reputation. *(Free tier · key)*
+* [**EmailRep**](https://github.com/sublime-security/emailrep.io#detailed-usage): Publisher documentation for email address reputation lookups. Verify current access requirements before use.
 * [**EmailCrawlr**](https://emailcrawlr.com/): Search EmailCrawlr for email addresses and phone numbers associated with a domain. *(Free tier · key)*
 * [**Snov**](https://snov.io/): Gather available email IDs from identified domains. *(Free tier · key)*
 * [**Clearbit**](https://clearbit.com/): Check for names, addresses, domains and more based on lookups of e-mail addresses on clearbit.com. *(Free tier · key)*

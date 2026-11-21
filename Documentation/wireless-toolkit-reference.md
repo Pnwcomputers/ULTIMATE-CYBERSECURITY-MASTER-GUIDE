@@ -62,7 +62,7 @@ _Reference research: 2026-11-21. This is an index and tool-selection guide. Exis
 | Sniffle | [Project](https://github.com/nccgroup/Sniffle) | BLE sniffer for supported TI radios, firmware dependent |
 | TI SmartRF Packet Sniffer 2 | [Documentation](https://software-dl.ti.com/lprf/packet_sniffer_2/docs/user_guide/html/introduction.html) | Vendor-based capture for supported CC13xx/CC26xx hardware |
 | btscanner | [Kali Reference](https://www.kali.org/tools/btscanner/) | Bluetooth Classic discovery information |
-| BlueHydra | [Project](https://github.com/zerbea/blue_hydra) | Bluetooth discovery; investigate data retention and fork support |
+| BlueHydra | [Project](https://github.com/ZeroChaos-/blue_hydra) | Bluetooth discovery; investigate data retention and fork support |
 | Spooftooph | [Kali Reference](https://www.kali.org/tools/spooftooph/) | Legacy device-name/class/address manipulation; threat research |
 | BlueMaho | [Historical Project](https://github.com/zenware/bluemaho) | Historical scan/exploit GUI; do not assume current compatibility |
 | Kismet BLE | [Datasources](https://www.kismetwireless.net/docs/readme/datasources/) | Compatible BLE capture sources and sighting logs |

@@ -111,7 +111,7 @@ Credential security depends on the transponder, reader, key management, and auth
 
 ![A reader coil supplies energy and commands to a passive HF tag; the tag responds by load modulation](../assets/diagrams/nfc-passive-tag-coupling.svg)
 
-*Figure 1 — Original conceptual diagram of a passive HF exchange, not a measured field map or range. Based on [NXP's PN532/C1 description](https://www.nxp.com/products/PN5321A3HN) and [NFC Forum's technology overview](https://nfc-forum.org/learn/NFC-technology/). Reading can involve RF transmission even when tag memory is not written.*
+*Figure 1 — Original conceptual diagram of a passive HF exchange, not a measured field map or range. Based on [NXP's PN532/C1 description](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf) and [NFC Forum's technology overview](https://nfc-forum.org/learn/NFC-technology/). Reading can involve RF transmission even when tag memory is not written.*
 
 - **Inductive Coupling:** Passive transponders have no battery. The reader's antenna generates an alternating field that energizes the tag's coil; the tag replies by load-modulating (backscattering) that same field. Read range depends on coupling, antenna tuning, field strength, tag design, and nearby materials.
 - **Two Distinct Bands:** LF (125–134 kHz) offers short range and good penetration of non-metallic materials with simple, mostly unencrypted protocols. HF (13.56 MHz) offers higher data rates, sectored memory, and cryptographic options, but shorter range and more sensitivity to detuning by metal and the human body.
@@ -129,7 +129,7 @@ Credential security depends on the transponder, reader, key management, and auth
 
 ![Identification and selection, cryptographic authentication where required, and authorization policy are separate stages](../assets/diagrams/rfid-identification-authentication-authorization.svg)
 
-*Figure 2 — Original conceptual model. [NXP's UID application note](https://www.nxp.com/docs/en/application-note/AN10927.pdf) describes selection identifiers; the [NXP DESFire EV3 documentation](https://www.nxp.com/products/MF3DHx3) describes authentication and application access rights. The authorization box is an engineering model of the verifier, not a claim about a particular installed system.*
+*Figure 2 — Original conceptual model. NXP application note AN10927 (*MIFARE product and handling of UIDs*) describes selection identifiers; the [NXP DESFire EV3 documentation](https://www.nxp.com/docs/en/data-sheet/MF3D_H_X3_SDS.pdf) describes authentication and application access rights. The authorization box is an engineering model of the verifier, not a claim about a particular installed system.*
 
 To thoroughly analyze contactless credentials, it is essential to understand the memory layouts and authentication models running on target transponders.
 

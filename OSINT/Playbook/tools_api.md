@@ -51,7 +51,7 @@ The diagram describes the checker’s reporting limits: a missing key, error, or
 ## 3. EMAIL, BREACH & IDENTITY
 * [**HaveIBeenPwned**](https://haveibeenpwned.com/API/Key): Data Breach Intelligence
 * [**Hunter.io**](https://hunter.io/): Professional Email Discovery
-* [**EmailRep**](https://emailrep.io/): Email Reputation
+* [**EmailRep**](https://github.com/sublime-security/emailrep.io#detailed-usage): Email address reputation API documentation
 * [**Intelligence X**](https://intelx.io/): Deep Web & Archive Search
 * [**LeakLookup**](https://leak-lookup.com/): Credential Breach Search
 
