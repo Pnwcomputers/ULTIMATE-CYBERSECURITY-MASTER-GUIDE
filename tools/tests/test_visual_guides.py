@@ -165,6 +165,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/nanovna-s11-s21-calibration-plane.svg": (
         "SDR/nanovna/03-calibration.md",
     ),
+    "assets/diagrams/nanovna-tdr-reflection-distance.svg": (
+        "SDR/nanovna/06-cables-filters-other-uses.md",
+    ),
+    "assets/diagrams/nanovna-swr-reference-impedance.svg": (
+        "SDR/nanovna/10-antenna-types-and-special-cases.md",
+    ),
     "assets/diagrams/diy-http-honeypot-jsonl-wazuh-safe-path.svg": (
         "IncidentResponse/HoneyPot/diy-sensor-lab.md",
     ),

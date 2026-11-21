@@ -1092,3 +1092,10 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 | [OpenSCAD preset to print file](./diagrams/openscad-preset-to-export.svg) | [OpenSCAD project structure](../CAD/OpenSCAD/02-project-structure.md#command-line-export--automation) |
 | [CAD design to verified fit loop](./diagrams/cad-design-to-fit-verification-loop.svg) | [CAD & 3D Printing](../CAD/README.md#cad-design-to-fit-loop) |
 | [OpenSCAD shortcuts cheat sheet](../CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg) | [OpenSCAD keyboard shortcuts](../CAD/OpenSCAD/06-keyboard-shortcuts.md#-purpose) |
+
+## NanoVNA Cable Distance and SWR Reference Visuals
+
+| Diagram | Embedded guide |
+|---|---|
+| [Time-domain reflection and one-way distance](./diagrams/nanovna-tdr-reflection-distance.svg) | [NanoVNA cable measurements](../SDR/nanovna/06-cables-filters-other-uses.md#61-tdr--time-domain-reflectometry) |
+| [SWR at two reference impedances](./diagrams/nanovna-swr-reference-impedance.svg) | [NanoVNA special cases](../SDR/nanovna/10-antenna-types-and-special-cases.md#105--75-ohm-antennas-on-a-50-ohm-instrument) |
