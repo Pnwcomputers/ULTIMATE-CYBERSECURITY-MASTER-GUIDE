@@ -246,34 +246,13 @@ These checklists serve as:
 
 *A checklist helps ensure consistent coverage but is not proof of complete security.*
 
-### For Penetration Testers
+### For Authorized Assessors
 
-```
-1. Pre-Engagement
-   └─> Select appropriate checklist(s) for engagement type
-   └─> Review MITRE ATT&CK mapping
-   └─> Obtain written authorization
-   └─> Prepare testing environment and tools
-
-2. During Assessment
-   └─> Follow checklist systematically by phase
-   └─> Document all findings with evidence
-   └─> Use checklists to ensure coverage
-   └─> Track successful and unsuccessful techniques
-   └─> Note defense mechanisms encountered
-
-3. Post-Assessment
-   └─> Map findings to checklist items
-   └─> Identify attack paths and chains
-   └─> Provide remediation recommendations
-   └─> Archive checklist with engagement documentation
-
-4. Quality Assurance
-   └─> Verify all applicable items tested
-   └─> Ensure proper documentation
-   └─> Review for missed techniques
-```
-
+1. **Set the boundary:** Confirm written approval, in-scope assets, allowed methods, test window, exclusions, stop conditions, and emergency contacts.
+2. **Select applicable checks:** Use the checklist to organize the agreed objectives. Mark items as applicable, not applicable, or not assessed; a completed list is not proof of full coverage or security.
+3. **Gather proportionate evidence:** Prefer configuration review and benign validation. Record source, time, environment, expected impact, and uncertainty; collect only what the engagement requires.
+4. **Escalate safely:** Stop if scope is unclear, an unexpected impact occurs, or sensitive data is encountered. Use the agreed contact and incident process.
+5. **Report and close:** Separate verified findings from leads, explain limitations, recommend owner-approved remediation, and retain or dispose of evidence under the engagement terms. Retest only when authorized.
 ### For Red Team Operators
 
 ```
