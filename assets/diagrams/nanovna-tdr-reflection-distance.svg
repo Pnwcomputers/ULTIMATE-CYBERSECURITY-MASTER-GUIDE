@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="464" viewBox="0 0 1040 464" role="img" aria-labelledby="title desc">
+  <title id="title">Convert a cable reflection delay to one-way distance</title>
+  <desc id="desc">A calibrated analyzer sees a reflection after energy travels to a cable discontinuity and returns. An 80 nanosecond round trip in coax with velocity factor 0.66 corresponds to 7.9 meters one way. The trace is schematic.</desc>
+  <rect width="1040" height="464" rx="16" fill="#0a192b"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="28" y="47" fill="#f8fcff" font-size="27" font-weight="700">From cable reflection to one-way distance</text>
+    <rect x="29" y="73" width="981" height="166" rx="12" fill="#142941" stroke="#36516b"/>
+    <rect x="46" y="127" width="154" height="60" rx="9" fill="#203d57" stroke="#83d9fb"/>
+    <text x="123" y="163" fill="#f8fcff" font-size="18" text-anchor="middle" font-weight="700">NanoVNA CH0</text>
+    <path d="M221 104V215" stroke="#82e4bd" stroke-width="3" stroke-dasharray="6 5"/>
+    <path d="M200 160H940" stroke="#506f89" stroke-width="4"/>
+    <path d="M231 137H863M854 130L863 137L854 144" stroke="#83d9fb" stroke-width="3" fill="none"/>
+    <path d="M863 183H231M240 176L231 183L240 190" stroke="#f6cb89" stroke-width="3" fill="none"/>
+    <path d="M881 146L871 160L881 173L891 160Z" fill="#f6cb89"/>
+    <text x="527" y="123" fill="#b9e8fa" font-size="17" text-anchor="middle">Outbound path</text>
+    <text x="527" y="209" fill="#ffe1ac" font-size="17" text-anchor="middle">Return path</text>
+    <text x="228" y="224" fill="#b6f5d8" font-size="15">Calibration plane</text>
+    <text x="881" y="123" fill="#ffe1ac" font-size="16" text-anchor="middle">Discontinuity</text>
+    <rect x="29" y="258" width="536" height="177" rx="12" fill="#142941" stroke="#36516b"/>
+    <text x="48" y="286" fill="#f8fcff" font-size="18" font-weight="700">Schematic reflection trace</text>
+    <path d="M69 301V391H537M69 383H537" stroke="#6989a5" stroke-width="1.5" fill="none"/>
+    <path d="M69 383H365Q373 383 375 362L381 324L387 362Q390 383 397 383H537" stroke="#83d9fb" stroke-width="3" fill="none"/>
+    <path d="M381 330V390" stroke="#f6cb89" stroke-width="1" stroke-dasharray="3 5"/>
+    <text x="69" y="413" fill="#d7e8f2" font-size="16" text-anchor="middle">0 ns</text>
+    <text x="381" y="413" fill="#ffe1ac" font-size="16" text-anchor="middle">80 ns</text>
+    <text x="537" y="413" fill="#d7e8f2" font-size="16" text-anchor="end">Round-trip time</text>
+    <rect x="583" y="258" width="427" height="177" rx="12" fill="#15352f" stroke="#82e4bd"/>
+    <text x="603" y="286" fill="#f8fcff" font-size="19" font-weight="700">One-way distance</text>
+    <text x="603" y="319" fill="#d7eddf" font-size="18">Distance = velocity factor × c × time ÷ 2</text>
+    <text x="603" y="354" fill="#b6f5d8" font-size="18" font-weight="700">0.66 × c × 80 ns ÷ 2 ≈ 7.9 m</text>
+    <text x="603" y="392" fill="#d7eddf" font-size="15">Use the cable’s actual velocity factor.</text>
+    <text x="603" y="416" fill="#d7eddf" font-size="15">Check the distance scale with a known cable.</text>
+  </g>
+</svg>

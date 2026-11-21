@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="341" viewBox="0 0 1040 341" role="img" aria-labelledby="title desc">
+  <title id="title">One 75 ohm load, two SWR reference impedances</title>
+  <desc id="desc">An ideal 75 ohm resistive load at a fixed calibration plane has an SWR of 1.50 to 1 when referenced to 50 ohms and 1.00 to 1 when referenced to 75 ohms. Renormalization changes the reference used to calculate reflection while the measured impedance remains 75 ohms.</desc>
+  <rect width="1040" height="341" rx="16" fill="#0a192b"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="28" y="47" fill="#f8fcff" font-size="27" font-weight="700">How the SWR reference changes the reading</text>
+    <rect x="296" y="72" width="447" height="63" rx="11" fill="#203d57" stroke="#83d9fb"/>
+    <text x="519" y="110" fill="#f8fcff" font-size="19" text-anchor="middle" font-weight="700">One load, one calibration plane: 75 + j0 Ω</text>
+    <path d="M519 135V151H264V170M519 151H775V170" stroke="#a6c3d9" stroke-width="2.5" fill="none"/>
+    <rect x="29" y="170" width="471" height="113" rx="12" fill="#142941" stroke="#83d9fb"/>
+    <rect x="540" y="170" width="471" height="113" rx="12" fill="#15352f" stroke="#82e4bd"/>
+    <text x="48" y="202" fill="#f8fcff" font-size="20" font-weight="700">50 Ω reference</text>
+    <text x="48" y="246" fill="#b9e8fa" font-size="20">|Γ| = 0.20</text>
+    <text x="481" y="246" fill="#b9e8fa" font-size="26" font-weight="700" text-anchor="end">SWR 1.50:1</text>
+    <text x="559" y="202" fill="#f8fcff" font-size="20" font-weight="700">75 Ω reference</text>
+    <text x="559" y="246" fill="#b6f5d8" font-size="20">|Γ| = 0</text>
+    <text x="991" y="246" fill="#b6f5d8" font-size="26" font-weight="700" text-anchor="end">SWR 1.00:1</text>
+    <text x="29" y="317" fill="#d7e8f2" font-size="17">Renormalization recalculates reflection at the same plane. The load impedance stays 75 + j0 Ω.</text>
+  </g>
+</svg>

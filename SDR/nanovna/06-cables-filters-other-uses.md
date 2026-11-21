@@ -56,24 +56,31 @@ Characterize the measured RF path with its setup and limitations documented.
 
 ## 6.1 TDR — Time Domain Reflectometry
 
-The NanoVNA measures in the frequency domain, then applies an inverse FFT to show
-you the **time domain**: reflections plotted against distance.
+The NanoVNA transforms a swept-frequency S11 measurement into a time-domain
+response. The delay to a reflection represents travel from the calibration
+plane to the discontinuity and back. A velocity factor converts that delay to
+one-way distance. [Keysight time-domain measurement guide](https://helpfiles.keysight.com/csg/m9485a/applications/timedomain.htm)
 
-This turns the instrument into a cable fault locator.
+![A cable discontinuity returns a reflection after 80 ns, corresponding to 7.9 m one way when the velocity factor is 0.66](../../assets/diagrams/nanovna-tdr-reflection-distance.svg)
+
+*Conceptual trace. Locate the calibration plane first, then check the distance
+scale with a cable of known length.*
 
 ### Setup
 
-```
-STIMULUS → START → 0 (or lowest available)
-STIMULUS → STOP  → as high as practical (500 MHz – 1.5 GHz)
-CAL → full SOLT calibration on that span
-DISPLAY → TRANSFORM → TRANSFORM ON
-DISPLAY → TRANSFORM → LOW PASS IMPULSE   (or LOW PASS STEP)
-DISPLAY → TRANSFORM → VELOCITY FACTOR → [your cable's VF]
-```
+1. Use a wide frequency span within the instrument's usable range. Follow your
+   firmware's low-pass sweep requirements. A harmonic grid uses a start
+   frequency equal to the frequency step.
+2. Perform a one-port open, short, and load calibration on CH0 at the intended
+   reference plane. Connect the isolated, unpowered cable there.
+3. Enable the transform and choose low-pass impulse for locating reflections or
+   low-pass step for inspecting impedance changes.
+4. Enter the cable's velocity factor in the format your firmware expects.
+   [NanoVNA-D controls](https://github.com/DiSlord/NanoVNA-D/blob/master/ui.c)
 
-**Wider frequency span = better distance resolution.** A 1.5 GHz sweep resolves
-to roughly 10 cm; a 100 MHz sweep to about 1.5 m.
+Wider span generally improves distance resolution. With a fixed point count,
+widening the span also increases the frequency step and shortens the
+unambiguous distance.
 
 ### Velocity factors
 
@@ -106,11 +113,11 @@ The transform is synthesized from the frequency sweep, so the sweep sets the
 limits. For a sweep of bandwidth **B** with uniform step **Δf**:
 
 ```
-Smallest resolvable separation:   Δd ≈ VF × c / (2B)
+Nominal distance-resolution scale: Δd ≈ VF × c / (2B)
 Maximum unambiguous distance:      d ≈ VF × c / (2Δf)
 ```
 
-Worked, for RG-213 (VF 0.66) swept 1–301 MHz in 3 MHz steps:
+Example for RG-213 (VF 0.66) swept from 3 to 303 MHz in 3 MHz steps:
 
 ```
 B  = 300 MHz  →  Δd = 0.66 × 3e8 / 6e8  = 0.33 m   separation
@@ -119,15 +126,16 @@ B  = 300 MHz  →  Δd = 0.66 × 3e8 / 6e8  = 0.33 m   separation
 
 Two consequences worth internalizing:
 
-- **A narrow antenna-band sweep is useless for TDR.** A 4 MHz sweep around the
-  2 m band gives roughly 25 m of resolution — it cannot distinguish a connector
-  fault from the far end of the cable. Sweep wide.
+- **A narrow antenna-band sweep merges nearby reflections.** A 4 MHz sweep
+  around the 2 m band gives a nominal distance resolution of about 25 m with
+  VF 0.66. Use a wider supported sweep to separate closer events.
 - **Beyond the ambiguity distance the display wraps**, and a fault at 40 m on a
   33 m-ambiguity sweep can appear at 7 m. If the reported distance seems
   implausible, reduce Δf (finer steps or more points) and re-check.
 
-Windowing broadens every event beyond the theoretical figure, and a long lossy
-cable reduces useful reach further, so treat both formulas as optimistic bounds.
+The nominal resolution is an estimate. Transform mode and window settings
+change the actual width of a reflection, and attenuation can hide events within
+the unambiguous range. [Keysight transform resolution and range](https://helpfiles.keysight.com/csg/e5072a/measurement_with_options/time_domain_analysis/transformation_to_time_domain.htm)
 
 ### If your display gives time rather than distance
 
@@ -148,12 +156,12 @@ a short. Bandpass magnitude modes do not preserve that simple polarity reading.
 
 | Pattern | Meaning |
 |---|---|
-| Single positive spike at cable end | **Open circuit** — the normal result for an unterminated cable |
-| Single negative spike at cable end | **Short circuit** |
-| No significant spike | Properly terminated, or so lossy nothing comes back |
-| Spike partway along | Discontinuity: bad connector, splice, crushed cable, water ingress |
-| Positive spike mid-run | Impedance **higher** than the line (crimp failure, corrosion, stretched cable) |
-| Negative spike mid-run | Impedance **lower** than the line (crushed cable, water bridging, staple through the jacket) |
+| Positive step at cable end (signed low-pass step) | Consistent with an open end |
+| Negative step at cable end (signed low-pass step) | Consistent with a shorted end |
+| No significant reflection | Could indicate a well-terminated cable or a reflection below the measurement floor |
+| Reflection partway along | Possible connector, splice, or damaged section |
+| Positive step mid-run (signed low-pass step) | Impedance increases at the event |
+| Negative step mid-run (signed low-pass step) | Impedance decreases at the event |
 | Multiple decaying spikes | Multiple reflections bouncing between two discontinuities |
 
 ### Practical use
