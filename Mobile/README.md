@@ -108,21 +108,38 @@ This directory contains **mobile security resources for penetration testers, for
 ### Android
 | Tool | Purpose | Install |
 |------|---------|---------|
-| [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) | Automated static + dynamic analysis framework | `docker run --rm -it -p 127.0.0.1:8000:8000 opensecurity/mobile-security-framework-mobsf:latest` |
-| [APKTool](https://apktool.org/) | Decompile/recompile APKs | `sudo apt install apktool` |
-| [jadx](https://github.com/skylot/jadx) | APK to Java source decompiler | `sudo apt install jadx` |
+| [MobSF](https://github.com/MobSF/Mobile-Security-Framework-MobSF) | Review supported application packages. Dynamic analysis requires its own lab setup. | See [local static analysis](#mobsf-local-static-analysis). |
+| [Apktool](https://apktool.org/) | Decode resources and disassemble bytecode into smali | [Publisher installation guide](https://apktool.org/docs/install/). Check the Java requirement for the selected release. |
+| [jadx](https://github.com/skylot/jadx) | Reconstruct readable source from Android bytecode | Select the [publisher release](https://github.com/skylot/jadx/releases) and verify its Java requirements. |
 | [Frida](https://frida.re/) | Dynamic instrumentation toolkit | `pip install frida-tools` |
 | [Objection](https://github.com/sensepost/objection) | Runtime mobile exploration (Frida-based) | `pip install objection` |
 | [Drozer](https://github.com/WithSecureLabs/drozer) | Android attack surface analyzer | `pip install drozer` |
-| [Burp Suite](https://portswigger.net/burp) | HTTP/HTTPS proxy for authorized testing | Android user-CA trust depends on target SDK and Network Security Configuration: API 24+ defaults to system CAs, while API 23 and lower also trust user-added CAs by default. Custom trust or pinning may still reject the proxy. |
+| [Burp Suite](https://portswigger.net/burp) | HTTP/HTTPS proxy for authorized testing | The default depends on the app's target SDK and network security configuration. Apps targeting API 24 or later trust system CAs by default. Apps targeting API 23 or earlier also trust user-added CAs by default. Custom trust or pinning may still reject the proxy. |
 | [apksigner](https://developer.android.com/tools/apksigner) | Sign repackaged APKs | Included in Android SDK build-tools |
 
-> [!CAUTION]
-> The loopback binding keeps the web interface on the local host. MobSF documents
-> default credentials `mobsf/mobsf`; do not publish this service to a shared or
-> untrusted network. Treat uploaded APKs, reports, and retained analysis data as
-> sensitive. See the [MobSF Docker guide](https://github.com/MobSF/docs/blob/master/running_mobsf_docker.md)
-> and [Docker port-publishing behavior](https://docs.docker.com/engine/network/port-publishing/).
+### MobSF Local Static Analysis
+
+Use an isolated analysis host with an approved MobSF image version. Record the
+image's [immutable digest](https://docs.docker.com/reference/cli/docker/image/pull/)
+and the host configuration if the results must be reproduced. Substitute the
+verified digest from the publisher's image before running this example.
+
+```bash
+mobsf_image='opensecurity/mobile-security-framework-mobsf@sha256:REPLACE_WITH_VERIFIED_DIGEST'
+docker run --rm -p 127.0.0.1:8000:8000 "$mobsf_image"
+```
+
+Open the local web interface at `http://127.0.0.1:8000`. The publisher
+documents a default login. Keep the application on the isolated host and
+protect uploaded packages and results. Docker Engine releases older than
+28.0.0 can expose a port bound to loopback to peers on the same Layer 2 network.
+Use a supported engine and verify the actual access boundary before uploading
+files. See the [MobSF Docker guide](https://github.com/MobSF/docs/blob/master/running_mobsf_docker.md)
+and [Docker port publishing](https://docs.docker.com/engine/network/port-publishing/).
+
+This command starts a static analysis instance. For dynamic analysis, the
+publisher's instructions require separate, compatible test hardware or a VM
+and release-specific setup.
 
 ### iOS
 | Tool | Purpose | Notes |
