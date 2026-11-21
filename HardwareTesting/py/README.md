@@ -281,7 +281,10 @@ Runs first with dedicated RAM. Any `FAILED` line is flagged immediately. If `mem
 - **v1.1:** Adds strict return-code checks for `fio` and `stress-ng`.
 
 **Phase 3 - Cooldown monitoring**
-Post-stress thermal monitoring. A slow cooldown with still-elevated temps indicates a cooler mount problem.
+Post-stress thermal monitoring. Compare cooldown with the idle baseline and
+check for background load, fan behavior, and ambient changes before diagnosing
+cooler contact. The [thermal evidence timeline](../Manjaro_Intel_TestBench.md#3-thermal-monitoring-and-power-management)
+shows how to correlate temperature with clock and workload observations.
 
 **Continuous throughout all phases:**
 - `SensorPoller` - polls `sensors` (now with better CPU package sensor detection in v1.1) every 5 seconds, writing every reading to a timestamped CSV.
