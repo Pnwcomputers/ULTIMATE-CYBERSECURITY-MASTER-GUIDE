@@ -463,19 +463,58 @@ for the receiving context.*
 
 ## A09: Security Logging and Alerting Failures
 
-Insufficient logging, monitoring, and alerting - which lets attacks proceed
-undetected. (2021: "Logging and Monitoring Failures".)
+Insufficient security logging, monitoring, or alerting delays detection and
+response. A usable control must carry relevant events through collection,
+protection, detection, delivery, and an owned response process.
 
-- **How it is exploited:** not a direct exploit but an amplifier - failed logins,
-  access-control denials, and input-validation failures go unlogged, so intrusions
-  are neither detected nor investigable.
-- **How to test:** verify security-relevant events are logged (authn/authz
-  failures, high-value actions); confirm logs are tamper-resistant and shipped off
-  host; check that alerts actually fire on suspicious patterns.
-- **How to defend:** log security events with enough context; centralize logs to a
-  [SIEM](../IncidentResponse/SIEM/README.md); protect log integrity; define and
-  test alerting; align retention with response needs.
-- **CWE:** CWE-778, CWE-223. **Cheat sheet:** [Logging](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html).
+```mermaid
+flowchart LR
+    E[Application and<br/>security events] --> L[Structured logging<br/>with useful context]
+    L --> S[Validate and encode;<br/>exclude secrets]
+    S --> C[Protected central<br/>collection and retention]
+    C --> D[Detection rules and<br/>analyst review]
+    D -->|Actionable signal| A[Alert routing and<br/>escalation]
+    A --> R[Playbook, response,<br/>and feedback]
+    D -->|Noisy or missed| F[Tune coverage,<br/>thresholds, and rules]
+    F -.-> D
+```
+
+*Test the complete detection path: a logged event alone does not prove that an
+actionable alert reaches someone who can respond.*
+
+- **How it fails:** security-relevant outcomes are missing or inconsistent;
+  warnings and errors lack useful context; logs can be altered or deleted without
+  detection; untrusted values can forge or corrupt log records; sensitive data is
+  copied into logs; or monitoring, alert routing, and response procedures are
+  absent, noisy, stale, or unowned.
+- **How to assess:** choose events tied to the application's risks, such as
+  authentication and authorization failures, high-impact changes, or security
+  control failures. Confirm they are recorded consistently with enough context
+  for investigation but without secrets or unnecessary personal data. Trace sample
+  events from application output into collection, detection, alert delivery, and
+  the responsible response process. In a controlled environment, verify expected
+  alerts and test how false positives, missed events, and delivery failures are
+  handled. Check access controls, integrity protection, backup, and retention
+  against response and privacy requirements.
+- **How to defend:** define risk-based event coverage and a structured format;
+  validate and encode untrusted fields to prevent log injection; minimize or
+  redact credentials, tokens, and sensitive data; restrict access and protect
+  integrity and availability of collected logs; and centralize them where needed
+  for correlation and response. Assign owners to detections and escalation
+  procedures, tune thresholds to actionable signals, and retest them when the
+  application or threat model changes. Align retention with incident-response,
+  privacy, and organizational requirements.
+- **Validation:** generate representative security events in a test environment
+  and confirm their fields, redaction, transport, retention, and integrity.
+  Confirm a detection rule creates the intended alert, delivery reaches the
+  assigned owner, and a current playbook describes the response. Track gaps and
+  false positives to closure.
+- **CWE examples:** CWE-778 (insufficient logging), CWE-223 (omission of security
+  relevant information), CWE-117 (improper output neutralization for logs), and
+  CWE-532 (sensitive information in log files). **References:**
+  [OWASP A09:2025](https://top10.owasp.org/2025/A09_2025-Security_Logging_and_Alerting_Failures/),
+  [Logging Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html),
+  and the [Incident Response SIEM guide](../IncidentResponse/SIEM/README.md).
 
 ---
 
