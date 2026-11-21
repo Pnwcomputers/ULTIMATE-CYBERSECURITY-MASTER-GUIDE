@@ -49,6 +49,7 @@ These are editable SVG reference diagrams embedded within the relevant chapter. 
 
 | Diagram | Where embedded | Why it belongs |
 |---|---|---|
+| [OpenCanary alert validation](./diagrams/opencanary-alert-validation.svg) | [OpenCanary](../IncidentResponse/HoneyPot/opencanary.md#validate-from-a-separate-machine) | Confirms a synthetic event at the local log and the alert destination |
 | [Wazuh Honeypot Telemetry Evidence Path](./diagrams/honeypot-wazuh-telemetry-evidence-path.svg) | [Wazuh Honeypot Integration](../IncidentResponse/HoneyPot/wazuh-honeypot-integration.md) | Separate logs, agent collection, manager rules, index and analyst review |
 | [CDC Snapshot/Offset Replay Boundary](./diagrams/cdc-snapshot-offset-replay-boundary.svg) | [Streaming & Change Data Capture](../Data-Engineering/Phase2/streaming_cdc.md) | Explain coordinated snapshot handoff, source positions, tombstones and idempotent replay |
 | [RPO/RTO & Recovery Timeline](./diagrams/recovery-point-rpo-rto-replay-timeline.svg) | [Backup, Replay & Disaster Recovery](../Data-Engineering/Phase3/data_recovery_replay.md) | Distinguish trusted backup point, retained changes, restore time and verified cutover |
