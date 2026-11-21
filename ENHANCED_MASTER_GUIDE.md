@@ -2042,58 +2042,41 @@ flowchart LR
 ---
  
 ## C2 Frameworks
- 
-*Full reference: [Tradecraft/c2-frameworks.md](Tradecraft/c2-frameworks.md)*
- 
-### Framework Comparison
- 
-| Framework | Language | License | Implant | Key Strength |
-|---|---|---|---|---|
-| **Cobalt Strike** | Java (server) | Commercial | Beacon (C) | Most mature, widest tooling ecosystem |
-| **Sliver** | Go | Open source | Demon (Go) | mTLS, WireGuard, active development |
-| **Havoc** | C/C++, Go | Open source | Demon (C) | Native indirect syscalls, sleep obfuscation |
- 
-### C2 Architecture
- 
+
+*Related reference: [Tradecraft/c2-frameworks.md](Tradecraft/c2-frameworks.md). This overview is written for detection and response. Framework names and traffic patterns are leads for investigation, not proof of compromise.*
+
+Command and control (C2) traffic can use common application protocols. A useful investigation links endpoint process context with network observations and the organization's normal traffic. Do not rely on a single port, timing pattern, certificate age, or TLS fingerprint.
+
+### Defensive monitoring flow
+
+```mermaid
+flowchart LR
+    E[Endpoint process<br/>and parent process] --> N[Correlate with<br/>network telemetry]
+    D[DNS, proxy, firewall,<br/>and flow records] --> N
+    T[TLS metadata and<br/>destination context] --> N
+    N --> B[Compare with asset,<br/>application, and time baseline]
+    B --> A[Analyst validates<br/>multiple signals]
+    A --> R[Document, contain,<br/>or close per response plan]
 ```
-[Operator] ──► [Team Server] ──► [Redirector VPS] ──► [Implant on Target]
-                                        │
-                              Nginx with URI filtering
-                              Only forwards known beacon paths
-                              Everything else → legitimate site
-```
- 
-### Key Operational Concepts
- 
-- **Sleep/Jitter:** `sleep 300 60` = 5-minute sleep, 60% jitter - minimum for OpSec
-- **Spawnto:** Override default fork-and-run binary - default `WerFault.exe` is signatured
-- **Malleable C2:** Profile that makes beacon traffic mimic legitimate services (Windows Update, CDN)
-- **SMB Beacon:** Named pipe C2 for lateral movement inside network, no internet required
-- **Redirectors:** Never expose team server directly - always proxy through a VPS with URI filtering
-### Detection Signatures
- 
-```yaml
-# Sigma - C2 beacon timing pattern
-title: Regular Interval Outbound Connection
-logsource:
-    category: network_connection
-detection:
-    selection:
-        Initiated: 'true'
-        DestinationPort:
-            - 80
-            - 443
-    timeframe: 1h
-    condition: selection | count() > 10 by SourceIp,DestinationIp
-    aggregate: stddev(interval) < 5   # low jitter = beacon
-level: medium
-```
- 
-**Key IOCs:**
-- Regular callback intervals (low standard deviation in connection timing)
-- HTTP POST with consistent small body size (check-in)
-- TLS certificates to domains < 30 days old
-- JA3 hash `6734f37431670b3ab4292b8f60f29984` = Cobalt Strike default profile
+
+### Signals to investigate
+
+| Signal | Why it can help | Limitation |
+| --- | --- | --- |
+| Network activity from an unusual process or parent-child chain | Connects a network event to the process and user that generated it | Software updates, scripts, and management agents may be expected in some roles |
+| Repeated outbound connections or beacon-like timing | A time-series pattern can reveal recurring communication | Scheduled jobs, monitoring, and retries can also be periodic; variable intervals can reduce obvious regularity |
+| Unusual protocol, destination, port, or outbound volume for that asset | Deviations from the host's normal role can help prioritize review | Common protocols and ports are widely used by benign applications; use local baselines and asset context |
+| DNS and TLS metadata, including fingerprints where available | Adds destination and client-stack context without treating encrypted contents as visible | TLS fingerprints can be shared by unrelated applications and change with libraries, versions, and operating systems; validate with other evidence |
+
+MITRE ATT&CK's [Application Layer Protocol technique](https://attack.mitre.org/techniques/T1071/) recommends looking at suspicious protocol use together with process context, outbound volume, ports, and beacon-like intervals. The previous fixed JA3 value is removed: a fingerprint is not a stable, unique identifier for a particular framework or implant. Research on [JA3 fingerprint reliability](https://www.fit.vut.cz/research/publication-file/12307/matousek-2021-OnReliability.pdf) documents that fingerprints can be shared across applications and change across versions and operating systems.
+
+### Detection-rule notes
+
+The previous YAML was not a valid self-contained Sigma rule. It mixed a single-event detection with aggregation and a made-up `aggregate: stddev(interval)` field. Sigma correlations are defined separately from single-event rules, and backend support for grouping and time windows must be checked. See the [Sigma correlation specification](https://sigmahq.io/sigma-specification/specification/sigma-correlation-rules-specification.html).
+
+Build correlation in the SIEM or supported Sigma workflow using the fields that actually exist in your telemetry. Test against a representative benign baseline, record the selected time window and grouping fields, and tune before alerting. Treat results as investigative leads; do not automatically block or isolate based only on a timing match.
+
+
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
  
 ---
