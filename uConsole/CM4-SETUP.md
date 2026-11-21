@@ -178,7 +178,9 @@ Power on. Rex's images auto-expand the root filesystem on first boot and then re
 
 ## Step 2: First Boot — Preserve and Audit the Working Image
 
-Record the module model, kernel, operating system, desktop session, boot configuration and battery board before installing anything:
+![CM4 setup separates a recoverable whole-device image, read-only preflight, and the configuration archive made for optional installs](../assets/diagrams/uconsole-cm4-preserve-working-image.svg)
+
+Record the module model, kernel, operating system, desktop session, boot configuration and battery board before installing anything. Run the relative script paths below from the `uConsole/` directory in a local checkout:
 
 ~~~bash
 cat /etc/os-release
@@ -200,6 +202,11 @@ bash ./scripts/uconsole-cm4-setup.sh --help
 bash ./scripts/uconsole-cm4-setup.sh --dry-run --with-aio
 sudo bash ./scripts/uconsole-cm4-setup.sh --snapshot
 ~~~
+
+The script's `--dry-run` checks the supported hardware, OS and option combination without running
+the APT resolver. The package simulation is separate. Use the next section to inspect proposed
+upgrades, and review the script's displayed install plan for an optional package installation.
+The `--snapshot` operation writes a private archive of selected configuration files.
 
 If `--status` reports wrong/unknown hardware or mixed Kali sources on Debian, **stop**. Do not bypass the check or run the old installer.
 
