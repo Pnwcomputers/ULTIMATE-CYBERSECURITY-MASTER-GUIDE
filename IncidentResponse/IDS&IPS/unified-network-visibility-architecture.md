@@ -21,30 +21,12 @@ A useful network defense stack combines **multiple kinds of evidence**. One tool
 
 ## Reference Topology
 
-```text
-                    Authorized RF environment
-                        |
-             +----------+------------+
-             | Wi-Fi monitor radios  |
-             | fixed-channel/band    |
-             +-----+-----------+-----+
-                   |           |
-                Kismet      nzyme taps ---- nzyme node
-                   |           |               |
-                   +-----------+------- supported alerts
-                                           |
-             Wired network                 |
-        TAP / managed SPAN --> Snort 3 --> normalized local JSONL
-                   |                        |
-             Wireshark / Zeek                v
-                                  Wazuh agent / Manager
-        DHCP/SNMP/UniFi --> NetAlertX --> protected collector
-                   |                        |
-                  Asset state        Wazuh indexer/dashboard
-                                           |
-                                 Analyst cross-correlation
-                                 (no auto RF retaliation)
-```
+![Authorized wireless receivers, wired capture points and approved device inventories contribute distinct evidence before correlation and analyst review](../../assets/diagrams/unified-visibility-evidence-sources.svg)
+
+Wireless observations come from the configured Kismet or nzyme radios. A TAP or managed
+mirror supplies wired packet data to the relevant analyzer. NetAlertX inventory uses its
+configured discovery sources. Forward supported events through the selected collector and
+retain references to the original observations for later review.
 
 The diagram shows **logical data flow**, not a claim that any native integration has been preconfigured. A host-network NetAlertX container does not turn a Proxmox guest into a mirrored packet sensor. Access to radio captures or raw packets still requires its own receiving hardware/source.
 

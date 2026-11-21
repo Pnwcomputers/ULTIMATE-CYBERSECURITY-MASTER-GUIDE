@@ -173,7 +173,9 @@ result. Promote that same artifact; rebuilding separately for production can int
 
 ## 🚧 5. Review Gates & CI Trust Boundaries
 
-Define a gate by evidence, not by its name.
+![Limited pull request tests, trusted build and staging, and deployment approval are separate pipeline gates](../../assets/diagrams/data-pipeline-ci-trust-and-promotion.svg)
+
+Define each gate by the evidence it produces and the permissions it requires.
 
 | Gate | Evidence before promotion |
 | --- | --- |

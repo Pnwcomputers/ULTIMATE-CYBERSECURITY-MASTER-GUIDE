@@ -152,6 +152,8 @@ This table is based on the official menu inventory **still labeled 2025.8**, not
 
 ## 5. Create a case and safely select the evidence destination
 
+![Verified Bento tool media supports collection from an authorized live source into a separate protected evidence destination](../../assets/diagrams/bento-live-response-media-boundaries.svg)
+
 These examples use **Windows PowerShell 5.1+** (available on supported Windows installations). They produce outputs **only on your chosen external evidence drive**, except that reading the live OS and running PowerShell and tools inevitably changes some volatile/system state.
 
 > [!WARNING]

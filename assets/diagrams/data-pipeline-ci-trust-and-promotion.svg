@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 286" role="img" aria-labelledby="title desc">
+  <title id="title">Promote the artifact that passed CI and staging</title>
+  <desc id="desc">Run untrusted changes in a limited test job, produce an identifiable build from reviewed source, and promote that same verified artifact through a separate privileged environment gate.</desc>
+  <rect width="1000" height="286" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="46" fill="#fff" font-size="26" font-weight="700">Promote the artifact that passed CI and staging</text>
+    <rect x="30" y="75" width="284" height="111" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="46" y="109" font-size="18" font-weight="700" fill="#fff">Pull request checks</text>
+    <text x="46" y="139" font-size="15" fill="#d7e6f4">Synthetic fixtures and contracts</text>
+    <text x="46" y="163" font-size="15" fill="#d7e6f4">Read-only access and no secrets</text>
+    <rect x="357" y="75" width="284" height="111" rx="12" fill="#172a40" stroke="#a5b4fc" stroke-width="2"/>
+    <text x="373" y="109" font-size="18" font-weight="700" fill="#fff">Trusted build and staging</text>
+    <text x="373" y="139" font-size="15" fill="#d7e6f4">Record exact artifact identity</text>
+    <text x="373" y="163" font-size="15" fill="#d7e6f4">Verify staging with that artifact</text>
+    <rect x="684" y="75" width="284" height="111" rx="12" fill="#172a40" stroke="#5eead4" stroke-width="2"/>
+    <text x="700" y="109" font-size="18" font-weight="700" fill="#fff">Deployment gate</text>
+    <text x="700" y="139" font-size="15" fill="#d7e6f4">Review evidence and permissions</text>
+    <text x="700" y="163" font-size="15" fill="#d7e6f4">Promote the same artifact</text>
+    <path d="M321 132h29m-7-6 7 6-7 6m298-6h29m-7-6 7 6-7 6" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <rect x="30" y="219" width="938" height="39" rx="8" fill="#1d2e46"/>
+    <text x="48" y="244" font-size="16" fill="#fff">A passing fixture supports only the boundary it exercised. Keep release credentials separate.</text>
+  </g>
+</svg>

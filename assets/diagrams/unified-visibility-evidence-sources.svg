@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 286" role="img" aria-labelledby="title desc">
+  <title id="title">Correlate wired, wireless, and inventory evidence</title>
+  <desc id="desc">Each acquisition path observes a different source. Normalize only supported local outputs and use the resulting event provenance to corroborate findings.</desc>
+  <rect width="1000" height="286" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="46" fill="#fff" font-size="26" font-weight="700">Correlate wired, wireless, and inventory evidence</text>
+    <rect x="30" y="75" width="284" height="111" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="46" y="109" font-size="18" font-weight="700" fill="#fff">Wireless observations</text>
+    <text x="46" y="139" font-size="15" fill="#d7e6f4">Authorized receivers → RF events</text>
+    <text x="46" y="163" font-size="15" fill="#d7e6f4">Record channel and sensor coverage</text>
+    <rect x="357" y="75" width="284" height="111" rx="12" fill="#172a40" stroke="#a5b4fc" stroke-width="2"/>
+    <text x="373" y="109" font-size="18" font-weight="700" fill="#fff">Wired observations</text>
+    <text x="373" y="139" font-size="15" fill="#d7e6f4">TAP or SPAN → packet telemetry</text>
+    <text x="373" y="163" font-size="15" fill="#d7e6f4">Check link and capture visibility</text>
+    <rect x="684" y="75" width="284" height="111" rx="12" fill="#172a40" stroke="#5eead4" stroke-width="2"/>
+    <text x="700" y="109" font-size="18" font-weight="700" fill="#fff">Asset inventory</text>
+    <text x="700" y="139" font-size="15" fill="#d7e6f4">Approved sources → device records</text>
+    <text x="700" y="163" font-size="15" fill="#d7e6f4">Verify freshness and identity</text>
+    <path d="M172 186v18h654v-18m-327 0v32" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <rect x="30" y="219" width="938" height="39" rx="8" fill="#1d2e46"/>
+    <text x="48" y="244" font-size="16" fill="#fff">Normalize with source, time and scope. Correlate in the SIEM and retain the original evidence.</text>
+  </g>
+</svg>
