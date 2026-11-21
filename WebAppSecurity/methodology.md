@@ -252,13 +252,39 @@ flowchart LR
 
 ## Phase 7: Business Logic Testing
 
-Maps to [A06 Insecure Design](owasp-top-10.md#a06-insecure-design). These flaws
-abuse legitimate functionality and require understanding the app's intent.
+Maps to [A06 Insecure Design](owasp-top-10.md#a06-insecure-design). These
+application-specific flaws abuse legitimate functions and require understanding
+the intended policy and state transitions.
 
-- Workflow bypasses (skip steps, replay, out-of-order requests).
-- Value/quantity tampering (negative amounts, price manipulation, coupon reuse).
-- Missing anti-automation on sensitive actions (OTP, reset, checkout).
-- Race conditions on state-changing operations (concurrent requests).
+```mermaid
+flowchart LR
+    M[Document intended<br/>rules and state] --> A[Write abuse cases<br/>and invariants]
+    A --> S[Choose approved<br/>synthetic data and scope]
+    S --> T[Test bounded<br/>negative scenarios]
+    T --> V[Verify state, side effects,<br/>and recovery]
+    V --> E[Record evidence<br/>and remediation]
+```
+
+Use a staging or sandbox environment with synthetic accounts and records wherever
+possible. Do not trigger real payments, fulfillment, messages, or other external
+side effects unless the rules of engagement explicitly authorize and contain
+them.
+
+- **Workflow and state:** try approved skip-step, replay, out-of-order, or
+  duplicate-request cases. Verify the server enforces prerequisites and that
+  repeated requests do not cause unintended state transitions.
+- **Business values and limits:** with test values, check server-side handling of
+  quantities, prices, discounts, limits, ownership, and state-dependent fields.
+  Do not alter real orders, account balances, or customer records.
+- **Automation and concurrency:** review anti-automation on sensitive workflows
+  and test bounded limits using test identities. Conduct concurrent state-change
+  checks only where the environment, test records, and rules of engagement make
+  the effects reversible and safe.
+- **Evidence:** define expected invariants before testing, then verify persisted
+  state and downstream effects, including cleanup or rollback. Record the
+  synthetic identity, test case, expected and observed transition, external
+  effects, and residual risk. See the [OWASP WSTG business-logic testing
+  guidance](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/10-Business_Logic/01-Business_Logic_Data_Validation/).
 
 ---
 
