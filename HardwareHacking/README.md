@@ -34,6 +34,14 @@
 | [Evil-M5 Field Labs](../Documentation/evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | Cardputer/ADV and other M5Stack target setup, eight safe RF/BLE/HID and defensive lab exercises. |
 | [LAB5 MonsterC5 / JanOS](../Documentation/microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | Distinct C5 radio, Cardputer/Tab5/Flipper apps, verified update path and eight tests. |
 
+## SBCs, Pi HATs, Radio Modules & Capture Interfaces
+
+| Companion Guide | Purpose |
+|---|---|
+| [SBC, Firmware & Add-On Matrix](../Documentation/sbc-radio-addon-compatibility.md) | Raspberry Pi/uConsole/ESP32/Flipper, USB Wi-Fi/BT, CC1101, nRF24, PN532, GPS and Pi HATs |
+| [Passive BLE Scanning & Packet Sniffing](../Documentation/bluetooth-passive-scanning-sniffing.md) | Passive/active requests, BlueZ HCI vs raw RF, privacy |
+| [LAN TAPs & Network Visibility](../Documentation/network-taps-and-packet-visibility.md) | Great Scott Throwing Star, passive/active copper/fiber and Proxmox IDS capture |
+
 ## Firmware Catalog & Installers
 
 | Resource | Description |

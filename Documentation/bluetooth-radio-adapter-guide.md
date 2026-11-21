@@ -24,6 +24,20 @@ Bluetooth Classic (BR/EDR) and Bluetooth Low Energy (BLE) differ in channel stru
 
 An ordinary USB HCI radio can support `bluetoothctl`, `btmon`, legitimate pairing and application tests **without exposing raw over-the-air frames from other devices**. Wireshark can dissect HCI logs or sniffer-provided RF captures; the capture source and what it contains must be recorded.
 
+## Passive Bluetooth Scanning & Packet Sniffing
+
+| Operation | What Happens | Visibility |
+|---|---|---|
+| BLE passive scan | Listen without LE scan requests | Advertisements, not scan responses |
+| BLE active scan | Send scan requests to scannable advertisers | Advertisements plus scan-response data |
+| `bluetoothctl scan on` | BlueZ discovery; **not necessarily passive** | Device/property events, not raw over-the-air frames |
+| `btmon` | Inspect local HCI commands/events | Host traffic, not independent RF sniffing |
+| Nordic nRF52840 sniffer | Dedicated supported firmware and host software | Raw BLE packets; channel/PHY limitations |
+
+An owned-device scan via `bluetoothctl` is useful discovery, but it may be active. Optional timestamped output: `stdbuf -oL bluetoothctl -- scan on | ts '[%Y-%m-%d %H:%M:%S]'` (from `moreutils`); invocation may vary by BlueZ version. Inspect `btmon` to verify LE scan parameters. Random/private Bluetooth addresses may rotate, so a MAC or name alone does not establish a device or person's identity.
+
+**Full guide:** [BLE Passive Scanning, Raw Sniffing & Privacy](./bluetooth-passive-scanning-sniffing.md), [Novel Bits Sniffer Comparison (2026)](https://novelbits.io/bluetooth-low-energy-ble-sniffer-tutorial/) and [Nordic's nRF Sniffer Lesson](https://academy.nordicsemi.com/courses/bluetooth-low-energy-fundamentals/lessons/lesson-6-bluetooth-le-sniffer/). Also see [SBC & Add-On Compatibility](./sbc-radio-addon-compatibility.md).
+
 ## Detailed Hardware Comparison
 
 **Key:** **Supported path** = documented vendor project; **Conditional** = hardware, firmware, revision, tool or driver constraints; **No** = not the hardware's radio/protocol.

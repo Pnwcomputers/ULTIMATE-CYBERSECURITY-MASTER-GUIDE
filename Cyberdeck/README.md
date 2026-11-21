@@ -60,6 +60,16 @@ A portable cyberdeck can combine an operator workstation, an upstream connectivi
 
 This is a **logical reference topology**, not an assertion that any user's GL.iNet, MikroTik, ZimaBoard or downstream interfaces have been configured, hardened, wired or validated. See [Device & Platform References](#device--platform-references) for the official hardware and software links. A router only controls traffic that traverses it; an unmanaged switch does not magically give a passive sensor all network traffic.
 
+## Adapter, Add-On & Capture Hardware
+
+| Reference | Cyberdeck Qualification |
+|---|---|
+| [SBC, Firmware & Radio Add-Ons](../Documentation/sbc-radio-addon-compatibility.md) | Pi/uConsole/Flipper/ESP32, supported modules, CC1101, NFC, GNSS, HATs & USB power |
+| [Passive BLE Scanning & Sniffing](../Documentation/bluetooth-passive-scanning-sniffing.md) | BlueZ events vs Nordic over-the-air RF capture |
+| [LAN TAPs, Throwing Star & SPAN](../Documentation/network-taps-and-packet-visibility.md) | Wired capture, gigabit limitations, copper/fiber types and IDS |
+
+These are **hardware qualification references**, not automatically integrated capabilities of the private Cyberdeck prototype.
+
 ## Device & Platform References
 
 The [architecture diagram](docs/ARCHITECTURE.md) and [hardware status matrix](docs/HARDWARE_AND_STATUS.md) use **device families and possible roles**, not a verified bill of materials. The links below go to manufacturer or project documentation; check the exact device model, hardware revision, firmware and interface support before following an installation guide.

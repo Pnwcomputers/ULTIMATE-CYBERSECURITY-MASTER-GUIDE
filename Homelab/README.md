@@ -30,6 +30,15 @@ Help practitioners build a carefully segmented, recoverable lab that reduces the
 
 ---
 
+## Network Visibility & Portable Hardware
+
+| Guide | Homelab Application |
+|---|---|
+| [LAN TAPs & SPAN](../Documentation/network-taps-and-packet-visibility.md) | Passive 10/100 Throwing Star, active gigabit/fiber, breakout/aggregation, Snort/Zeek visibility |
+| [Proxmox Security Sensor Visibility](./proxmox-security-monitoring-visibility.md) | Traffic actually available through vSwitch, switch SPAN or physical TAP |
+| [SBC & Radio Add-On Compatibility](../Documentation/sbc-radio-addon-compatibility.md) | Pi/uConsole/x86 USB Wi-Fi/BLE, GPS, CC1101/NFC, HATs and power |
+| [Passive Bluetooth Sniffing](../Documentation/bluetooth-passive-scanning-sniffing.md) | BlueZ HCI versus Nordic over-the-air BLE capture |
+
 ## PNWC Cyberdeck — Portable Field Assessments
 
 **[Open The PNWC Cyberdeck Public Reference](../Cyberdeck/README.md)** for the GL.iNet/MikroTik zone architecture, staged authorization and offline evidence workflow. The proprietary operator console and live collectors are not published.

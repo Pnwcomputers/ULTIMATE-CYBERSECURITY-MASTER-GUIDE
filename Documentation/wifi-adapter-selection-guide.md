@@ -124,6 +124,12 @@ iw dev
 | VM shows `eth0` only | NAT/bridge virtual NIC | Use explicit USB/PCI passthrough |
 | Packet drops | USB power, CPU load, dense RF | Reduce scope, use powered hub and quantify losses |
 
+## SBC & Portable Firmware Compatibility
+
+USB Wi-Fi adapters can differ substantially across a Pi 4/5, uConsole CM4/CM5, Linux x86 VM and NetHunter: verify host USB access, chipset, kernel, firmware, power and driver. Basic connectivity does **not** prove monitor mode, injection or 6 GHz support. Flipper, M5StickC Plus2 and ESP32 firmware do **not** automatically support Linux USB Wi-Fi cards.
+
+Use the [SBC, Firmware & Add-On Matrix](./sbc-radio-addon-compatibility.md) for supported hosts, CC1101, nRF24, PN532/NFC, GPS/GNSS, HATs and firmware capabilities. See [LAN TAPs & SPAN](./network-taps-and-packet-visibility.md) for a distinct wired Ethernet capture path.
+
 ## Official & Cross-Referenced Sources
 
 - [ALFA Linux support: MT7612U](https://docs.alfa.com.tw/Support/Linux/MT7612U/), [MT7610U](https://docs.alfa.com.tw/Support/Linux/MT7610U/) & [AR9271](https://docs.alfa.com.tw/Support/Linux/AR9271/)

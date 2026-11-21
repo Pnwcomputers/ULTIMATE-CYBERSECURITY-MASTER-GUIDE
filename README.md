@@ -133,6 +133,14 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | [Wordlists & Candidate Generation](./Documentation/wordlists-password-auditing.md) | SecLists, Crunch, CeWL, CUPP, John & safe dataset handling |
 | [Rainbow Tables](./Documentation/rainbow-tables-guide.md) | Precomputation vs salts, KDFs & historical tools |
 
+### Expanded Bluetooth, SBC & Network Visibility
+
+| Resource | Description |
+|---|---|
+| [Passive BLE Scanning & Packet Sniffing](./Documentation/bluetooth-passive-scanning-sniffing.md) | Passive vs active scan requests, BlueZ HCI, Nordic raw RF capture & MAC rotation |
+| [SBC, Firmware & Add-On Compatibility](./Documentation/sbc-radio-addon-compatibility.md) | Pi/uConsole/Flipper/ESP32, CC1101, NFC, GPS, HATs and Wi-Fi/Bluetooth USB support |
+| [LAN TAPs, Throwing Star & SPAN](./Documentation/network-taps-and-packet-visibility.md) | Active/passive copper, fiber, 10/100 limits, aggregation, bypass & IDS visibility |
+
 ### Curated Research & Practice:
 
 | Resource | Description |

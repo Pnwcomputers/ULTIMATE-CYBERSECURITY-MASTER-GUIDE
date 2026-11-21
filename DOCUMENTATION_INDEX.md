@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**424 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**427 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -20,7 +20,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Cryptography | 16 | [Open section](#cryptography) |
 | Cyberdeck | 13 | [Open section](#cyberdeck) |
 | Data-Engineering | 18 | [Open section](#data-engineering) |
-| Documentation | 65 | [Open section](#documentation) |
+| Documentation | 68 | [Open section](#documentation) |
 | HardwareHacking | 16 | [Open section](#hardwarehacking) |
 | HardwareTesting | 3 | [Open section](#hardwaretesting) |
 | Homelab | 4 | [Open section](#homelab) |
@@ -287,6 +287,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [blackarch.md](./Documentation/blackarch.md) | `Documentation/blackarch.md` |
 | [ble-capture-sniffle.md](./Documentation/ble-capture-sniffle.md) | `Documentation/ble-capture-sniffle.md` |
 | [bluemaho-guide.md](./Documentation/bluemaho-guide.md) | `Documentation/bluemaho-guide.md` |
+| [bluetooth-passive-scanning-sniffing.md](./Documentation/bluetooth-passive-scanning-sniffing.md) | `Documentation/bluetooth-passive-scanning-sniffing.md` |
 | [bluetooth-radio-adapter-guide.md](./Documentation/bluetooth-radio-adapter-guide.md) | `Documentation/bluetooth-radio-adapter-guide.md` |
 | [bruce_firmware.md](./Documentation/bruce_firmware.md) | `Documentation/bruce_firmware.md` |
 | [chimerable.md](./Documentation/chimerable.md) | `Documentation/chimerable.md` |
@@ -306,12 +307,14 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [hcxtoolshashcat.md](./Documentation/hcxtoolshashcat.md) | `Documentation/hcxtoolshashcat.md` |
 | [microcontroller_wifi_testing.md](./Documentation/microcontroller_wifi_testing.md) | `Documentation/microcontroller_wifi_testing.md` |
 | [nemo-firmware.md](./Documentation/nemo-firmware.md) | `Documentation/nemo-firmware.md` |
+| [network-taps-and-packet-visibility.md](./Documentation/network-taps-and-packet-visibility.md) | `Documentation/network-taps-and-packet-visibility.md` |
 | [nmap-guide.md](./Documentation/nmap-guide.md) | `Documentation/nmap-guide.md` |
 | [pixiewps-guide.md](./Documentation/pixiewps-guide.md) | `Documentation/pixiewps-guide.md` |
 | [pwnagotchi_cheatsheet.md](./Documentation/pwnagotchi_cheatsheet.md) | `Documentation/pwnagotchi_cheatsheet.md` |
 | [python.md](./Documentation/python.md) | `Documentation/python.md` |
 | [rainbow-tables-guide.md](./Documentation/rainbow-tables-guide.md) | `Documentation/rainbow-tables-guide.md` |
 | [references.md](./Documentation/references.md) | `Documentation/references.md` |
+| [sbc-radio-addon-compatibility.md](./Documentation/sbc-radio-addon-compatibility.md) | `Documentation/sbc-radio-addon-compatibility.md` |
 | [security-public-api-catalog.md](./Documentation/security-public-api-catalog.md) | `Documentation/security-public-api-catalog.md` |
 | [spooftooph-guide.md](./Documentation/spooftooph-guide.md) | `Documentation/spooftooph-guide.md` |
 | [upstream-security-projects-register.md](./Documentation/upstream-security-projects-register.md) | `Documentation/upstream-security-projects-register.md` |

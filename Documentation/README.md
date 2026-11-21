@@ -125,6 +125,14 @@ This directory contains comprehensive technical documentation, operational proce
 | [Wordlists & Candidates](./wordlists-password-auditing.md) | SecLists, Crunch, CeWL, CUPP, John & secure handling | Reference |
 | [Rainbow Tables](./rainbow-tables-guide.md) | Precomputed chains, salted KDFs & defensive design | Reference |
 
+### Expanded Bluetooth, SBC & Wired Monitoring Guides
+
+| Guide | Focus | Type |
+|---|---|---|
+| [Passive Bluetooth Scanning & Sniffing](./bluetooth-passive-scanning-sniffing.md) | Passive/active BLE, `bluetoothctl`, `btmon`, raw sniffers, privacy and address rotation | Protocol guide |
+| [SBC, Firmware & Radio Add-Ons](./sbc-radio-addon-compatibility.md) | Raspberry Pi, uConsole, ESP32/Flipper, USB Wi-Fi/BLE, CC1101, PN532, nRF24, GPS & Pi HATs | Compatibility matrix |
+| [LAN TAPs & Network Visibility](./network-taps-and-packet-visibility.md) | Great Scott Throwing Star, copper/fiber TAP, 1G+ active, SPAN, breakout and IDS | Network guide |
+
 ### Wireless Security, WiFi & Network Tools
 | File | Description | Size/Type |
 | :--- | :--- | :--- |

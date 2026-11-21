@@ -23,6 +23,14 @@ _Reference research: 2026-11-21. This is an index and tool-selection guide. Exis
 | Legacy BT identity changes | [Spooftooph](./spooftooph-guide.md) | Defensive spoofing threat model |
 | Historical BT suite | [BlueMaho](./bluemaho-guide.md) | Legacy code/source review |
 
+## Companion Hardware & Capture Paths
+
+| Reference | Purpose |
+|---|---|
+| [Passive Bluetooth Scanning & Sniffing](./bluetooth-passive-scanning-sniffing.md) | Active/passive BLE scanning, HCI vs raw RF and randomization |
+| [SBC, Portable Firmware & Radio Add-Ons](./sbc-radio-addon-compatibility.md) | Pi/uConsole/Flipper/ESP32, CC1101, NFC, GPS, HATs and compatibility |
+| [LAN TAPs, SPAN & Packet Visibility](./network-taps-and-packet-visibility.md) | Great Scott Throwing Star, active copper/fiber, aggregation and IDS sensor placement |
+
 ## Wider Wi-Fi Tool Ecosystem
 
 | Tool | Official Project | Intended Role | Caution |
