@@ -228,6 +228,21 @@ openssl s_client -connect 127.0.0.1:8443 \
 
 Secure Shell (SSH) authenticates the server using its host key and the user using a key, certificate, or other configured method. Your user key does not prove the server is genuine. A changed host key may be an authorized rebuild or an interception attempt; investigate before replacing trust.
 
+```mermaid
+flowchart LR
+    S[Server presents<br/>host key] --> C[Client checks key against<br/>verified host trust]
+    U[Client proves possession of<br/>user private key] --> A[Server checks account<br/>and allowed user key]
+    C --> G{Both identity checks<br/>succeed?}
+    A --> G
+    G -->|Yes| E[Encrypted SSH session]
+    E --> Z[OS/application policy<br/>still controls permitted actions]
+    G -->|No| X[Stop; investigate<br/>instead of bypassing check]
+```
+
+*The server host key authenticates the server to the client; the user key
+authenticates the client to the server. Neither replaces authorization after
+connection.*
+
 Generate a dedicated administrator key and choose a strong passphrase when prompted:
 
 ```bash
