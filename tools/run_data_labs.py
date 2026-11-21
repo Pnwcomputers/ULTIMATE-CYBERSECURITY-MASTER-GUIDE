@@ -14,15 +14,18 @@ LABS = {
 
 
 def main():
+    if not __debug__:
+        raise SystemExit('Run guide labs with Python assertions enabled (without -O or PYTHONOPTIMIZE).')
+
     with tempfile.TemporaryDirectory(prefix='guide-labs-') as folder:
         for phase, names in LABS.items():
             for name in names:
                 source = ROOT / 'Data-Engineering' / phase / (name + '.md')
-                blocks = re.findall(r'^```python\s*\n(.*?)^```', source.read_text(), re.M | re.S)
+                blocks = re.findall(r'^```python\s*\n(.*?)^```', source.read_text(encoding='utf-8'), re.M | re.S)
                 if not blocks:
                     raise RuntimeError(f'Missing Python lab: {source}')
                 script = Path(folder) / (name + '.py')
-                script.write_text(blocks[0])
+                script.write_text(blocks[0], encoding='utf-8')
                 print(f'Running {phase}/{name}', flush=True)
                 subprocess.run([sys.executable, '-B', str(script)], cwd=folder, check=True, timeout=30)
 
