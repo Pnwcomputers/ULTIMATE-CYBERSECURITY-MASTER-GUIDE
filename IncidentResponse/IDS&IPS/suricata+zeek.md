@@ -97,7 +97,7 @@ Suricata can provide signature-based IDS/IPS and protocol-aware outputs; Zeek pr
    └─> Leave IPS mode OFF. Run alert-only.
 
 5. Validation:
-   └─> testmynids.org test, or pcap replay against known-bad traffic.
+   └─> Offline replay of an approved capture with matching and benign controls.
    └─> Verify expected test events and benign traffic; record capture loss and alert-only behavior against agreed acceptance criteria.
 
 6. IPS Cutover (optional, once validated):
@@ -332,19 +332,22 @@ For the full log reference table, `zeek-cut` analysis one-liners, JA3/JA3S finge
 
 ## ✅ Validation & Testing
 
-**From a client device on the network — never from the sensor/firewall itself:**
+Replay an approved synthetic or sanitized capture offline with a lab configuration and a version-matched ruleset. Replace the two paths with local files:
 
 ```bash
-curl http://testmynids.org/uid/index.html
+capture='./fixtures/authorized-test.pcap'
+config='./lab/suricata.yaml'
+
+if [ -r "$capture" ] && [ -r "$config" ] && output_dir=$(mktemp -d); then
+    printf 'Suricata output directory: %s\n' "$output_dir"
+    suricata -r "$capture" -c "$config" -l "$output_dir"
+else
+    printf '%s\n' 'Check the fixture and configuration paths and temporary-directory permissions.' >&2
+    false
+fi
 ```
 
-Expected: the page returns `uid=0(root) gid=0(root) groups=0(root)`, and a corresponding alert (commonly named something like *"GPL ATTACK_RESPONSE id check returned root"*) should appear in **Services → Intrusion Detection → Alerts** (OPNsense/pfSense) or your Suricata log (standalone). If the alert shows up, **that particular signature and capture-to-alert path** were observed for this test; this does not prove coverage of other traffic, other rules, false-positive behavior or any SIEM forwarding. Record timestamp, sensor interface, rule/SID, expected and observed fields, and a benign negative test using the [Lab Validation Matrix](../../Documentation/LAB-VERIFICATION-MATRIX.md).
-
-**Pcap replay** is the other reliable check, useful for validating custom rules before they ever see live traffic:
-
-```bash
-suricata -r known_bad_traffic.pcap -l /tmp/logs/ -c /etc/suricata/suricata.yaml
-```
+The [Suricata CLI reference](https://docs.suricata.io/en/latest/command-line-options.html) documents offline PCAP mode. Check the configured alert output and record expected and observed rule IDs, input timestamps, and benign control results. Separately validate a live sensor's monitored interface and delivery to the SIEM when a lab is available. See the [Lab Verification Matrix](../../Documentation/LAB-VERIFICATION-MATRIX.md).
 
 ---
 
@@ -397,7 +400,7 @@ suricata -r known_bad_traffic.pcap -l /tmp/logs/ -c /etc/suricata/suricata.yaml
 - **Zeek docs:** [docs.zeek.org](https://docs.zeek.org)
 - **Emerging Threats rules:** [rules.emergingthreats.net](https://rules.emergingthreats.net)
 - **OPNsense IDS/IPS documentation:** [docs.opnsense.org](https://docs.opnsense.org)
-- **Historical optional NIDS test endpoint:** `http://testmynids.org` (availability timed out in the November 11, 2026 online audit; not mandatory proof). Prefer an offline, approved PCAP with a matching rule.
+- **Detection validation:** [offline capture replay](#-validation--testing) and the [lab verification matrix](../../Documentation/LAB-VERIFICATION-MATRIX.md).
 
 ---
 

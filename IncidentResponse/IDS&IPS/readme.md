@@ -239,7 +239,7 @@ Contributions from SOC analysts, wireless security researchers, and detection en
 - **Suricata docs:** <https://docs.suricata.io>
 - **Zeek docs:** <https://docs.zeek.org>
 - **Emerging Threats rules:** <https://rules.emergingthreats.net>
-- **NIDS test endpoint:** <http://testmynids.org>
+- **Offline IDS validation:** [Suricata capture replay](suricata+zeek.md#-validation--testing).
 - **MITRE ATT&CK (detection mapping):** <https://attack.mitre.org/>
 
 ---
