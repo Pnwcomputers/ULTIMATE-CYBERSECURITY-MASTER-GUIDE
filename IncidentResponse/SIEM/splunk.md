@@ -811,10 +811,12 @@ tail -f /opt/splunk/var/log/splunk/splunkd.log
 
 **Check forwarder status:**
 ```bash
-# Linux
 /opt/splunkforwarder/bin/splunk list forward-server
+```
 
-# Windows
+On Windows, use PowerShell:
+
+```powershell
 & "C:\Program Files\SplunkUniversalForwarder\bin\splunk.exe" list forward-server
 ```
 

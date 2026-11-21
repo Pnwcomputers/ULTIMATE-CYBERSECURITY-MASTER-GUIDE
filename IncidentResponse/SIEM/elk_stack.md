@@ -769,20 +769,12 @@ sudo systemctl status filebeat
 
 ### Step 6.2: Import Security Dashboards
 
-Elastic provides pre-built dashboards:
+Winlogbeat loads its version-matched sample dashboards through the Kibana API. Follow [Elastic's dashboard loading instructions](https://www.elastic.co/docs/reference/beats/winlogbeat/configuration-dashboards) from the Winlogbeat host using an authorized setup identity and a trusted Kibana endpoint. Loading sample dashboards can overwrite matching saved objects.
 
-```bash
-# From the ELK server
-docker exec -it kibana /bin/bash
-
-# Load Winlogbeat dashboards
-/usr/share/kibana/bin/kibana-plugin install <dashboard-url>
-```
-
-Or import via Kibana UI:
+For a saved-object export that matches your Kibana release, use the Kibana UI:
 1. Navigate to **Stack Management → Saved Objects**
 2. Click **Import**
-3. Upload dashboard JSON files
+3. Import the saved-object export (`.ndjson`) and review conflict handling.
 
 ### Step 6.3: Create Detection Rules
 

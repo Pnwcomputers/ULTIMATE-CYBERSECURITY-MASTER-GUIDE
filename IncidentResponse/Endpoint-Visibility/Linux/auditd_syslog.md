@@ -574,15 +574,12 @@ user.*                          -/var/log/user.log
 
 ### Step 6.1: Configure Remote Forwarding
 
-Create `/etc/rsyslog.d/60-remote.conf`:
+Create `/etc/rsyslog.d/60-remote.conf`. The [omfwd action](https://docs.rsyslog.com/doc/configuration/modules/omfwd.html) is built into rsyslog. The example shows plain TCP for an isolated network. Use the documented TLS transport and peer validation when forwarding sensitive logs.
 
-```bash
+```text
 #
 # Forward logs to SIEM
 #
-
-# Load TCP module for reliable delivery
-module(load="omfwd")
 
 # Template for forwarding (optional - adds hostname)
 template(name="ForwardFormat" type="string"
@@ -611,9 +608,9 @@ template(name="ForwardFormat" type="string"
 
 ### Step 6.2: Forward Audit Logs via Rsyslog
 
-Create `/etc/rsyslog.d/61-audit.conf`:
+For a separate audit feed, create `/etc/rsyslog.d/61-audit.conf`. If you enable both examples, exclude the audit facility from the general rule to avoid duplicate delivery. Make sure the collector listens on the configured transport and port.
 
-```bash
+```text
 #
 # Forward audit logs to SIEM
 #

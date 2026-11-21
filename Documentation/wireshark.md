@@ -348,9 +348,11 @@ ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -c 1000 -w - 'tcp port 80 or tcp po
 
 ### Windows
 
+Use [PowerShell 7.4 or later](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_pipelines?view=powershell-7.4#using-native-commands-in-the-pipeline) for a native binary pipeline. Keep SSH diagnostics on stderr and use an explicitly authorized sensor account that can read the selected interface.
+
 ```powershell
-# Via WSL or direct (Wireshark in PATH)
-ssh root@192.168.1.1 "tcpdump -i eth0 -U -s0 -c 1000 -w -" | "C:\Program Files\Wireshark\Wireshark.exe" -k -i -
+# PowerShell 7.4+; substitute the authorized sensor account, host and interface.
+ssh.exe capture-user@192.0.2.10 "tcpdump -i eth0 -U -s0 -c 1000 -w -" | & 'C:\Program Files\Wireshark\Wireshark.exe' -k -i -
 ```
 
 ### Save to File Instead

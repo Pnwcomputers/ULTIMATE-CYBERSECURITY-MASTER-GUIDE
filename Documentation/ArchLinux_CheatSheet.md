@@ -395,10 +395,11 @@ The Arch User Repository contains user-submitted build scripts. These are not of
 ![AUR package review workflow: inspect PKGBUILD and source files, build as a normal user, then install the reviewed package](../assets/diagrams/aur-package-review-build-install.svg)
 
 ```bash
-# Clone an AUR package and inspect all build files
-git clone https://aur.archlinux.org/<pkg>.git
-cd <pkg>
-less PKGBUILD
+# Set aur_package to the exact name you reviewed on aur.archlinux.org.
+aur_package='replace-with-reviewed-package-name'
+git clone "https://aur.archlinux.org/${aur_package}.git" &&
+    cd "$aur_package" &&
+    less PKGBUILD
 # Review .install, patches, source URLs, checksums, and recent changes before continuing.
 
 # Build as a normal user, then review the package before installing
@@ -406,7 +407,7 @@ makepkg -s
 sudo pacman -U ./package-version-architecture.pkg.tar.zst
 
 # Common makepkg flags
-makepkg -s            # Install missing dependencies only
+makepkg -s            # Build and install missing dependencies
 makepkg -i            # Install the package after building
 makepkg -c            # Clean build directory after build
 makepkg -f            # Force rebuild even if package already built
@@ -497,9 +498,11 @@ sudo pacman -S linux-lts-headers  # For linux-lts kernel
 # List loaded modules
 lsmod
 
-# Load / unload a module
-sudo modprobe <module>
-sudo modprobe -r <module>
+# Inspect dependency resolution before changing a kernel module.
+module_name='replace-with-module-name'
+modprobe --show-depends "$module_name"
+# Use modprobe to load the selected module, or modprobe -r to unload it
+# after confirming it is unused and the change is approved.
 
 # Blacklist a module (prevent auto-load)
 echo "blacklist <module>" | sudo tee /etc/modprobe.d/blacklist-<module>.conf
@@ -722,10 +725,10 @@ site:*.target.com -www
 | Maltego      | GUI - drag-and-drop              | Visual link analysis and entity relationship mapping.      |
 
 **Recon-ng Quick Start:**
-```bash
+```text
 recon-ng
 [recon-ng][default] > workspaces create <case_name>
-[recon-ng][case_name] > marketplace install all
+[recon-ng][case_name]  (review selected modules before adding them)
 [recon-ng][case_name] > modules search
 ```
 
