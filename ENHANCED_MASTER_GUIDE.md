@@ -2122,89 +2122,45 @@ Analysis artifacts and logs can contain malicious content, credentials, or perso
 
 
 ## Living Off the Land - LOLBins & LOLBAs
- 
-*Full reference: [Tradecraft/lolbins-lolbas.md](Tradecraft/lolbins-lolbas.md)*
- 
-Microsoft-signed Windows binaries abused for malicious execution, download, lateral movement,
-persistence, and credential access. Already present on every Windows system, signed and trusted.
- 
-### High-Value LOLBins by Category
- 
-**Execution:**
- 
-| Binary | Abuse | Detection |
-|---|---|---|
-| `certutil.exe` | Decode/download payloads | `-urlcache`, `-decode` in cmdline |
-| `mshta.exe` | Execute remote HTA/VBScript | Network connection from mshta |
-| `regsvr32.exe` | Remote scriptlet execution (Squiblydoo) | Network connection from regsvr32 |
-| `rundll32.exe` | Execute DLL exports, JavaScript | Unusual cmdline, network connection |
-| `wmic.exe` | Remote process creation, XSL execution | Network connection, child processes |
-| `installutil.exe` | Execute .NET assembly (bypasses AppLocker) | Spawning from non-admin context |
- 
-**Credential Access:**
- 
-| Binary | Abuse | Detection |
-|---|---|---|
-| `comsvcs.dll` via rundll32 | LSASS memory dump | `MiniDump` in cmdline, LSASS access |
-| `reg.exe` | SAM/SYSTEM/SECURITY hive export | `save HKLM\SAM` in cmdline |
-| `vssadmin` / `diskshadow` | Shadow copy NTDS.dit access | VSS creation + NTDS path access |
- 
-**LOLDrivers (BYOVD):** Vulnerable signed drivers used to kill EDR at kernel level.
-Key examples: `gdrv.sys` (Gigabyte), `RTCore64.sys` (MSI Afterburner), `dbutil_2_3.sys` (Dell).
-Resource: [loldrivers.io](https://www.loldrivers.io/)
- 
-### Detection Priorities
- 
-```yaml
-title: Suspicious certutil Download
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    selection:
-        Image|endswith: '\certutil.exe'
-        CommandLine|contains:
-            - '-urlcache'
-            - '-decode'
-            - 'http'
-    condition: selection
-level: high
- 
----
- 
-title: LSASS Dump via comsvcs.dll
-logsource:
-    category: process_creation
-    product: windows
-detection:
-    selection:
-        Image|endswith: '\rundll32.exe'
-        CommandLine|contains:
-            - 'comsvcs'
-            - 'MiniDump'
-    condition: selection
-level: critical
+
+Living-off-the-land binaries and scripts are legitimate operating-system or administrative tools that can be misused for unexpected behavior. They are not all present on every Windows device, and a valid signature does not mean an execution is expected or approved. Review process context, user role, host purpose, and policy before treating a match as malicious.
+
+### Defensive detection workflow
+
+```mermaid
+flowchart LR
+    P[Process creation and<br/>script telemetry] --> C[Correlate signer,<br/>parent, user, and host role]
+    W[WMI and system<br/>administration events] --> C
+    D[Driver inventory and<br/>device-control events] --> C
+    N[DNS, proxy, and<br/>network connections] --> C
+    C --> B[Compare with approved<br/>software and behavior baseline]
+    B --> A[Analyst validates<br/>the full event chain]
+    A --> R[Apply scoped policy,<br/>investigate, or close]
 ```
- 
-### Hardening
- 
-```powershell
-# Attack Surface Reduction - block key LOLBin abuse paths
-$rules = @(
-    "d4f940ab-401b-4efc-aadc-ad5f3c50688a",  # Block Office child processes
-    "3b576869-a4ec-4529-8536-b80a7769e899",  # Block JS/VBS downloaded exec
-    "d1e49aac-8f56-4280-b9ba-993a6d77406c"   # Block PSExec/WMI exec
-)
-$rules | ForEach-Object {
-    Add-MpPreference -AttackSurfaceReductionRules_Ids $_ `
-        -AttackSurfaceReductionRules_Actions Enabled
-}
-```
- 
-[Return to Table of Contents](#table-of-contents---enhanced-edition)
- 
----
- 
+
+| Activity area | Investigation focus | Important caveat |
+| --- | --- | --- |
+| Unexpected use of built-in utilities | Process lineage, user and host role, command-line context, file signer, and related network events | A binary name or signature alone does not show intent. Administrative and software-management tools can produce similar activity. |
+| WMI and legacy command-line tools | Parent/child processes, WMI operational events, remote-management context, and source account | WMIC is deprecated and has been removed from Windows 11 24H2 and later; WMI itself remains supported. Validate coverage against the operating-system version. |
+| Credential-access indicators | Process access to protected credential processes and unusual registry, backup, or snapshot activity | These events may also come from security, backup, recovery, and administration products. Validate against approved software and correlate multiple signals. |
+| Vulnerable signed drivers | Driver inventory, signer/version, installation source, policy status, and related security events | A valid signature identifies signing provenance; it does not establish that a driver is safe or approved. Use an organization-maintained block/allow policy. |
+
+### Attack Surface Reduction planning
+
+The previous PowerShell snippet described ASR rule 3b576869-a4ec-4529-8536-b80a7769e899 as blocking downloaded JavaScript/VBScript content. Microsoft's current reference says this rule blocks Office applications from creating executable content. The separate rule for JavaScript or VBScript launching downloaded executable content is d3e037e1-3eb8-44c8-a917-57927947596d.
+
+| Rule ID | Microsoft rule description |
+| --- | --- |
+| d4f940ab-401b-4efc-aadc-ad5f3c50688a | Block Office applications from creating child processes |
+| 3b576869-a4ec-4529-8536-b80a7769e899 | Block Office applications from creating executable content |
+| d3e037e1-3eb8-44c8-a917-57927947596d | Block JavaScript or VBScript from launching downloaded executable content |
+| d1e49aac-8f56-4280-b9ba-993a6d77406c | Block process creations originating from PSExec and WMI commands |
+
+These controls can disrupt legitimate workflows. Review the [ASR rules reference](https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference), assess prerequisites and exclusions, begin in audit mode on a representative pilot group, review audit events, and deploy through the organization's managed policy process with a rollback plan. Do not enable a broad set of rules on endpoints without measuring application impact.
+
+Microsoft's [AppLocker and App Control overview](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/appcontrol-and-applocker-overview) explains that policy can evaluate signer, file metadata, path, and process context. See also Microsoft's [WMIC lifecycle guidance](https://learn.microsoft.com/en-us/windows/desktop/wmisdk/wmic) and [ASR rules overview](https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-overview).
+
+
 ## OSINT & Threat Intelligence
  
 *Full reference: [Tradecraft/osint-threat-intel.md](Tradecraft/osint-threat-intel.md)*
