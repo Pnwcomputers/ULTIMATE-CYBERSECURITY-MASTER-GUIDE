@@ -390,134 +390,62 @@ Directory Services Restore Mode is a separate recovery account and credential fo
  
 
 ## Detection & Hunting
-
+ 
+Detection depends on enabled audit policy, object SACLs, event forwarding, and sensor coverage. Treat event IDs as investigation pivots and correlate account, source device, destination, process, object, authentication method, and change context.
+ 
+```mermaid
+flowchart LR
+    E[Domain-controller and<br/>endpoint events] --> N[Normalize event fields<br/>and confirm audit coverage]
+    N --> C[Correlate identity,<br/>source, target, process, and time]
+    C --> B[Compare with approved<br/>accounts, hosts, and baselines]
+    B --> A[Analyst validates<br/>competing explanations]
+    A --> R[Document evidence,<br/>confidence, and response]
+```
+ 
 ### Critical Windows Event IDs
-
-| Event ID | Description | Attack Relevance |
+ 
+| Event ID | What it records | Investigation use and caveat |
 |---|---|---|
-| 4624 | Successful logon | Lateral movement, PtH (LogonType 3) |
-| 4625 | Failed logon | Password spray, brute force |
-| 4648 | Explicit credential logon | RunAs, PtH, lateral movement |
-| 4662 | Object access (LDAP) | DCSync (GUID monitoring) |
-| 4663 | Object access | File/directory access |
-| 4672 | Special privilege logon | Admin rights granted |
-| 4688 | Process creation | Execution tracking |
-| 4720 | User account created | Persistence |
-| 4728/4732/4756 | Member added to group | Privilege escalation |
-| 4769 | TGS requested | Investigate unusual service-ticket patterns; encryption type alone is not proof |
-| 4768 | Kerberos TGT requested (AS-REQ) | AS-REP roastable if pre-auth type 0 present in the event |
-| 4771 | Pre-auth failure | Password spraying (wrong password on pre-auth-required accounts) |
-| 4776 | NTLM credential validation | PtH detection |
-| 5145 | Network share access | SMB enumeration, lateral movement |
-| 7045 | Service installed | PsExec, lateral movement |
-| 8004 | Kerberos AS-REQ | Unusual AS-REQ patterns (Microsoft-Windows-Kerberos-Key-Distribution-Center/Operational log, not Security log) |
-
+| 4624 | A logon session was created on the destination computer | Logon type 3 is a network logon; it does not prove lateral movement or pass-the-hash. |
+| 4625 | A logon failed | Correlate accounts, source hosts, protocol, and timing; failures also come from stale applications and configuration errors. |
+| 4648 | A process attempted a logon with explicit credentials | Correlate process and resulting session; not a direct PtH label. |
+| 4662 | An operation was performed on an AD object, when the applicable SACL is configured | For replication-related review, validate access rights, object, properties, subject, and approved DC/backup sources. |
+| 4663 | An attempt was made to access an audited file-system object | Requires an applicable SACL and is not a general directory-service event. |
+| 4672 | Special privileges were assigned to a new logon | High-value accounts merit review; this does not by itself mean an administrator account was newly granted rights. |
+| 4688 | A process was created | Command-line data requires separate policy/configuration; correlate parent, user, signer, and host role. |
+| 4720 | A user account was created | Validate actor, target, source, and approved change record. |
+| 4728 / 4732 / 4756 | A member was added to a global / local / universal security group | Prioritize sensitive groups and correlate actor and change window. |
+| 4768 | A Kerberos TGT was requested | Pre-authentication type 0 means pre-authentication was not used; verify account configuration and DC audit coverage. |
+| 4769 | A Kerberos service ticket was requested | Review unusual SPNs, source, volume, and encryption context; RC4 alone is not proof of abuse. |
+| 4771 | Kerberos pre-authentication failed | Correlate failure patterns; this event is not a direct AS-REP-roasting signal. |
+| 4776 | NTLM credentials were validated on the authoritative computer | For domain accounts, this is typically a DC; it does not identify the destination or prove pass-the-hash. |
+| 5145 | A network share object was checked for requested access | Use with share, account, source, and endpoint context; a check is not proof that data was read. |
+| 4697 / 7045 | A service was installed (Security / System log, respectively) | Correlate service name, binary, account, initiating logon, source, and change record. |
+ 
+See Microsoft's [advanced audit policy reference](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/advanced-audit-policy-configuration) and [4624 event details](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624). The exact fields and event volume vary by OS version and audit configuration.
+ 
 ### Kerberoasting Detection
-
-RC4 service tickets (event 4769, encryption type 0x17) are a review signal, not proof of Kerberoasting; legacy applications may still require RC4. Baseline service accounts and client systems, then correlate ticket volume, unusual SPN targeting, requesting process, and approved encryption support before raising an alert. Test thresholds against local telemetry to limit false positives.
-
-```kusto
-// Starting point for a locally tuned Sentinel/Defender rule
-SecurityEvent
-| where EventID == 4769
-| where TicketEncryptionType == "0x17"   // RC4; investigate in context
-| where ServiceName !endswith "$"
-| summarize ticket_count=count(), services=dcount(ServiceName)
-    by AccountName, IpAddress, bin(TimeGenerated, 15m)
-| where ticket_count > 5 or services > 3
-```
-
+ 
+RC4 service tickets (4769 with ticket encryption type 0x17) are a review signal, not proof of Kerberoasting; legacy applications may still require RC4. Baseline service accounts and client systems, then correlate ticket volume, SPN targeting, source host, account, and approved encryption support. Microsoft documents changes to 4768/4769 RC4 telemetry across supported Windows Server updates; confirm the event version and fields before building a query. See [Detect and Remediate RC4 Usage in Kerberos](https://learn.microsoft.com/en-us/windows-server/security/kerberos/detect-remediate-rc4-kerberos).
+ 
 ### DCSync Detection
-
-```powershell
-# DCSync uses DRSUAPI replication rights - generates Event 4662
-# Alert on: 4662 events where AccessMask = 0x100 AND Properties contain replication GUIDs
-
-# GUID for "Replicating Directory Changes": {1131f6aa-9c07-11d1-f79f-00c04fc2dcd2}
-# GUID for "Replicating Directory Changes All": {1131f6ab-9c07-11d1-f79f-00c04fc2dcd2}
-
-Get-WinEvent -LogName Security -FilterXPath "*[System[EventID=4662]]" |
-  Where-Object {
-    $_.Properties[8].Value -match "1131f6aa|1131f6ab" -and
-    $_.Properties[3].Value -notmatch "Domain Controller"
-  }
-```
-
+ 
+Event 4662 is generated only when the appropriate directory-object SACL is configured and a matching operation occurs. Review replication-related rights GUIDs on the domain naming context, the subject account, source host, and approved domain-controller or backup activity. Avoid fixed PowerShell property indexes and blanket filters for account names ending in dollar signs; those can silently miss events or exclude legitimate and unauthorized computer identities. Use the documented event schema and parse named XML fields.
+ 
 ### Lateral Movement Detection
-
-```powershell
-# Detect PsExec / service-based lateral movement
-# Event 7045 (service installed) + 4624 (logon type 3) from same source
-
-# Alert: Workstation to workstation SMB (not workstation to server)
-# Most environments: workstations should not connect to each other via SMB
-
-# WMI lateral movement
-Get-WinEvent -LogName "Microsoft-Windows-WMI-Activity/Operational" |
-  Where-Object {$_.Id -eq 5857 -or $_.Id -eq 5861}
-```
-
+ 
+Correlate destination-side logon events with service installation, process creation, WMI activity, network telemetry, and approved management windows. Event 7045 comes from the System log and event 4697 from the Security log; fields and availability differ. Workstation-to-workstation traffic can be a useful local baseline, but some support and peer-management workflows legitimately use it.
+ 
+WMI Operational events can show provider or activity details, but an event ID alone does not distinguish remote administration from malicious use. Correlate the account, client host, namespace/operation where available, destination process, and change record.
+ 
 ### BloodHound Detection (SharpHound)
-
-```powershell
-# SharpHound generates large volumes of LDAP queries
-# Event ID 1644 (LDAP query stats) on DC
-
-# Detect by volume: hundreds of LDAP queries in short period from single source
-# Detect by pattern: sequential enumeration of all users, computers, groups
-```
-
+ 
+Directory graph collection can produce LDAP and endpoint telemetry, but volume varies with collection methods, domain size, audit settings, and normal management activity. Event 1644 requires appropriate LDAP diagnostic configuration and is not universally available. Prefer a baseline of approved directory queries and use multiple signals; do not treat query volume alone as proof of a specific collector.
+ 
 ### Sigma Rules
-
-```yaml
-title: Kerberoasting via RC4 Encryption
-logsource:
-    product: windows
-    service: security
-detection:
-    selection:
-        EventID: 4769
-        TicketEncryptionType: '0x17'
-    filter:
-        ServiceName|endswith: '$'
-    condition: selection and not filter
-level: high
-tags:
-    - attack.credential_access
-    - attack.t1558.003
-
----
-
-title: DCSync via Replication
-logsource:
-    product: windows
-    service: security
-detection:
-    selection:
-        EventID: 4662
-        Properties|contains:
-            - '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2'
-            - '1131f6ab-9c07-11d1-f79f-00c04fc2dcd2'
-    filter:
-        SubjectUserName|endswith: '$'   # Filter out legitimate DC replication
-    condition: selection and not filter
-level: critical
-
----
-
-title: AdminSDHolder Modification
-logsource:
-    product: windows
-    service: security
-detection:
-    selection:
-        EventID: 5136
-        ObjectDN|contains: 'CN=AdminSDHolder'
-    condition: selection
-level: critical
-```
-
----
+ 
+The earlier inline Sigma fragments mixed generic field names and filters that could suppress legitimate or unauthorized activity. Before using a rule, map the source event fields for the actual collector and event version, validate field types and filter logic, test against known benign activity, and include an owner-approved exception list. Use SigmaHQ's maintained [rule repository](https://github.com/SigmaHQ/sigma) and [specification](https://sigmahq.io/sigma-specification/) for current syntax; do not copy a fragment as a production rule without validation.
+ 
 
 ## Defensive Hardening
 
