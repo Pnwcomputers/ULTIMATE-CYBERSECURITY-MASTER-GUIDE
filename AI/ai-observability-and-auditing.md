@@ -84,7 +84,7 @@ def audit(event_id, tool, outcome, trace_id, target_ref):
 audit("LAB-001", "wazuh.read_alert", "success", "TRACE-LAB-001", "ALERT-LAB-001")
 ```
 
-Pass approved field values from the host's authorization context. String conversion alone leaves any sensitive contents intact. For real deployments add authenticated transports, schema validation, length checks, redaction, integrity-protected durable storage, access control and retention enforcement. Standard output here demonstrates formatting only.
+Pass approved field values from the host's authorization context. String conversion alone leaves any sensitive contents intact. For real deployments add authenticated transports, schema validation, length checks, redaction, integrity-protected durable storage, access control and retention enforcement. The example's stream handler writes the formatted record to standard error.
 
 ## 4. Metrics & Operational SLIs
 
