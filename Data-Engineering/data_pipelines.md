@@ -399,6 +399,19 @@ is actually running.*
 
 A raw string is difficult to query consistently. A structured event gives fields defined types and meanings. Prefer native structured output where available; parse text only when you need to. The following is a deliberately small custom schema, not a claim of Elastic Common Schema or Open Cybersecurity Schema Framework compliance.
 
+```mermaid
+flowchart LR
+    R[Raw source record] --> P[Parse supported format]
+    P --> V{Validate fields,<br/>types, and bounds}
+    V -->|Valid for this schema| N[Normalize and serialize<br/>as JSON Lines]
+    V -->|Unsupported or invalid| Q[Restricted quarantine<br/>with reason and bounded preview]
+    N --> M[Count accepted records]
+    Q --> J[Count rejected records]
+```
+
+*The parser checks the lab contract and record syntax; it does not prove that the
+source event is truthful. Quarantined originals may contain sensitive data.*
+
 | Field | Type | Meaning |
 | --- | --- | --- |
 | `schema_version` | String | Contract version, initially `1.0` |
