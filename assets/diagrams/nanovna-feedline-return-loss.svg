@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 290" role="img" aria-labelledby="title desc">
+  <title id="title">How feedline loss changes measured return loss</title>
+  <desc id="desc">A matched feedline with 3 dB one-way loss attenuates the reflected wave by 6 dB round trip. A load with about 6 dB return loss at the antenna plane therefore appears to have about 12 dB return loss at the instrument plane.</desc>
+  <rect width="920" height="290" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="28" y="46" font-size="26" font-weight="bold" fill="#fff">How feedline loss changes measured return loss</text>
+    <rect x="28" y="80" width="218" height="131" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <rect x="674" y="80" width="218" height="131" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <g fill="#fff" font-size="19" font-weight="bold">
+      <text x="46" y="115">Instrument plane</text>
+      <text x="692" y="115">Antenna plane</text>
+    </g>
+    <g fill="#d7e6f4" font-size="16">
+      <text x="46" y="148">Return loss ≈ 12 dB</text>
+      <text x="46" y="178">SWR ≈ 1.67:1</text>
+      <text x="692" y="148">Return loss ≈ 6 dB</text>
+      <text x="692" y="178">SWR = 3:1</text>
+      <text x="460" y="112" text-anchor="middle">Forward wave · 3 dB loss</text>
+      <text x="460" y="187" text-anchor="middle">Reflected wave · another 3 dB loss</text>
+    </g>
+    <path d="M267 125H653l-10-7m10 7-10 7M653 157H267l10-7m-10 7 10 7" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="460" y="257" text-anchor="middle" fill="#fff" font-size="17">Matched-line estimate: antenna return loss ≈ measured return loss − round-trip loss.</text>
+  </g>
+</svg>

@@ -73,7 +73,7 @@ Print this. Tape it inside the case lid.
 □ Sweep span set
 □ Calibrated on THIS span
 □ "C" indicator visible on screen
-□ LOAD check: −35 dB or better
+□ Check device response within the recorded tolerance
 ```
 
 **Max input: +10 dBm (community figure, no verified spec). That is 1/100 W.
@@ -93,7 +93,7 @@ Any transmitter, any power, destroys the front end.**
 7.  LOAD  → tap LOAD  → wait
 8.  DONE
 9.  CAL → SAVE → slot n
-10. Verify with LOAD
+10. Compare a check device against its expected response
 ```
 
 ---
