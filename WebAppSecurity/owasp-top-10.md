@@ -342,18 +342,61 @@ verification evidence; choose a level of detail that fits the system and change.
 
 ## A07: Authentication Failures
 
-Weaknesses in confirming identity and managing sessions.
+Authentication failures let an invalid or incorrect identity be accepted, or let
+a valid user's authentication state be captured, misused, or left active. This
+includes credential checks, account recovery, multi-factor authentication (MFA),
+and session or token lifecycle.
 
-- **How it is exploited:** credential stuffing and brute force (no lockout/rate
-  limit), weak password policies, session fixation, exposed or non-expiring session
-  tokens, flawed MFA, and weak JWT handling (`alg:none`, weak secret, no expiry).
-- **How to test:** probe login for lockout/rate limiting; test session lifecycle
-  (fixation, invalidation on logout, rotation); inspect JWTs (algorithm, signature,
-  expiry, claims); test password reset and MFA bypasses.
-- **How to defend:** rate limiting and lockout; MFA; strong password storage
-  (Argon2/bcrypt) and breached-password checks; secure, `HttpOnly`, `SameSite`
-  session cookies with rotation and expiry; validate JWT `alg` and signature server-side.
-- **CWE:** CWE-287, CWE-384, CWE-613. **Cheat sheet:** [Authentication](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html).
+```mermaid
+flowchart LR
+    C[Enroll and protect<br/>authenticators] --> A[Authenticate<br/>password / MFA]
+    A -->|Verified| S[Issue fresh<br/>session or token]
+    S --> U[Authorize intended<br/>use and audience]
+    U --> R[Rotate, expire,<br/>revoke, and log out]
+    A -.->|Throttling without<br/>easy lockout DoS| D[Detect automated<br/>attempts]
+    X[Recovery and fallback] --> C
+    X --> S
+```
+
+*Review the complete identity lifecycle, including recovery and fallback paths,
+not just the primary login screen.*
+
+- **How it fails:** automated credential attacks are not appropriately limited;
+  default, weak, or known-compromised credentials are accepted; account recovery
+  or registration reveals whether an account exists or can be taken over; MFA is
+  absent or has a weak fallback; session identifiers are exposed or reused after
+  authentication; logout, timeout, or revocation does not invalidate the session;
+  or a token is accepted outside its intended issuer, audience, or scope.
+- **How to assess:** in an authorized test environment, review credential and
+  recovery flows for enumeration, rate controls, MFA enrollment and fallback,
+  and breached-password defenses. Test session rotation after authentication,
+  cookie protections, idle and absolute expiry, logout and revocation behavior.
+  For tokens, verify signature and configured algorithm, issuer, audience,
+  expiration, and required scopes or claims as appropriate to the token design.
+  Check both user-facing and API paths. Do not test against real user accounts
+  without explicit scope and safeguards.
+- **How to defend:** use a well-maintained identity and session framework where
+  practical; prohibit default credentials and check new or changed passwords
+  against weak or breached-password lists. Enable MFA for sensitive access.
+  Apply rate limits or progressive delays and monitor automated attempts without
+  relying on blanket account lockout that an attacker could use to deny service.
+  Use consistent recovery responses and securely bound, expiring recovery
+  tokens. Generate a new unpredictable server-side session identifier after
+  authentication or privilege changes; keep it in a `Secure`, `HttpOnly`,
+  appropriately `SameSite` cookie; expire and revoke sessions on logout and
+  according to risk. Validate each token for its intended use, issuer, audience,
+  signature, lifetime, and scope using maintained libraries.
+- **Validation:** confirm representative invalid credentials and recovery attempts
+  are handled consistently; MFA cannot be bypassed through fallback routes;
+  sessions rotate when identity or privilege changes and stop working after
+  logout/revocation; and tokens outside their intended context are rejected.
+  Review rate-limit behavior for both attacker resistance and account
+  availability. Record scope, expected behavior, and residual exceptions.
+- **CWE examples:** CWE-287 (improper authentication), CWE-384 (session fixation),
+  and CWE-613 (insufficient session expiration); the category maps to additional
+  weaknesses. **References:** [OWASP A07:2025](https://top10.owasp.org/2025/A07_2025-Authentication_Failures/),
+  [Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html),
+  and [Session Management Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html).
 
 ---
 
