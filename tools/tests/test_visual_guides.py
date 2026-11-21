@@ -309,6 +309,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/volatility-evidence-triage.svg": (
         "IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md",
     ),
+    "assets/diagrams/csf-profiles-gap-and-action-plan.svg": (
+        "Compliance/frameworks.md",
+    ),
+    "assets/diagrams/pci-dss-provider-evidence-decision.svg": (
+        "Compliance/pci-dss-scoping.md",
+    ),
     "assets/diagrams/pci-scope-evidence-trail.svg": (
         "Compliance/pci-scope-review-template.md",
     ),
