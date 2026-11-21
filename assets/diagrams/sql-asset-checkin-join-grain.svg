@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 430" role="img" aria-labelledby="title desc">
+  <title id="title">How checkins multiply asset rows</title>
+  <desc id="desc">The lab has six assets and eleven checkins across five assets. A raw left join returns twelve rows, including one unmatched asset. Grouping checkins by asset before joining returns six rows and assigns zero checkins to the unmatched asset.</desc>
+  <rect width="1000" height="430" rx="20" fill="#f3f7fa"/>
+  <g font-family="Arial,sans-serif" fill="#17334a">
+    <text x="40" y="48" font-size="27" font-weight="700">How checkins multiply asset rows</text>
+    <text x="40" y="78" font-size="17">Lab inputs: 6 assets and 11 checkins across 5 assets</text>
+    <rect x="40" y="108" width="450" height="245" rx="16" fill="#fff5e5" stroke="#a75c19" stroke-width="2"/>
+    <rect x="510" y="108" width="450" height="245" rx="16" fill="#e6f3ef" stroke="#197064" stroke-width="2"/>
+    <text x="64" y="147" font-size="20" font-weight="700" fill="#773b13">Join the raw checkins</text>
+    <text x="534" y="147" font-size="20" font-weight="700" fill="#155449">Group checkins first, then join</text>
+    <text x="64" y="183" font-size="17">Asset 1 matches three checkin rows.</text>
+    <text x="534" y="183" font-size="17">The grouped row for asset 1 has count 3.</text>
+    <text x="64" y="213" font-size="17">Asset 6 has no match and contributes one row.</text>
+    <text x="534" y="213" font-size="17">Asset 6 stays in the result with count 0.</text>
+    <path d="M64 239h402m68 0h402" stroke="#9daea9" stroke-width="1.5"/>
+    <text x="64" y="278" font-size="26" font-weight="700" fill="#773b13">12 joined rows</text>
+    <text x="534" y="278" font-size="26" font-weight="700" fill="#155449">6 joined rows</text>
+    <text x="64" y="316" font-size="17">11 matching rows + 1 unmatched row</text>
+    <text x="534" y="316" font-size="17">One row per asset</text>
+    <text x="40" y="393" font-size="17">Choose the result grain before counting or summing values from a join.</text>
+  </g>
+</svg>

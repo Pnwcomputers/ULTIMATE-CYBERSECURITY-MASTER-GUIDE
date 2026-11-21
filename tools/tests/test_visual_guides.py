@@ -180,6 +180,12 @@ DIAGRAM_GUIDES = {
     "assets/diagrams/etl-vs-elt-transform-privacy-and-replay.svg": (
         "Data-Engineering/Phase1/etl_elt_pipeline_design.md",
     ),
+    "assets/diagrams/sql-asset-checkin-join-grain.svg": (
+        "Data-Engineering/Phase1/sql_data_modeling.md",
+    ),
+    "assets/diagrams/dataset-version-publication.svg": (
+        "Data-Engineering/Phase2/data_storage_file_formats.md",
+    ),
     "assets/diagrams/ai-multi-agent-fanout-review-integration.svg": (
         "AI/multi-agent-orchestration.md",
     ),
