@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 228" role="img" aria-labelledby="title desc">
+  <title id="title">Slicer checks before printing</title>
+  <desc id="desc">Check the imported part dimensions, inspect walls and holes in sliced layers, then print a fit gauge using the planned settings before committing to the full part.</desc>
+  <rect width="900" height="228" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="28" y="46" font-size="26" font-weight="bold" fill="#fff">Slicer checks before printing</text>
+    <g fill="#172a40" stroke="#38bdf8" stroke-width="2">
+      <rect x="28" y="74" width="256" height="123" rx="12"/>
+      <rect x="322" y="74" width="256" height="123" rx="12"/>
+      <rect x="616" y="74" width="256" height="123" rx="12"/>
+    </g>
+    <path d="M292 136h22m-6-6 6 6-6 6m278-6h22m-6-6 6 6-6 6" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <g font-size="18" font-weight="bold" fill="#fff">
+      <text x="44" y="110">Verify scale</text>
+      <text x="338" y="110">Inspect sliced layers</text>
+      <text x="632" y="110">Test fit on the printer</text>
+    </g>
+    <g fill="#d7e6f4" font-size="15">
+      <text x="44" y="145">Compare an expected dimension</text>
+      <text x="44" y="170">Check the selected part</text>
+      <text x="338" y="145">Check holes and thin walls</text>
+      <text x="338" y="170">Review supports and orientation</text>
+      <text x="632" y="145">Print a gauge or short section</text>
+      <text x="632" y="170">Confirm fit before the full print</text>
+    </g>
+  </g>
+</svg>

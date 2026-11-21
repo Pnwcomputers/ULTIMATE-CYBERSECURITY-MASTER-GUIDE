@@ -188,8 +188,8 @@ The tutorial lid has a 0.4 mm recess and a matching `inlay` part, both exported 
 
 | Format | When | OpenSCAD 2021.01 |
 |---|---|---|
-| STL | Universal; one mesh per file | ✅ (`--export-format asciistl` or `binstl`) |
-| 3MF | Modern slicers; units stored in the file | ✅ in builds with 3MF support (check with a test export) |
+| STL | Widely supported triangle mesh without unit metadata | ✅ (`--export-format asciistl` or `binstl`) |
+| 3MF | Model units are defined by the format, with millimeters as the default | ✅ in builds with 3MF support (check with a test export) |
 | AMF / OFF | Rarely needed | ✅ |
 | DXF / SVG | 2D profiles for laser cutting or drawings | ✅ (2D designs or `projection()`) |
 | PNG | Documentation renders | ✅ (`--imgsize`, `--camera`) |
@@ -202,6 +202,15 @@ Before exporting:
 - [ ] File names include the part and, ideally, the parameter preset (`gps_cradle_body_loose-fit.stl`)
 
 ---
+
+### After importing into the slicer
+
+![Slicer verification progresses from checking imported dimensions to inspecting layer toolpaths and testing fit on a small print](../../assets/diagrams/openscad-slicer-fit-verification.svg)
+
+Check a known dimension after import. STL leaves scale interpretation to the importer, while 3MF defines
+the model's unit. Slice using the intended machine and material profile. Inspect the layer preview for missing
+walls, unexpected bridges, hole geometry, and support contact. If fit matters, print a gauge or short section
+with the intended settings before committing to the full part. [STL format reference](https://www.loc.gov/preservation/digital/formats/fdd/fdd000505.shtml) · [3MF Core Specification](https://3mf.io/spec/core-v1-3-0/)
 
 ## Troubleshooting
 
