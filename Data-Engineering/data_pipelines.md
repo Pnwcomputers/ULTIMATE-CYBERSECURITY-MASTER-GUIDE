@@ -371,6 +371,22 @@ Require review and validation before merging into the deployment branch. Pin dep
 
 For a shared bad commit, `git revert <commit>` creates an auditable reversing change; see [Git revert](https://git-scm.com/docs/git-revert). It does not automatically undo a running deployment: redeploy the reverted configuration and verify health. Avoid rewriting shared history as a routine rollback mechanism.
 
+```mermaid
+flowchart LR
+    W[Working tree] --> D[Review staged diff<br/>and secret/data checks]
+    D --> B[Commit on<br/>isolated branch]
+    B --> R[Peer review and<br/>validation]
+    R --> M[Merge approved<br/>revision]
+    M --> P[Deploy recorded<br/>commit and pinned inputs]
+    P --> H[Verify service<br/>behavior and health]
+    H -->|Failure| V[Revert change,<br/>redeploy, and verify]
+    V --> R
+    S[Credentials and<br/>operational data] -.->|Keep outside Git| X[Approved secret/data store]
+```
+
+*Git records reviewed source history; deployment and health checks confirm what
+is actually running.*
+
 **Checkpoint:** If configuration is reverted in Git but Ansible has not run, what is actually running on the server?
 
 ---
