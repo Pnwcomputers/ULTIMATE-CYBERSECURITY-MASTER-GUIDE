@@ -448,114 +448,66 @@ The earlier inline Sigma fragments mixed generic field names and filters that co
  
 
 ## Defensive Hardening
-
+ 
+Use a staged program: inventory dependencies, establish an approved baseline, pilot controls, monitor compatibility, and expand with a rollback path. The right settings depend on domain functional level, supported Windows versions, business applications, and recovery requirements.
+ 
 ### Privileged Access Model
-
+ 
+This tier model is illustrative. Define trust boundaries for the actual environment, use separate privileged identities, and administer higher-trust systems from dedicated hardened workstations. Segmentation reduces credential reuse across tiers; it does not guarantee that compromise cannot cross a boundary.
+ 
+```mermaid
+flowchart TD
+    T0[Tier 0: identity and<br/>directory control plane] -->|Dedicated admin path| P0[Hardened admin workstation]
+    T1[Tier 1: server and<br/>application administration] --> P1[Separate admin identity<br/>and approved management host]
+    T2[Tier 2: user devices<br/>and support] --> P2[Scoped support identity]
+    P2 -. no higher-tier credentials .-> T1
+    P1 -. no Tier 0 sign-in .-> T0
+    P0 -->|Strong authentication,<br/>monitoring, and recovery| T0
 ```
-Tier 0: Domain Controllers, AD infrastructure, PKI
-    → Only Tier 0 admins can log in
-    → No internet access, locked down workstations
-
-Tier 1: Servers, applications
-    → Only Tier 1 admins (separate accounts from Tier 0)
-    → No access to Tier 0 systems
-
-Tier 2: Workstations, end-user devices
-    → Helpdesk admins (separate accounts again)
-    → No access to Tier 0 or Tier 1
-
-Goal: Credential theft at one tier cannot be used at a higher tier
-```
-
+ 
 ### Credential Hygiene
-
-```powershell
-# Disable WDigest (prevents cleartext passwords in LSASS)
-Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest" `
-    -Name "UseLogonCredential" -Value 0
-
-# Enable Protected Users group for privileged accounts
-# Protected Users: no NTLM, no DES/RC4, 4hr TGT lifetime, no delegation
-Add-ADGroupMember -Identity "Protected Users" -Members "DA_User1","DA_User2"
-
-# Enable Credential Guard (Virtualization-Based Security)
-# Prevents LSASS credential extraction
-
-# Disable LLMNR (eliminates Responder attack surface)
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" `
-    -Name "EnableMulticast" -Value 0
-
-# Disable NetBIOS over TCP/IP
-# Via DHCP scope option 001 or NIC properties
-```
-
+ 
+| Control | Guidance and limitation |
+| --- | --- |
+| Credential Guard and LSA protection | Use on supported, compatible devices and verify actual enablement. Credential Guard protects selected secrets through VBS but does not protect the AD database on domain controllers or every supplied credential. Test applications and delegation dependencies before rollout. |
+| Protected Users | Consider only for eligible privileged accounts after testing authentication and service dependencies. Its restrictions can prevent legacy protocols or delegation patterns from working. |
+| Name-resolution protocols | Assess LLMNR, NetBIOS name service, and local network dependencies. Disable or restrict them through managed policy where compatible; disabling one protocol does not remove every name-resolution or relay risk. |
+| Privileged sign-ins | Keep daily and administrative accounts separate, limit where privileged accounts can sign in, and monitor use from unapproved hosts. |
+ 
+Microsoft's [Credential Guard](https://learn.microsoft.com/en-us/windows/security/identity-protection/credential-guard/), [LSA protection](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/configuring-additional-lsa-protection), and [Protected Users group](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group) documentation lists prerequisites and compatibility limits. Credential Guard is enabled by default on eligible domain-joined, non-domain-controller devices on specified newer Windows versions, unless explicitly disabled; verify rather than assume.
+ 
 ### Kerberos Hardening
-
-```powershell
-# Prefer AES where supported, after auditing dependencies and validating clients.
-# AES raises offline cracking cost compared with RC4 but does not prevent Kerberoasting.
-# Use long random service-account secrets or gMSAs, and least-privilege rights.
-
-# Rotate krbtgt password regularly
-# Use ADKerberosDelegation module or Microsoft's New-KrbtgtKeys.ps1
-# Rotate twice (once to invalidate old tickets, once more 10 hours later)
-
-# AS-REP roasting prevention - require pre-auth for all accounts
-# Audit accounts with DONT_REQ_PREAUTH flag:
-Get-ADUser -Filter {DoesNotRequirePreAuth -eq $true} -Properties DoesNotRequirePreAuth
-
-# Fix:
-Set-ADAccountControl -Identity account -DoesNotRequirePreAuth $false
-```
-
+ 
+- Prefer managed service accounts where supported, long randomly generated secrets, least privilege, and periodic review of SPNs.
+- Require Kerberos pre-authentication unless a documented exception is necessary and approved.
+- Inventory RC4 use and migrate to supported stronger encryption only after reviewing account keys, clients, and service dependencies. AES does not prevent ticket requests or offline guessing against weak service-account secrets.
+- Do not rotate the krbtgt password on an arbitrary schedule or use an archived helper script. For suspected compromise, follow Microsoft's supported forest-recovery procedure after checking replication health and configured ticket lifetimes.
+ 
+See Microsoft's [service-account guidance](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-service-accounts), [Kerberos RC4 remediation](https://learn.microsoft.com/en-us/windows-server/security/kerberos/detect-remediate-rc4-kerberos), and [krbtgt recovery procedure](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/forest-recovery-guide/ad-forest-recovery-reset-the-krbtgt-password).
+ 
 ### ACL Hardening
-
-```powershell
-# Audit delegated permissions - find non-admin objects with replication rights
-Get-ADObject -Filter * -Properties ntSecurityDescriptor | 
-  Where-Object {$_.ntSecurityDescriptor.Access | 
-    Where-Object {$_.ObjectType -match "1131f6aa|1131f6ab" -and 
-                  $_.IdentityReference -notmatch "Domain Admins|Enterprise Admins|SYSTEM"}}
-
-# Remove dangerous permissions from default objects
-# AdminSDHolder - audit who has write access
-# Domain object root - audit for WriteDACL, GenericAll
-
-# Enable AD Recycle Bin
-Enable-ADOptionalFeature 'Recycle Bin Feature' -Scope ForestOrConfigurationSet -Target 'corp.local'
-```
-
+ 
+Review effective permissions on the domain root, privileged groups and users, AdminSDHolder, GPOs, service accounts, and replication rights. Check the trustee, scope, inheritance, ownership, and business purpose; keep an approved baseline and investigate unexpected changes. Avoid broad searches or bulk permission changes without a scoped plan and tested recovery path.
+ 
+Active Directory Recycle Bin is a forest-wide feature and cannot be disabled after it is enabled. Confirm functional-level prerequisites, recovery objectives, retention, and approval before enabling it. See Microsoft's [Recycle Bin guidance](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/adac/active-directory-recycle-bin).
+ 
 ### LAPS (Local Administrator Password Solution)
-
-```powershell
-# LAPS randomizes and manages local Administrator passwords
-# Prevents lateral movement via shared local admin creds
-
-# Install LAPS
-msiexec /q /i LAPS.x64.msi
-
-# Set permissions
-Set-AdmPwdComputerSelfPermission -OrgUnit "OU=Workstations,DC=corp,DC=local"
-
-# Read LAPS password (requires permission)
-Get-AdmPwdPassword -ComputerName WORKSTATION01
-```
-
+ 
+Use supported native Windows LAPS to rotate local administrator passwords and, where configured, manage DSRM passwords. Plan migration if the environment still uses legacy Microsoft LAPS; the legacy MSI is deprecated on newer Windows versions. Restrict password-read permissions, audit access, and verify password rotation and backup before relying on it for recovery. See Microsoft's [Windows LAPS overview](https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-overview).
+ 
 ### Monitoring & Alerting Priorities
-
-| Priority | Control | Attack Prevented |
+ 
+| Review signal | Correlate with | Limitation |
 |---|---|---|
-| Critical | Monitor Event 4662 (DCSync GUIDs) | DCSync |
-| Critical | Tier 0 logon outside DCs | Golden ticket use |
-| Critical | AdminSDHolder modifications | Persistent DA path |
-| High | Event 4769 RC4 TGS requests | Kerberoasting |
-| High | Event 4624 Type 3 from workstation→workstation | Lateral movement |
-| High | SMB signing enforcement | NTLM relay |
-| High | New DA/EA/Schema Admin group members | Privilege escalation |
-| Medium | LDAP query volume anomalies | BloodHound collection |
-| Medium | New SPNs on user accounts | Targeted Kerberoasting |
-
----
+| 4662 events with replication-related rights | Subject, source host, naming context, SACL coverage, approved DC and backup identities | Events require the applicable object SACL; legitimate replication creates activity. |
+| Privileged account logons from unexpected devices | Logon type, identity tier, source/destination, authentication method, and maintenance context | A Tier 0 sign-in outside a domain controller can be expected from an approved administrative workstation. |
+| Changes to AdminSDHolder, protected groups, and replication ACLs | Actor, object, property, source, approval, and subsequent use | Change evidence needs object auditing and a known baseline. |
+| Unusual 4769 service-ticket patterns or RC4 use | SPN, client, account, event version, service baseline, and dependency inventory | RC4 use and high request volume have benign causes. |
+| Workstation-to-workstation SMB or remote administration | Account, endpoint role, service/process events, and approved support tools | Some environments legitimately use peer support or management workflows. |
+| New privileged-group membership or SPNs | Actor, target object, service owner, and change record | Configuration changes are not inherently malicious. |
+ 
+SMB signing can reduce certain SMB relay risks but does not by itself address all NTLM relay paths. Pair protocol-specific controls with LDAP signing/channel-binding review, NTLM reduction planning, and monitoring; see Microsoft's [SMB signing](https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/overview-server-message-block-signing) and [LDAP channel-binding guidance](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/ldap-channel-binding).
+ 
 
 ## AD Security Assessment Checklist
 
