@@ -18,14 +18,18 @@ mkdir -p "$OUT"
 run() {   # run <part> <output file> [extra args...]
     local part="$1" file="$2"; shift 2
     echo "==> part=$part -> $file"
-    openscad -q -o "$file" -D "part=\"$part\"" "$@" "$SCAD"
+    openscad --hardwarnings -o "$file" -D "part=\"$part\"" "$@" "$SCAD"
 }
 
-# 1. Design checks: assert() failures stop openscad with a non-zero exit code.
-#    (No -q here: quiet mode would also hide the echo() strain report.)
+# 1. Design checks: some OpenSCAD versions write diagnostics to the .echo
+#    file and still return zero. Check both the exit status and the report.
 echo "==> design checks -> $OUT/checks.echo"
-openscad -o "$OUT/checks.echo" "$@" "$SCAD" 2>/dev/null
+openscad --hardwarnings -o "$OUT/checks.echo" "$@" "$SCAD"
 cat "$OUT/checks.echo"
+if grep -Eq '^(ERROR|WARNING):' "$OUT/checks.echo"; then
+    echo "FAIL: OpenSCAD reported a design-check error or warning." >&2
+    exit 1
+fi
 
 # 2. Printable parts (ASCII STL works with every slicer and with grep below).
 for p in body lid inlay; do
