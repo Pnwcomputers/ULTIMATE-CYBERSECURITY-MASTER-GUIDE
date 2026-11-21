@@ -8,7 +8,7 @@
 Wazuh SIEM and XDR deployment guide - covering Wazuh manager installation, agent deployment across Windows/Linux, built-in detection rules, vulnerability assessment, compliance modules, and integration with ELK/OpenSearch.
 
 ## ⚙️ Function
-Covers: Wazuh all-in-one installation, agent enrollment, rule customization, active response configuration, vulnerability detection, file integrity monitoring (FIM), compliance dashboards (PCI-DSS, GDPR, HIPAA, CIS), and Wazuh + OpenSearch/Elasticsearch integration.
+Covers the Wazuh 4.14 Docker stack, agent enrollment, log collection and file integrity monitoring (FIM) checks, troubleshooting, and deployment hardening.
 
 ## 🏆 Goal
 Deploy Wazuh as a unified SIEM/XDR platform that combines log management, endpoint detection, vulnerability assessment, and compliance monitoring in a single open-source solution.
@@ -45,14 +45,16 @@ This guide covers deploying the Wazuh Manager using Docker and installing agents
 
 ### Network Requirements
 
-Allow these ports only from the intended endpoint or administrator networks. Do not expose management or enrollment services publicly; confirm the exact port and transport for the selected release:
+The [pinned Compose file](https://github.com/wazuh/wazuh-docker/blob/v4.14.10/single-node/docker-compose.yml) publishes these ports before local changes. Review the bindings before starting the stack.
 
 | Port | Protocol | Purpose |
 |------|----------|---------|
-| 443 | TCP | Wazuh Dashboard (HTTPS) |
+| 443 | TCP | Dashboard HTTPS, forwarded to container port 5601 |
 | 1514 | TCP | Agent communication |
 | 1515 | TCP | Agent enrollment |
-| 55000 | TCP | Wazuh API |
+| 55000 | TCP | Manager API. Keep on the Compose network unless an approved client needs host access. |
+| 9200 | TCP | Indexer API. Keep on the Compose network for the example. |
+| 514 | UDP | Optional Syslog collector. Remove the host mapping when unused. |
 
 ---
 
@@ -74,7 +76,7 @@ The existing installation walkthrough provides a **Docker-oriented Wazuh 4.x dep
 
 1. Record exact OS/kernel/CPU architecture and **Wazuh 4.x or 5.x** target. Do not apply 4.x-only rules or file paths to 5.x without a separate validation.
 2. Size storage for alert indexing, FIM changes, vulnerability data and retention. Configure NTP and restricted DNS.
-3. Pin Docker images or official repository commits and review `docker compose config` before exposing services.
+3. Pin Docker images or official repository commits. Validate Compose with `docker compose config --quiet` and review port bindings and credentials before starting the stack.
 4. Restrict agent transport (commonly TCP `1514` in 4.x), enrollment (commonly TCP `1515`), dashboard and API to explicit trusted subnets; review release-specific ports/certificates.
 5. Verify generated certificates, dashboard credentials, log rotation, health, snapshots and restoration **before agents are deployed**.
 6. Configure agents with narrowly scoped `<localfile>` JSON event sources; redacted lab events should be tested first.
@@ -128,33 +130,13 @@ Verify permitted logs reach the agent, manager and dashboard *separately*. Use [
 
 ## 🛠️ Part 1: Preparing the Server
 
-### Step 1.1: Update the System
+### Step 1.1: Prepare the host
 
-```bash
-sudo apt update && sudo apt upgrade -y
-```
+Apply the host's approved security updates and record its kernel and architecture. On Windows with Docker Desktop, use the WSL 2 backend.
 
 ### Step 1.2: Install Docker
 
-```bash
-# Install dependencies
-sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
-
-# Add Docker GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-# Add Docker repository
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-# Install Docker
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
-
-# Add your user to the docker group
-sudo usermod -aG docker $USER
-```
-
-Membership in the `docker` group grants effectively root-equivalent control of the host through containers. Add only trusted administrators; otherwise prefix Docker commands with `sudo`. Log out and back in for group changes to take effect, or run `newgrp docker`.
+Follow [Docker Engine's install instructions for your Linux distribution](https://docs.docker.com/engine/install/) or the [Docker Desktop instructions for Windows](https://docs.docker.com/desktop/setup/install/windows-install/). Make sure the Compose v2 plugin is available. Run Docker commands with the privileges required by your host. The Linux `docker` group grants root-equivalent access to a rootful Docker daemon.
 
 ### Step 1.3: Verify Docker Installation
 
@@ -168,7 +150,7 @@ docker compose version
 ## 🚀 Part 2: Deploying the Wazuh Manager (Docker)
 
 > [!NOTE]
-> This guide pins the single-node Docker example to Wazuh `4.14.10`, with matching agent packages, using the [official Docker tag](https://github.com/wazuh/wazuh-docker/tree/v4.14.10/single-node). Check the [official release list](https://github.com/wazuh/wazuh/releases) and [Docker deployment requirements](https://documentation.wazuh.com/current/deployment-options/docker/wazuh-container.html) before deploying; newer releases can change compose files and defaults. Treat prereleases as evaluation builds.
+> This guide pins the single-node Docker example to Wazuh `4.14.10`, with matching agent packages, using the [official Docker tag](https://github.com/wazuh/wazuh-docker/tree/v4.14.10/single-node). Check the [official release list](https://github.com/wazuh/wazuh/releases) and [Docker deployment requirements](https://documentation.wazuh.com/4.14/deployment-options/docker/wazuh-container.html) before deploying; newer releases can change compose files and defaults. Treat prereleases as evaluation builds.
 
 ### Step 2.1: Clone the Wazuh Docker Repository
 
@@ -179,17 +161,15 @@ cd wazuh-docker/single-node
 
 > Keep the server components on one matching release. Use the selected release's checked-in deployment files; do not update only one component in the compose stack.
 
-### Step 2.2: Increase vm.max_map_count
+### Step 2.2: Check vm.max_map_count
 
-The Wazuh Indexer (OpenSearch) requires increased virtual memory limits:
+On the Linux host running Docker Engine, inspect the kernel setting:
 
 ```bash
-# Apply immediately
-sudo sysctl -w vm.max_map_count=262144
-
-# Make persistent across reboots
-echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
+sysctl vm.max_map_count
 ```
+
+The Wazuh Indexer requires a value of at least `262144` for this deployment. Record the existing value and raise it only if lower. Persist the target value through the host's managed sysctl configuration. For Docker Desktop, use the WSL 2 host procedure in the [Wazuh deployment prerequisites](https://documentation.wazuh.com/4.14/deployment-options/docker/wazuh-container.html#docker-host-requirements).
 
 ### Step 2.3: Generate SSL Certificates
 
@@ -197,32 +177,24 @@ echo "vm.max_map_count=262144" | sudo tee -a /etc/sysctl.conf
 docker compose -f generate-indexer-certs.yml run --rm generator
 ```
 
-This creates self-signed certificates in the `config/wazuh_indexer_ssl_certs/` directory.
+The generator writes certificates and private keys under `config/wazuh_indexer_ssl_certs/`. Keep those files private and retain the CA separately from the Compose checkout.
 
 ### Step 2.4: Start the Wazuh Stack
 
-```bash
-docker compose up -d
-```
-
-Monitor the startup process:
+Before starting the stack, apply the [port restrictions below](#-part-3-firewall-configuration) and prepare the [release-specific credential changes](https://documentation.wazuh.com/4.14/deployment-options/docker/changing-default-password.html). Start on an isolated host that is reachable only by the administrator during setup.
 
 ```bash
-docker compose logs -f
+docker compose config --quiet && docker compose up -d
 ```
 
-Wait 2-3 minutes for all services to initialize. You'll see health checks passing in the logs.
-
-### Step 2.5: Verify All Containers Are Running
+### Step 2.5: Verify the services
 
 ```bash
 docker compose ps
+docker compose logs --tail=80 wazuh.manager wazuh.indexer wazuh.dashboard
 ```
 
-Expected output shows three healthy containers:
-- `single-node-wazuh.manager-1`
-- `single-node-wazuh.indexer-1`
-- `single-node-wazuh.dashboard-1`
+Look for the `wazuh.manager`, `wazuh.indexer` and `wazuh.dashboard` services. Container names depend on the Compose project name. Confirm that the dashboard starts and can reach both the indexer and manager API. Check logs for initialization errors, failed authentication, or certificate errors. A running container alone only confirms that its process started.
 
 ### Step 2.6: Access the Dashboard
 
@@ -238,13 +210,9 @@ https://<SERVER-IP>
 
 ## 🔥 Part 3: Firewall Configuration
 
-### UFW (Ubuntu)
+Before running Compose, remove unused host port publications and bind necessary ports to the intended host addresses. Keep indexer traffic on the Compose network. Limit dashboard access to the administrator network and agent traffic to approved endpoint networks. Apply the same scope at the upstream network firewall.
 
-Do not open the dashboard, API, or agent ports to the public internet. Restrict dashboard/API access to the administrator VPN/subnet, and allow agent communication/enrollment only from networks containing approved endpoints. Apply equivalent source restrictions in cloud/network firewalls. Verify the current Wazuh port requirements for the exact deployment before changing rules.
-
-### Firewalld (RHEL/CentOS)
-
-Use source-restricted rich rules or your centrally managed firewall policy for the same network boundaries. Avoid blanket `--add-port` rules that make management services reachable from every source. Test policy changes from an approved administrative address and keep console recovery available.
+On Linux, [Docker's published-port rules](https://docs.docker.com/engine/network/packet-filtering-firewalls/) can bypass UFW intake rules. Apply restrictions at a control point that sees forwarded container traffic, and verify both allowed and denied paths using approved administrative test hosts. Keep console access for firewall recovery.
 
 ---
 
@@ -266,18 +234,20 @@ Use source-restricted rich rules or your centrally managed firewall policy for t
 Download from an elevated PowerShell prompt. Before installation, compare the downloaded MSI's SHA-512 hash with the pinned package entry in the [official Wazuh package list](https://documentation.wazuh.com/current/installation-guide/packages-list.html#wazuh-agent); stop if it differs.
 
 ```powershell
-Invoke-WebRequest -Uri https://packages.wazuh.com/4.x/windows/wazuh-agent-4.14.10-1.msi -OutFile $env:TEMP\wazuh-agent.msi
+$wazuhAgentMsi = Join-Path $env:TEMP 'wazuh-agent-4.14.10-1.msi'
+Invoke-WebRequest -Uri 'https://packages.wazuh.com/4.x/windows/wazuh-agent-4.14.10-1.msi' -OutFile $wazuhAgentMsi
+Get-FileHash -LiteralPath $wazuhAgentMsi -Algorithm SHA512
 ```
 
 #### Step 4.2: Install with Configuration
 
 ```powershell
-msiexec.exe /i $env:TEMP\wazuh-agent.msi /q WAZUH_MANAGER="<MANAGER-IP>" WAZUH_REGISTRATION_SERVER="<MANAGER-IP>" WAZUH_AGENT_NAME="<HOSTNAME>"
+$wazuhInstallArgs = '/i "{0}" /qn /norestart WAZUH_MANAGER="<MANAGER-IP>" WAZUH_REGISTRATION_SERVER="<MANAGER-IP>" WAZUH_AGENT_NAME="<HOSTNAME>"' -f $wazuhAgentMsi
+$wazuhInstall = Start-Process -FilePath 'msiexec.exe' -ArgumentList $wazuhInstallArgs -Wait -PassThru
+$wazuhInstall.ExitCode
 ```
 
-Replace:
-- `<MANAGER-IP>` with your Wazuh server's IP address
-- `<HOSTNAME>` with a descriptive name for this endpoint
+Use the same elevated PowerShell session after verifying the hash. Replace `<MANAGER-IP>` with the manager address and `<HOSTNAME>` with a unique agent name. Exit code `0` means success. Follow the endpoint restart policy if Windows Installer returns `3010` (success, restart required). Investigate other exit codes before enabling the service.
 
 #### Step 4.3: Start the Wazuh Service
 
@@ -305,31 +275,7 @@ Get-Service WazuhSvc
 
 ### Step 5.1: Add the Wazuh Repository
 
-**Debian/Ubuntu:**
-
-```bash
-curl -s https://packages.wazuh.com/key/GPG-KEY-WAZUH | gpg --no-default-keyring --keyring gnupg-ring:/usr/share/keyrings/wazuh.gpg --import && chmod 644 /usr/share/keyrings/wazuh.gpg
-
-echo "deb [signed-by=/usr/share/keyrings/wazuh.gpg] https://packages.wazuh.com/4.x/apt/ stable main" | tee /etc/apt/sources.list.d/wazuh.list
-
-apt update
-```
-
-**RHEL/CentOS:**
-
-```bash
-rpm --import https://packages.wazuh.com/key/GPG-KEY-WAZUH
-
-cat > /etc/yum.repos.d/wazuh.repo << EOF
-[wazuh]
-gpgcheck=1
-gpgkey=https://packages.wazuh.com/key/GPG-KEY-WAZUH
-enabled=1
-name=EL-\$releasever - Wazuh
-baseurl=https://packages.wazuh.com/4.x/yum/
-protect=1
-EOF
-```
+Use the signed package repository for the endpoint's distribution. Follow the repository setup in the [Wazuh 4.14 Linux agent documentation](https://documentation.wazuh.com/4.14/installation-guide/wazuh-agent/wazuh-agent-package-linux.html). Use the package version shown below on supported Debian/Ubuntu or DNF-based systems once the repository is configured.
 
 ### Step 5.2: Install the Agent
 
@@ -342,15 +288,14 @@ sudo WAZUH_MANAGER="<MANAGER-IP>" apt install -y wazuh-agent=4.14.10-1
 **RHEL/CentOS:**
 
 ```bash
-sudo WAZUH_MANAGER="<MANAGER-IP>" yum install -y wazuh-agent-4.14.10-1
+sudo WAZUH_MANAGER="<MANAGER-IP>" dnf install wazuh-agent-4.14.10-1
 ```
 
 ### Step 5.3: Enable and Start the Service
 
 ```bash
-systemctl daemon-reload
-systemctl enable wazuh-agent
-systemctl start wazuh-agent
+sudo systemctl daemon-reload
+sudo systemctl enable --now wazuh-agent
 ```
 
 ### Step 5.4: Verify Agent Status
@@ -383,7 +328,8 @@ On the Windows agent, trigger a test alert by creating a test file:
 
 ```powershell
 # File-integrity smoke test only: not the EICAR test string; it may not trigger an alert. Use only if this path is monitored.
-echo "test" > C:\Users\Public\fim-smoke-test.txt
+$wazuhSmokePath = Join-Path $env:PUBLIC ("fim-smoke-$([guid]::NewGuid()).txt")
+Set-Content -LiteralPath $wazuhSmokePath -Value 'Synthetic file-integrity smoke test'
 ```
 
 On Linux:
@@ -393,7 +339,7 @@ On Linux:
 logger -t wazuh-smoke-test "Synthetic log-pipeline validation"
 ```
 
-Check the dashboard and raw events for the expected FIM or log-ingestion result. A smoke-test event may not match any security rule; use a documented synthetic-rule validation workflow when validating alert logic.
+Check the configured collection path for the test file or log message. Raw events are searchable only when the corresponding archiving and indexing are enabled. After recording the FIM result, remove the temporary file you created with `Remove-Item -LiteralPath $wazuhSmokePath`. Use the [synthetic-rule validation procedure](../../Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md) to verify alert logic and delivery.
 
 ---
 
@@ -401,9 +347,7 @@ Check the dashboard and raw events for the expected FIM or log-ingestion result.
 
 ### Changing the Admin Password
 
-1. Navigate to **Settings → Security → Internal Users**
-2. Select the `admin` user
-3. Click **Edit** and set a new password
+Use the [Wazuh 4.14 Docker password rotation procedure](https://documentation.wazuh.com/4.14/deployment-options/docker/changing-default-password.html). Keep indexer-user credentials, credentials used by dependent services, and manager API user credentials synchronized with the deployed configuration. Verify dashboard sign-in and inter-service authentication after each change.
 
 ### Adding Agent Groups
 
@@ -448,10 +392,10 @@ tail -n 50 /var/ossec/logs/ossec.log
 
 ### Agent Shows "Disconnected"
 
-1. Verify network connectivity: `ping <MANAGER-IP>`
-2. Test port accessibility: `nc -zv <MANAGER-IP> 1514`
-3. Restart the agent service
-4. Check manager logs: `docker compose logs wazuh.manager`
+1. Confirm the manager hostname and communication port from the agent configuration.
+2. Check agent and manager logs for the actual connection error. On the Compose host, use `docker compose logs wazuh.manager`.
+3. From the approved endpoint network, verify access to the configured agent transport port. Check enrollment access separately if enrolling.
+4. Retest the agent connection after correcting the diagnosed issue.
 
 ### Dashboard Not Loading
 
@@ -468,23 +412,7 @@ docker compose restart
 
 ### Re-enrolling an Agent
 
-If an agent needs to be re-enrolled:
-
-Windows:
-```powershell
-NET STOP WazuhSvc
-Remove-Item "C:\Program Files (x86)\ossec-agent\client.keys" -Force
-# Re-run the enrollment command
-NET START WazuhSvc
-```
-
-Linux:
-```bash
-systemctl stop wazuh-agent
-rm /var/ossec/etc/client.keys
-# Re-run the enrollment
-systemctl start wazuh-agent
-```
+Diagnose connectivity, duplicate identity and certificate errors with the [Wazuh enrollment troubleshooting guidance](https://documentation.wazuh.com/4.14/user-manual/agent/agent-enrollment/troubleshooting.html). Before changing an agent's identity, preserve the existing endpoint and manager records in restricted storage and plan the association with historical alerts. Use the enrollment procedure for the diagnosed condition and verify that the endpoint reconnects under the intended identity.
 
 ---
 
@@ -492,10 +420,7 @@ systemctl start wazuh-agent
 
 ### Change Default Passwords
 
-Update passwords for all internal users:
-- `admin`
-- `kibanaserver`
-- `kibanaro`
+Identify seeded indexer and API users for the selected release and rotate default credentials with the Docker procedure above. Keep credentials and hashes out of public repositories and evidence exports.
 
 ### Enable HTTPS Certificate Validation
 
@@ -503,17 +428,11 @@ For production, replace self-signed certificates with certificates from a truste
 
 ### Restrict API Access
 
-Edit the Wazuh API configuration to limit access by IP address or require client certificates.
+Keep the API on the internal Compose network for dashboard use. If an approved API client requires host access, restrict the listener and source network, validate TLS and assign that client a limited API role.
 
 ### Regular Updates
 
-Keep Wazuh components updated:
-
-```bash
-cd wazuh-docker/single-node
-docker compose pull
-docker compose up -d
-```
+Select a supported target release. Review [Wazuh's Docker upgrade instructions](https://documentation.wazuh.com/4.14/deployment-options/docker/upgrading-wazuh-docker.html), take a recoverable backup and stage the target release's Compose and configuration changes together. Pulling existing pinned tags retrieves those same versions. Verify agent connectivity, indexing, dashboard access and restore readiness before closing the change.
 
 ---
 
@@ -551,14 +470,14 @@ docker compose up -d
 
 ## Related Files
 - [../README.md](../README.md) - IncidentResponse section index
-- [elk_stack.md](elk_stack.md) - ELK Stack backend for Wazuh indexer
+- [elk_stack.md](elk_stack.md) - separate Elastic Stack deployment reference
 - [splunk.md](splunk.md) - Splunk as Wazuh SIEM alternative
 - [graylog.md](graylog.md) - Graylog alternative
 - [../Endpoint-Visibility/Windows/sysmon.md](../Endpoint-Visibility/Windows/sysmon.md) - Sysmon data source for Wazuh agents
 
 ## Data Flow & Trust Boundaries
 
-This logical view reflects the single-node deployment described on this page. Restrict enrollment, agent, API, and dashboard access to their intended endpoint or administrator networks, and use the release-specific TLS configuration.
+This logical view shows the three components on one Docker host in the example named `single-node` by the Wazuh Docker repository. Restrict enrollment, agent, API, and dashboard access to their intended endpoint or administrator networks, and use the release-specific TLS configuration.
 
 ```mermaid
 flowchart LR
