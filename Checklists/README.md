@@ -253,28 +253,13 @@ These checklists serve as:
 3. **Gather proportionate evidence:** Prefer configuration review and benign validation. Record source, time, environment, expected impact, and uncertainty; collect only what the engagement requires.
 4. **Escalate safely:** Stop if scope is unclear, an unexpected impact occurs, or sensitive data is encountered. Use the agreed contact and incident process.
 5. **Report and close:** Separate verified findings from leads, explain limitations, recommend owner-approved remediation, and retain or dispose of evidence under the engagement terms. Retest only when authorized.
-### For Red Team Operators
+### For Red Team and Adversary Simulation Teams
 
-```
-1. Planning Phase
-   └─> Select checklists aligned with objectives
-   └─> Map to adversary TTPs
-   └─> Plan attack paths using checklists
-   └─> Identify required tools and capabilities
-
-2. Execution Phase
-   └─> Use checklists as technique reference
-   └─> Adapt based on environment
-   └─> Document successful techniques
-   └─> Note detection and response
-
-3. Reporting Phase
-   └─> Map activities to MITRE ATT&CK
-   └─> Highlight successful attack paths
-   └─> Provide detection recommendations
-   └─> Suggest defensive improvements
-```
-
+1. **Agree on objectives and rules:** Confirm the written authorization, exact scope, permitted simulations, time window, safety limits, notification path, and cleanup responsibilities.
+2. **Choose proportionate scenarios:** Map objectives to relevant behaviors and expected defensive evidence. Prefer synthetic fixtures or benign emulation when they can answer the question with less risk.
+3. **Coordinate execution:** Perform only the approved actions. Monitor for unexpected impact, stop at the agreed trigger, and notify the designated contact through the rules-of-engagement process.
+4. **Assess the response:** Record what telemetry was produced, what responders observed, and where visibility was limited. A simulation tests the stated scenario and conditions; it does not prove that untested techniques are detected or that an environment is secure.
+5. **Report improvements:** Separate observed facts from interpretation, document timing and limitations, and recommend owner-approved detection or control changes. Retest only within renewed or continuing authorization.
 ### For Blue Team / Security Defenders
 
 ```
