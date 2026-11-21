@@ -402,19 +402,62 @@ not just the primary login screen.*
 
 ## A08: Software or Data Integrity Failures
 
-Code or data trusted without verifying integrity - including insecure
-deserialization and unverified updates.
+A08 covers cases where software, updates, or important data cross a trust boundary
+and are accepted without adequate integrity or origin verification. A03 addresses
+broader software supply-chain risk; this subsection focuses on the controls that
+verify and constrain what the application or deployment actually consumes.
 
-- **How it is exploited:** insecure deserialization leading to RCE, unsigned or
-  unverified auto-updates, CI/CD that trusts untrusted input, or client-side
-  integrity assumptions (no Subresource Integrity on third-party scripts).
-- **How to test:** identify serialized objects crossing trust boundaries; test
-  deserialization with known gadget chains (in scope); check update mechanisms for
-  signature verification; look for missing SRI on external resources.
-- **How to defend:** avoid native deserialization of untrusted data (use data-only
-  formats with schema validation); sign and verify updates and artifacts; enforce
-  integrity in CI/CD; use Subresource Integrity for third-party scripts.
-- **CWE:** CWE-502, CWE-345, CWE-829. **Cheat sheet:** [Deserialization](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html).
+```mermaid
+flowchart LR
+    S[Expected source and<br/>trusted signing key] --> P[Fetch update or<br/>serialized data]
+    P --> V{Verify signature or<br/>expected integrity value}
+    V -->|Fail| X[Reject, quarantine,<br/>and alert]
+    V -->|Pass| C[Check version, context,<br/>schema, and policy]
+    C -->|Allowed| I[Install or process<br/>with least privilege]
+    C -->|Unexpected| X
+    A[Review provenance and<br/>change authorization] -.-> S
+```
+
+*Integrity checks establish that content matches an expected source or value; they
+do not by themselves establish that the content is benign, current, or appropriate
+for the receiving context.*
+
+- **How it fails:** an updater installs content without validating a trusted
+  signature or equivalent integrity control; a deployment consumes an artifact
+  from an unexpected source; a browser loads mutable third-party code without
+  integrity controls; or attacker-controlled serialized data is deserialized into
+  executable or privileged objects. Incorrectly trusted webhook events,
+  configuration, or state-changing messages can create similar risks.
+- **How to assess:** trace software and data from acquisition through validation
+  to use. Review update and deployment verification, trusted key distribution,
+  failure handling, version and rollback checks, permissions, and change review.
+  Identify deserialization or dynamic object binding of untrusted data and verify
+  that unsafe types or behaviors are not accepted. In a non-production test,
+  confirm invalid, altered, unexpected, or stale artifacts are rejected and
+  failure does not silently fall back to an unverified source. For third-party
+  browser scripts, check whether Subresource Integrity is appropriate and
+  configured for the pinned resource.
+- **How to defend:** verify signatures or authenticated integrity values against
+  keys and sources established through a separate trusted process; validate
+  version, freshness, and deployment policy to prevent rollback or replay;
+  fail closed when verification fails; and separate signing, approval, build, and
+  deployment permissions. Prefer data-only formats with strict schemas and
+  explicit type handling over native deserialization of untrusted input. Use
+  Subresource Integrity where supported and suitable for externally hosted
+  scripts. Keep runtimes and processors least-privileged. A valid signature
+  proves a cryptographic relationship to a key and signed bytes; it does not
+  prove that the signer or content is safe.
+- **Validation:** show that expected, unmodified content is accepted only after
+  its trust checks pass, while altered, untrusted, stale, or malformed content is
+  rejected and logged. Verify key rotation and revocation procedures, rollback
+  controls, and recovery behavior. Record the validation policy, trusted key
+  sources, excluded paths, and residual risk.
+- **CWE examples:** CWE-502 (deserialization of untrusted data), CWE-345
+  (insufficient verification of data authenticity), and CWE-829 (functionality
+  from an untrusted control sphere); this is not an exhaustive mapping.
+  **References:** [OWASP A08:2025](https://top10.owasp.org/2025/A08_2025-Software_or_Data_Integrity_Failures/),
+  [Deserialization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Deserialization_Cheat_Sheet.html),
+  and [Subresource Integrity](https://www.w3.org/TR/SRI/).
 
 ---
 
