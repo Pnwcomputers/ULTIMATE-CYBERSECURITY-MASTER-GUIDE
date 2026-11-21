@@ -34,6 +34,8 @@ Validate source content and rules before production use.
 
 **Detection engineering:** [Sigma, Elastic and native Wazuh validation](detection-content-validation.md) details rule provenance, decoder/field mapping and positive/negative synthetic tests; [Atomic Red Team exercises](../../PlayBooks/purple-team-detection-validation.md) add controlled, explicitly authorized behavioral validation.
 
+**Cross-source monitoring guide:** [Unified Wazuh, Snort 3, nzyme, NetAlertX & Kismet](../IDS%26IPS/unified-network-visibility-architecture.md) combines endpoint logs, IDS rules, wireless WIDS events, device inventory changes and [Wireshark packet evidence](../../Documentation/wireshark-defensive-investigations.md). For deployment details and the 4.x/5.x version boundary, start with the [Wazuh guide](./wazuh.md). Device presence from NetAlertX is an inventory observation, not independently an intrusion alert.
+
 ## 🎯 Purpose
 Index for the SIEM sub-section — self-hosted deployment guides for the four most common security log-aggregation platforms (ELK Stack, Wazuh, Splunk, Graylog), so a blue teamer can pick a platform and stand it up for a homelab or small SOC.
 

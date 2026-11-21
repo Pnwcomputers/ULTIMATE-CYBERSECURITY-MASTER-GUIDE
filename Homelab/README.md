@@ -30,6 +30,27 @@ Help practitioners build a carefully segmented, recoverable lab that reduces the
 
 ---
 
+## Network Visibility & Portable Hardware
+
+| Guide | Homelab Application |
+|---|---|
+| [LAN TAPs & SPAN](../Documentation/network-taps-and-packet-visibility.md) | Passive 10/100 Throwing Star, active gigabit/fiber, breakout/aggregation, Snort/Zeek visibility |
+| [Proxmox Security Sensor Visibility](./proxmox-security-monitoring-visibility.md) | Traffic actually available through vSwitch, switch SPAN or physical TAP |
+| [SBC & Radio Add-On Compatibility](../Documentation/sbc-radio-addon-compatibility.md) | Pi/uConsole/x86 USB Wi-Fi/BLE, GPS, CC1101/NFC, HATs and power |
+| [Passive Bluetooth Sniffing](../Documentation/bluetooth-passive-scanning-sniffing.md) | BlueZ HCI versus Nordic over-the-air BLE capture |
+
+## Device Discovery & Integrated IDS Stack
+
+| Component | Goal & Visibility Boundary |
+|---|---|
+| [NetAlertX](../Documentation/netalertx-device-discovery-monitoring.md) | Asset appearance/disappearance on approved VLANs via ARP, DHCP and controller imports |
+| [Other Inventory Platforms](../Documentation/network-device-discovery-comparison.md) | Compare LibreNMS, Zabbix, NetBox, ntopng, arpwatch and WatchYourLAN |
+| [Unified Wazuh/Snort/nzyme/Kismet/NetAlertX](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) | Multi-source evidence path, dashboards and lab validation |
+| [Snort 3](../IncidentResponse/IDS%26IPS/snort.md) | Wired packet signatures from actual TAP/SPAN or vSwitch mirror |
+| [nzyme WIDS](../IncidentResponse/IDS%26IPS/nzyme_wids.md) | Wi-Fi radio monitoring via qualified tap adapters |
+| [Wazuh SIEM](../IncidentResponse/SIEM/wazuh.md) | Endpoint/collector logs, rules, agent version gates and response |
+| [Wireshark](../Documentation/wireshark-defensive-investigations.md) | Packet evidence and false-positive analysis |
+
 ## PNWC Cyberdeck — Portable Field Assessments
 
 **[Open The PNWC Cyberdeck Public Reference](../Cyberdeck/README.md)** for the GL.iNet/MikroTik zone architecture, staged authorization and offline evidence workflow. The proprietary operator console and live collectors are not published.

@@ -70,6 +70,22 @@ This sub-section provides **hands-on, from-a-real-build guides**, not vendor doc
 
 ---
 
+## Unified Network Visibility & Asset Discovery
+
+| Guide | Signal & Role |
+|---|---|
+| [Unified Wazuh, Snort, nzyme, Kismet & NetAlertX Architecture](./unified-network-visibility-architecture.md) | End-to-end sensor placement, event normalization, Wireshark evidence, lab acceptance |
+| [Wazuh Manager, Indexer, Dashboard & Agents](../SIEM/wazuh.md) | Central event decoding/correlation, endpoint FIM, alerts & version gates |
+| [Snort 3 IDS/IPS](./snort.md) | Wired packet signatures, Lua/rules, offline validation, TAP/SPAN/VM capture |
+| [nzyme WIDS](./nzyme_wids.md) | Wi-Fi monitor radios, taps/nodes, deauth/rogue-AP monitoring |
+| [nzyme → Wazuh](./nzyme-wazuh-integration.md) | Native alert events to normalized manager ingestion |
+| [NetAlertX Device Discovery](../../Documentation/netalertx-device-discovery-monitoring.md) | Same-L2 and multi-VLAN asset presence and change alerts, **not** packet IDS |
+| [Device Identification Tool Comparison](../../Documentation/network-device-discovery-comparison.md) | LibreNMS, Zabbix, NetBox, ntopng, arpwatch and alternatives |
+| [Wireshark Defensive Investigations](../../Documentation/wireshark-defensive-investigations.md) | Reproducible deauth, MITM, DNS, VLAN and RF packet analysis |
+| [LAN TAPs & SPAN](../../Documentation/network-taps-and-packet-visibility.md) | Capture hardware and sensor-visibility limits |
+
+**Response boundary:** PMF can mitigate certain forged post-association Wi-Fi management frames but not jamming; WIDS detects and correlates. None of the above should automatically retaliate over RF or disconnect production devices on an unverified alert.
+
 ## 🗂️ Guide Comparison
 
 | Guide | Domain | Engine(s) | Blocking (IPS) | Deployment Complexity |

@@ -26,6 +26,18 @@
 
 **Other related wireless-survey ecosystems:** [Kismet](../../Wardriving/kismet.md), [SigRoam / Scout Lite](../../Wardriving/sigroam-scout-lite.md), [Biscuit](../../Wardriving/biscuit.md), [AWOK Dual C5](../../Wardriving/awok-dual-c5-biscuit.md) and [ESP32-C5 Wardriver](../../Wardriving/esp32-c5-wardriver.md). These have their own firmware, phone/FAP controllers, logging locations and acceptance requirements; they are **not** assumed to plug into or be supported by the Cyberdeck controller.
 
+### External Adapters, GPS, CC1101 & Capture Qualification
+
+| Attachment | Capabilities & Limits |
+|---|---|
+| USB ALFA/Atheros/MediaTek Wi-Fi | Linux host needs supported kernel, USB power, capture driver; **not** native Flipper/ESP32 USB drivers |
+| Nordic nRF52840 BLE sniffer | Separate firmware and Wireshark host; HCI discovery is **not** raw BLE RF capture |
+| CC1101, nRF24, PN532 | Sub-GHz, proprietary 2.4 GHz and 13.56 MHz NFC, respectively; correct 3.3 V pins and firmware |
+| GPS/GNSS | UART/USB NMEA or board-specific GNSS with antenna/fix and gpsd |
+| LAN TAP | 10/100 Throwing Star isolated labs or **rated active gigabit** copper/fiber for actual high-speed links |
+
+Refer to [SBC & Radio Add-Ons](../../Documentation/sbc-radio-addon-compatibility.md), [BLE Scanning & Privacy](../../Documentation/bluetooth-passive-scanning-sniffing.md) and [LAN TAPs & Network Visibility](../../Documentation/network-taps-and-packet-visibility.md). A Flipper FAP, an external ESP32 image and a Linux driver are distinct software systems.
+
 ## 2. Physical Integration With The Cyberdeck
 
 ![Four distinct portable-device configurations showing Flipper FAP controlling an external ESP32 Marauder radio, standalone ESP32, alternative M5StickC Plus2 firmware and independent Pineapple interfaces before controlled evidence export](../../assets/diagrams/cyberdeck-portable-device-roles-and-artifacts.svg)

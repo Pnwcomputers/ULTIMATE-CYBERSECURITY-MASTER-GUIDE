@@ -109,10 +109,58 @@ This directory contains comprehensive technical documentation, operational proce
 
 ## 📂 Current Documentation
 
+### Dedicated Wireless, Bluetooth & Credential Tool Guides
+
+| Resource | Description | Type |
+|---|---|---|
+| [Wireless Tool Ecosystem](./wireless-toolkit-reference.md) | Directory of Wi-Fi/Bluetooth tools and active/passive boundaries | Index |
+| [Wi-Fi Adapter Selection](./wifi-adapter-selection-guide.md) | Chipsets, drivers, bands, monitor mode, injection & Linux/Kali compatibility | Hardware guide |
+| [Bluetooth, BLE & RF Hardware](./bluetooth-radio-adapter-guide.md) | Ubertooth, Nordic, TI, Silicon Labs, YARD Stick One, ATtiny & platform matrix | Hardware guide |
+| [Fern WiFi Cracker](./fern-wifi-cracker-guide.md) | GUI auditing, dependencies, historical capabilities & defensive labs | Tool guide |
+| [Wifite2 & Wifite3](./wifite-guide.md) | Toolchain comparison, adapter support, scoped automation & safeguards | Tool guide |
+| [Pixiewps](./pixiewps-guide.md) | WPS weak-entropy analysis, applicability & remediation | Tool guide |
+| [Spooftooph](./spooftooph-guide.md) | Bluetooth identifier manipulation threat model, controls & compatibility | Tool guide |
+| [BlueMaho](./bluemaho-guide.md) | Legacy Bluetooth suite, source review & modern equivalents | Historical guide |
+| [Hashcat](./hashcat-guide.md) | General offline password auditing with synthetic hashes | Tool guide |
+| [Wordlists & Candidates](./wordlists-password-auditing.md) | SecLists, Crunch, CeWL, CUPP, John & secure handling | Reference |
+| [Rainbow Tables](./rainbow-tables-guide.md) | Precomputed chains, salted KDFs & defensive design | Reference |
+
+### Expanded Bluetooth, SBC & Wired Monitoring Guides
+
+| Guide | Focus | Type |
+|---|---|---|
+| [Passive Bluetooth Scanning & Sniffing](./bluetooth-passive-scanning-sniffing.md) | Passive/active BLE, `bluetoothctl`, `btmon`, raw sniffers, privacy and address rotation | Protocol guide |
+| [SBC, Firmware & Radio Add-Ons](./sbc-radio-addon-compatibility.md) | Raspberry Pi, uConsole, ESP32/Flipper, USB Wi-Fi/BLE, CC1101, PN532, nRF24, GPS & Pi HATs | Compatibility matrix |
+| [LAN TAPs & Network Visibility](./network-taps-and-packet-visibility.md) | Great Scott Throwing Star, copper/fiber TAP, 1G+ active, SPAN, breakout and IDS | Network guide |
+
+### Defensive Wireless, DNS, MITM & Segmentation Playbooks
+
+| Guide | Why It Matters | Type |
+|---|---|---|
+| [Counter-Surveillance & Rogue Wireless Devices](./counter-surveillance-wireless-threats.md) | Detection and controls for Pwnagotchi, FancyGotchi, Bjorn, Piglet, Evil-M5, Flipper/Bruce | Defensive playbook |
+| [MITM Detection & Prevention](./mitm-detection-prevention.md) | ARP, DHCP, IPv6 RA, rogue AP, TLS and proxy; Wireshark validation | Defensive playbook |
+| [DNS Hijacking & Secure DNS](./dns-hijacking-secure-dns.md) | DNSSEC, DoH, DoT, DoQ, ODoH, protective DNS, incident response | Architecture guide |
+| [Network Segmentation, DMZ, ACLs & VLANs](./network-segmentation-dmz-acl-vlan.md) | 802.1Q tagging, guest/IoT isolation, NAC, SPAN/RSPAN/ERSPAN, policy matrix | Network guide |
+| [Wireshark Defensive Investigations](./wireshark-defensive-investigations.md) | Deauth, MITM, DNS, VLAN, BLE & TAP case workflows and evidence handling | Capture playbook |
+
+**Existing comprehensive pages retained:** [Pwnagotchi](./pwnagotchi_cheatsheet.md), [FancyGotchi](./fancygotchi-pwnagotchi.md), [Bjorn](./bjorn_pi.md), [Evil-M5](./evil_m5.md), [Piglet Wardriver](../Wardriving/piglet.md), [Aircrack-ng](./Aircrack-ng_Commands.md), [Wireshark](./wireshark.md) and [802.11 Deauth](./wifi-deauthentication-detection.md).
+
+### Device Discovery, Inventory & Sensor Correlation
+
+| Guide | Purpose | Type |
+|---|---|---|
+| [NetAlertX](./netalertx-device-discovery-monitoring.md) | Device arrivals/departures, authorized scans, VLAN limits, Docker, protected alerts | Device inventory |
+| [Device Discovery Platform Comparison](./network-device-discovery-comparison.md) | NetAlertX, LibreNMS, Zabbix, NetBox, ntopng, arpwatch, WatchYourLAN and other tools | Comparison |
+| [Unified Wazuh/Snort/nzyme/Kismet/NetAlertX](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) | Multi-source observability, Wazuh pipeline, Wireshark evidence & blind spots | Operations architecture |
+| [Wazuh Manager & Agents](../IncidentResponse/SIEM/wazuh.md) | SIEM, FIM, event rules and version-specific deployment | SIEM guide |
+| [Snort 3](../IncidentResponse/IDS%26IPS/snort.md) | Packet signatures, rule validation and rated TAP/SPAN sensor paths | IDS/IPS guide |
+| [nzyme](../IncidentResponse/IDS%26IPS/nzyme_wids.md) | Wi-Fi WIDS, sensor taps, coverage, alerts and false positives | WIDS guide |
+
 ### Wireless Security, WiFi & Network Tools
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
 | [Aircrack-ng_Commands.md](./Aircrack-ng_Commands.md) | Complete Aircrack-ng command reference | Reference |
+| [nmap-guide.md](./nmap-guide.md) | Scoped Nmap TCP/UDP discovery, scripts, evidence & detection | Guide |
 | [wifi-deauthentication-detection.md](./wifi-deauthentication-detection.md) | Legitimate 802.11 disconnects vs spoofing, PMF interpretation, Wireshark/TShark and Kismet detection | Defensive guide |
 | [WiFiMarauder_Guide.md](./WiFiMarauder_Guide.md) | Standalone Marauder firmware selection, six field assessment labs & Flipper comparison | Guide |
 | [WifiMarauder_CheatSheet.md](./WifiMarauder_CheatSheet.md) | Quick reference for WiFi Marauder commands | Cheat Sheet |

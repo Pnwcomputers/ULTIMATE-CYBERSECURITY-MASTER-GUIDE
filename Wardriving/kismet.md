@@ -22,6 +22,9 @@ For installation choose the maintained [Kismet Linux install guidance](https://w
 
 ### Selecting a Linux Wi-Fi capture adapter
 
+The repository's [Wi-Fi Adapter Comparison Matrix](../Documentation/wifi-adapter-selection-guide.md) compares named ALFA, Atheros, MediaTek and Realtek hardware by exact chipset, driver, bands, monitor mode and injection uncertainty. For separate BLE datasource hardware, consult the [Bluetooth/BLE & RF Comparison](../Documentation/bluetooth-radio-adapter-guide.md). Use only compatible Kismet capture sources; USB Wi-Fi cards and Bluetooth HCI adapters are not interchangeable.
+
+
 The maintained [USB-WiFi Linux adapter reference](https://github.com/morrownr/USB-WiFi) is a useful starting point for checking **in-kernel driver support and chipset-specific limitations** before buying or assigning an adapter. Verify monitor mode, capture behavior, antenna needs and your *actual Linux kernel*; advertised chipset support or ordinary client connectivity does not prove Kismet source compatibility. Use Kismet's own [supported capture-source documentation](https://www.kismetwireless.net/docs/readme/datasources/) for the final decision.
 
 ## 1. Identify interfaces and GPS

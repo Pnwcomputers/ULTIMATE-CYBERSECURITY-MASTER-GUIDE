@@ -85,6 +85,19 @@ board.
 
 ---
 
+## External Wi-Fi, BLE, GPS, HATs & LAN Capture
+
+| Accessory | uConsole CM4/CM5 Compatibility Gate |
+|---|---|
+| ALFA/Atheros/MediaTek USB Wi-Fi | Kernel, driver, host USB/hub current, monitor/injection test & enclosure clearance |
+| Nordic BLE sniffer / Ubertooth | Dedicated sniffer firmware and supported capture host, not generic HCI assumptions |
+| GNSS / AIO v2 receiver | Serial port, gpio/overlays, correct NMEA/gpsd configuration & outdoor fix |
+| CC1101, nRF24, PN532 | Correct 3.3 V SPI/I²C/UART and Linux software; **not** an ESP32 firmware menu |
+| Pi HAT / M.2 / USB power add-ons | Specific CM carrier, PCIe availability, stacking, thermal and power budgets |
+| Wired TAP | Throwing Star for isolated 10/100 labs or rated active 1G+ TAP/switch SPAN for production |
+
+See [SBC & Radio Add-On Compatibility](../Documentation/sbc-radio-addon-compatibility.md), [BLE Scanning & Sniffing](../Documentation/bluetooth-passive-scanning-sniffing.md) and [LAN TAPs & SPAN](../Documentation/network-taps-and-packet-visibility.md).
+
 ## 🖥️ Hardware Stack
 
 ![uConsole hardware and operating-system preflight separating CM4/CM5 revisions, native OS packages, optional peripherals and actual device checks](../assets/diagrams/uconsole-hardware-os-preflight-paths.svg)

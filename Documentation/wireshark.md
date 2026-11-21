@@ -76,6 +76,26 @@ This document provides a **comprehensive Wireshark filter reference** compiled f
 
 For a protocol-level explanation of legitimate 802.11 disconnects versus forged deauthentication/disassociation, PMF, monitor-mode requirements, and passive detection filters, see the [Wi-Fi Deauthentication Detection Guide](./wifi-deauthentication-detection.md). An Ethernet or managed-mode capture typically cannot show raw 802.11 management frames.
 
+## Integrated Defensive Workflows: Wireless, DNS, MITM, VLANs & LAN TAPs
+
+**Case-oriented companion:** [Wireshark Defensive Investigations](./wireshark-defensive-investigations.md) unifies the capture source, expected evidence, display filters, false positives and corrective controls. Use this page for advanced capture syntax and the [Master Filter List](./wireshark-master-filters.md) for the canonical filter library.
+
+| Investigation | Wireshark Evidence | Guide |
+|---|---|---|
+| Deauth, disassociation & rogue AP | `wlan.fc.type_subtype == 0x0c`, beacons, channel and AP event log | [Deauth Detection](./wifi-deauthentication-detection.md) |
+| Suspected Pwnagotchi/Evil-M5 behavior | SSID/BSSID security changes, AP logs and management frames | [Counter-Surveillance](./counter-surveillance-wireless-threats.md) |
+| MITM / rogue gateway, DHCP or IPv6 RA | `arp`, `dhcp || bootp`, `icmpv6.type == 134` | [MITM Detection & Prevention](./mitm-detection-prevention.md) |
+| DNS hijack and secure DNS | `dns`, `tcp.port == 853 || udp.port == 853` plus endpoint logs | [Secure DNS](./dns-hijacking-secure-dns.md) |
+| VLAN/DMZ/ACL test | `vlan.id == 20`, owned positive/negative flows and firewall logs | [Segmentation & VLANs](./network-segmentation-dmz-acl-vlan.md) |
+| Copper/fiber link visibility | Both directions, dropped frames, TAP/SPAN metadata | [Network TAPs & SPAN](./network-taps-and-packet-visibility.md) |
+| Bluetooth LE packet capture | Nordic/TI/compatible RF PCAP vs BlueZ HCI trace | [Passive/Active BLE Sniffing](./bluetooth-passive-scanning-sniffing.md) |
+
+**Do not equate filter hits with security verdicts.** Wired TAP/SPAN feeds do not yield arbitrary 802.11 management frames, BlueZ HCI is not over-the-air BLE capture, DoH does not expose plaintext DNS payload, and an unmanaged switch does not automatically mirror neighboring ports.
+
+### Correlating IDS & Asset Inventory
+
+A [unified Wazuh/Snort/nzyme/NetAlertX detection stack](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md) produces **different types of evidence**. Snort requires a packet feed from an actual monitor source, nzyme uses compatible RF hardware, NetAlertX uses asset discovery and Wazuh receives normalized endpoint/sensor logs. A raw Wireshark capture should be retained and hashed where authorized, with explicit source/channel/VLAN and event timestamp. The [NetAlertX guide](./netalertx-device-discovery-monitoring.md) and [device-inventory comparison](./network-device-discovery-comparison.md) explain why a newly observed MAC address is not proof of an intruder.
+
 ## Capture Visibility & Filter Order
 
 ![Wireshark process distinguishing interface or TAP capture visibility, optional capture filters, saved packet evidence, non-destructive display filters and analyst interpretation](../assets/diagrams/wireshark-capture-display-boundaries.svg)

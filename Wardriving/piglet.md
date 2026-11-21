@@ -55,6 +55,20 @@ as separate choices from local collection.
    observations and produces the expected log; record node identity, role and
    coordinate source. Mesh forwarding via ESP-NOW transmits radio traffic.
 
+## Counter-Surveillance, RF Privacy & Wireshark Validation
+
+Piglet's ordinary survey observations are **not automatically attacks**. An owned AP may appear in a Piglet record without an association or intrusive action. Mesh/ESP-NOW, local SoftAP and certain status/upload functions **do transmit**, however; classify actual traffic rather than labeling every mode "passive."
+
+| Concern | Controlled Check | Correct Interpretation |
+|---|---|---|
+| Piglet standalone logging | Verify SD WiGLE CSV fields, timestamp/GNSS and consent | Sightings do not prove compromise |
+| Mesh Node/Core | Inspect documented radio frames on a test board | ESP-NOW traffic is a separate RF use case |
+| BLE observations | Use dedicated supported BLE sniffer if raw PDU needed | Linux BlueZ discovery is not raw over-air sniffing |
+| Unexpected external upload | Examine startup policy, WiGLE credentials and logs | Upload permission is independent of observation permission |
+| Sensitive identifiers | Minimize SSID/BSSID/GNSS retention | Device location does not identify an operator |
+
+**Wireshark:** a supported 802.11 monitor source can decode `wlan.fc.type_subtype == 0x08` (beacons), but its capture channel, RSSI and antenna placement limit coverage. Do not infer a threat from a matching SSID alone. Follow [Wireshark Master Filters](../Documentation/wireshark-master-filters.md), [Counter-Surveillance](../Documentation/counter-surveillance-wireless-threats.md) and [Hardware/Board Compatibility](../Documentation/sbc-radio-addon-compatibility.md).
+
 ## Troubleshooting
 
 | Symptom | First Checks |
