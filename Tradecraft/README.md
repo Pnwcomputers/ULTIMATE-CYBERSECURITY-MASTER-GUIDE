@@ -69,12 +69,12 @@ Use the technique descriptions to understand behavior; use the detection and har
 
 ## Usage
 
-These references have different scopes. Some explain offensive techniques at a high level for defensive analysis; others focus on detections, controls, and safe validation. Check each file's scope before using it. Sections are clearly labeled where applicable:
+These guides differ in scope and format. Read the scope notice at the top of the selected file before using it. Technique descriptions provide context for understanding reported behavior; they are not authorization to test a system.
 
-- **Technique context, where present** - Understand reported behaviors and artifacts
-- **Detection & Hunting sections** - Sigma rules, KQL queries, event IDs, behavioral indicators
-- **Defensive sections** - Hardening controls, configuration recommendations, monitoring priorities
-
+- **Technique context, where present** — Learn the behavior and possible artifacts, including the limits of what public reporting establishes.
+- **Detection and investigation** — Use the evidence sources, correlation steps, and caveats provided. Not every guide contains Sigma or KQL rules, and an event or indicator alone rarely proves an incident.
+- **Defensive controls** — Check platform, version, policy, and compatibility requirements before planning a change.
+- **Validation** — Active testing requires written owner approval, a defined boundary and time window, a controlled environment, and a cleanup plan.
 ---
 
 ## Guide Topics
