@@ -559,6 +559,25 @@ Threat intelligence comes from feeds, internal investigations, or other sources.
 
 For example, a failed login from a feed-listed IP can justify additional investigation. It should not automatically establish that the attempted account was compromised.
 
+```mermaid
+flowchart LR
+    F[Threat feed] --> V[Validate and normalize<br/>indicator and provenance]
+    V --> S[Authoritative feed<br/>snapshot]
+    V --> C[Cache entry with<br/>expiry and source]
+    E[Security event] --> W[Worker lookup]
+    C --> W
+    W -->|Fresh match| M[Attach match and<br/>source context]
+    W -->|Miss or expired| U[Check authoritative snapshot<br/>or mark unknown]
+    W -->|Cache/provider error| X[Preserve event as<br/>unavailable/incomplete]
+    S --> U
+    M --> O[Enriched event]
+    U --> O
+    X --> O
+```
+
+*An absent cache value is not a negative intelligence result. Report `no_match`
+only after a completed lookup against a source with known coverage.*
+
 | Property | Redis | Memcached |
 | --- | --- | --- |
 | Data model | Strings plus richer data structures | Primarily key/value cache |
