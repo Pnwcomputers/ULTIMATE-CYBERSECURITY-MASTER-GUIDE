@@ -94,10 +94,10 @@ Enable a practitioner to point at a file and say "this is what valid means", hav
 | **Timeliness** | Is the data recent enough to be useful? | Freshness and lag measurement |
 | **Accuracy** | Do the values match reality? | Reconciliation against an authoritative source |
 
-Accuracy is the only dimension a pipeline cannot verify on its own — it requires a second source of truth. The other five are entirely mechanizable, which is why they are where the effort belongs.
+A validation rule checks a declared expectation. Confirming accuracy usually requires independent evidence about the underlying event or record. Completeness also depends on knowing which records should exist.
 
 > [!TIP]
-> When a consumer reports "the data is wrong", ask which dimension. Roughly half of such reports resolve to timeliness (the data is correct but stale) or to a definitional disagreement about completeness — neither of which is fixed by changing the transformation.
+> When a consumer reports "the data is wrong", ask which dimension. Check whether the data is stale or the consumer expects a different population of records before changing the transformation.
 
 ---
 
