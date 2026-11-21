@@ -109,6 +109,16 @@ returns that project's policy, not a merged inventory of ancestor policies,
 every child resource's grants, or all effective permissions. Verify the active
 account/configuration, actual target and required read permissions first.
 
+```mermaid
+flowchart LR
+    A[Confirm approved organization,<br/>folder, project, and data scope] --> B[Verify active identity,<br/>configuration, and target]
+    B --> C[Collect only the authorized<br/>policy and resource evidence]
+    C --> D[Record denied APIs,<br/>failures, and skipped checks]
+    D --> E[Protect identity and<br/>policy exports]
+    E --> F[Validate grants across<br/>hierarchy and resource policies]
+    F --> G[Report coverage, limits,<br/>and owner-reviewed findings]
+```
+
 | Tool | Coverage To Verify Before Interpreting Results |
 |---|---|
 | [Prowler](https://github.com/prowler-cloud/prowler) | Installed version, supported GCP checks, authentication, required read roles and selected scopes. |
@@ -118,7 +128,6 @@ account/configuration, actual target and required read permissions first.
 Record failed, denied and skipped checks separately from passing controls.
 Protect identity/policy exports as assessment evidence. No scanner output alone
 establishes exploitability or a secure deployment.
-
 ---
 
 ## Hardening & Detection
