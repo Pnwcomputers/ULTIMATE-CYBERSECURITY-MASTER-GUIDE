@@ -1888,216 +1888,41 @@ Before sharing a generated inventory or diagram, remove credentials, sensitive h
 
 ### Automated System Hardening
 
-```bash
-#!/bin/bash
-# system_hardening.sh - Comprehensive system hardening script
+There is no safe, universal hardening script for every Linux host. The previous root-level script changed package state, firewall policy, SSH access, PAM, IPv6, kernel parameters, file permissions, and audit rules without validating the distribution version, existing policy, recovery access, or rollback. It then wrote a report claiming every change succeeded. Do not treat those commands or that report as an applied or verified baseline.
 
-echo "=== SYSTEM HARDENING SCRIPT ==="
+Use an approved, platform-specific configuration checklist and apply changes in a controlled sequence:
 
-# Detect OS
-if [ -f /etc/debian_version ]; then
-    OS="debian"
-elif [ -f /etc/redhat-release ]; then
-    OS="redhat"
-else
-    echo "[-] Unsupported OS"
-    exit 1
-fi
-
-# Update system
-echo "[*] Updating system..."
-if [ "$OS" == "debian" ]; then
-    apt update && apt upgrade -y
-else
-    yum update -y
-fi
-
-# Configure firewall
-echo "[*] Configuring firewall..."
-if command -v ufw &> /dev/null; then
-    ufw default deny incoming
-    ufw default allow outgoing
-    ufw allow 22/tcp
-    ufw enable
-elif command -v firewall-cmd &> /dev/null; then
-    firewall-cmd --set-default-zone=drop
-    firewall-cmd --add-service=ssh --permanent
-    firewall-cmd --reload
-fi
-
-# Disable unnecessary services
-echo "[*] Disabling unnecessary services..."
-SERVICES=("telnet" "ftp" "rsh" "rlogin" "rexec")
-for service in "${SERVICES[@]}"; do
-    systemctl disable $service 2>/dev/null
-    systemctl stop $service 2>/dev/null
-done
-
-# Configure SSH
-echo "[*] Hardening SSH..."
-SSH_CONFIG="/etc/ssh/sshd_config"
-cp $SSH_CONFIG ${SSH_CONFIG}.backup
-
-# Disable root login
-sed -i 's/^#*PermitRootLogin.*/PermitRootLogin no/' $SSH_CONFIG
-
-# Disable password authentication (use keys only)
-sed -i 's/^#*PasswordAuthentication.*/PasswordAuthentication no/' $SSH_CONFIG
-
-# Change default port (optional)
-# sed -i 's/^#*Port.*/Port 2222/' $SSH_CONFIG
-
-# Disable X11 forwarding
-sed -i 's/^#*X11Forwarding.*/X11Forwarding no/' $SSH_CONFIG
-
-# Set max auth tries
-sed -i 's/^#*MaxAuthTries.*/MaxAuthTries 3/' $SSH_CONFIG
-
-systemctl restart sshd
-
-# Configure fail2ban
-echo "[*] Installing and configuring fail2ban..."
-if [ "$OS" == "debian" ]; then
-    apt install -y fail2ban
-else
-    yum install -y fail2ban
-fi
-
-cat > /etc/fail2ban/jail.local << 'F2B'
-[DEFAULT]
-bantime = 3600
-findtime = 600
-maxretry = 3
-
-[sshd]
-enabled = true
-port = ssh
-logpath = /var/log/auth.log
-F2B
-
-systemctl enable fail2ban
-systemctl start fail2ban
-
-# Set file permissions
-echo "[*] Setting secure file permissions..."
-chmod 600 /etc/shadow
-chmod 600 /etc/gshadow
-chmod 644 /etc/passwd
-chmod 644 /etc/group
-
-# Configure password policy
-echo "[*] Configuring password policy..."
-if [ "$OS" == "debian" ]; then
-    apt install -y libpam-pwquality
-else
-    yum install -y libpwquality
-fi
-
-cat >> /etc/security/pwquality.conf << 'PWQUAL'
-minlen = 12
-dcredit = -1
-ucredit = -1
-ocredit = -1
-lcredit = -1
-PWQUAL
-
-# Configure account lockout
-cat >> /etc/pam.d/common-auth << 'PAML'
-auth required pam_tally2.so deny=3 unlock_time=1800
-PAML
-
-# Disable IPv6 if not needed
-echo "[*] Disabling IPv6..."
-cat >> /etc/sysctl.conf << 'IPV6'
-net.ipv6.conf.all.disable_ipv6 = 1
-net.ipv6.conf.default.disable_ipv6 = 1
-IPV6
-sysctl -p
-
-# Configure kernel security
-echo "[*] Applying kernel security settings..."
-cat >> /etc/sysctl.conf << 'KERNEL'
-# Kernel hardening
-kernel.dmesg_restrict = 1
-kernel.kptr_restrict = 2
-kernel.yama.ptrace_scope = 1
-
-# Network security
-net.ipv4.conf.all.rp_filter = 1
-net.ipv4.conf.default.rp_filter = 1
-net.ipv4.conf.all.accept_source_route = 0
-net.ipv4.conf.default.accept_source_route = 0
-net.ipv4.conf.all.send_redirects = 0
-net.ipv4.conf.default.send_redirects = 0
-net.ipv4.conf.all.accept_redirects = 0
-net.ipv4.conf.default.accept_redirects = 0
-net.ipv4.icmp_echo_ignore_broadcasts = 1
-net.ipv4.icmp_ignore_bogus_error_responses = 1
-net.ipv4.tcp_syncookies = 1
-KERNEL
-sysctl -p
-
-# Install and configure auditd
-echo "[*] Configuring system auditing..."
-if [ "$OS" == "debian" ]; then
-    apt install -y auditd
-else
-    yum install -y audit
-fi
-
-systemctl enable auditd
-systemctl start auditd
-
-# Add audit rules
-cat >> /etc/audit/rules.d/audit.rules << 'AUDIT'
-# Monitor user/group modifications
--w /etc/group -p wa -k identity
--w /etc/passwd -p wa -k identity
--w /etc/shadow -p wa -k identity
-
-# Monitor sudo usage
--w /etc/sudoers -p wa -k sudo_changes
-
-# Monitor system calls
--a always,exit -F arch=b64 -S adjtimex -S settimeofday -k time-change
--a always,exit -F arch=b64 -S mount -F auid>=1000 -F auid!=4294967295 -k mounts
-AUDIT
-
-augenrules --load
-
-# Create security report
-echo "[*] Generating security report..."
-cat > /root/hardening_report.txt << REPORT
-=== SYSTEM HARDENING REPORT ===
-Date: $(date)
-Hostname: $(hostname)
-OS: $(cat /etc/os-release | grep PRETTY_NAME | cut -d'"' -f2)
-
-CHANGES APPLIED:
-✓ System updated
-✓ Firewall configured
-✓ Unnecessary services disabled
-✓ SSH hardened
-✓ Fail2ban installed
-✓ File permissions secured
-✓ Password policy enforced
-✓ IPv6 disabled
-✓ Kernel security parameters applied
-✓ System auditing enabled
-
-NEXT STEPS:
-- Review /var/log/auth.log regularly
-- Monitor fail2ban logs
-- Set up automated backups
-- Implement intrusion detection
-- Configure log forwarding to SIEM
-
-REPORT
-
-echo "[+] System hardening complete!"
-echo "[*] Report saved to /root/hardening_report.txt"
-echo "[!] Please reboot for all changes to take effect"
+```mermaid
+flowchart LR
+    A[Identify OS, version, role, and owner] --> B[Select approved platform baseline]
+    B --> C[Back up config and confirm recovery access]
+    C --> D[Apply one change group in staging]
+    D --> E[Validate service, access, and security behavior]
+    E --> F{Evidence meets acceptance criteria?}
+    F -->|No| G[Rollback and investigate]
+    F -->|Yes| H[Deploy through change control]
+    H --> I[Monitor drift, logs, and service health]
+    I --> J[Review baseline after updates or role changes]
 ```
+
+| Change area | Review before changing | Verify after change |
+| --- | --- | --- |
+| Updates | Supported OS release, maintenance window, package source, application compatibility, and recovery plan | Installed versions, reboot requirements, service health, and vulnerability-management status |
+| Firewall | All approved inbound and outbound flows, management port/source, IPv4 and IPv6 policy, and console access | Rules loaded, required services reachable from approved sources, and denied traffic logged as intended |
+| SSH and remote access | Supported authentication methods, effective configuration including included files and match blocks, break-glass access, and client compatibility | Parse/validate configuration using the installed OpenSSH tooling, keep an existing session open while testing a second session, then confirm service health |
+| Accounts and PAM | Distribution-supported modules and policy, service accounts, automation, identity provider, and lockout/recovery process | Authentication, privilege elevation, recovery access, and audit events using test accounts |
+| Services and file permissions | Package ownership, actual service unit names, dependencies, and vendor defaults | Required services start; permissions match the selected baseline and applications still function |
+| Kernel and network settings | Host role, routing, containers, VPNs, IPv6 dependencies, and workload requirements | Networking, name resolution, monitoring, and application behavior remain correct |
+| Audit and logging | Required event coverage, kernel/architecture support, storage capacity, privacy, and retention | Rules load without errors, expected test events are recorded, and forwarding/retention work |
+
+**Operational safeguards**
+
+- Prefer a current checklist from the [NIST National Checklist Program](https://csrc.nist.gov/pubs/sp/800/70/r5/final) or the operating-system vendor. Tailor it to the host's purpose and document accepted deviations.
+- Back up the current configuration and confirm out-of-band recovery before changing firewall, SSH, authentication, or routing settings. Avoid changing several access controls at once.
+- Use supported configuration mechanisms for the specific distribution. Do not blindly append PAM/sysctl/audit entries or rewrite files with broad text substitutions; duplicate or misplaced directives can change behavior unexpectedly.
+- Do not disable IPv6 solely because it is unused in one part of the environment. Confirm that the host, applications, monitoring, and network controls have no IPv6 dependency.
+- Use the installed platform's own validation tools and staged changes. Ubuntu's [OpenSSH guidance](https://ubuntu.com/server/docs/how-to/security/openssh-server/) warns that an SSH configuration error can lock out a remote administrator; its [firewall guide](https://ubuntu.com/server/docs/firewalls/) documents UFW behavior. Red Hat's [firewall documentation](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/10/html-single/configuring_firewalls_and_packet_filters/index) covers firewalld and nftables for RHEL 10.
+- A report must list the actual host/version, baseline revision, changed settings, validation evidence, exceptions, and rollback status. Generate it from verified results, not from intended actions.
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
