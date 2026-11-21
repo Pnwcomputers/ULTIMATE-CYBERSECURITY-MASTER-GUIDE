@@ -113,20 +113,46 @@ Insecure defaults, incomplete hardening, verbose errors, and unnecessary feature
 
 ## A03: Software Supply Chain Failures
 
-Expanded in 2025 from "Vulnerable and Outdated Components" to the whole chain:
-dependencies, build pipelines, and distribution.
+Expanded in 2025 beyond vulnerable and outdated components to failures across
+dependencies, developer tools, build systems, artifact repositories, and software
+distribution.
 
-- **How it is exploited:** known-vulnerable libraries (n-day), typosquatted or
-  compromised packages, poisoned build/CI steps, unsigned artifacts, or a
-  compromised update channel (cf. the SolarWinds and `xz`/CVE-2024-3094 cases).
-- **How to test:** inventory dependencies (SBOM); run SCA against known-CVE
-  databases; check for pinned, integrity-verified dependencies; review CI/CD trust
-  boundaries and who can publish artifacts.
-- **How to defend:** maintain an SBOM; pin and verify dependencies (hashes/lock
-  files); use signed artifacts and provenance (e.g. SLSA, Sigstore); restrict and
-  monitor the build pipeline; patch promptly.
+```mermaid
+flowchart LR
+    S[Source code and dependencies<br/>origin · version · maintenance] --> B[Build and CI/CD<br/>identity · workflow · secrets]
+    B --> A[Artifact<br/>SBOM · provenance · signature]
+    A --> R[Registry and release channel<br/>publisher · access · change history]
+    R --> D[Deployment and updates<br/>verification · staged rollout]
+    I1[Review source and<br/>dependency integrity] -.-> S
+    I2[Protect workflow identity<br/>and build credentials] -.-> B
+    I3[Verify provenance and<br/>signing identity] -.-> A
+    I4[Stage releases and<br/>monitor deployments] -.-> D
+```
+
+The diagram summarizes trust boundaries and review points; it is not a claim that
+any single control makes a software release trustworthy.
+
+- **How it is exploited:** known-vulnerable or unmaintained components,
+  typosquatted or compromised packages, unauthorized changes to build workflows,
+  compromised build credentials, unverified artifacts, or a compromised update
+  channel. These are different failure modes; a vulnerability scan alone will not
+  detect every malicious or unauthorized change.
+- **How to test:** inventory direct and transitive dependencies and compare them
+  with vulnerability and maintenance information; review dependency source and
+  integrity metadata; examine who can change build definitions, runners, secrets,
+  release approvals, and artifact repositories; verify that release signatures
+  and provenance meet the organization's trust policy.
+- **How to defend:** maintain an SBOM with defined scope and generation point;
+  remove unused dependencies; pin versions and validate integrity data; restrict
+  and monitor code, build, and publishing permissions; generate and verify
+  artifact signatures and build provenance; apply risk-based updates and staged
+  rollouts. An SBOM is an inventory, not proof of integrity. A valid signature
+  establishes that bytes match a signing identity, not that the source or artifact
+  is benign. Protect the signing and build identities and define which issuers and
+  build processes are trusted.
 - **CWE:** CWE-1104, CWE-1357. **Cheat sheet:** [Vulnerable Dependency Management](https://cheatsheetseries.owasp.org/cheatsheets/Vulnerable_Dependency_Management_Cheat_Sheet.html).
 
+For category scope, see [OWASP A03:2025](https://top10.owasp.org/2025/A03_2025-Software_Supply_Chain_Failures/). For broader development practices, see the [NIST Secure Software Development Framework](https://csrc.nist.gov/pubs/sp/800/218/final).
 ---
 
 ## A04: Cryptographic Failures
