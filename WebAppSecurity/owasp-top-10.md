@@ -221,19 +221,70 @@ cryptographic control and its configuration at the point where it is used.*
 
 ## A05: Injection
 
-Untrusted input is interpreted as code or a command. Includes SQL, NoSQL, OS
-command, LDAP, and (server-side) template injection, plus cross-site scripting.
+Injection occurs when untrusted data changes how an interpreter parses or executes
+a command. The relevant boundary may be a database query, operating-system process,
+directory service, server-side template engine, or browser DOM. Cross-site scripting
+(XSS) is the browser-side case; server-side request forgery (SSRF) is categorized
+under A01 in the 2025 list.
 
-- **How it is exploited:** breaking out of a query/command context - `' OR 1=1--`
-  (SQLi), `{{7*7}}` (SSTI), backtick/`;` chaining (command injection), or reflected
-  /stored/DOM **XSS** injecting script into a page.
-- **How to test:** fuzz every input (params, headers, JSON, path) with
-  context-specific payloads; use Burp Intruder/Scanner; confirm SQLi with `sqlmap`
-  in scope; test XSS across reflected, stored, and DOM sinks.
-- **How to defend:** parameterized queries / prepared statements; safe ORMs;
-  context-aware output encoding and a strong Content-Security-Policy for XSS;
-  allow-list input validation; avoid passing input to shells/interpreters.
-- **CWE:** CWE-89, CWE-79, CWE-78, CWE-94. **Cheat sheets:** [Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html), [XSS Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
+```mermaid
+flowchart LR
+    U[Untrusted input] --> S[Application source]
+    S --> Q[SQL / NoSQL query]
+    S --> O[Operating-system process]
+    S --> T[Template or directory interpreter]
+    S --> B[HTML / JavaScript / DOM]
+    Q -->|Bind values; constrain query structure| D[Database]
+    O -->|Prefer library APIs; pass structured arguments| P[Process]
+    T -->|Use safe APIs and context-aware handling| R[Rendered output]
+    B -->|Safe DOM APIs and context-aware output encoding| W[Browser]
+    L[Least privilege and scoped tests] -.-> Q
+    L -.-> O
+    L -.-> T
+    L -.-> B
+```
+
+*The defense depends on the interpreter and output context: keep data separate
+from executable syntax, then verify the boundary in authorized tests.*
+
+- **How it fails:** an application concatenates attacker-controlled data into
+  executable syntax or uses an unsafe interpreter API. Outcomes can include
+  altered database queries, unintended process or argument selection, template or
+  directory query manipulation, or script execution in a user's browser. The
+  impact depends on the interpreter, privileges, and data the application can
+  reach.
+- **How to assess:** trace untrusted sources (requests, stored values, and
+  third-party data) to interpreter sinks. In an approved test environment, test
+  representative query, process, template, directory, and browser contexts using
+  scope-specific safe cases; verify the actual behavior and resulting state.
+  For browser risks, cover reflected, stored, and DOM-based paths and the relevant
+  HTML, attribute, URL, CSS, or JavaScript context. Automated scanners and
+  payload fuzzing can help find candidates, but do not prove that all paths are
+  safe; avoid broad fuzzing against production unless explicitly authorized.
+- **How to defend:** for SQL and supported NoSQL APIs, use parameterized or
+  structured queries and keep query structure fixed. Validate dynamic identifiers
+  such as column names against a strict allowlist because ordinary value binding
+  may not parameterize them. Avoid direct operating-system command execution when
+  a language library can perform the task; if a process is necessary, use a
+  structured API with separate executable and arguments, validate each argument,
+  and run it with least privilege. Use safe template and directory APIs. For XSS,
+  prefer safe framework/DOM APIs and encode output for its exact context; sanitize
+  only when accepting intentionally limited HTML. A Content Security Policy is
+  defense in depth, not a replacement for safe rendering. Input validation helps
+  enforce business rules but is not a general substitute for interpreter-specific
+  defenses.
+- **Validation:** demonstrate that representative hostile and malformed inputs
+  remain data, cannot alter query or process structure, and cannot execute in the
+  browser; confirm authorization boundaries and resulting state remain intact.
+  Review error handling and logs without exposing secrets. Record tested paths,
+  contexts, exclusions, and residual risk.
+- **CWE examples:** CWE-89 (SQL injection), CWE-78 (OS command injection), CWE-79
+  (cross-site scripting), and CWE-94 (code injection); this is not a complete
+  mapping. **References:** [OWASP A05:2025](https://top10.owasp.org/2025/A05_2025-Injection/),
+  [SQL Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html),
+  [OS Command Injection Defense](https://cheatsheetseries.owasp.org/cheatsheets/OS_Command_Injection_Defense_Cheat_Sheet.html),
+  [Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Injection_Prevention_Cheat_Sheet.html),
+  and [XSS Prevention](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html).
 
 ---
 
