@@ -28,10 +28,10 @@ Operational security tradecraft for red team, blue team, and purple team practit
 _Last reviewed: 2026-11-18 (MITRE ATT&CK Enterprise taxonomy and U.S. computer-crime references checked; legal consequences vary by jurisdiction)_
 
 ## 🎯 Purpose
-The folder-level index for the eight specialized tradecraft guides that complement the master guides with deeper red-team, blue-team, and purple-team material.
+The folder-level index for the 13 specialized tradecraft guides that complement the master guides with deeper red-team, blue-team, and purple-team material.
 
 ## ⚙️ Function
-Lists all eight Tradecraft guides, describes their topics, explains the shared dual-use structure, and links related folders. This index contains navigation and topic labels; use the linked guides for the technical content and [Checklists](../Checklists/) for quick-reference workflows.
+Lists all 13 Tradecraft guides, describes their topics, explains the shared dual-use structure, and links related folders. This index contains navigation and topic labels; use the linked guides for the technical content and [Checklists](../Checklists/) for quick-reference workflows.
 
 ## 🏆 Goal
 A reader can find the right tradecraft file for a given ATT&CK tactic or technique and sees whether each reference focuses on defensive analysis or authorized lab assessment.
@@ -51,6 +51,11 @@ As the entry point into the Tradecraft/ folder, or when looking up which file co
 | [active-directory.md](active-directory.md) | Active Directory attack-path concepts, detection, and hardening; use only in authorized isolated labs |
 | [av-edr-evasion.md](av-edr-evasion.md) | Evasion behavior, telemetry, and defensive response |
 | [evasion.md](evasion.md) | Companion evasion-engineering study notes; use alongside the AV/EDR guide |
+| [hydra-guide.md](./hydra-guide.md) | Credential auditing, lockout controls & telemetry |
+| [zphisher-threat-analysis.md](./zphisher-threat-analysis.md) | Phishing framework analysis & safe awareness training |
+| [seeker-geolocation-threat-analysis.md](./seeker-geolocation-threat-analysis.md) | Browser geolocation permissions, privacy & detection |
+| [routersploit-guide.md](./routersploit-guide.md) | Embedded/router firmware & module validation |
+| [metasploit-framework-guide.md](./metasploit-framework-guide.md) | Module research, lab workflow & evidence |
 
 ---
 
@@ -91,6 +96,11 @@ ATT&CK is a living knowledge base. Its tactics and technique relationships chang
 | [Active Directory](./active-directory.md) | Directory security, identity abuse patterns, detection, and hardening |
 | [AV / EDR Evasion](./av-edr-evasion.md) | Defensive understanding of endpoint evasion behaviors and telemetry |
 | [Evasion Engineering Notes](./evasion.md) | Defensive analysis of evasion concepts and detection limitations |
+| [Hydra](./hydra-guide.md) | Lab authentication validation & defensive monitoring |
+| [Zphisher](./zphisher-threat-analysis.md) | Phishing campaigns, awareness & incident response |
+| [Seeker](./seeker-geolocation-threat-analysis.md) | Location permissions & protection |
+| [RouterSploit](./routersploit-guide.md) | Embedded security research & firmware checking |
+| [Metasploit Framework](./metasploit-framework-guide.md) | Module evaluation & detection evidence |
 ---
 
 ## Related Sections

@@ -82,6 +82,7 @@ it), mirroring the [Tradecraft](../Tradecraft/) convention.
 | **[owasp-top-10.md](./owasp-top-10.md)** | OWASP Top 10:2025 final-edition deep-dive - each category with exploitation, testing, and defense, plus a 2021→2025 mapping | ✅ Complete |
 | **[methodology.md](./methodology.md)** | Web app pentest methodology: recon, mapping, Burp Suite workflow, injection/access-control/business-logic testing, API & GraphQL testing, reporting | ✅ Complete |
 | **[owasp-assessment-and-nuclei.md](./owasp-assessment-and-nuclei.md)** | Versioned ASVS requirements, WSTG test methods, reviewed Nuclei templates, evidence and retesting workflow | ✅ Reference |
+| **[sqlmap-guide.md](./sqlmap-guide.md)** | SQLi detection in synthetic labs, false positives, remediation & evidence | Guide |
 
 ---
 

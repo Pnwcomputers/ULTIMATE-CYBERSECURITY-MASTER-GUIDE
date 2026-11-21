@@ -109,6 +109,19 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ## 📖 Supporting Guides & Reference Material:
 
+### Focused Security Tool Guides
+
+| Tool Guide | Focus |
+|---|---|
+| [Nmap](./Documentation/nmap-guide.md) | Scoped network inventory, TCP/UDP scanning, NSE & evidence |
+| [THC Hydra](./Tradecraft/hydra-guide.md) | Controlled credential audits, lockout safety & telemetry |
+| [sqlmap](./WebAppSecurity/sqlmap-guide.md) | Local SQLi detection, remediation & verification |
+| [Sherlock](./OSINT/sherlock-guide.md) | Username OSINT, corroboration & privacy |
+| [Zphisher](./Tradecraft/zphisher-threat-analysis.md) | Credential-phishing threat analysis & safe training |
+| [Seeker](./Tradecraft/seeker-geolocation-threat-analysis.md) | Browser geolocation abuse, consent & defense |
+| [RouterSploit](./Tradecraft/routersploit-guide.md) | Embedded-device research & safe labs |
+| [Metasploit Framework](./Tradecraft/metasploit-framework-guide.md) | Module research, controlled labs & detection |
+
 ### Curated Research & Practice:
 
 | Resource | Description |

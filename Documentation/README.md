@@ -113,6 +113,7 @@ This directory contains comprehensive technical documentation, operational proce
 | File | Description | Size/Type |
 | :--- | :--- | :--- |
 | [Aircrack-ng_Commands.md](./Aircrack-ng_Commands.md) | Complete Aircrack-ng command reference | Reference |
+| [nmap-guide.md](./nmap-guide.md) | Scoped Nmap TCP/UDP discovery, scripts, evidence & detection | Guide |
 | [wifi-deauthentication-detection.md](./wifi-deauthentication-detection.md) | Legitimate 802.11 disconnects vs spoofing, PMF interpretation, Wireshark/TShark and Kismet detection | Defensive guide |
 | [WiFiMarauder_Guide.md](./WiFiMarauder_Guide.md) | Standalone Marauder firmware selection, six field assessment labs & Flipper comparison | Guide |
 | [WifiMarauder_CheatSheet.md](./WifiMarauder_CheatSheet.md) | Quick reference for WiFi Marauder commands | Cheat Sheet |

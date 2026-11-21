@@ -112,6 +112,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 | File | Description | Status |
 |------|-------------|--------|
 | **[OSINT Guide](./OSINT_GUIDE.md)** | 📘 **Master OSINT Guide** - Comprehensive reference covering methodology, tools, workflows, and best practices | ✅ Complete |
+| **[Sherlock Username OSINT](./sherlock-guide.md)** | Self-audit, username discovery, identity uncertainty & evidence verification | Guide |
 | **[OSINT Playbook](./Playbook/README.md)** | Manual investigation guide plus case management, selected evidence-preserving lookup modules and optional integrations; unfinished report submenu and missing web UI are documented in the feature matrix | Prototype |
 | **[Toolkit FAQ](./docs/FAQ.md)** | Questions on scope, case state, provider and feature limits | Maintained |
 | **[Toolkit Installation](./docs/INSTALLATION.md)** | Dependencies and installation preflight | Check actual version |
