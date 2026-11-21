@@ -39,6 +39,9 @@ DIAGRAM_GUIDES = {
         "IncidentResponse/SIEM/detection-content-validation.md",
         "Documentation/CANARY-DETECTION-VALIDATOR.md",
     ),
+    "Cyberdeck/docs/images/cyberdeck-safe-publication.svg": (
+        "Cyberdeck/docs/PUBLISHING_AND_RELEASE.md",
+    ),
     "assets/diagrams/cyberdeck-policy-zones.svg": (
         "Cyberdeck/docs/ARCHITECTURE.md",
     ),

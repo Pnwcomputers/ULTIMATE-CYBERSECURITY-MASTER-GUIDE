@@ -19,6 +19,8 @@ This directory is a **public reference companion**. The original `PNWC-Cyberdeck
 
 ## Pre-Publication Checklist
 
+![Cyberdeck publication keeps the private prototype separate, prepares a fresh public tree, reviews its files and publishes only the verified output](./images/cyberdeck-safe-publication.svg)
+
 | Gate | Required Verification |
 | --- | --- |
 | 1. Source separation | Prepare a **fresh public tree**; never publish the private repo's history |
@@ -32,7 +34,12 @@ This directory is a **public reference companion**. The original `PNWC-Cyberdeck
 
 ## Standalone GitHub Repository Handoff
 
-If you later create a separate public repository, a suggested name is `PNWC-Cyberdeck-Public`. Initialize it as an **empty repository** and copy only the vetted files in this `Cyberdeck/` directory—not the private `.git` directory, its branch history or proprietary app source. Review the standalone folder links (`../README.md` and `../../...` links refer to the Guide and should become explicit GitHub URLs). Then replace Guide links with the actual public repository URL.
+If you later create a separate public repository, a suggested name is `PNWC-Cyberdeck-Public`. Initialize it as an **empty repository** and copy only the vetted files in this `Cyberdeck/` directory—not the private `.git` directory, its branch history or proprietary app source. Resolve each relative link from its own Markdown file in the standalone tree. For example,
+`../README.md` from this file still points to the copied Cyberdeck home. A link to
+`../../README.md` leaves the copied folder and must point to the Guide explicitly.
+Inspect images too. Copy vetted assets into the new tree or use a published asset URL where appropriate.
+Check the rendered links in the new location before updating the Guide to point to it.
+[GitHub documentation on relative links](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#relative-links)
 
 No standalone repository creation or publication is implied by the existence of this directory. A public GitHub page does not by itself grant an open-source license. Keep project permissions and third-party notices explicit.
 

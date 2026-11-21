@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" role="img" aria-labelledby="title desc">
+  <title id="title">Publish the Cyberdeck reference without private history</title>
+  <desc id="desc">The private prototype remains separate. Prepare a fresh tree of approved files and synthetic examples, review the exact files and rendered assets, then publish only that verified tree.</desc>
+  <rect width="1000" height="320" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="30" y="44" fill="#fff" font-size="26" font-weight="700">Publish the Cyberdeck reference without private history</text>
+    <rect x="30" y="70" width="940" height="60" rx="10" fill="#2a2638" stroke="#fda4af" stroke-width="2"/>
+    <text x="49" y="97" fill="#fff" font-size="18" font-weight="700">Private prototype stays private</text>
+    <text x="49" y="118" fill="#f9d5df" font-size="15">Keep commit history, live configurations and client evidence in the private repository.</text>
+    <g fill="#172a40" stroke="#38bdf8" stroke-width="2">
+      <rect x="30" y="159" width="288" height="103" rx="10"/>
+      <rect x="356" y="159" width="288" height="103" rx="10"/>
+      <rect x="682" y="159" width="288" height="103" rx="10"/>
+    </g>
+    <path d="M325 210h24m-7-6 7 6-7 6m302-6h24m-7-6 7 6-7 6" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <g fill="#fff" font-size="18" font-weight="700">
+      <text x="47" y="193">Prepare a fresh public tree</text>
+      <text x="373" y="193">Review the exact files</text>
+      <text x="699" y="193">Publish the reviewed tree</text>
+    </g>
+    <g fill="#d7e6f4" font-size="15">
+      <text x="47" y="221">Copy vetted content only.</text>
+      <text x="47" y="242">Use synthetic examples.</text>
+      <text x="373" y="221">Check secrets, metadata and licensing.</text>
+      <text x="373" y="242">Resolve links and run offline tests.</text>
+      <text x="699" y="221">Check the final rendered output.</text>
+      <text x="699" y="242">Link the verified public location.</text>
+      <text x="30" y="296">If the review finds sensitive material or a missing asset, fix the candidate and run the checks again.</text>
+    </g>
+  </g>
+</svg>
