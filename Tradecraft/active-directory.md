@@ -510,47 +510,33 @@ SMB signing can reduce certain SMB relay risks but does not by itself address al
  
 
 ## AD Security Assessment Checklist
-
+ 
+Use this as a scoping aid, not a universal pass/fail list. Record the directory scope, evidence source and date, owner, approved exceptions, confidence, and remediation plan for each finding.
+ 
+```mermaid
+flowchart LR
+    S[Define forest and<br/>domain scope] --> E[Collect approved<br/>configuration evidence]
+    E --> V[Validate effective policy,<br/>permissions, and coverage]
+    V --> O[Review exceptions<br/>with control owners]
+    O --> P[Prioritize changes,<br/>pilot, and track]
+    P --> R[Verify outcome<br/>and retain evidence]
 ```
-Domain Configuration
-☐ Default Domain Policy password settings (length, complexity, lockout)
-☐ Accounts with password never expires
-☐ Accounts with password not required
-☐ Stale/inactive accounts (90+ days since last logon)
-☐ AS-REP roastable accounts (no pre-auth required)
-☐ Kerberoastable accounts (service accounts with weak passwords)
-☐ krbtgt password age (should be rotated periodically)
-
-Privilege Review
-☐ Members of Domain Admins, Enterprise Admins, Schema Admins
-☐ Members of Backup Operators, Account Operators, Print Operators
-☐ Accounts in Protected Users group (should include all DA+)
-☐ Service accounts with unnecessary admin rights
-☐ Local admin sprawl (who has local admin on what)
-
-Delegation
-☐ Unconstrained delegation hosts (except DCs)
-☐ Constrained delegation configurations
-☐ Resource-Based Constrained Delegation (RBCD) misconfigurations
-
-ACL/Permissions
-☐ Non-admin write access to DA/EA groups
-☐ Non-admin write access to GPOs
-☐ Non-admin DCSync rights on domain object
-☐ AdminSDHolder ACL review
-☐ Computer object write permissions (RBCD abuse path)
-
-Infrastructure
-☐ LAPS deployed on all workstations and servers
-☐ SMB signing enforced (prevents NTLM relay)
-☐ LDAP signing and channel binding
-☐ WDigest disabled
-☐ Credential Guard enabled
-☐ Tiered admin model implemented
-☐ AD audit policy (4662, 4769, 4624, etc.) enabled and forwarded to SIEM
-```
-
----
+ 
+| Area | Review questions | Evidence and caution |
+|---|---|---|
+| Effective authentication policy | What domain and fine-grained password policies apply? Which accounts do not require pre-authentication or have exceptions? | Review effective policy and account settings; document compatibility exceptions and owners. |
+| Account lifecycle | Which accounts are disabled, unused, expired, or configured with non-expiring passwords? | Use organization-defined inactivity criteria and reliable logon sources; replication and service use can make a single last-logon field misleading. |
+| Kerberos service accounts | Which SPNs belong to user-managed service identities, and are their secrets, privileges, and encryption support appropriate? | Review owners, secret-management method, ticket activity, and dependencies. Do not equate an SPN or RC4 event with compromise. |
+| Privileged groups and accounts | Who belongs to Domain Admins, Enterprise Admins, Schema Admins, and other high-impact groups? Where may those identities sign in? | Compare with approved membership and access paths; investigate nested groups and emergency accounts. |
+| Credential protections | Are Credential Guard, LSA protection, and Protected Users appropriate for each device/account role? | Confirm prerequisites and application compatibility. Protected Users is not a blanket requirement for every privileged identity. |
+| Service and local administration | Which services use privileged identities, and which users have local administrator rights on each device group? | Prefer managed service identities and scoped administration; confirm password rotation and read permissions for Windows LAPS. |
+| Delegation | Are unconstrained, constrained, and resource-based constrained delegation settings needed and narrowly scoped? | Verify the service owner, target services, ACLs, and change records. |
+| Directory and policy ACLs | Who can change privileged groups, AdminSDHolder, domain-level replication rights, GPOs, and computer-object delegation attributes? | Review effective rights and inheritance; validate changes against approved baselines and auditing coverage. |
+| Protocol protections | What SMB signing, LDAP signing/channel-binding, NTLM, WDigest, LLMNR, and NetBIOS settings are in effect? | Check actual negotiation and dependencies. SMB signing does not prevent every NTLM relay path; stage protocol changes. |
+| Monitoring and recovery | Are required DC and endpoint events collected, forwarded, retained, and searchable? Is forest recovery current and tested? | Confirm 4662 SACL coverage where needed, event volume, log retention, trusted backups, and a documented krbtgt recovery procedure. |
+ 
+For current behavior and prerequisites, consult Microsoft's [Credential Guard](https://learn.microsoft.com/en-us/windows/security/identity-protection/credential-guard/), [Protected Users](https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group), [Windows LAPS](https://learn.microsoft.com/en-us/windows-server/identity/laps/laps-overview), [krbtgt recovery](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/forest-recovery-guide/ad-forest-recovery-reset-the-krbtgt-password), [SMB signing](https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/overview-server-message-block-signing), and [LDAP channel-binding guidance](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/ldap-channel-binding).
+ 
 
 ## References
 
