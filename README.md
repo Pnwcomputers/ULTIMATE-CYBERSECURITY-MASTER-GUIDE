@@ -409,7 +409,7 @@ Field-side cybersecurity requires reliable, highly-portable hardware. This secti
 |---|---|---|
 | Hak5 Suite | Rubber Ducky | [Product](https://shop.hak5.org/products/usb-rubber-ducky) |
 | Hak5 Suite | Bash Bunny | [Product](https://shop.hak5.org/products/bash-bunny) |
-| Hak5 Suite | LAN Turtle | [Product](https://shop.hak5.org/products/lan-turtle) |
+| Hak5 Suite | LAN Turtle | [Hak5 support and model downloads](https://downloads.hak5.org/turtle) |
 | Hak5 Suite | Packet Squirrel | [Product](https://shop.hak5.org/products/packet-squirrel) |
 | Hak5 Suite | Shark Jack | [Product](https://shop.hak5.org/products/shark-jack) |
 | Hak5 Suite | O.MG Cable | [Product](https://shop.hak5.org/products/omg-cable) |

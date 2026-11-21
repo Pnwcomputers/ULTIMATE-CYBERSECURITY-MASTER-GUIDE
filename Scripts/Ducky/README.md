@@ -285,7 +285,7 @@ REM Shift + a (uppercase A)
 SHIFT a
 ```
 
-Keep comments on separate `REM` lines. Do not append `#` comments to DuckyScript commands; inline text may be treated as payload input. See the [Hak5 DuckyScript quick reference](https://docs.hak5.org/hak5-usb-rubber-ducky/duckyscript-language/duckyscript-quick-reference/).
+Keep comments on separate `REM` lines. Do not append `#` comments to DuckyScript commands; inline text may be treated as payload input. See the [Hak5 documentation on `REM` comments](https://documentation.hak5.org/hak5-usb-rubber-ducky/ducky-script-basics/rem#rem).
 
 ## Best Practices
 
