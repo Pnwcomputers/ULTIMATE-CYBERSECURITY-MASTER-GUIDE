@@ -84,17 +84,18 @@ The standard companion application. Cross-platform Python (Windows, Linux, macOS
 
 ### The segmented sweep — the killer feature
 
-The hardware does 101 points per sweep. Saver breaks a wide span into N segments,
-sweeps each one separately, and stitches them together.
+[NanoVNA-Saver](https://github.com/NanoVNA-Saver/nanovna-saver#basic-usage) divides the selected span into segments and combines their results. The example below assumes hardware and software configured for 101 points per segment.
+
+![A sparse sweep misses the bottom of a narrow dip. Denser sampling from three narrower segments shows more of the same response.](../../assets/diagrams/nanovna-segmented-sweep-sampling.svg)
+
+*Illustrative sweep over the same frequency range with fewer points drawn for clarity. The denser spacing helps reveal narrow features. Check repeatability, calibration and the exported frequencies before drawing conclusions.*
 
 ```
 Segments: 10  →  1010 effective points
 Segments: 50  →  5050 effective points
 ```
 
-This is what makes high-Q measurements possible — crystals, magnetic loops,
-narrow cavity filters. Set segments high, accept a slower sweep, get real
-resolution.
+Narrower spacing helps characterize high-Q responses such as crystals, magnetic loops and narrow cavity filters. Choose a point spacing that resolves the feature and record the acquisition time.
 
 ### Calibration in Saver
 

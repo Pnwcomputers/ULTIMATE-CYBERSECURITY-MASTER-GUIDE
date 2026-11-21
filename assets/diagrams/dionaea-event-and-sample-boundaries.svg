@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="464" viewBox="0 0 960 464" role="img" aria-labelledby="title desc">
+<title id="title">Dionaea events and captured files</title>
+<desc id="desc">A decoy observation can produce event metadata and sometimes a file. Forward approved metadata to monitoring. Keep the file quarantined under restricted access, record its hash and case reference, and authorize isolated analysis separately.</desc>
+<rect x="1" y="1" width="958" height="462" rx="12" fill="#f5f8fd" stroke="#c5d5e9"/>
+<text x="32" y="49" fill="#14263e" font-family="Arial, sans-serif" font-size="31" font-weight="700" text-anchor="start">Dionaea events and captured files</text>
+<text x="32" y="79" fill="#40536d" font-family="Arial, sans-serif" font-size="19" font-weight="500" text-anchor="start">Route logs and untrusted bytes to different destinations.</text>
+<rect x="32" y="132" width="246" height="157" rx="12" fill="#ffffff" stroke="#c5d5e9"/>
+<text x="48" y="163" fill="#14263e" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start">Decoy in isolation</text>
+<text x="48" y="189" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">A service observation</text>
+<text x="48" y="212" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">may create an event,</text>
+<text x="48" y="235" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">a file, or both.</text>
+<rect x="366" y="111" width="562" height="116" rx="12" fill="#e8f1fc" stroke="#b5ceed"/>
+<text x="382" y="142" fill="#14263e" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start">Event record</text>
+<text x="382" y="168" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Forward approved metadata to the monitoring system.</text>
+<text x="382" y="191" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Record capture time and the event reference.</text>
+<rect x="366" y="251" width="562" height="138" rx="12" fill="#fff1e5" stroke="#e4c4a0"/>
+<text x="382" y="282" fill="#14263e" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start">Captured file</text>
+<text x="382" y="308" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Quarantine it with restricted access.</text>
+<text x="382" y="331" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Record a hash and case reference before transferring a copy.</text>
+<text x="382" y="354" fill="#40536d" font-family="Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start">Use an isolated analysis environment if analysis is authorized.</text>
+<path d="M278 209 H317 V169 M317 209 V321" fill="none" stroke="#40536d" stroke-width="2"/>
+<path d="M317 169 H355" fill="none" stroke="#40536d" stroke-width="2"/>
+<polygon points="362,169 353,164 353,174" fill="#40536d"/>
+<path d="M317 321 H355" fill="none" stroke="#40536d" stroke-width="2"/>
+<polygon points="362,321 353,316 353,326" fill="#40536d"/>
+<text x="32" y="437" fill="#40536d" font-family="Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start">A log entry does not establish that the decoy obtained a complete or malicious sample.</text>
+</svg>

@@ -188,7 +188,11 @@ Confirm none of these conflict with anything else the host needs before deployin
 
 ## 📦 Where Captured Samples Land
 
-Logs and captured binaries are written under Dionaea's data path (`/opt/dionaea/var` in the source-build layout, or the volume you mounted in the Docker path). This is exactly the kind of artifact this repo's [Digital Forensics](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/IncidentResponse/Digital-Forensics/README.md) guidance applies to — hash everything, and never execute a captured sample outside a strictly isolated, host-only analysis environment.
+The configured [incident handlers](https://dionaea.readthedocs.io/en/latest/ihandler/index.html) determine which records or samples are written. Inspect the source-build data path or the mounted Docker volume for the files expected by your configuration. Follow the [Digital Forensics evidence guidance](../Digital-Forensics/README.md) for captured files.
+
+![A Dionaea observation can produce an event record for monitoring and a separate captured file for restricted evidence storage.](../../assets/diagrams/dionaea-event-and-sample-boundaries.svg)
+
+*Conceptual evidence flow. Keep captured files out of routine alert forwarding and retain the case reference needed to correlate the file with its event.*
 
 ---
 
@@ -210,10 +214,10 @@ Logs and captured binaries are written under Dionaea's data path (`/opt/dionaea/
                     ⚠️ CRITICAL WARNING ⚠️
 ═══════════════════════════════════════════════════════════════
 
-► THIS HONEYPOT CATCHES REAL MALWARE BY DESIGN. Every captured
-  binary is genuine, live malware. Never execute, open, or
-  extract a captured sample outside a strictly isolated,
-  host-only, network-disconnected analysis environment.
+► TREAT ALL CAPTURED FILES AS UNTRUSTED. Dionaea may collect
+  malware, benign content or incomplete data. Keep captured
+  files quarantined and restrict any authorized analysis
+  to a dedicated, isolated environment with no external access.
 
 ► DO NOT UPLOAD SAMPLES TO PUBLIC SANDBOXES CARELESSLY. If a
   sample appears targeted rather than generic/commodity,
