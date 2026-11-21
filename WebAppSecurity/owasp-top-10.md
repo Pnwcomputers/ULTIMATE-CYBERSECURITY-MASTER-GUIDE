@@ -123,10 +123,10 @@ flowchart LR
     B --> A[Artifact<br/>SBOM · provenance · signature]
     A --> R[Registry and release channel<br/>publisher · access · change history]
     R --> D[Deployment and updates<br/>verification · staged rollout]
-    S -. review sources and<br/>dependency integrity .- S
-    B -. restrict changes and<br/>protect build credentials .- B
-    A -. verify what was built<br/>and by which process .- A
-    D -. monitor, recover,<br/>and respond .- D
+    I1[Review source and<br/>dependency integrity] -.-> S
+    I2[Protect workflow identity<br/>and build credentials] -.-> B
+    I3[Verify provenance and<br/>signing identity] -.-> A
+    I4[Stage releases and<br/>monitor deployments] -.-> D
 ```
 
 The diagram summarizes trust boundaries and review points; it is not a claim that
