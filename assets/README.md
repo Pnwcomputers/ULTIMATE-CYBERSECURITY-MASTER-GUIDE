@@ -7,12 +7,13 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
-## NanoVNA Cable Distance and SWR Reference Visuals
+## NanoVNA Cable Distance, SWR and Smith Chart Visuals
 
 | Diagram | Embedded guide |
 |---|---|
 | [Time-domain reflection and one-way distance](./diagrams/nanovna-tdr-reflection-distance.svg) | [NanoVNA cable measurements](../SDR/nanovna/06-cables-filters-other-uses.md#61-tdr--time-domain-reflectometry) |
 | [SWR at two reference impedances](./diagrams/nanovna-swr-reference-impedance.svg) | [NanoVNA special cases](../SDR/nanovna/10-antenna-types-and-special-cases.md#105--75-ohm-antennas-on-a-50-ohm-instrument) |
+| [50 Ω Smith chart marker positions](./diagrams/nanovna-smith-chart-marker-positions.svg) | [NanoVNA RF fundamentals](../SDR/nanovna/02-rf-fundamentals.md#25-the-smith-chart) |
 
 ## Additional Guide Diagrams
 
@@ -43,6 +44,13 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [Bento evidence media boundaries](./diagrams/bento-live-response-media-boundaries.svg) | [Bento portable DFIR guide](../IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) | Separates tools, the live source, and the protected evidence destination |
 | [Pipeline CI trust and promotion](./diagrams/data-pipeline-ci-trust-and-promotion.svg) | [Pipeline testing and CI/CD](../Data-Engineering/Phase3/pipeline_testing_cicd.md) | Connects test scope, trusted artifact identity and deployment approval |
 | [Unified visibility evidence sources](./diagrams/unified-visibility-evidence-sources.svg) | [Unified network visibility](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md#reference-topology) | Compares wireless observations, wired traffic and device inventory before correlation |
+
+## Processing Cadence and Assessment Decisions
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [Processing cadence timeline](./diagrams/data-processing-cadence-timeline.svg) | [Data engineering fundamentals](../Data-Engineering/Phase1/data_engineering_fundamentals.md#5-batch-micro-batch-and-streaming) | Compares how the same arrivals are grouped and processed |
+| [Assessment finding and retest decisions](./diagrams/assessment-finding-retest-disposition.svg) | [Assessment findings lifecycle](../PlayBooks/assessment-findings-lifecycle.md#end-to-end-case-process) | Separates retest evidence from acceptance of residual risk |
 
 ## Setup and Capability Readback
 

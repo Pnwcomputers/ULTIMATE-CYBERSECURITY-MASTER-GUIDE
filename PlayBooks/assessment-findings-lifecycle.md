@@ -22,6 +22,10 @@ _Last reviewed: 2026-11-02 (documentation review; no issue tracker installed)_
 8. **Retest:** repeat the bounded procedure, preserving before/after evidence. Separate fixed, mitigated, accepted, still open and inconclusive states.
 9. **Close:** deliver an executive summary and sanitized technical report, enforce agreed evidence retention, and schedule the next review.
 
+![A validated finding gets an owner and retest criteria. Retesting leads to closure or further follow-up. A separate approval path records risk acceptance.](../assets/diagrams/assessment-finding-retest-disposition.svg)
+
+*Conceptual workflow for a client assessment. Preserve the original observation and retest record. For a risk exception, record approval, residual risk and the review date.*
+
 ## Minimum finding schema
 
 | Field | Required record |
