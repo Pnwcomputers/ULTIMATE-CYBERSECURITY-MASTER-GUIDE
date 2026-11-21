@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1118 432" role="img" aria-labelledby="title desc">
+  <title id="title">Reviewing PCI DSS evidence for a provider</title>
+  <desc id="desc">Identify the service and map provider, customer, and shared requirements. Check whether the provider Attestation of Compliance covers that service and the relevant requirements. Keep applicable evidence and confirm shared responsibilities. When no applicable attestation exists, request evidence for the applicable requirements and record remaining gaps.</desc>
+  <rect width="1118" height="432" rx="18" fill="#0c1526"/>
+  <g font-family="Segoe UI, Arial, sans-serif" fill="#f0f9ff">
+    <text x="28" y="47" font-size="28" font-weight="700">Reviewing PCI DSS evidence for a provider</text>
+    <rect x="28" y="165" width="216" height="103" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="43" y="195" font-size="18" font-weight="700">Identify the service</text>
+    <text x="43" y="222" font-size="16" fill="#e1edf8">Record what the provider</text>
+    <text x="43" y="244" font-size="16" fill="#e1edf8">does and what it can affect</text>
+    <rect x="295" y="165" width="204" height="103" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="310" y="195" font-size="18" font-weight="700">Map responsibilities</text>
+    <text x="310" y="222" font-size="16" fill="#e1edf8">Mark provider, customer</text>
+    <text x="310" y="244" font-size="16" fill="#e1edf8">and shared requirements</text>
+    <rect x="551" y="151" width="239" height="131" rx="10" fill="#162841" stroke="#466b90" stroke-width="2"/>
+    <text x="566" y="181" font-size="18" font-weight="700">Check the provider AOC</text>
+    <text x="566" y="208" font-size="16" fill="#e1edf8">Does it cover this service?</text>
+    <text x="566" y="230" font-size="16" fill="#e1edf8">Does it cover the relevant</text>
+    <text x="566" y="252" font-size="16" fill="#e1edf8">PCI DSS requirements?</text>
+    <rect x="853" y="74" width="237" height="109" rx="10" fill="#173044" stroke="#466b90" stroke-width="2"/>
+    <text x="868" y="104" font-size="18" font-weight="700">Applicable AOC</text>
+    <text x="868" y="131" font-size="16" fill="#e1edf8">Keep the AOC and request</text>
+    <text x="868" y="153" font-size="16" fill="#e1edf8">relevant detail if needed.</text>
+    <rect x="853" y="241" width="237" height="109" rx="10" fill="#2a2636" stroke="#466b90" stroke-width="2"/>
+    <text x="868" y="271" font-size="18" font-weight="700">No applicable AOC</text>
+    <text x="868" y="298" font-size="16" fill="#e1edf8">Request requirement-level</text>
+    <text x="868" y="320" font-size="16" fill="#e1edf8">evidence and log any gaps.</text>
+    <path d="M 244 216 H 289 M 281 211 L 289 216 L 281 221" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 499 216 H 545 M 537 211 L 545 216 L 537 221" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 790 196 H 818 V 128 H 847 M 839 123 L 847 128 L 839 133" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M 790 237 H 818 V 295 H 847 M 839 290 L 847 295 L 839 300" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="28" y="371" width="1062" height="36" rx="8" fill="#192b42"/>
+    <text x="43" y="394" font-size="16" fill="#d9edff">AOC means Attestation of Compliance. Keep evidence for the customer's share of each applicable requirement.</text>
+  </g>
+</svg>
