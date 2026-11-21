@@ -10,6 +10,11 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[2]
 
 DIAGRAM_GUIDES = {
+    "assets/diagrams/uconsole-parrot-cm5-plan-and-readback.svg": ("uConsole/PARROT-CM5.md",),
+    "assets/diagrams/openclaw-gateway-access-checks.svg": ("AI/OpenClaw/README.md",),
+    "assets/diagrams/cyberdeck-qualification-evidence-gate.svg": (
+        "Cyberdeck/docs/ACCEPTANCE_TESTS.md",
+    ),
     "assets/diagrams/uconsole-cm4-preserve-working-image.svg": (
         "uConsole/CM4-SETUP.md",
     ),

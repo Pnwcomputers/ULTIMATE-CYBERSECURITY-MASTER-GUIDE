@@ -455,7 +455,9 @@ You are now connected to the OpenClaw dashboard.
 
 ## Local Access Before HTTPS
 
-Keep the dashboard bound to loopback or a trusted LAN while configuring HTTPS. Do not enable Chrome’s insecure-origin override or place the gateway token in an HTTP URL. Use the HTTPS reverse proxy after certificate and origin checks are configured; if HTTPS is unavailable, access only through a trusted local tunnel and keep the token in the app’s supported secure configuration.
+![OpenClaw dashboard access depends on the client network, host mapping, HTTPS and origin checks, gateway authentication, and device pairing](../../assets/diagrams/openclaw-gateway-access-checks.svg)
+
+Limit initial access to the intended trusted clients. Review both the Gateway's bind address and the TrueNAS application's published host ports. A container listener and its host exposure are separate settings. [OpenClaw network-exposure documentation](https://docs.openclaw.ai/gateway/security/network-exposure) Do not enable Chrome’s insecure-origin override or place the gateway token in an HTTP URL. Use the HTTPS reverse proxy after certificate and origin checks are configured; if HTTPS is unavailable, access only through a trusted local tunnel and keep the token in the app’s supported secure configuration.
 
 ---
 

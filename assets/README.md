@@ -36,6 +36,14 @@ This folder stores diagrams as shared assets. Embed them in the **topic guide wh
 | [USB-to-UART safe observation](./diagrams/usb-uart-safe-observation.svg) | [BitPirate](../HardwareHacking/BitPirate.md) | Voltage checks and receive-only observation |
 | [Passive and active wireless scope](./diagrams/wireless-passive-active-boundary.svg) | [Network audit playbook](../PlayBooks/NetworkAuditPlayBook.md) | Separates passive observations from actions requiring approval |
 
+## Setup and Capability Readback
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
+| [Parrot CM5 plan and readback](./diagrams/uconsole-parrot-cm5-plan-and-readback.svg) | [Parrot CM5 setup](../uConsole/PARROT-CM5.md#run) | Separates installed-image checks, cached package simulation and physical validation |
+| [OpenClaw gateway access checks](./diagrams/openclaw-gateway-access-checks.svg) | [OpenClaw setup](../AI/OpenClaw/README.md#local-access-before-https) | Shows effective exposure, authenticated access and pairing |
+| [Cyberdeck qualification evidence gate](./diagrams/cyberdeck-qualification-evidence-gate.svg) | [Cyberdeck acceptance tests](../Cyberdeck/docs/ACCEPTANCE_TESTS.md#completion-definitions) | Connects pass criteria and evidence to capability claims |
+
 ## Computing Setup and Shell Verification
 
 | Diagram | Where embedded | Why it belongs |

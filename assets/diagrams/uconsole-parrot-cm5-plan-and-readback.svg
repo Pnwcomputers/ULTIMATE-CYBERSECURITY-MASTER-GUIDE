@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 255" role="img" aria-labelledby="title desc">
+  <title id="title">Qualify an existing Parrot image on CM5</title>
+  <desc id="desc">Check the working Parrot image, preview optional packages from cached metadata, review a refreshed package plan, and verify the device after any change.</desc>
+  <rect width="1000" height="255" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="29" y="46" fill="#fff" font-size="27" font-weight="700">Qualify an existing Parrot image on CM5</text>
+    <rect x="29" y="75" width="286" height="128" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="46" y="111" fill="#fff" font-size="18" font-weight="700">Confirm the starting image</text>
+    <text x="46" y="147" fill="#d7e6f4" font-size="15">Parrot ARM64 already boots</text>
+    <text x="46" y="172" fill="#d7e6f4" font-size="15">Screen, input and network work</text>
+    <rect x="357" y="75" width="286" height="128" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="374" y="111" fill="#fff" font-size="18" font-weight="700">Review optional changes</text>
+    <text x="374" y="147" fill="#d7e6f4" font-size="15">Dry run uses cached APT data</text>
+    <text x="374" y="172" fill="#d7e6f4" font-size="15">A real install checks a fresh plan</text>
+    <rect x="685" y="75" width="286" height="128" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="702" y="111" fill="#fff" font-size="18" font-weight="700">Read back on the device</text>
+    <text x="702" y="147" fill="#d7e6f4" font-size="15">Verify boot and peripherals</text>
+    <text x="702" y="172" fill="#d7e6f4" font-size="15">Record the exact hardware and OS</text>
+    <path d="M321 139h30m-7-6 7 6-7 6m298-6h30m-7-6 7 6-7 6" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="29" y="233" fill="#d7e6f4" font-size="16">Keep a whole-device backup. The script's configuration snapshot covers selected files.</text>
+  </g>
+</svg>

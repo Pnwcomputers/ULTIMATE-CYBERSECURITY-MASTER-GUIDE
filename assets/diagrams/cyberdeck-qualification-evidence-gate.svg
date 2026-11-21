@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 255" role="img" aria-labelledby="title desc">
+  <title id="title">Decide whether a Cyberdeck capability is qualified</title>
+  <desc id="desc">Record the intended capability and fixture, compare observed behavior with the pass criteria, and retain evidence for each result. Required gates must pass before claiming readiness.</desc>
+  <rect width="1000" height="255" rx="16" fill="#0b1223"/>
+  <g font-family="sans-serif">
+    <text x="29" y="46" fill="#fff" font-size="27" font-weight="700">Decide whether a Cyberdeck capability is qualified</text>
+    <rect x="29" y="75" width="286" height="128" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="46" y="111" fill="#fff" font-size="18" font-weight="700">Define what is in scope</text>
+    <text x="46" y="147" fill="#d7e6f4" font-size="15">Select the relevant matrix rows</text>
+    <text x="46" y="172" fill="#d7e6f4" font-size="15">Record device, firmware and fixture</text>
+    <rect x="357" y="75" width="286" height="128" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="374" y="111" fill="#fff" font-size="18" font-weight="700">Compare results</text>
+    <text x="374" y="147" fill="#d7e6f4" font-size="15">Store the result and evidence</text>
+    <text x="374" y="172" fill="#d7e6f4" font-size="15">Record failure, blockage or gaps</text>
+    <rect x="685" y="75" width="286" height="128" rx="12" fill="#172a40" stroke="#38bdf8" stroke-width="2"/>
+    <text x="702" y="111" fill="#fff" font-size="18" font-weight="700">Make the readiness decision</text>
+    <text x="702" y="147" fill="#d7e6f4" font-size="15">Required gates pass for this setup</text>
+    <text x="702" y="172" fill="#d7e6f4" font-size="15">Changes trigger affected retests</text>
+    <path d="M321 139h30m-7-6 7 6-7 6m298-6h30m-7-6 7 6-7 6" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+    <text x="29" y="233" fill="#d7e6f4" font-size="16">Report unverified capabilities explicitly. Public examples and physical qualification have separate gates.</text>
+  </g>
+</svg>
