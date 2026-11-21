@@ -140,7 +140,7 @@ Deploying a Sensor requires planning certificates *before* you start — the Hiv
 
 Once planned:
 
-```bash
+```text
 # On the Hive, using an approved administrator identity:
 cd ~/tpotce
 # Review the upstream deployment procedure before provisioning.

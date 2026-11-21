@@ -306,7 +306,10 @@ worksheet metadata. Change something small and reversible — move the coax, add
 ferrite, tilt a radial. Sweep and export again. Then:
 
 ```bash
-python3 tools/s1pdiff.py diff baseline.s1p modified.s1p --at <your target MHz>
+# From SDR/nanovna, with both exports in the current directory.
+# Set this to the target frequency in MHz, within both exported sweeps.
+target_mhz=7.150
+python3 tools/s1pdiff.py diff baseline.s1p modified.s1p --at "$target_mhz"
 ```
 
 **Expect:** The tool quantifies a change you made deliberately and know the size

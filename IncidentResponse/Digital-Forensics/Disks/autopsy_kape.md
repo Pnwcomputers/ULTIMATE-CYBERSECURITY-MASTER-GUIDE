@@ -173,8 +173,8 @@ Targets:
 
 ### Basic Syntax
 
-```powershell
-kape.exe --tsource <source> --tdest <destination> --target <target_name>
+```text
+.\kape.exe --tsource <source> --tdest <destination> --target <target_name>
 ```
 
 ### Example 1: Comprehensive Triage Collection
@@ -281,8 +281,8 @@ Processors:
 
 ### Basic Module Syntax
 
-```powershell
-kape.exe --msource <source> --mdest <destination> --module <module_name>
+```text
+.\kape.exe --msource <source> --mdest <destination> --module <module_name>
 ```
 
 ### Example 1: Process All with EZParser

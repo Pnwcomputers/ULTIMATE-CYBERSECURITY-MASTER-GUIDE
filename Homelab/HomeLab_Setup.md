@@ -509,8 +509,8 @@ Use the OPNsense IDS/IPS interface and the installed Suricata version's document
 
 #### Initial Configuration
 
-**Node Setup** (if multiple R630s available):
-```bash
+**Node setup.** Cluster join overwrites the joining node's existing `/etc/pve` configuration. Back up its guests and configuration first and join only when it holds no guests, as documented by [Proxmox VE](https://pve.proxmox.com/pve-docs/pve-admin-guide.pdf). The commands below are syntax references. Replace the address with a member of your cluster before proceeding.
+```text
 # On first R630 (already installed)
 pvecm create pnw-pentest-cluster
 
@@ -519,7 +519,7 @@ pvecm add <first-r630-ip>
 ```
 
 **Shared Storage Configuration** (TrueNAS Integration):
-```bash
+```text
 # Add NFS storage from TrueNAS to Proxmox
 pvesm add nfs truenas-nfs --server <truenas-ip> --export /mnt/tank/proxmox --content iso,vztmpl,backup,images
 ```
@@ -1864,16 +1864,16 @@ For setup problems, compare the procedure with the current vendor documentation,
 
 ### Command Quick Reference
 
-**Proxmox Management**:
-```bash
+**Proxmox command forms.** Identify the VM using `qm list`. Prefer a graceful guest shutdown. Check that storage supports snapshots and that a separate backup exists before rollback or deletion.
+```text
 # List all VMs
 qm list
 
 # Start VM
 qm start <vmid>
 
-# Stop VM
-qm stop <vmid>
+# Request guest shutdown
+qm shutdown <vmid>
 
 # Snapshot
 qm snapshot <vmid> <snapshot-name>
@@ -1890,7 +1890,7 @@ qm clone <vmid> <new-vmid> --name <new-name>
 Before active validation, confirm written scope and keep probes inside the documented lab subnet. Review firewall logs and routes first; ICMP responses vary by policy and cannot alone prove isolation. If scanning is part of the exercise, select a single disposable target and a conservative profile rather than sweeping an entire segment.
 
 **Snapshot Management**:
-```bash
+```text
 # List snapshots
 qm listsnapshot <vmid>
 

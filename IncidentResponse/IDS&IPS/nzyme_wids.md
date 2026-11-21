@@ -205,10 +205,11 @@ sudo -u postgres psql -tc "\du" | grep -i nzyme
 
 ### Install & Configure
 
+Use the [nzyme installation instructions for your OS and architecture](https://docs.nzyme.org/getting-started/installation/ubuntu-server-2404/) to select the publisher's Debian package. After reviewing and verifying the package, replace the example filename with the downloaded file.
+
 ```bash
-wget <url_to_node_deb_from_go.nzyme.org/downloads>
-sudo dpkg -i nzyme-node_<version>.deb
-sudo nano /etc/nzyme/nzyme.conf
+node_package='./nzyme-node-reviewed.deb'
+sudo dpkg -i "$node_package" && sudoedit /etc/nzyme/nzyme.conf
 ```
 
 | Key | Value |
