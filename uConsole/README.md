@@ -138,7 +138,7 @@ See [SBC & Radio Add-On Compatibility](../Documentation/sbc-radio-addon-compatib
 | **Onboard Wi-Fi** | Depends on image/driver; CM4 uConsole support unverified | Depends on image/driver; CM5 uConsole support unverified |
 | **Community Maturity** | Most tested, most stable | Newer, improving rapidly |
 | **PCIe** | Gen 2 (via adapter board) | Gen 2 default via adapter board; `dtparam=pciex1` required (edit any existing `=off`) |
-| **NVMe Boot** | Usually fine, some older units need update | Needs `BOOT_ORDER` with NVMe (e.g. `0xf416`) **and** `PCIE_PROBE=1` |
+| **NVMe Boot** | Depends on carrier, EEPROM boot order and bootable media | Needs `BOOT_ORDER` with NVMe (e.g. `0xf416`). Set `PCIE_PROBE=1` for a non-HAT+ board |
 | **Internal RTC** | None (uses AIO v2's PCF85063A) | Has internal RTC (must disable for AIO v2's RTC) |
 
 ### Which Should I Buy?

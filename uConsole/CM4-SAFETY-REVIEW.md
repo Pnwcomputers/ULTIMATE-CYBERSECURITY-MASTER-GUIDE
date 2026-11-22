@@ -32,7 +32,7 @@ The prior v1.x script is not retained as an executable repository file; it remai
 
 - **CM4 vs CM5 have different UART and RTC device-tree configurations.** Only use the specific overlay shown by the vendor for your **fitted board and OS**. The [HackerGadgets AIO V1/V2 guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide) documents CM4's `i2c-rtc,pcf85063a` and CM5's `i2c-rtc,pcf85063a,i2c_csi_dsi0` with internal RTC disabled.
 - The [HackerGadgets `aiov2_ctl` project](https://github.com/hackergadgets/aiov2_ctl) documents GPIO power rails and optional companion apps. Never infer that a detected module is powered properly or that a script automatically enabled USB/GPS/LoRa/SDR.
-- **PCIe detection and NVMe boot are different**. The Compute Module EEPROM `BOOT_ORDER` matters, as do CM4 Lite versus eMMC variants and the actual carrier board. Do not tell users to remove the SD card after an unverified clone. Follow [Raspberry Pi's official Compute Module documentation](https://www.raspberrypi.com/documentation/computers/compute-module.html).
+- **PCIe detection and NVMe boot are different**. The Compute Module EEPROM `BOOT_ORDER` matters, as do CM4 Lite versus eMMC variants and the actual carrier board. Do not tell users to remove the SD card after an unverified clone. Follow [Raspberry Pi's official Compute Module documentation](https://github.com/raspberrypi/documentation/blob/97485d9742bcd15765f208d8c01735d74d542650/documentation/asciidoc/computers/raspberry-pi/eeprom-bootloader.adoc).
 - **Parrot CM5** remains an experimental adaptation for an *already booting and display-working* image; it does not transform Debian/Kali into Parrot or prove stock Parrot device compatibility.
 
 ## Tests and what they do not establish
@@ -49,7 +49,7 @@ Offline internal Markdown links and lint are tested by repository actions. Offic
 
 - [Official HackerGadgets AIO v2 installation and wiring](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide)
 - [Official HackerGadgets `aiov2_ctl` project](https://github.com/hackergadgets/aiov2_ctl)
-- [Raspberry Pi Compute Module hardware and boot EEPROM](https://www.raspberrypi.com/documentation/computers/compute-module.html)
+- [Raspberry Pi Compute Module hardware and boot EEPROM](https://github.com/raspberrypi/documentation/blob/97485d9742bcd15765f208d8c01735d74d542650/documentation/asciidoc/computers/raspberry-pi/eeprom-bootloader.adoc)
 - [Kali repository mixing warning](https://www.kali.org/docs/general-use/kali-apt-sources/)
 - [Debian Don't Break Debian](https://wiki.debian.org/DontBreakDebian)
 - [ClockworkPi community forums](https://forum.clockworkpi.com/)
