@@ -111,7 +111,7 @@ RF energy can extend beyond a physical boundary. Reception depends on the receiv
 
 ![Idealized OOK envelope and binary FSK frequency states show two different symbol-carrying properties](../assets/diagrams/subghz-ook-vs-fsk.svg)
 
-*Figure 1 — Original symbolic teaching diagram, not sampled RF. Modulation is separate from coding and authentication. Context: [TI's supported modulation descriptions](https://www.ti.com/product/CC1101) and [GNU Radio frequency demodulation](https://wiki.gnuradio.org/index.php/Quadrature_Demod).*
+*Figure 1 — Original symbolic teaching diagram, not sampled RF. Modulation is separate from coding and authentication. Context: [TI's supported modulation descriptions](https://www.ti.com/product/CC1101) and [GNU Radio's quadrature demodulator source](https://github.com/gnuradio/gnuradio/blob/v3.10.12.0/gr-analog/lib/quadrature_demod_cf_impl.cc).*
 
 - **Wavelength and propagation:** Lower frequencies have longer wavelengths. Range and penetration also depend on antennas, transmit power, materials, interference, and receiver sensitivity; a band alone does not guarantee range.
 - **Power budget:** Battery life depends on duty cycle, radio configuration, retries, and the rest of the device. Sub-GHz operation is not inherently lower-energy for every application.
@@ -257,7 +257,7 @@ Sources: [HackRF tools](https://hackrf.readthedocs.io/en/latest/hackrf_tools.htm
 
 ![An RF frontend produces IQ samples that are preserved with metadata, processed on a working copy and interpreted as candidate fields](../assets/diagrams/subghz-iq-to-evidence.svg)
 
-*Figure 3 — Original conceptual receive pipeline. See [HackRF's sample format](https://hackrf.readthedocs.io/en/latest/hackrf_tools.html) and [GNU Radio File Sink documentation](https://wiki.gnuradio.org/index.php/File_Sink). The actual item type determines file representation; an extension alone does not.*
+*Figure 3 — Original conceptual receive pipeline. See [HackRF's sample format](https://hackrf.readthedocs.io/en/latest/hackrf_tools.html) and the [GNU Radio File Sink implementation](https://github.com/gnuradio/gnuradio/blob/v3.10.12.0/gr-blocks/lib/file_sink_impl.cc). The sink writes input items without adding a format header. Record the item type alongside the file.*
 
 GNU Radio Companion (GRC) allows you to build custom visual processing blocks to interact with your HackRF. Below is the blueprint for a baseline **Sub-GHz OOK Signal Recorder Flowgraph**.
 
@@ -277,7 +277,7 @@ Options and Variable blocks configure the flowgraph; they are not sample-stream 
 5. **QT GUI Sink:** Connect the output of the *Osmocom Source* to this block to visually monitor your waterfall and spectrum analyzer while recording.
 6. **File Sink:** Connect the output of the *Osmocom Source* here as well.
    - `File`: Choose a path (e.g., `/home/user/desktop/capture.iq`).
-   - Choose buffering for measured host/storage throughput; unbuffered mode does not guarantee complete or instantly durable writes. Record the File Sink item type: a complex float32 stream differs from HackRF's signed-byte output.
+   - Choose buffering for measured host/storage throughput. Unbuffered mode does not guarantee complete or instantly durable writes. With the **Complex** input type, record 32-bit floating-point I and Q values per sample. HackRF's command-line capture instead writes signed 8-bit I and Q values.
 
 ### Running the Procedure
 
