@@ -1,7 +1,7 @@
 # uConsole Setup Guide: CM5 Configuration
 
 > [!NOTE]
-> **Reviewed November 19, 2026** against the [HackerGadgets AIO V2 setup guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide), the [`aiov2_ctl` source](https://github.com/hackergadgets/aiov2_ctl), the [Upgrade Kit thread](https://forum.clockworkpi.com/t/hackergadgets-uconsole-upgrade-kit-adding-nvme-ssd-pcie-rj45-ethernet-and-usb-3-0-to-your-uconsole/20019) and the [Raspberry Pi PCIe documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie). Corrections: RJ45 comes from the expansion board (not the AIO v2), CM5 needs no `cmdline.txt` edit for GPS, the CM5 RTC block has no `i2c_arm` line, an existing `dtparam=pciex1=off` must be edited, NVMe boot needs `PCIE_PROBE=1`, and the `aiov2_ctl` venv/symlink steps were wrong. Run `sudo bash scripts/uconsole-cm5-setup.sh --hw-check` (read-only) to audit a device. The conservative CM5 setup procedure is retained. A detected NVMe device does not itself establish NVMe **boot support**; confirm carrier support, EEPROM boot order and a verified bootable image before changing startup storage. Read the [official Raspberry Pi Compute Module documentation](https://www.raspberrypi.com/documentation/computers/compute-module.html) and [uConsole review](./CM4-SAFETY-REVIEW.md). No automated hardware validation was performed.
+> **Reviewed November 19, 2026** against the [HackerGadgets AIO V2 setup guide](https://hackergadgets.com/pages/hackergadgets-uconsole-rtl-sdr-lora-gps-rtc-usb-hub-all-in-one-extension-board-setup-guide), the [`aiov2_ctl` source](https://github.com/hackergadgets/aiov2_ctl), the [Upgrade Kit thread](https://forum.clockworkpi.com/t/hackergadgets-uconsole-upgrade-kit-adding-nvme-ssd-pcie-rj45-ethernet-and-usb-3-0-to-your-uconsole/20019) and the [Raspberry Pi PCIe documentation](https://github.com/raspberrypi/documentation/blob/97485d9742bcd15765f208d8c01735d74d542650/documentation/asciidoc/computers/raspberry-pi/pcie.adoc). Corrections: RJ45 comes from the expansion board (not the AIO v2), CM5 needs no `cmdline.txt` edit for GPS, the CM5 RTC block has no `i2c_arm` line, an existing `dtparam=pciex1=off` must be edited, the non-HAT+ NVMe board needs `PCIE_PROBE=1` for booting, and the `aiov2_ctl` venv/symlink steps were wrong. Run `sudo bash scripts/uconsole-cm5-setup.sh --hw-check` (read-only) to audit a device. The conservative CM5 setup procedure is retained. A detected NVMe device does not itself establish NVMe **boot support**; confirm carrier support, EEPROM boot order and a verified bootable image before changing startup storage. Read the [official Raspberry Pi Compute Module documentation](https://github.com/raspberrypi/documentation/blob/97485d9742bcd15765f208d8c01735d74d542650/documentation/asciidoc/computers/compute-module/introduction.adoc) and [uConsole review](./CM4-SAFETY-REVIEW.md). No automated hardware validation was performed.
 
 ## *Rex's Kali or Trixie + HackerGadgets AIO v2 Board + HackerGadgets Battery & NVMe Board*
 
@@ -187,7 +187,7 @@ Rex's specific guidance from the forum threads: **use Raspberry Pi Imager direct
 and do not apply any custom settings.** Custom settings (hostname, WiFi, SSH) from Pi Imager will cause Rex's
 images to fail to boot.
 
-1. Install [Raspberry Pi Imager](https://www.raspberrypi.com/software/) on your host machine.
+1. Install [Raspberry Pi Imager](https://github.com/raspberrypi/rpi-imager#raspberry-pi-imager) on your host machine.
 2. In Pi Imager:
    - **Operating System:** "Use Custom" → select the downloaded `.xz` file directly (do **not** decompress first)
    - **Storage:** your microSD card (16 GB minimum, 32+ GB recommended)
@@ -593,7 +593,7 @@ cat /sys/class/power_supply/axp20x-battery/{capacity,status}
 
 **Important:** `/dev/nvme0n1` appearing does not mean the bootloader will boot from it. Do not change EEPROM boot
 order without a backup and a tested recovery route (a known-good SD card or eMMC). The [official boot-from-PCIe
-documentation](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#boot-from-pcie) applies to CM5.
+documentation](https://github.com/raspberrypi/documentation/blob/97485d9742bcd15765f208d8c01735d74d542650/documentation/asciidoc/computers/raspberry-pi/pcie.adoc) applies to CM5.
 
 1. Put a bootable image on the NVMe. Simplest: write Rex's image to it in a USB NVMe enclosure on another
    computer with Raspberry Pi Imager (no custom settings), then refit it. The NVMe copy needs the same
@@ -625,7 +625,7 @@ PCIE_PROBE=1        # required for non-HAT+ PCIe boards so the bootloader probes
 | RTC Config | Must disable internal RTC (`dtparam=rtc=off`) + remap i2c0 via `i2c_csi_dsi0`; no `i2c_arm` line |
 | SDR Boot State | Defaults HIGH (ON) at boot (CM4 defaults OFF) |
 | Serial Console | No `cmdline.txt` change needed (`serial0` is the debug UART `ttyAMA10`); only remove `console=ttyAMA0` if present |
-| PCIe / NVMe | PCIe Gen 2 by default; needs `dtparam=pciex1` (edit any existing `=off`). NVMe boot needs `BOOT_ORDER` with `6` and `PCIE_PROBE=1` |
+| PCIe / NVMe | PCIe Gen 2 by default; needs `dtparam=pciex1` (edit any existing `=off`). NVMe boot needs `BOOT_ORDER` with `6`. Set `PCIE_PROBE=1` for a non-HAT+ board |
 | USB 3.0 | Only via the RJ45 & USB 3.0 expansion board (USB 2.0 on CM4) |
 
 ---
@@ -750,7 +750,7 @@ you to repair a `~/.pygpsclient` venv; `aiov2_ctl --install` does not create one
 * Try another drive. Community reports show some drives are flaky at Gen 3; remove `pciex1_gen=3`.
 
 ### Boots from SD even though NVMe is bootable
-* `sudo rpi-eeprom-config`: `BOOT_ORDER` must try `6` first (e.g. `0xf416`) and `PCIE_PROBE=1` must be set.
+* `sudo rpi-eeprom-config`: for NVMe-first boot, `BOOT_ORDER` must try `6` first (e.g. `0xf416`). Set `PCIE_PROBE=1` for a non-HAT+ board.
 * The NVMe copy of `config.txt` also needs `dtparam=pciex1`.
 
 ### `hwclock -r` reports no RTC / "Cannot access the Hardware Clock"
@@ -777,8 +777,8 @@ For this PolKit error, inspect the session's authentication-agent configuration 
 * [Rex's AIO Board Package Thread](https://forum.clockworkpi.com/t/hackergadgets-aio-board-package/17875)
 * [Rex's Trixie Image](https://forum.clockworkpi.com/t/trixie-6-12-y-for-the-uconsole-and-devterm/19457)
 * [HackerGadgets Upgrade Kit thread (adapter, NVMe Battery, RJ45 & USB 3.0 boards)](https://forum.clockworkpi.com/t/hackergadgets-uconsole-upgrade-kit-adding-nvme-ssd-pcie-rj45-ethernet-and-usb-3-0-to-your-uconsole/20019)
-* [Raspberry Pi: PCIe enable, boot and Gen 3](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#pcie)
-* [Raspberry Pi: bootloader configuration (`BOOT_ORDER`, `PCIE_PROBE`)](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#raspberry-pi-bootloader-configuration)
+* [Raspberry Pi: PCIe enable, boot and Gen 3](https://github.com/raspberrypi/documentation/blob/97485d9742bcd15765f208d8c01735d74d542650/documentation/asciidoc/computers/raspberry-pi/pcie.adoc)
+* [Raspberry Pi: bootloader configuration (`BOOT_ORDER`, `PCIE_PROBE`)](https://github.com/raspberrypi/documentation/blob/97485d9742bcd15765f208d8c01735d74d542650/documentation/asciidoc/computers/raspberry-pi/eeprom-bootloader.adoc)
 * [Meshtastic: meshtasticd on Debian](https://meshtastic.org/docs/software/linux/installation/debian/)
 
 ## Related Files

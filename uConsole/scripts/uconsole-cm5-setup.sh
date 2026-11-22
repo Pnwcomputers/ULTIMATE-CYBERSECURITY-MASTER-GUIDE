@@ -345,6 +345,22 @@ for level, msg in out:
     print(f'[{level}] {msg}')
 PY
 }
+report_bootloader_config() {
+    local cfg order probe
+    if ! cfg=$(rpi-eeprom-config 2>/dev/null) || [[ -z "$cfg" ]]; then
+        hw WARN 'Could not read the bootloader EEPROM configuration'
+        return
+    fi
+    order=$(sed -n 's/^BOOT_ORDER=//p' <<<"$cfg" | tail -n1)
+    probe=$(sed -n 's/^PCIE_PROBE=//p' <<<"$cfg" | tail -n1)
+    hw INFO "BOOT_ORDER=${order:-not reported} PCIE_PROBE=${probe:-not reported}"
+    if [[ "$order" == *6* && "$probe" != 1 ]]; then
+        hw WARN 'For a non-HAT+ NVMe board, confirm PCIE_PROBE=1 before attempting NVMe boot'
+    elif [[ -n "$order" && "$order" != *6* ]]; then
+        hw INFO 'NVMe (6) not in BOOT_ORDER: see CM5-SETUP.md Step 14 if you intend to boot from NVMe'
+    fi
+}
+
 hw_check() {
     local model f name val config_report line
     model=$(tr -d '\0' < "$MODEL_FILE" 2>/dev/null) || model=unknown
@@ -421,16 +437,7 @@ hw_check() {
 
     printf -- '-- Bootloader EEPROM (read-only) --\n'
     if (( EUID == 0 )) && command -v rpi-eeprom-config >/dev/null; then
-        local cfg order probe
-        cfg=$(rpi-eeprom-config 2>/dev/null) || cfg=
-        order=$(sed -n 's/^BOOT_ORDER=//p' <<<"$cfg" | tail -n1)
-        probe=$(sed -n 's/^PCIE_PROBE=//p' <<<"$cfg" | tail -n1)
-        hw INFO "BOOT_ORDER=${order:-default} PCIE_PROBE=${probe:-0}"
-        if [[ "${order,,}" == *6* ]]; then
-            [[ "$probe" == 1 ]] || hw WARN 'NVMe is in BOOT_ORDER but PCIE_PROBE is not 1; non-HAT+ NVMe boards are not probed at boot'
-        else
-            hw INFO 'NVMe (6) not in BOOT_ORDER: fine for SD/eMMC boot; see CM5-SETUP.md Step 14 to boot NVMe'
-        fi
+        report_bootloader_config
     else
         hw INFO 'EEPROM readout skipped (needs sudo and rpi-eeprom-config)'
     fi

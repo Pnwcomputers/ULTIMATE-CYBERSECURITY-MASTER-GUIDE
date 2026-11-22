@@ -150,7 +150,7 @@ Debian 13 (Trixie) base with packages from **the image's compatible Debian/Raspb
 ### Flash the Image
 
 Rex's specific guidance from the forum threads: **use Raspberry Pi Imager directly on the compressed `.xz` file, and do not apply any custom settings.** Custom settings (hostname, WiFi, SSH) from Pi Imager will cause Rex's images to fail to boot.
-1. Install [Raspberry Pi Imager](https://www.raspberrypi.com/software/) on your host machine.
+1. Install [Raspberry Pi Imager](https://github.com/raspberrypi/rpi-imager#raspberry-pi-imager) on your host machine.
 2. In Pi Imager:
    - **Operating System:** "Use Custom" → select the downloaded `.xz` file directly (do **not** decompress first)
    - **Storage:** your microSD card (16 GB minimum, 32+ GB recommended)
@@ -561,7 +561,7 @@ lspci
 sudo rpi-eeprom-config  # if installed on your image; inspect BOOT_ORDER
 ~~~
 
-Consult [Raspberry Pi's official Compute Module boot/EEPROM documentation](https://www.raspberrypi.com/documentation/computers/compute-module.html) for the **specific CM4 carrier board** and boot order. Updating EEPROM, enabling PCIe and cloning a root filesystem are **separate procedures** with data-loss/brick risks. Image and test a spare storage device first; retain the original boot media until a full power-cycle boot and restore are proven.
+Consult [Raspberry Pi's official Compute Module boot/EEPROM documentation](https://github.com/raspberrypi/documentation/blob/97485d9742bcd15765f208d8c01735d74d542650/documentation/asciidoc/computers/raspberry-pi/eeprom-bootloader.adoc) for the **specific CM4 carrier board** and boot order. Updating EEPROM, enabling PCIe and cloning a root filesystem are **separate procedures** with data-loss/brick risks. Image and test a spare storage device first; retain the original boot media until a full power-cycle boot and restore are proven.
 
 ---
 

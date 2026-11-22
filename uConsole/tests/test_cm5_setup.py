@@ -2,6 +2,7 @@
 
 All mutations are confined to temporary fixtures. Never run the setup on this host.
 """
+import os
 import pathlib
 import subprocess
 import tempfile
@@ -211,6 +212,21 @@ class HardwareCheckTests(unittest.TestCase):
             self.assertNotEqual(r.returncode, 0)
             self.assertIn('[FAIL] Could not evaluate', r.stdout)
 
+    def test_unreadable_eeprom_does_not_report_defaults(self):
+        with tempfile.TemporaryDirectory() as d:
+            r = self.shell('rpi-eeprom-config() { return 1; }\nreport_bootloader_config', pathlib.Path(d))
+            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+            self.assertIn('[WARN] Could not read the bootloader EEPROM', r.stdout)
+            self.assertNotIn('BOOT_ORDER=', r.stdout)
+
+    def test_nvme_probe_guidance_is_conditional(self):
+        with tempfile.TemporaryDirectory() as d:
+            r = self.shell("rpi-eeprom-config() { printf 'BOOT_ORDER=0xf416\\n'; }\n"
+                           'report_bootloader_config', pathlib.Path(d))
+            self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+            self.assertIn('BOOT_ORDER=0xf416 PCIE_PROBE=not reported', r.stdout)
+            self.assertIn('For a non-HAT+ NVMe board', r.stdout)
+
     def test_rex_pciex1_off_fails(self):
         with tempfile.TemporaryDirectory() as d:
             root = pathlib.Path(d)
@@ -250,6 +266,8 @@ class SafetyFixTests(unittest.TestCase):
     shell = SetupTests.shell
 
     def test_v14_state_is_not_treated_as_legacy(self):
+        if not hasattr(os, 'geteuid') or os.geteuid() != 0:
+            self.skipTest('preflight test requires root on a Unix host')
         with tempfile.TemporaryDirectory() as d:
             root = pathlib.Path(d)
             (root / 'os-release').write_text('ID=kali\n')
@@ -257,8 +275,6 @@ class SafetyFixTests(unittest.TestCase):
             (root / 'state').mkdir()
             (root / 'state/cm5-state').write_text('finalize\n')
             (root / 'state/cm5-version').write_text('1.4\n')
-            if __import__('os').geteuid() != 0:
-                self.skipTest('preflight test requires root')
             r = self.shell('dpkg() { :; }\npreflight_checks', root)
             self.assertEqual(r.returncode, 0, r.stderr)
 
