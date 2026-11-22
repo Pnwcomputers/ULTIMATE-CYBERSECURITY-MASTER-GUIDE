@@ -125,6 +125,7 @@ s1pdiff.py analyze ant.s1p        --format markdown --out report.md
 ```
 
 The **markdown** output is meant to paste straight into a customer report.
+Choose a new output file for each run to preserve previous reports and the original sweeps.
 
 ---
 
@@ -135,14 +136,22 @@ The **markdown** output is meant to paste straight into a customer report.
 | **0** | OK — within tolerance |
 | **1** | WARN — past `--warn-db`, resonance shift past `--res-warn-pct`, or SWR limit newly exceeded |
 | **2** | FAIL — past `--fail-db` |
-| **3** | ERROR — bad input, no frequency overlap, unreadable file |
+| **3** | ERROR — bad input, no frequency overlap, unreadable input, or output could not be created |
 
-So it drops into a site-visit script or a cron job:
+For a site-visit script or scheduled comparison, put each report in a fresh directory and handle measurement verdicts separately from errors:
 
 ```bash
-s1pdiff.py diff baselines/site7_2m.s1p today.s1p --format json \
-    --out reports/site7_$(date +%F).json \
-  || mail -s "Antenna drift: site 7" jon@pnwcomputers.com < reports/site7_$(date +%F).json
+mkdir -p reports || exit 3
+run_dir=$(mktemp -d reports/site7_XXXXXXXX) || exit 3
+report="$run_dir/sweep.json"
+status=0
+s1pdiff.py diff baselines/site7_2m.s1p today.s1p --format json --out "$report" || status=$?
+case "$status" in
+  0)   printf 'Within tolerance. Report: %s\n' "$report" ;;
+  1|2) printf 'Review antenna drift. Report: %s\n' "$report" ;;
+  *)   printf 'Comparison failed (exit %s).\n' "$status" >&2 ;;
+esac
+exit "$status"
 ```
 
 ---
@@ -155,7 +164,7 @@ s1pdiff.py diff baselines/site7_2m.s1p today.s1p --format json \
 | `--at MHZ` | — | Report VSWR and impedance at one exact frequency |
 | `--swr-limit S` | 2.0 | VSWR threshold used for bandwidth figures |
 | `--format` | text | `text` · `json` · `markdown` · `csv` |
-| `--out FILE` | stdout | Write output to a file |
+| `--out FILE` | stdout | Create a new output file without replacing an existing path |
 | `--quiet` | off | Suppress output, rely on exit code |
 | `--tol-db DB` | 1.0 | Per-point deviation counted in the segment report |
 | `--warn-db DB` | 2.0 | Deviation that triggers WARN |

@@ -126,6 +126,31 @@ class NanoVNATests(unittest.TestCase):
         data = json.loads(result.stdout, parse_constant=lambda value: self.fail(value))
         self.assertIsNone(data['resonance_vswr'])
 
+    def test_cannot_overwrite_either_sweep(self):
+        sample = '# Hz S RI R 50\n1 0.2 0\n2 0.1 0\n3 0.2 0\n'
+        with tempfile.TemporaryDirectory() as folder:
+            baseline = Path(folder) / 'baseline.s1p'
+            current = Path(folder) / 'current.s1p'
+            for path in (baseline, current):
+                path.write_text(sample, encoding='utf-8')
+            for output in (baseline, current):
+                with self.subTest(output=output.name):
+                    result = subprocess.run([sys.executable, str(SDR), 'diff', str(baseline), str(current),
+                                             '--out', str(output), '--quiet'], capture_output=True, text=True)
+                    self.assertEqual(result.returncode, 3)
+                    self.assertIn('output file already exists', result.stderr)
+                    self.assertEqual(output.read_text(encoding='utf-8'), sample)
+
+    def test_csv_output_uses_single_line_endings(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / 'new.csv'
+            result = self.run_sweep('# Hz S RI R 50\n1 0.2 0\n2 0.1 0\n3 0.2 0\n',
+                                    '--format', 'csv', '--out', str(output))
+            self.assertEqual(result.returncode, 0, result.stderr)
+            data = output.read_bytes()
+            self.assertNotIn(b'\r\r\n', data)
+            self.assertEqual(len(data.splitlines()), 4)
+
 
 class InstallerTests(unittest.TestCase):
     def shell(self, folder, body):
