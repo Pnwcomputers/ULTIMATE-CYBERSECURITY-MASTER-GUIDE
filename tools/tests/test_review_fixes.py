@@ -10,6 +10,7 @@ import sys
 import tempfile
 import time
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -27,6 +28,44 @@ SDR = ROOT / 'SDR/nanovna/tools/s1pdiff.py'
 
 
 class HardwareTests(unittest.TestCase):
+    def test_client_option_uses_value_without_prompt(self):
+        with (mock.patch.object(HW.sys, 'platform', 'linux'),
+              mock.patch.object(HW.os, 'geteuid', return_value=0, create=True),
+              mock.patch.multiple(HW, SystemInfo=mock.DEFAULT, CPUTest=mock.DEFAULT,
+                                  RAMTest=mock.DEFAULT, StorageTest=mock.DEFAULT,
+                                  GPUTest=mock.DEFAULT, UnifiedReport=mock.DEFAULT) as fixtures,
+              mock.patch('builtins.input', side_effect=AssertionError('unexpected prompt'))):
+            HW.main(['--client', 'Fixture Client'])
+        fixtures['UnifiedReport'].return_value.write.assert_called_once_with(client_name='Fixture Client')
+
+    def test_report_preserves_same_timestamp_output(self):
+        report = HW.UnifiedReport(HW.SystemInfo(), HW.CPUTest(threads=1), HW.RAMTest(),
+                                  HW.StorageTest(), HW.GPUTest())
+        instant = HW.datetime.datetime(2026, 11, 22, 12, 0)
+        with (tempfile.TemporaryDirectory() as folder,
+              mock.patch.object(HW, 'REPORT_DIR', folder),
+              mock.patch.object(HW.datetime, 'datetime') as frozen):
+            frozen.now.return_value = instant
+            first = Path(report.write('First Δ'))
+            second = Path(report.write('Second Δ'))
+            self.assertEqual(first.name, 'Full_Hardware_Report_20261122_120000.md')
+            self.assertEqual(second.name, 'Full_Hardware_Report_20261122_120000_2.md')
+            self.assertIn('First Δ', first.read_text(encoding='utf-8'))
+            self.assertIn('Second Δ', second.read_text(encoding='utf-8'))
+
+    def test_no_stderr_does_not_hide_failure(self):
+        tester = HW.HardwareTester()
+        result = subprocess.CompletedProcess([], 7, stdout='', stderr='')
+        with mock.patch.object(HW.subprocess, 'run', return_value=result):
+            tester.run_cmd('fixture')
+        self.assertEqual(tester.data['errors'], ['[fixture] rc=7: no error output'])
+
+    @unittest.skipUnless(os.name == 'posix', 'requires POSIX process groups')
+    def test_timeout_applies_after_output_descriptors_close(self):
+        tester = HW.HardwareTester()
+        _, timed_out = tester.run_streaming('exec 1>&- 2>&-; sleep 4', timeout=1)
+        self.assertTrue(timed_out)
+
     def test_storage_preserves_existing_file_even_when_command_fails(self):
         with tempfile.TemporaryDirectory() as folder:
             old = os.getcwd()

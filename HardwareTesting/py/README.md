@@ -118,7 +118,7 @@ Runs a complete diagnostic pass sequentially: System info → CPU benchmark → 
 sudo python3 full_hw_suite.py --client "Client Name"
 ```
 
-**Output:** `~/Full_Hardware_Report_YYYYMMDD_HHMMSS.md`
+**Output:** `Full_Hardware_Report_YYYYMMDD_HHMMSS.md` in the current working directory. When a report already exists at that timestamp, the new file gets a numbered suffix. Omit `--client` to enter the name interactively.
 
 **Key v2.1 improvements:**
 - Safer timeout and process-group handling to prevent zombie processes.
