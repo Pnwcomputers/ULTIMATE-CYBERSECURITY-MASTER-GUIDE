@@ -879,13 +879,13 @@ Prefer these primary sources over any third-party blog (this one included), and 
 
 ### 📖 OpenBSD Manual Pages
 - **[pf.conf(5)](https://man.openbsd.org/pf.conf.5)** — ruleset syntax, NAT, queueing, scrub, options
-- **[pf(4)](https://man.openbsd.org/pf.4)** — the packet filter itself
+- **[pf(4)](https://github.com/openbsd/src/blob/master/share/man/man4/pf.4)** — the packet filter itself, from the upstream manual source
 - **[pfctl(8)](https://man.openbsd.org/pfctl.8)** — control utility
 - **[carp(4)](https://man.openbsd.org/carp.4)** / **[pfsync(4)](https://man.openbsd.org/pfsync.4)** — redundancy & state sync
 - **[authpf(8)](https://man.openbsd.org/authpf.8)** — authenticating gateway
 - **[relayd.conf(5)](https://man.openbsd.org/relayd.conf.5)** — load balancer / relay
-- **[spamd(8)](https://man.openbsd.org/spamd.8)** — spam deferral daemon
-- **[pflow(4)](https://man.openbsd.org/pflow.4)** — NetFlow/IPFIX export
+- **[spamd(8)](https://github.com/openbsd/src/blob/master/libexec/spamd/spamd.8)** — spam deferral daemon
+- **[pflow(4)](https://github.com/openbsd/src/blob/master/share/man/man4/pflow.4)** — NetFlow/IPFIX export
 - **[hostname.if(5)](https://man.openbsd.org/hostname.if.5)** — interface configuration
 
 ### 📘 Guides & Books

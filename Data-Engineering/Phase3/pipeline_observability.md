@@ -66,7 +66,7 @@ Orchestration](../Phase2/workflow_orchestration.md).
 
 ![Pipeline observability flow linking producer and processing telemetry to actual consumer freshness, data reconciliation and service-level monitoring](../../assets/diagrams/pipeline-observability-reconciliation-slo.svg)
 
-*Conceptual service-reliability design.* [OpenTelemetry](https://opentelemetry.io/docs/what-is-opentelemetry/) distinguishes traces, metrics and logs, while [Google's SRE service-level guidance](https://sre.google/workbook/implementing-slos/) ties SLOs to specific consumer-facing indicators and error budgets. A successful scheduler or healthy dashboard is not evidence that every event arrived correctly or on time.
+*Conceptual service-reliability design.* [OpenTelemetry](https://github.com/open-telemetry/opentelemetry.io/blob/main/content/en/docs/what-is-opentelemetry.md) distinguishes traces, metrics and logs, while [Google's SRE service-level guidance](https://sre.google/workbook/implementing-slos/) ties SLOs to specific consumer-facing indicators and error budgets. A successful scheduler or healthy dashboard is not evidence that every event arrived correctly or on time.
 
 | Signal | Example definition | What it does not prove |
 | --- | --- | --- |
