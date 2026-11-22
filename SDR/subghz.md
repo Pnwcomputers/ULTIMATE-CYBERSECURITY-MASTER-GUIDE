@@ -439,7 +439,7 @@ manufacturer documentation before assigning a protocol name.
 - **EPC Gen2 / ISO 18000-6C:** Passive UHF inventory is a reader–tag ecosystem. Tags can expose configurable memory and capabilities; the EPC is not necessarily immutable.
 - **LoRaWAN:** A network protocol distinct from the LoRa physical layer. Application-payload encryption does not hide all frame metadata; security also depends on keys and implementation. See the [LoRa Alliance security overview](https://lora-alliance.org/resource_hub/lorawan-is-secure-but-implementation-matters/).
 - **Z-Wave:** A regional radio/protocol ecosystem. Check the actual product generation, topology and configured security features.
-- **Nordic Enhanced ShockBurst:** Hardware-supported packet handling used by the [nRF24 family](https://www.nordicsemi.com/Products/nRF24-series). Compatible frequency alone does not provide packet interoperability or encryption.
+- **Nordic Enhanced ShockBurst:** Nordic documents [hardware-implemented ESB on the legacy nRF24L series](https://github.com/nrfconnect/sdk-nrf/blob/main/doc/nrf/protocols/esb/index.rst). Compatible frequency alone does not provide packet interoperability or encryption.
 
 For supported telemetry examples, inspect the [rtl_433 decoder implementations](https://github.com/merbanan/rtl_433/tree/master/src/devices) rather than treating a product-category label as a decoded result.
 

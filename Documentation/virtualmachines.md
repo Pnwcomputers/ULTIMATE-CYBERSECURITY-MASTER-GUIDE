@@ -17,7 +17,7 @@ This catalog groups project-maintained operating systems and lab environments by
 | Compartmentalized desktop work | [Qubes OS](https://www.qubes-os.org/doc/) | Requires compatible hardware and a trusted host/hypervisor; a compromise within one domain can still affect that domain. |
 | Tor-routed workstation | [Whonix](https://www.whonix.org/wiki/Whonix) | Uses a Gateway and Workstation pair; changing the Workstation's network can bypass the design. |
 | Amnesic live environment | [Tails](https://tails.net/) | Running in a VM changes its hardware and host trust assumptions; “amnesic” does not mean no possible trace or guaranteed anonymity. |
-| OSINT training | [Trace Labs OSINT VM](https://github.com/tracelabs/tlosint-live), [Tsurugi Linux](https://tsurugi-linux.org/downloads.php) | Tool bundles can become stale; independently confirm sources, permissions, and current release status. |
+| OSINT training | [Trace Labs OSINT VM](https://github.com/tracelabs/tlosint-vm), [Tsurugi Linux](https://tsurugi-linux.org/downloads.php) | Tool bundles can become stale; independently confirm sources, permissions, and current release status. |
 | Penetration-test lab | [Kali](https://www.kali.org/get-kali/), [Parrot](https://parrotsec.org/download/) | Tools do not grant authorization; isolate vulnerable targets and keep target egress scoped. |
 | Forensics | [SIFT Workstation](https://www.sans.org/tools/sift-workstation/), [CAINE](https://www.caine-live.net/), [CSI Linux](https://csilinux.com/) | Preserve originals and use write-blocking/acquisition procedures appropriate to the evidence. |
 | Malware analysis | [REMnux](https://remnux.org/), [FLARE-VM](https://github.com/mandiant/flare-vm) | An analysis guest can still reach the host, LAN, or internet unless networking and shared features are controlled. |
@@ -68,7 +68,7 @@ For forensic acquisition, do not boot or update the evidence image unless the co
 
 ### OSINT and security distributions
 
-- **Trace Labs OSINT VM** was built for OSINT training and Search Party events. Trace Labs publishes the [build configuration](https://github.com/tracelabs/tlosint-live). Confirm the age of any image and the event rules directly with the organizer.
+- **Trace Labs OSINT VM** was built for OSINT training and Search Party events. Trace Labs publishes the [current VM project and release information](https://github.com/tracelabs/tlosint-vm). Confirm the age of any image and the event rules directly with the organizer.
 - **Tsurugi Linux** combines digital-forensics and OSINT tooling; use its [official downloads](https://tsurugi-linux.org/downloads.php) and current project guidance.
 - **Kali Linux**, **Parrot OS**, and **BlackArch** are general security distributions. Select by workflow and package support, then verify the source image and isolate lab targets.
 - **Buscador** is referenced in older materials but should not be treated as a current maintained image without an upstream release to confirm. Do not use the historical authenticated URL or script shown in older copies of this guide.
@@ -145,7 +145,7 @@ Use security tools only against systems you own or have explicit written authori
 - [Qubes OS documentation](https://www.qubes-os.org/doc/)
 - [Whonix overview and security documentation](https://www.whonix.org/wiki/Whonix)
 - [Tails downloads and documentation](https://tails.net/)
-- [Trace Labs OSINT VM](https://github.com/tracelabs/tlosint-live)
+- [Trace Labs OSINT VM](https://github.com/tracelabs/tlosint-vm)
 - [Kali downloads and verification](https://www.kali.org/get-kali/)
 - [Security Onion installation](https://docs.securityonion.net/en/2.4/)
 - [Docker bridge networking](https://docs.docker.com/engine/network/drivers/bridge/)
