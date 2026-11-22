@@ -836,7 +836,7 @@ def build_parser() -> argparse.ArgumentParser:
                         help="VSWR threshold for bandwidth (default 2.0)")
         sp.add_argument("--format", choices=("text", "json", "markdown", "csv"),
                         default="text", help="output format (default text)")
-        sp.add_argument("--out", metavar="FILE", help="write output to FILE")
+        sp.add_argument("--out", metavar="FILE", help="write output to a new FILE")
         sp.add_argument("--quiet", action="store_true",
                         help="suppress output; rely on the exit code")
 
@@ -959,8 +959,13 @@ def main(argv: Optional[List[str]] = None) -> int:
 
 def _emit(text: str, args) -> None:
     if args.out:
-        with open(args.out, "w", encoding="utf-8") as fh:
-            fh.write(text if text.endswith("\n") else text + "\n")
+        try:
+            with open(args.out, "x", encoding="utf-8", newline="") as fh:
+                fh.write(text if text.endswith("\n") else text + "\n")
+        except FileExistsError as exc:
+            raise TouchstoneError(f"output file already exists: {args.out}") from exc
+        except OSError as exc:
+            raise TouchstoneError(f"could not write output: {exc}") from exc
         if not args.quiet:
             print(f"written: {args.out}")
     elif not args.quiet:
