@@ -108,7 +108,7 @@ bluetoothctl show
 btmon --help
 ```
 
-For Nordic sniffer hardware, use the maintained [Nordic Developer Academy setup](https://academy.nordicsemi.com/topic/test/) to select the **exact board-specific firmware image** and matching Wireshark integration. Test only with a battery-powered BLE sensor you own, save a capture, identify which advertising events were actually observed and document packet gaps.
+For Nordic sniffer hardware, use the [dedicated BLE capture guide](./bluetooth-passive-scanning-sniffing.md#capturing-raw-ble-with-dedicated-hardware) to identify supported hardware and find the board-specific firmware and Wireshark integration. Test only with a battery-powered BLE sensor you own, save a capture, identify which advertising events were actually observed and document packet gaps.
 
 For Ubertooth, verify matching firmware and host tools before flashing; a newer host utility does not imply a matching device firmware build. Linux `hci0` presence is **not** expected from an Ubertooth dedicated radio in the same way as an HCI dongle.
 

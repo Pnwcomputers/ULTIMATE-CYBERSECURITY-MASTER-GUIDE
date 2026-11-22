@@ -507,7 +507,7 @@ This produces a live spectrum display showing all signals within the SDR's curre
 
 ![Rate-labeled AM and mono WBFM examples prevent accidental duplicate decimation](../assets/diagrams/sdr-fundamentals-receiver-rate-accounting.svg)
 
-*Original flowgraph schematic. The configured demodulator's audio decimation determines its output rate; [GNU Radio's WBFM Receive](https://wiki.gnuradio.org/index.php/WBFM_Receive) is mono, not a complete stereo decoder.*
+*Original flowgraph schematic. The configured demodulator's audio decimation determines its output rate. [GNU Radio's WBFM Receive implementation](https://github.com/gnuradio/gnuradio/blob/v3.10.12.0/gr-analog/python/analog/wfm_rcv.py) outputs one mono audio stream.*
 
 #### How AM Works
 
@@ -623,7 +623,7 @@ In discrete form: `f_offset[n] = Fs/(2π) · angle(conj(s[n-1]) * s[n])` - the a
 [Audio Sink]               ← Output mono audio to speakers
 ```
 
-GNU Radio's [WBFM Receive](https://wiki.gnuradio.org/index.php/WBFM_Receive) is a mono demodulator with de-emphasis. Stereo requires a separate compatible stereo decoder. Choose the de-emphasis time constant for the actual broadcast standard.
+GNU Radio 3.10.12's [WBFM Receive](https://github.com/gnuradio/gnuradio/blob/v3.10.12.0/gr-analog/python/analog/wfm_rcv.py) is a mono demodulator. It calls the [de-emphasis filter](https://github.com/gnuradio/gnuradio/blob/v3.10.12.0/gr-analog/python/analog/fm_emph.py) with its 75 µs default, and the block has no time-constant setting. For a broadcast standard using 50 µs, use a receiver path with configurable de-emphasis. Stereo needs a compatible stereo decoder.
 
 **WBFM Receive parameters:**
 - Quadrature Rate: 480000 (must equal input sample rate)
@@ -650,6 +650,8 @@ GNU Radio's [WBFM Receive](https://wiki.gnuradio.org/index.php/WBFM_Receive) is 
 [Audio Sink]
 ```
 
+For this example, set the NBFM Receive block's **Quadrature Rate** and **Audio Rate** to 48000 and the Audio Sink to 48 kHz. Set the receiver's maximum deviation and de-emphasis for the signal in use. The [NBFM block definition](https://github.com/gnuradio/gnuradio/blob/v3.10.12.0/gr-analog/grc/analog_nbfm_rx.block.yml) requires an integer quadrature-to-audio rate ratio.
+
 **NBFM vs WBFM comparison:**
 
 | Parameter | WBFM (Broadcast) | NBFM (Voice) |
@@ -661,31 +663,18 @@ GNU Radio's [WBFM Receive](https://wiki.gnuradio.org/index.php/WBFM_Receive) is 
 
 #### FM Subcarriers: RDS Decoding
 
-Broadcast FM stations multiplex additional data on subcarriers above 19 kHz:
+The FM composite baseband may carry several signals alongside mono audio:
 - **19 kHz:** Stereo pilot tone
 - **38 kHz:** Stereo difference signal (L-R)
 - **57 kHz:** RDS (Radio Data System) - station name, song title, traffic info
 
-```
-WBFM RDS Decoder flow (extending the WBFM receiver):
-
-[After FM demodulation, before audio sink]
-     │
-     ├─→ [Audio path] → [Audio Sink]
-     │
-     └─→ [Band Pass Filter (54-60 kHz)]
-              │
-              ▼
-         [Rational Resampler] → 19 kSa/s
-              │
-              ▼
-         [PSK Demod] → [Differential Decoder] → [RDS Parser]
-              │
-              ▼
-         [Message Debug / QT GUI]
+```text
+[Channelized FM IQ] → [Quadrature Demod] → [FM composite baseband]
+                                                ├─→ [Audio filtering and de-emphasis]
+                                                └─→ [57 kHz RDS channel] → [RDS demodulator and parser]
 ```
 
-`gr-rds` is the standard GNU Radio module for RDS decoding.
+Branch the signal before audio filtering and decimation. The 48 kSa/s mono output in the WBFM example has a 24 kHz Nyquist limit and its audio filter has already removed the 57 kHz subcarrier. Use the [gr-rds receive example](https://github.com/bastibl/gr-rds/blob/maint-3.10/examples/rds_rx.grc) for a receiver that retains the composite signal. `gr-rds` is a separately installed GNU Radio module with branches for matching GNU Radio versions.
 
 ---
 
