@@ -36,7 +36,7 @@ The playbook integrates the following industry-standard tools for deep reconnais
 | [**PhoneInfoga**](https://github.com/sundowndev/phoneinfoga) | Phone | Phone number intelligence and carrier tracking. |
 | [**Maigret**](https://github.com/soxoj/maigret) | Enumeration | Username search with profile parsing and metadata extraction. |
 | [**Blackbird**](https://github.com/antoniaci/blackbird) | Enumeration | Username and public email-account association research; independently confirm identity matches. |
-| [**WhatsMyName**](https://whatsmyname.app/) | Enumeration | Community-maintained username presence checking (web + [data](https://github.com/WebBreacher/WhatsMyName)). |
+| [**WhatsMyName**](https://github.com/WebBreacher/WhatsMyName#the-project-has-closed) | Historical | The maintainers closed and archived the project on November 9, 2026. Its website and catalog entries may be stale. |
 | [**yt-dlp**](https://github.com/yt-dlp/yt-dlp) | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
 | [**gallery-dl**](https://github.com/mikf/gallery-dl) | Capture | Bulk image/media download across many social platforms. |
 | [**Instaloader**](https://instaloader.github.io/) | Capture | Instagram profile and media capture (login required for most targets). |
@@ -72,7 +72,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 * [**SecurityTrails**](https://securitytrails.com/): Obtain Passive DNS and other information from SecurityTrails. *(Free tier · key)*
 * [**DNSDB**](https://www.domaintools.com/products/farsight-dnsdb/): Query Farsight DNSDB for historical and passive DNS data. *(Farsight Security was acquired by DomainTools in 2021; the old farsightsecurity.com domain no longer resolves.)* *(Free tier · key)*
 * [**CIRCL.LU**](https://www.circl.lu/): Obtain information from CIRCL.LU's Passive DNS and Passive SSL databases. *(Free · key)*
-* [**Microsoft Defender Threat Intelligence**](https://ti.defender.microsoft.com/): Passive DNS and Passive SSL data formerly served by RiskIQ / PassiveTotal. *(RiskIQ was acquired by Microsoft in 2021; the community.riskiq.com portal was retired and its data folded into Defender TI.)* *(Paid · key)*
+* [**Microsoft Defender threat intelligence**](https://github.com/MicrosoftDocs/learn/blob/5a943178128ea3434b1df90fd8d842b1bbc08054/learn-pr/wwl-sci/describe-threat-protection-with-microsoft-365-defender/includes/6b-describe-defender-threat-intelligence.md): Microsoft set August 1, 2026 as the retirement date for the standalone Defender TI product. Microsoft documents the transition to Defender XDR and Sentinel through the Defender portal. Confirm tenant permissions and licensing before assuming access to historical DNS or certificate data.
 * [**Host.io**](https://host.io): Obtain information about domain names from host.io. *(Free tier · key)*
 * [**Zetalytics**](https://zetalytics.com/): Query the Zetalytics database for hosts on your target domain(s). *(Free tier · key)*
 * [**NetAPI**](https://netapi.com/zonefiles-io-api/): Domain query API compatible with the former ZoneFile.io API (zonefiles.io was shut down in August 2025). *(Free tier · key)*

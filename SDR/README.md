@@ -332,7 +332,7 @@ Contributions should be reproducible, properly sourced, and suitable for educati
 
 - [Great Scott Gadgets SDR course](https://greatscottgadgets.com/sdr/).
 - [HackRF documentation](https://hackrf.readthedocs.io/en/latest/).
-- [GNU Radio tutorials](https://wiki.gnuradio.org/index.php/Tutorials).
+- [GNU Radio Companion fundamentals and exercises](./sdr.md#part-ii-gnu-radio-companion).
 - [RTL-SDR setup guide](https://www.rtl-sdr.com/rtl-sdr-quick-start-guide/).
 - [Signal Identification Wiki](https://www.sigidwiki.com/wiki/Signal_Identification_Guide) — community waveform examples; corroborate identification with primary documentation and captures.
 - [Proxmark3 RRG documentation](https://github.com/RfidResearchGroup/proxmark3/wiki).

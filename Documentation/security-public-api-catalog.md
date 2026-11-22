@@ -37,7 +37,7 @@ Related: [OSINT toolkit](../OSINT/OSINT_TOOLS_CATALOG.md) · [Threat intelligenc
 | API | Security workflow | Integration status | Official documentation |
 | --- | --- | --- | --- |
 | Shodan | Internet-visible services and in-scope device inventory | Existing catalog; key / plan | [API](https://developer.shodan.io/) |
-| Censys | Hosts, certificates and exposed services | Existing catalog; key / plan | [API](https://search.censys.io/api) |
+| Censys | Hosts, certificates and exposed services | Check Platform access and organization credentials | [Censys Platform SDK documentation](https://github.com/censys/censys-sdk-python) |
 | BinaryEdge | Supplemental attack surface and host context | Existing catalog; key / plan | [API v2](https://docs.dev.binaryedge.io/api-v2/) |
 | SecurityTrails | Current/historical DNS and domain relationships | Existing catalog; key / plan | [Documentation](https://securitytrails.com/corp/apidocs) |
 | EmailRep | Email reputation context (not identity proof) | Existing catalog; check current quota/access | [Documentation](https://docs.emailrep.io/) |

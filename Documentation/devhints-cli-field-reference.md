@@ -263,7 +263,7 @@ Source pointers:
   [Wireshark/TShark](wireshark-cheatsheet.md) for protocol investigations.
 - [Container Security](../ContainerSecurity/README.md) for threat modeling and
   hardening; this page intentionally does not replace it.
-- [Official tool manuals](https://www.gnu.org/software/coreutils/manual/) for version-specific behavior.
+- [GNU Coreutils manual source](https://github.com/coreutils/coreutils/blob/master/doc/coreutils.texi) for version-specific behavior.
 
 **Provenance:** Prepared November 2, 2026, using Devhints as a discovery index,
 with original examples and additional operational cautions. Devhints is

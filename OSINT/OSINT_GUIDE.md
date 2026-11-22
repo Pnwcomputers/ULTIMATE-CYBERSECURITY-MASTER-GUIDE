@@ -557,7 +557,7 @@ curl -s "https://crt.sh/?q=%25.example.test&output=json" | jq '.[].name_value' |
 - **Purpose**: Search and rescue operations
 - **Tools**: Curated set for finding missing persons
 - **Community**: Active Trace Labs community
-- **Download**: https://docs.tracelabs.org/vm/vm-introduction
+- **Publisher source**: [Trace Labs build repository](https://github.com/tracelabs/tlosint-live). Verify the age and checksums of any image before using it.
 
 #### **CSI Linux**
 
@@ -772,7 +772,7 @@ Prefixes below are **non-exhaustive hints**, not validators or proof of chain/ow
 | **Monero** | Standard/subaddress hints `4`/`8`; integrated/network-specific forms differ |
 | **Solana** | Base58-encoded 32-byte account address (public key or PDA); length alone is not validation |
 
-Primary format references: [Litecoin addresses](https://litecoin.info/docs/key-concepts/addresses-prefixes), [Monero address forms](https://www.getmonero.org/resources/moneropedia/address.html), [Solana accounts](https://solana.com/docs/core/accounts). These describe encoding, not identity.
+Primary format references: [Litecoin addresses](https://litecoin.info/docs/key-concepts/addresses-prefixes), [Monero address forms](https://www.getmonero.org/resources/moneropedia/address.html), [Solana accounts](https://github.com/solana-foundation/solana-com/blob/82d49aed193428a5afa3ccc566be09fab20c3c11/apps/docs/content/docs/en/core/accounts/account-structure.mdx). These describe encoding, not identity.
 
 #### Step 2: Scam Database Lookups
 

@@ -838,7 +838,6 @@ We welcome contributions from security professionals to improve and expand this 
 - **Cyber Kill Chain**: Lockheed Martin framework
 - **Diamond Model**: Threat intelligence framework
 - **OODA Loop**: Decision-making framework
-- **Purple Team Framework**: https://www.mitre.org/
 
 ### Professional Certifications
 

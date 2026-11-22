@@ -84,7 +84,7 @@ This repository includes three guides. Start here, then refer to the others once
 - [TrueNAS SCALE](https://www.truenas.com/truenas-community-edition/) 25.04+
 - [NPMplus](https://github.com/ZoeyVid/NPMplus) installed and running (for HTTPS reverse proxy)
 - [OPNsense](https://opnsense.org/) or similar router
-- A [DuckDNS](https://www.duckdns.org/) (or other [DDNS](https://www.cloudflare.com/learning/dns/glossary/dynamic-dns/)) domain pointed at your public IP
+- A [DuckDNS](https://www.duckdns.org/) (or other [DDNS](https://github.com/cloudflare/cloudflare-docs/blob/production/src/content/docs/dns/manage-dns-records/how-to/managing-dynamic-ip-addresses.mdx)) domain pointed at your public IP
 - [Ollama](https://ollama.com/) running somewhere on your network (optional, for local inference)
 - [API keys](https://www.ibm.com/think/topics/api-key) for: Anthropic, Groq, Google Gemini (all have free tiers)
 

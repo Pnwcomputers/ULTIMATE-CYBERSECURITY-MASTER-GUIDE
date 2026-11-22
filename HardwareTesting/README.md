@@ -424,7 +424,7 @@ These hardware testing guides and scripts are provided for:
 - **smartmontools**: https://www.smartmontools.org/
 
 ### Manufacturer Tools
-- **Intel GPU Tools**: https://01.org/linuxgraphics
+- **Intel GPU Tools**: https://drm.pages.freedesktop.org/igt-gpu-tools/
 - **AMD SMI**: https://github.com/ROCm/amdsmi
 - **NVIDIA SMI**: Included with NVIDIA drivers
 
