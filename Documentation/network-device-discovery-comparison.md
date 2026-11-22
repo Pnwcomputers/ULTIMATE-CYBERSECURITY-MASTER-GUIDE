@@ -11,7 +11,7 @@ _Last source review: 2026-11-21. Feature descriptions follow official project ma
 |---|---|---|
 | What appeared or disappeared on my local network? | [NetAlertX](./netalertx-device-discovery-monitoring.md) | DHCP/switch/controller inventories |
 | Is a router/switch/interface healthy? | [LibreNMS](https://www.librenms.org/) or [Zabbix](https://www.zabbix.com/) | SNMPv3, interface alerting, logs |
-| Who exchanged traffic or consumed bandwidth? | [ntopng](https://ntop.org/products/traffic-analysis/ntopng/) or Zeek | NetFlow/sFlow/IPFIX or TAP/SPAN data |
+| Who exchanged traffic or consumed bandwidth? | [ntopng](https://github.com/ntop/ntopng) or Zeek | NetFlow/sFlow/IPFIX or TAP/SPAN data |
 | What assets, racks, ports and VLANs are **supposed** to exist? | [NetBox](https://netbox.dev/) | Change controls and actual discovery imports |
 | Which Wi-Fi radio devices/SSIDs exist in range? | [Kismet](../Wardriving/kismet.md) or [nzyme](../IncidentResponse/IDS%26IPS/nzyme_wids.md) | Fixed-channel monitor adapter |
 | Did a host produce a security incident? | [Wazuh](../IncidentResponse/SIEM/wazuh.md) or EDR | Endpoint event collection |
@@ -25,7 +25,7 @@ _Last source review: 2026-11-21. Feature descriptions follow official project ma
 | [LibreNMS](https://www.librenms.org/) | SNMP, LLDP/CDP, ARP/FDB, interfaces and services | Routed management reachability | Strong network gear health, topology and metrics | Device discovery depends on SNMP/management access |
 | [Zabbix](https://www.zabbix.com/) | Agent, SNMP, API, ICMP, service monitors | Proxy nodes can monitor remote sites | Broad observability, triggering, automation | Heavier setup; not raw RF/WLAN sniffing |
 | [NetBox](https://netbox.dev/) | Planned/managed inventory (IPAM/DCIM) & plugin/API integrations | Multiple sites and tenants | Source of truth for assets, VLANs, circuits and cables | **Not** inherently a live discovery sensor |
-| [ntopng](https://ntop.org/products/traffic-analysis/ntopng/) | Live flows, packets and traffic-analysis metadata | TAP/SPAN, NetFlow/sFlow/IPFIX per exporter | Actual activity/bandwidth and application insight | Only sees traffic supplied to it; feature editions differ |
+| [ntopng](https://github.com/ntop/ntopng) | Live flows, packets and traffic-analysis metadata | TAP/SPAN, NetFlow/sFlow/IPFIX per exporter | Actual activity/bandwidth and application insight | Only sees traffic supplied to it; feature editions differ |
 | [arpwatch](https://ee.lbl.gov/) | Observes ARP address-pair changes on an interface | Only local visible L2 traffic | Lightweight ARP change alerting | No reliable Wi-Fi presence or inter-VLAN view |
 | [WatchYourLAN](https://github.com/aceberg/WatchYourLAN) | Local network discovery/device history | Deployment/host network dependent | Simple self-hosted device inventory | Feature/version and multi-network handling vary |
 | [Nmap](https://nmap.org/) | Explicitly targeted network discovery & services | Routed authorized IP ranges | Bounded one-off audits, scripting | Active probes; not continuous presence tracking alone |
