@@ -41,7 +41,7 @@ The workflow leans on the following tools for enumeration, capture, and recovery
 | --- | --- | --- |
 | [Sherlock](https://github.com/sherlock-project/sherlock) | Enumeration | Username search across 400+ platforms. |
 | [Maigret](https://github.com/soxoj/maigret) | Enumeration | Username search with profile parsing and metadata extraction. |
-| [WhatsMyName](https://whatsmyname.app/) | Enumeration | Community-maintained username presence checking (web + [data](https://github.com/WebBreacher/WhatsMyName)). |
+| [WhatsMyName](https://github.com/WebBreacher/WhatsMyName#the-project-has-closed) | Historical | The project has been archived since November 9, 2026. |
 | [yt-dlp](https://github.com/yt-dlp/yt-dlp) | Capture | Video + platform metadata download (TikTok, YouTube, and many others). |
 | [gallery-dl](https://github.com/mikf/gallery-dl) | Capture | Bulk image/media download across many social platforms. |
 | [Instaloader](https://instaloader.github.io/) | Capture | Instagram profile and media capture (login required for most targets). |
@@ -81,7 +81,7 @@ You are the easiest thing for a target to detect. Collection posture leaks inten
 Platform-specific tricks come and go. These pivots work everywhere and should form the backbone of any social media workup.
 
 ### Username pivoting
-People reuse handles. A username unique enough to matter (i.e., not `mike` or `jsmith`) is one of the highest-yield selectors you have. Take every known handle, vanity string, or distinctive bio phrase and check it across every platform of interest. Targets who lock down one platform frequently leave an identically named account wide open on another - TikTok and gaming platforms are common blind spots. Automate the first pass with `sherlock`, `maigret`, or WhatsMyName, then verify manually - a matching handle is a lead, not a confirmation.
+People reuse handles across platforms. For each match in an authorized investigation, document the source and look for independent, consented corroboration. A matching handle alone establishes neither common ownership nor identity.
 
 ### Numeric ID vs. handle
 Nearly every major platform assigns each account a **stable numeric ID** internally while exposing a **mutable handle** publicly. The handle is what changes when a target rebrands or tries to disappear; the numeric ID does not. Capture the numeric ID early - it lets you re-locate an account after a handle change and correlate the same account across a platform's various endpoints. IDs are typically recoverable from page source, an info/API endpoint, or the URL of a piece of content. Because many platforms assign IDs sequentially or in dateable ranges, the ID can also bound an account's **creation date**.

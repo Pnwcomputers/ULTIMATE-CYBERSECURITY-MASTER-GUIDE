@@ -587,7 +587,7 @@ result.
 ### Learning SDR & RF
 
 - **Great Scott Gadgets SDR Course**: [HackRF Lessons](https://greatscottgadgets.com/sdr/)
-- **GNU Radio Tutorials**: [Guided Tutorials](https://wiki.gnuradio.org/index.php/Guided_Tutorials)
+- **GNU Radio tutorials**: [Companion fundamentals and receiver exercises](./sdr.md#part-ii-gnu-radio-companion)
 - **RTL-SDR Blog**: [rtl-sdr.com](https://www.rtl-sdr.com/)
 - **SigIDWiki**: [Signal Identification Guide](https://www.sigidwiki.com/) (waterfall references and audio samples)
 

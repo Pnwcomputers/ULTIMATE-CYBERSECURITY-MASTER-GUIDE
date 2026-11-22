@@ -231,8 +231,9 @@ dig axfr target.com @ns1.target.com
 # DNS history (passive)
 securitytrails.com
 passivedns.mnemonic.no
-ti.defender.microsoft.com (PassiveTotal/RiskIQ retired -> Microsoft Defender TI)
 ```
+
+Microsoft documented August 1, 2026 as the [standalone Defender TI retirement date](https://github.com/MicrosoftDocs/learn/blob/5a943178128ea3434b1df90fd8d842b1bbc08054/learn-pr/wwl-sci/describe-threat-protection-with-microsoft-365-defender/includes/6b-describe-defender-threat-intelligence.md). Verify access to the successor threat intelligence features in your tenant before planning to use their data.
  
 ### ASN & IP Range Mapping
  

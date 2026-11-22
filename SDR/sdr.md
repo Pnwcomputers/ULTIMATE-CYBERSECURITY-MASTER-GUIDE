@@ -1585,7 +1585,7 @@ unverified package names, global pip installation and incomplete source builds.
 
 | Component | Primary Installation Reference |
 |---|---|
-| GNU Radio | [Official installation guidance](https://wiki.gnuradio.org/index.php/InstallingGR) |
+| GNU Radio | [Publisher installation guidance for 3.10.12](https://github.com/gnuradio/gnuradio/blob/v3.10.12.0/README.md#how-to-install-gnu-radio) |
 | HackRF | [Official host software](https://hackrf.readthedocs.io/en/latest/installing_hackrf_software.html) |
 | rtl_433 | [Upstream build instructions](https://github.com/merbanan/rtl_433/blob/master/docs/BUILDING.md) |
 | gr-satellites | [Upstream project](https://github.com/daniestevez/gr-satellites) |

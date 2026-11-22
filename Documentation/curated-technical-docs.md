@@ -29,7 +29,7 @@ examples, API documentation, homelab and data-engineering topics.
 | Caching, queues and telemetry pipelines | [Redis documentation](https://redis.io/docs/latest/) | Key-value operations and deployment behavior; review its security separately |
 | Reproducible lab infrastructure | [HashiCorp Packer documentation](https://developer.hashicorp.com/packer/docs) | Machine-image build concepts and repeatability |
 | Development tools and scripts | [Go by Example](https://gobyexample.com/) | Accessible Go language patterns for verified local tools |
-| Cloud/Linux deployment | [Linode/Akamai documentation](https://www.linode.com/docs/) | Infrastructure tutorials; check product-specific availability and versions |
+| Cloud/Linux deployment | [Linode/Akamai documentation](https://github.com/linode/docs/tree/develop/docs/guides) | Infrastructure tutorials; check product-specific availability and versions |
 
 Most links above were selected from the [Beautiful Docs directory](https://github.com/matheusfelipeog/beautiful-docs).
 The **OWASP API Security** entry is an additional primary security reference,
