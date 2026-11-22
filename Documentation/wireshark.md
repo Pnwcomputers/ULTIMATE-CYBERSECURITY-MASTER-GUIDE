@@ -685,7 +685,7 @@ Tips, caveats, hardware requirements
 - **Wireshark Display Filter Reference**: https://www.wireshark.org/docs/dfref/
 - **Wireshark Capture Filters (BPF)**: https://wiki.wireshark.org/CaptureFilters
 - **Wireshark Wiki**: https://wiki.wireshark.org/
-- **nRF Sniffer for Wireshark**: https://infocenter.nordicsemi.com/topic/ug_sniffer_ble/
+- [nRF Sniffer hardware and Wireshark integration](./bluetooth-passive-scanning-sniffing.md#capturing-raw-ble-with-dedicated-hardware)
 
 ### Protocol & Tool References
 

@@ -557,7 +557,7 @@ curl -s "https://crt.sh/?q=%25.example.test&output=json" | jq '.[].name_value' |
 - **Purpose**: Search and rescue operations
 - **Tools**: Curated set for finding missing persons
 - **Community**: Active Trace Labs community
-- **Publisher source**: [Trace Labs build repository](https://github.com/tracelabs/tlosint-live). Verify the age and checksums of any image before using it.
+- **Publisher source**: [Trace Labs VM project](https://github.com/tracelabs/tlosint-vm). Verify the age and checksums of any image before using it.
 
 #### **CSI Linux**
 

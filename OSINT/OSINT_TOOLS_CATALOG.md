@@ -100,7 +100,7 @@ Third-party services mainline SpiderFoot (`smicallef/spiderfoot`) can query on a
 * [**Koodous**](https://koodous.com/apks/): Search Koodous for mobile apps. *(Free tier · key)*
 * [**Project Honey Pot**](https://www.projecthoneypot.org/): Query the Project Honey Pot database for IP addresses. *(Free · key)*
 * [**BotScout**](https://botscout.com/): Searches BotScout.com's database of spam-bot IP addresses and e-mail addresses. *(Free · key optional)*
-* [**Abusix Mail Intelligence**](https://abusix.org/): Check if a netblock or IP address is in the Abusix Mail Intelligence blacklist. *(Free tier · key)*
+* [**Abusix Mail Intelligence**](https://github.com/abusix/abusix-rsync-helper/blob/0d6d6be6bb8e3283a19739ffea4d4757a4163a2d/README.md): Publisher information for DNS blocklist zone downloads and the separate public look-up service. Check the access requirements for the service you use.
 * [**IPQualityScore**](https://www.ipqualityscore.com/): Determine if target is malicious using IPQualityScore API. *(Free tier · key)*
 * [**ZoomEye**](https://www.zoomeye.ai/): Cyberspace Search Engine (the legacy `zoomeye.org` domain is currently returning a server error; `zoomeye.ai` is the actively promoted current domain)
 * [**Criminal IP**](https://www.criminalip.io/): CTI & IP Scoring

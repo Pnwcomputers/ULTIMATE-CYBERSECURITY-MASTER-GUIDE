@@ -161,9 +161,9 @@ sha256sum evidence_*.html screenshot_*.png > evidence_hashes.txt
 
 ## 🛠️ Essential Linux Commands for OSINT
 Native utilities that are invaluable during an investigation:
-*   **[DNS Lookup:](https://www.cyberciti.biz/faq/unix-linux-dns-lookup-command/)** `dig example.com A +short`
+*   **[IPv4 DNS lookup](https://github.com/isc-projects/bind9/blob/main/doc/man/dig.rst)** `dig example.com A +short`
 *   **[Owner Lookup:](https://www.kali.org/tools/whois/)** `whois <domain>`
-*   **[File Extraction:](https://developers.redhat.com/articles/2022/09/14/beginners-guide-regular-expressions-grep)** `grep -r "regex" ./raw_data/`
+*   **[Find matching lines in files](../Documentation/devhints-cli-field-reference.md#2-file-discovery-and-log-triage)** `grep -r "regex" ./raw_data/`
 *   **[Metadata Check:](https://exiftool.org/)** `exiftool image.jpg`
 
 ---
