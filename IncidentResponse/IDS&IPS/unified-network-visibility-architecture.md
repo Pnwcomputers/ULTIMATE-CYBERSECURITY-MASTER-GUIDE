@@ -5,6 +5,8 @@ _Reviewed: 2026-11-21. Reference architecture and synthetic test plan only. No d
 > [!CAUTION]
 > **Authorized monitoring only.** Use explicitly permitted networks, separate capture and management interfaces, restrict packet/event retention and disable automatic retaliatory transmissions. Validate actual packet and event paths before using these controls for production incident response. See [Legal Notice](../../LEGAL.md).
 
+**Algorithm context:** [Detection, Streaming & Recommendation Algorithms](../../Algorithms/detection-and-recommendations.md) explains pattern matching, Aho–Corasick, windowing, EWMA, false-positive evaluation and corroboration. [Algorithmic Cryptography Parallels](../../Algorithms/cryptography-parallels.md) clarifies the difference between cryptographic telemetry integrity and the truthfulness of the logged event; TLS can also limit passive payload visibility.
+
 ## Purpose & What Each Component Contributes
 
 A useful network defense stack combines **multiple kinds of evidence**. One tool cannot reliably identify every device, prove radio attack attribution and inspect every encrypted session.
