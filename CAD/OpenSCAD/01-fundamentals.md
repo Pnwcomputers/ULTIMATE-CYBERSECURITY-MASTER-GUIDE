@@ -12,6 +12,10 @@ Everything you need from the OpenSCAD language to build functional parts: the ed
 
 **CSG** (Constructive Solid Geometry) means building complex solids by adding, subtracting and intersecting simple ones. That is the whole OpenSCAD model: you never drag a vertex; you write the recipe.
 
+![Conceptual OpenSCAD workflow: create primitives, place them with transforms, combine them with Boolean operations, then preview and render before export](./images/openscad-modeling-recipe.svg)
+
+*Figure — The shapes illustrate the modeling sequence; verify real dimensions and mesh geometry before fabrication.*
+
 ---
 
 ## Contents
