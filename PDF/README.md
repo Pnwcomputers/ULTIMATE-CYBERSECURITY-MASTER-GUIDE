@@ -316,6 +316,10 @@ This directory contains **curated PDF reference materials, cheat sheets, and tec
 
 ## 📖 How To Use These Resources
 
+![Safe reference flow for archived security PDFs: establish provenance and integrity, inspect without executing embedded content, cross-check current claims, and cite limitations](../assets/diagrams/pdf-safe-reference-use-flow.svg)
+
+*Figure — Local availability supports offline study; it does not establish a PDF's authenticity, accuracy, or currency.*
+
 ### For Penetration Testers
 
 ```
