@@ -171,6 +171,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | [Dijkstra, A*, OSPF & BGP](./Algorithms/graphs-and-routing.md) | Shortest paths and routing policy distinctions |
 | [Binary Search, PageRank & Timsort](./Algorithms/search-sorting-and-indexing.md) | Indexed lookups, stable sorting, ranking & telemetry search |
 | [Huffman, DEFLATE, SHA-256 & TLS](./Algorithms/compression-hashing-and-crypto.md) | Data formats, authenticated encryption & integrity |
+| [Algorithmic Crypto Parallels & Trust Graphs](./Algorithms/cryptography-parallels.md) | Hash tables vs SHA-256, entropy, PKI, TLS key derivation, side channels & PQC |
 | [Detection & Recommendation Algorithms](./Algorithms/detection-and-recommendations.md) | Pattern matching, anomaly scores, streaming & abuse prevention |
 | [Runnable Offline Algorithm Labs](./Algorithms/labs.md) | Synthetic examples & local tests without external traffic |
 
