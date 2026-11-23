@@ -7,6 +7,19 @@ Return to [the main guide](../README.md) or [the visual reference notes](./image
 
 This folder stores diagrams as shared assets. Embed them in the **topic guide where they clarify a specific procedure** rather than repeating the same figure across multiple unrelated README pages. Captions should identify a diagram as conceptual when it does not describe a validated PNWC deployment.
 
+## Algorithms & Cryptography Visual Guides
+
+These six original SVG diagrams use descriptive alternative text, avoid external fonts/scripts, and distinguish conceptual examples from validated product implementations.
+
+| Diagram | Embedded Guide & Teaching Goal |
+|---|---|
+| [Everyday Algorithms → Security](./diagrams/algorithm-families-cybersecurity-map.svg) | [Algorithm index](../Algorithms/README.md): taxonomy, applications and limits |
+| [Dijkstra, A*, OSPF & BGP](./diagrams/algorithms-dijkstra-astar-ospf-bgp.svg) | [Routing algorithms](../Algorithms/graphs-and-routing.md): weighted paths and different routing models |
+| [Compression, Hashing, Encryption & Signatures](./diagrams/algorithms-compression-hashing-encryption.svg) | [Compression & cryptography](../Algorithms/compression-hashing-and-crypto.md), [crypto parallels](../Algorithms/cryptography-parallels.md): distinct security properties |
+| [TLS 1.3 Algorithm Pipeline](./diagrams/algorithms-tls13-cryptographic-pipeline.svg) | [Cryptography parallels](../Algorithms/cryptography-parallels.md), [applied cryptography](../Cryptography/applied-crypto.md): authentication, key agreement, HKDF and record AEAD |
+| [Detection & Evaluation](./diagrams/algorithms-detection-evaluation-pipeline.svg) | [Detection algorithms](../Algorithms/detection-and-recommendations.md): sensor visibility, matching, scoring and verification |
+| [Search, Indexing & Ranking](./diagrams/algorithms-search-index-ranking.svg) | [Search & indexing](../Algorithms/search-sorting-and-indexing.md): finding candidates versus ranking or validating truth |
+
 ## NanoVNA Cable Distance, SWR and Smith Chart Visuals
 
 | Diagram | Embedded guide |
