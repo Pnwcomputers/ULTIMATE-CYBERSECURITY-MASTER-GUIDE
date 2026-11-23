@@ -86,7 +86,7 @@ The Bunny’s Bash-based `payload.txt` format is device-specific and is not inte
 
 ## Authorized Field Assessment Labs & Deployment Examples
 
-![Defensive Bash Bunny review from scope and baseline through model review, minimal isolated validation, telemetry comparison, and cleanup](../../assets/diagrams/bashbunny-defensive-policy-validation.svg)
+![Defensive Bash Bunny review from scope and baseline through model review, minimal isolated validation, telemetry comparison, and cleanup](../../../assets/diagrams/bashbunny-defensive-policy-validation.svg)
 
 *Figure — Conceptual policy-validation path; exact device behavior depends on hardware generation and firmware.*
 
