@@ -64,6 +64,7 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 | Resource | Description |
 |---|---|
 | [Incident Response](./IncidentResponse/README.md) | Blue Team triage and incident response |
+| [PNWC WinPE Recovery & Triage](./IncidentResponse/Digital-Forensics/pnwc-winpe-recovery-triage.md) | Companion Windows deployment/recovery builder; preserve live evidence before reboot |
 | [Honeypot Platforms & DIY Sensors](./IncidentResponse/HoneyPot/readme.md) | Defensive deception labs and reporting |
 | [Kismet/nzyme IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) | Wireless and network intrusion detection |
 | [Wazuh & Other SIEMs](./IncidentResponse/SIEM/README.md) | Centralized logs, detections and alerts |

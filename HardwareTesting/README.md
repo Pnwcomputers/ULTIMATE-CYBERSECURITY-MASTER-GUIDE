@@ -66,6 +66,16 @@ The overall goal of this section is to make hardware validation repeatable, prac
 | :--------------------------------------------------------------- | :--------------------------------------------------------- | :----------- |
 | **Manjaro Linux - Intel CPU Platform (Z790 / 13th–14th Gen i9)** | [Manjaro_Intel_TestBench.md](./Manjaro_Intel_TestBench.md) | [py/](./py/) |
 
+### Windows Deployment & Recovery Companion
+
+[PNWC WinPE Builder](https://github.com/Pnwcomputers/PNWC-WinPE-Builder) provides a
+separate source project for customized Windows deployment and recovery media.
+See the [recovery & triage integration](../IncidentResponse/Digital-Forensics/pnwc-winpe-recovery-triage.md)
+for evidence-preservation decisions and build-input handling. Microsoft limits
+WinPE to deployment and recovery and says it should not be used for hardware
+validation; use the full-OS test-bench procedures in this section for stress tests,
+qualification and benchmarking. See [Microsoft's WinPE overview](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/winpe-intro?view=windows-11).
+
 ### 🔜 Planned
 
 | Platform                                                  | Status  |
