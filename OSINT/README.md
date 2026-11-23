@@ -287,7 +287,7 @@ Accessing a computer without the authorization required by applicable law may be
 ### Training & Certifications
 
 - **[IntelTechniques by Michael Bazzell](https://inteltechniques.com)** - Books, training, tools
-- **[Trace Labs](https://www.tracelabs.org)** - OSINT for missing persons, CTF competitions
+- **[Trace Labs projects](https://github.com/tracelabs)** — missing-persons OSINT projects and event materials
 - **[SANS SEC487](https://www.sans.org/cyber-security-courses/open-source-intelligence-gathering/)** - Professional OSINT training
 - **[TCM Security OSINT Course](https://tcm-sec.com/academy/)** - Practical OSINT training
 
