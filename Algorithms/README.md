@@ -5,6 +5,10 @@ A practical, source-linked guide to the algorithms behind everyday computing, ne
 > [!NOTE]
 > **Scope:** This section explains **algorithm families**, not a claim that every named consumer product uses a particular implementation. Implementation choices, hardware acceleration, tuning, and protocol versions vary. Labs use invented data and never require traffic from third parties.
 
+![Original conceptual map connecting graph routing, search, compression, cryptography, detection, and AI algorithms to cybersecurity uses](../assets/diagrams/algorithm-families-cybersecurity-map.svg)
+
+*Original conceptual overview. Each algorithm has specific assumptions; real products may use other or combined implementations.*
+
 ## Purpose & Learning Outcomes
 
 An **algorithm** is a finite, defined procedure that transforms inputs into outputs. A **data structure** arranges information so those procedures can perform efficiently. A **protocol** establishes how systems communicate; it may depend on multiple algorithms. A **cryptographic primitive** serves a more specific security role. Treat these as related but distinct concepts.
@@ -19,6 +23,7 @@ After this section, readers should be able to trace a small algorithm by hand, e
 | [Pathfinding, Routing & Graph Algorithms](./graphs-and-routing.md) | Dijkstra, A*, BFS/DFS, Bellman–Ford, OSPF vs BGP, network topology, weighted paths & routing integrity |
 | [Search, Sorting & Information Retrieval](./search-sorting-and-indexing.md) | Binary search, indexes, B-trees, inverted indexes, PageRank, merge sort, Timsort, top-k, Bloom filters & threat-hunting use |
 | [Compression, Hashing & Cryptography](./compression-hashing-and-crypto.md) | Huffman, LZ77, LZW, DEFLATE, ZIP/PNG/MP3, SHA-256, AES, TLS, signatures, integrity & compression side channels |
+| [Algorithmic Parallels To Cryptography & Trust](./cryptography-parallels.md) | Hash tables vs cryptographic hashes; entropy, PKI trust graphs, TLS algorithm composition, KDFs, constant-time practice & PQC |
 | [Detection, Streaming & Recommendation Algorithms](./detection-and-recommendations.md) | Pattern matchers, anomaly detection, sliding windows, rate limiting, sketches, correlation, recommender systems & security evaluation |
 | [Hands-On, Offline Algorithm Labs](./labs.md) | Runnable Python standard-library demos; repeatable assertions, synthetic network/log datasets, failure cases & extension exercises |
 
@@ -45,9 +50,11 @@ After this section, readers should be able to trace a small algorithm by hand, e
 | Network professional | [Graphs & Routing](./graphs-and-routing.md) → [Detection](./detection-and-recommendations.md) |
 | SOC / DFIR analyst | [Search & Indexing](./search-sorting-and-indexing.md) → [Detection](./detection-and-recommendations.md) → [Labs](./labs.md) |
 | Developer or data engineer | [Foundations](./foundations-and-complexity.md) → [Search & Sorting](./search-sorting-and-indexing.md) → [Compression](./compression-hashing-and-crypto.md) |
-| Crypto learner | [Compression, Hashing & Cryptography](./compression-hashing-and-crypto.md) → [existing crypto reference](../Cryptography/algorithms.md) |
+| Crypto learner | [Compression, Hashing & Cryptography](./compression-hashing-and-crypto.md) → [Cryptographic Algorithmic Parallels](./cryptography-parallels.md) → [existing crypto reference](../Cryptography/algorithms.md) |
 
 ## Where This Fits In The Master Guide
+
+See also the new [cross-disciplinary explanation of cryptographic parallels](./cryptography-parallels.md), which distinguishes search-oriented hashes, password KDFs, cryptographic entropy, signature verification, trust graphs, TLS, and post-quantum primitives.
 
 This section **complements rather than duplicates** the detailed [Cryptography](../Cryptography/README.md), [Data Engineering](../Data-Engineering/README.md), [Wireshark & Network Investigation](../Documentation/wireshark-defensive-investigations.md), [Snort & Network IDS](../IncidentResponse/IDS%26IPS/readme.md), [AI](../AI/README.md), and [Network Segmentation](../Documentation/network-segmentation-dmz-acl-vlan.md) sections. For authoritative specifications, use the references in each focused guide.
 
