@@ -421,7 +421,7 @@ These hardware testing guides and scripts are provided for:
 - **sysbench**: https://github.com/akopytov/sysbench
 - **Phoronix Test Suite**: https://www.phoronix-test-suite.com/
 - **memtest86+**: https://www.memtest.org/
-- **smartmontools**: https://www.smartmontools.org/
+- [smartmontools project documentation](https://github.com/smartmontools/smartmontools)
 
 ### Manufacturer Tools
 - **Intel GPU Tools**: https://drm.pages.freedesktop.org/igt-gpu-tools/

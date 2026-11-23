@@ -224,7 +224,7 @@ Source: [LoRaWAN Regional Parameters RP002-1.0.5](https://resources.lora-allianc
 
 The current documentation gives **906.875 MHz** for the US factory-default LongFast configuration and **869.525 MHz** for EU868 LongFast. Other presets, firmware, overrides, and channel-slot settings can change the center. Record the device configuration rather than treating a default as permanent. Source: [Meshtastic radio settings](https://meshtastic.org/docs/overview/radio-settings/).
 
-Additional references: [Silicon Labs Z-Wave](https://www.silabs.com/wireless/z-wave), [Z-Wave Alliance LR](https://z-wavealliance.org/what-is-z-wave-long-range-and-how-does-it-differ-from-z-wave/), [EnOcean technical documentation](https://www.enocean.com/en/support/), [Wi-SUN Alliance](https://wi-sun.org/), [Sigfox radio configurations](https://build.sigfox.com/sigfox-radio-configurations-rc), [mioty Alliance technology](https://mioty-alliance.com/).
+Additional references: [Silicon Labs Z-Wave Protocol Controller](https://github.com/SiliconLabsSoftware/z-wave-protocol-controller/blob/main/README.md), [Z-Wave Alliance LR](https://z-wavealliance.org/what-is-z-wave-long-range-and-how-does-it-differ-from-z-wave/), [EnOcean technical documentation](https://www.enocean.com/en/support/), [Wi-SUN Alliance](https://wi-sun.org/), [Sigfox radio configurations](https://build.sigfox.com/sigfox-radio-configurations-rc), [mioty Alliance technology](https://mioty-alliance.com/).
 
 ## 8. Wi-Fi, Bluetooth, and 2.4 GHz protocols
 

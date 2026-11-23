@@ -1378,7 +1378,7 @@ Resource links are starting points, not endorsements or guarantees of live avail
 
 #### **Trace Labs**
 
-- Website: https://www.tracelabs.org
+- [Trace Labs project repositories](https://github.com/tracelabs)
 - Focus: OSINT for missing persons
 - Competitions: CTF-style OSINT challenges
 - Community: Active Discord and forums
@@ -1463,7 +1463,7 @@ Resource links are starting points, not endorsements or guarantees of live avail
 
 - **Internet Archive / Wayback Machine**: https://archive.org
 - **Archive.today**: https://archive.is
-- **Perma.cc**: https://perma.cc
+- **[Perma.cc project and service information](https://github.com/harvard-lil/perma#connect-with-permacc)**
 
 ---
 

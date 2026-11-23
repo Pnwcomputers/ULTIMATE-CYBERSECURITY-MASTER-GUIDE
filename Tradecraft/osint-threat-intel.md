@@ -1111,7 +1111,7 @@ sudo apt install kali-tools-information-gathering
 - [MITRE ATT&CK: Reconnaissance](https://attack.mitre.org/tactics/TA0043/)
 - [SANS Posters (OSINT & DFIR)](https://www.sans.org/posters/)
 - [IntelTechniques](https://inteltechniques.com/tools/)
-- [Trace Labs CTF (missing persons OSINT)](https://www.tracelabs.org/)
+- [Trace Labs project repositories](https://github.com/tracelabs)
 - [OSINT Curious](https://osintcurio.us/)
 - [Maltego](https://www.maltego.com/)
 - [SpiderFoot](https://github.com/smicallef/spiderfoot)
