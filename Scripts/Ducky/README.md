@@ -160,6 +160,10 @@ This section expands the existing [compilation methods](#compilation-methods), [
 
 ### Safe Build, Compile & Approval Workflow
 
+![Authorized fixed-text HID validation from model identification through compatible compilation, isolated testing, and evidence cleanup; stop if model, output, or focus is uncertain](../../assets/diagrams/ducky-safe-validation-flow.svg)
+
+*Figure — Conceptual safety workflow for a Hak5 USB Rubber Ducky. Follow the instructions for the exact device generation; other HID platforms use separate build paths.*
+
 1. Record hardware generation, firmware, compiler/encoder, keyboard layout, test-host OS, and an explicit written authorization. Limit testing to a designated host or disposable VM.
 2. Use a synthetic test account. Open an empty text editor manually; disable network access for initial trials. Capture baseline USB/HID and EDR telemetry.
 3. Write your payload in a tracked text file. Review **every** keystroke and consider what happens if application focus changes. Avoid arbitrary terminal launches, privilege prompts, password dialogs, and unattended execution.
