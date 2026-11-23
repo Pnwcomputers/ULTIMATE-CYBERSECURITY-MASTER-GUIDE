@@ -6,6 +6,10 @@
 
 Looking up a contact, querying a SOC index, finding a matching log entry, and ranking a web page are different problems. **Finding**, **filtering**, **ordering**, and **ranking** may occur in one workflow but often rely on different data structures and algorithms.
 
+![Search pipeline from raw documents through normalization, indexes, candidate ranking and contextual review](../assets/diagrams/algorithms-search-index-ranking.svg)
+
+*Original conceptual figure. Indexing finds candidates; ranking cannot prove trustworthiness, and source/tenant permissions must be enforced before results are exposed.*
+
 ## Binary Search: Repeatedly Halve A Sorted Range
 
 Given a sorted array and compatible comparison function, binary search compares the middle element to the target and discards the impossible half. Each step reduces the remaining candidate range, giving **O(log n)** comparisons and O(1) auxiliary space for an iterative implementation.
@@ -121,6 +125,10 @@ Security dashboards often need the **top 20 source IPs** or **top 10 most common
 | Spot repeated query patterns | Hashing, frequency counters, sketches | Distinguish NAT/shared users from an individual |
 
 Read [Wireshark Defensive Investigations](../Documentation/wireshark-defensive-investigations.md), [OSINT Index](../OSINT/README.md), and [Data Engineering](../Data-Engineering/README.md) for application-specific workflows.
+
+## Cryptographic Parallels
+
+A standard hash-table index is optimized for lookup; a cryptographic hash is designed for resistance to preimages and chosen collisions under a defined model. A **fast** hash is generally inappropriate for password verification. A search result with a matching SHA-256 digest still needs an independent trusted source before claiming authenticity. See [Algorithmic Cryptography Parallels](./cryptography-parallels.md#1-hash-tables-versus-cryptographic-hash-functions), [Password Storage](./cryptography-parallels.md#5-search-hardness-password-storage--key-derivation), and [Cryptography](../Cryptography/README.md).
 
 ## Sources & Further Reading
 
