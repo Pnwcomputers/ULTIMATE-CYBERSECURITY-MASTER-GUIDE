@@ -77,6 +77,7 @@ This sub-section covers the three domains you will use most: **memory**, **disk*
 | 🚨 **Live Response** | **[LiveData/live_data_collection.md](./LiveData/live_data_collection.md)** | Running-system state | WinPmem, DumpIt, avml |
 | 🧰 **Portable DFIR** | **[Tsurugi Bento Field Guide](./tsurugi-bento-portable-dfir-guide.md)** | Live triage and verified acquisitions on running Windows endpoints | Bento, SyMenu, Sysinternals, FTK/WinPmem (if available) |
 | 💽 **Disk** | **[Disks/autopsy_kape.md](./Disks/autopsy_kape.md)** | Disk image (non-volatile) | Autopsy, KAPE, FTK Imager |
+| 🛠️ **Offline Recovery** | **[PNWC WinPE Recovery & Triage](./pnwc-winpe-recovery-triage.md)** | Unbootable Windows installation; preserve live evidence before reboot | PNWC WinPE Builder; separately verified tools |
 
 ---
 

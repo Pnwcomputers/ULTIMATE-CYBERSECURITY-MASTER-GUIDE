@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**443 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**444 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -25,7 +25,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | HardwareHacking | 16 | [Open section](#hardwarehacking) |
 | HardwareTesting | 3 | [Open section](#hardwaretesting) |
 | Homelab | 4 | [Open section](#homelab) |
-| IncidentResponse | 42 | [Open section](#incidentresponse) |
+| IncidentResponse | 43 | [Open section](#incidentresponse) |
 | Mobile | 8 | [Open section](#mobile) |
 | OPSEC | 10 | [Open section](#opsec) |
 | OSINT | 21 | [Open section](#osint) |
@@ -396,6 +396,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [Digital-Forensics/LiveData/live_data_collection.md](./IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md) | `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md` |
 | [Digital-Forensics/Memory/volatility_cheatsheet.md](./IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md) | `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md` |
 | [README — IncidentResponse/Digital-Forensics](./IncidentResponse/Digital-Forensics/README.md) | `IncidentResponse/Digital-Forensics/README.md` |
+| [Digital-Forensics/pnwc-winpe-recovery-triage.md](./IncidentResponse/Digital-Forensics/pnwc-winpe-recovery-triage.md) | `IncidentResponse/Digital-Forensics/pnwc-winpe-recovery-triage.md` |
 | [Digital-Forensics/tsurugi-bento-portable-dfir-guide.md](./IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) | `IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md` |
 | [Digital-Forensics/velociraptor-artifact-triage.md](./IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md) | `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md` |
 | [Endpoint-Visibility/Linux/auditd_syslog.md](./IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md) | `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md` |

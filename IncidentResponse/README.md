@@ -47,6 +47,7 @@ Capture scope and evidence interpretation are separate from Wazuh detection rule
 | Reference | Description |
 |---|---|
 | [Velociraptor/ForensicArtifacts Triage](Digital-Forensics/velociraptor-artifact-triage.md) | Authorized evidence collection and triage |
+| [PNWC WinPE Recovery & Triage](./Digital-Forensics/pnwc-winpe-recovery-triage.md) | Offline Windows recovery after the live-evidence decision; source disks are not automatically write-protected |
 | [Sigma/Elastic/Wazuh Validation](SIEM/detection-content-validation.md) | Verify detection rules and event mappings |
 | [Atomic Red Team Lab Verification](../PlayBooks/purple-team-detection-validation.md) | Confirm detections with controlled simulations |
 
