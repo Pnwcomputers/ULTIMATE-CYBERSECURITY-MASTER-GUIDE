@@ -877,7 +877,7 @@ sudo journalctl --vacuum-time=7d
 
 ### Documentation
 
-- [Linux Audit Documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/auditing-the-system_security-hardening)
+- [Linux Audit userspace project documentation](https://github.com/linux-audit/audit-userspace)
 - [Rsyslog Documentation](https://www.rsyslog.com/doc/)
 - [aureport Man Page](https://man7.org/linux/man-pages/man8/aureport.8.html)
 - [ausearch Man Page](https://man7.org/linux/man-pages/man8/ausearch.8.html)
@@ -885,7 +885,7 @@ sudo journalctl --vacuum-time=7d
 ### Rule References
 
 - [auditctl manual](https://man7.org/linux/man-pages/man8/auditctl.8.html) - documents that `-D` deletes all rules and watches.
-- [Red Hat system auditing guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/security_hardening/auditing-the-system_security-hardening) - explains `/etc/audit/rules.d` and `augenrules --load`.
+- [Upstream augenrules manual](https://github.com/linux-audit/audit-userspace/blob/master/docs/augenrules.8) explains `/etc/audit/rules.d`, how fragments are merged, and the effect of `augenrules --load`.
 - [Red Hat syscall audit guidance](https://access.redhat.com/solutions/36278) - describes the architecture field in syscall rules.
 
 

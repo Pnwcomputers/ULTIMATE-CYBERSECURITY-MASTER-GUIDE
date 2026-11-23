@@ -912,9 +912,9 @@ publicKey = $SPLUNK_HOME/etc/auth/audit/public.pem
 
 ### Documentation
 
-- [Splunk Documentation](https://docs.splunk.com/)
-- [Splunk Search Reference](https://docs.splunk.com/Documentation/Splunk/latest/SearchReference)
-- [Splunk Security Essentials](https://docs.splunk.com/Documentation/SSE/latest)
+- [Splunk product documentation](https://help.splunk.com/)
+- [Splunk Enterprise 10.4 SPL reference for tstats](https://help.splunk.com/en/splunk-enterprise/spl-search-reference/10.4/search-commands/tstats)
+- [Splunk Security Essentials app listing](https://splunkbase.splunk.com/app/3435)
 
 ### Community & Training
 

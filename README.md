@@ -548,7 +548,7 @@ release, file license and legal scope before operational reuse.
 | [PhoneInfoga](https://github.com/sundowndev/phoneinfoga) | Phone-number OSINT and public-source information gathering |
 | [Photon](https://github.com/s0md3v/Photon) | Web crawler for OSINT data collection |
 | [Michael Bazzell / IntelTechniques](https://inteltechniques.com/) | OSINT and privacy books, training and investigation resources |
-| [Trace Labs](https://tracelabs.org/) | Nonprofit coordinating crowdsourced OSINT searches for missing people |
+| [Trace Labs projects](https://github.com/tracelabs) | Nonprofit coordinating crowdsourced OSINT searches for missing people |
 
 #### Network & Web Security
 

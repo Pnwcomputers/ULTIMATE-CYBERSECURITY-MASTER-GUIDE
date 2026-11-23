@@ -206,7 +206,7 @@ Contributions from SOC analysts and detection engineers are welcome.
 - **Sigma (detection rules):** <https://github.com/SigmaHQ/sigma>
 - **Wazuh docs:** <https://documentation.wazuh.com/>
 - **Elastic Security docs:** <https://www.elastic.co/guide/en/security/current/index.html>
-- **Splunk Docs & SPL reference:** <https://docs.splunk.com/>
+- **[Splunk product documentation](https://help.splunk.com/)**
 - **Graylog docs:** <https://go2docs.graylog.org/>
 - **MITRE ATT&CK (detection mapping):** <https://attack.mitre.org/>
 
