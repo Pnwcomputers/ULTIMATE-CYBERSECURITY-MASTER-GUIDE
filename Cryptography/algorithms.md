@@ -5,6 +5,8 @@
 > approval. Use reviewed protocols and vetted libraries; verify applicable
 > standards, parameters and validated-module requirements for the deployment.
 
+**Companion algorithm guide:** [Algorithmic Parallels To Cryptography, Encryption & Trust](../Algorithms/cryptography-parallels.md) connects this reference to information theory, fast lookup hashes versus SHA-256, certificate trust graphs, TLS composition, Merkle trees, constant-time constraints and post-quantum schemes. For a visual introduction see [Compression vs Hashing vs AEAD & Signatures](../assets/diagrams/algorithms-compression-hashing-encryption.svg).
+
 ## 🎯 Purpose
 
 Distinguish cryptographic roles and identify candidate algorithms and parameters,
