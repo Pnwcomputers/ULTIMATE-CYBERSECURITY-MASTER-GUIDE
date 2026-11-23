@@ -25,7 +25,7 @@ production deployment or new execution of the existing Phase 1 labs._
 
 **Data-store documentation:** [Curated external technical docs](../Documentation/curated-technical-docs.md) includes [PostgreSQL](https://www.postgresql.org/docs/current/) and [Redis](https://redis.io/docs/latest/) for reliable query/telemetry references. For containerized lab services, use the [Docker operational cheat sheet](../ContainerSecurity/docker-cli-operations-reference.md).
 
-**Algorithm foundations:** [Computational Foundations](../Algorithms/README.md) covers indexed search, sorting, streams, compression, complexity, and deterministic offline labs; see [Search & Indexing](../Algorithms/search-sorting-and-indexing.md) and [Detection & Streaming](../Algorithms/detection-and-recommendations.md) for telemetry-specific connections.
+**Algorithm foundations:** [Computational Foundations](../Algorithms/README.md) covers indexed search, sorting, streams, compression, complexity, and deterministic offline labs; see [Search & Indexing](../Algorithms/search-sorting-and-indexing.md), [Detection & Streaming](../Algorithms/detection-and-recommendations.md), and [cryptographic hashing, integrity & Merkle trees](../Algorithms/cryptography-parallels.md#8-integrity-merkle-trees-signed-updates--forensics) for telemetry and provenance connections.
 
 **Suggested data-source practice:** [Security API Catalog & Cookbook](../Documentation/security-public-api-catalog.md) provides authorized read-only security feeds and example JSON lookups for ingestion, contract validation, provenance and SIEM enrichment labs.
 
