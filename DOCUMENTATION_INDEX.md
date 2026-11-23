@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**442 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**443 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -11,7 +11,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Root Guides & Repository Documents | 17 | [Open section](#root-guides--repository-documents) |
 | .github | 7 | [Open section](#github) |
 | AI | 36 | [Open section](#ai) |
-| Algorithms | 7 | [Open section](#algorithms) |
+| Algorithms | 8 | [Open section](#algorithms) |
 | CAD | 9 | [Open section](#cad) |
 | CaseStudies | 7 | [Open section](#casestudies) |
 | Checklists | 18 | [Open section](#checklists) |
@@ -127,6 +127,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [compression-hashing-and-crypto.md](./Algorithms/compression-hashing-and-crypto.md) | `Algorithms/compression-hashing-and-crypto.md` |
 | [detection-and-recommendations.md](./Algorithms/detection-and-recommendations.md) | `Algorithms/detection-and-recommendations.md` |
 | [labs.md](./Algorithms/labs.md) | `Algorithms/labs.md` |
+| [cryptography-parallels.md](./Algorithms/cryptography-parallels.md) | `Algorithms/cryptography-parallels.md` |
 
 ## CAD
 
