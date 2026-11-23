@@ -8,6 +8,10 @@ Represent intersections, routers, services, or dependencies as **vertices** (nod
 
 A road network may be directed, have one-way restrictions, turn costs, road closures, and changing travel-time estimates. Consumer navigation platforms can use A*, bidirectional search, contraction hierarchies, traffic prediction, and proprietary optimization; do not attribute a product's entire routing engine to one textbook algorithm.
 
+![Weighted four-node directed graph showing Dijkstra's cheapest path and how OSPF differs from BGP](../assets/diagrams/algorithms-dijkstra-astar-ospf-bgp.svg)
+
+*Original illustrative graph; the highlighted path is minimum **configured cost**, not measured network latency. OSPF's SPF and BGP's policy-driven selection are separate concepts.*
+
 ## Hands-On Graph: Choosing A Route
 
 Consider this **invented, directed** weighted graph (all weights are nonnegative):
@@ -122,6 +126,10 @@ Use a four-node graph with weighted edges and compare calculated shortest paths 
 - [segmentation/ACLs](../Documentation/network-segmentation-dmz-acl-vlan.md) and [Snort monitoring](../IncidentResponse/IDS%26IPS/snort.md).
 
 **Safety:** Do not alter routing cost or neighbor authentication in a production network just to reproduce a lab. Use an isolated simulated topology, saved snapshots, and a rollback plan.
+
+## Parallels With Cryptographic Trust
+
+**Both routing and public-key infrastructure can be represented as graphs, but their acceptance rules differ.** Dijkstra minimizes a chosen path cost; certificate path validation checks certificate signatures, trust anchors, names, time validity, permitted uses and policy constraints. No shortest-path algorithm can replace these security validations. See [Cryptography & Trust Graphs](./cryptography-parallels.md#3-network-graphs-versus-trust-graphs) and the repository's [Applied Cryptography](../Cryptography/applied-crypto.md).
 
 ## References & Related Guides
 
