@@ -6,6 +6,10 @@
 
 A security system rarely uses just one algorithm. Consider a network IDS and SIEM pipeline:
 
+![Conceptual defensive event-detection pipeline from collection and normalization through matching, correlation and human verification](../assets/diagrams/algorithms-detection-evaluation-pipeline.svg)
+
+*Original educational detection pipeline. Coverage limitations, false positives, encryption and evidence review remain essential even when a rule matches.*
+
 ~~~text
 SPAN/TAP or endpoint sensor
     → parse/normalize → match signatures/features
@@ -113,6 +117,10 @@ Threat-detection models commonly produce scores; a **threshold** converts a scor
 **Base-rate example:** If only 1 in 1,000 events is malicious, even a detector with 99% recall and 1% false-positive rate produces far more false positives than true positives. Evaluate confusion matrices using the real class prevalence, not just accuracy.
 
 **Safe automation:** begin with alerts only; tune and review with synthetic test events. If considering automated firewall actions, add human approval, time limits, exceptions, audit logs, monitoring and rollback. Never block hosts based solely on an unvalidated experimental anomaly score.
+
+## Cryptographic Parallels In Detection Pipelines
+
+Detection and cryptography intersect in multiple distinct ways: **cryptographic hashes** can identify exact known files but do not replace fuzzy content detection; **HMACs or signatures** can authenticate telemetry from a trusted source but do not ensure the event description is true; **TLS** protects telemetry in transit but can reduce passive packet inspection visibility; and **constant-time cryptographic code** serves a different goal from low-average-latency alert processing. See [Cryptography Parallels](./cryptography-parallels.md) and [Applied Cryptography](../Cryptography/applied-crypto.md) for the relevant security boundaries.
 
 ## 6. Threat Modeling The Detection Algorithm Itself
 
