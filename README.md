@@ -34,7 +34,9 @@ This README is the repository's front door: it lists the main sections, subsecti
 Each section link below opens its **readable README index directly**, not GitHub's file browser. Use the linked chapter and guide titles to move through the material; the code/file listing is optional for people seeking scripts or source.
 
 Use [START_HERE.md](./START_HERE.md) to navigate by role or goal. 
+
 The [Diagram & Image Asset Index](./assets/README.md) links to original figures in their topic guides, including detection-validation, Cyberdeck zone, and packet-capture diagrams. 
+
 For payment systems, see [PCI DSS 4.0.1 Scoping & Segmentation](./Compliance/pci-dss-scoping.md) and its [reusable review worksheet](./Compliance/pci-scope-review-template.md). 
 
 The three [primary master guides](#primary-master-guides) contain technical material; this page helps you find it.
