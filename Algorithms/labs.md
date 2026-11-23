@@ -100,6 +100,19 @@ Without accessing any real user or client logs, invent 1,000 events: 10 positive
 
 This illustrates how base rate affects operator workload even when recall is high. Change the threshold in your hypothetical detector; record precision, recall, operating costs and missed detections.
 
+## Visual Review & Further Learning
+
+| Diagram | What To Check |
+|---|---|
+| [Algorithm Families](../assets/diagrams/algorithm-families-cybersecurity-map.svg) | Where each technique belongs |
+| [Weighted Graphs](../assets/diagrams/algorithms-dijkstra-astar-ospf-bgp.svg) | Cost versus policy versus latency |
+| [Search & Indexing](../assets/diagrams/algorithms-search-index-ranking.svg) | Retrieval vs ranking vs authorization |
+| [Compression, Hashing & AEAD](../assets/diagrams/algorithms-compression-hashing-encryption.svg) | Security properties not shared across algorithms |
+| [TLS 1.3 Algorithms](../assets/diagrams/algorithms-tls13-cryptographic-pipeline.svg) | Authentication, KDF & AEAD composition |
+| [Detection Pipeline](../assets/diagrams/algorithms-detection-evaluation-pipeline.svg) | Sensor coverage, correlation & validation |
+
+For deeper security-specific comparisons, read [Cryptographic Algorithm Parallels](./cryptography-parallels.md).
+
 ## Reproducibility Checklist
 
 - Record interpreter version (**python3 --version**) and exact commit SHA.
