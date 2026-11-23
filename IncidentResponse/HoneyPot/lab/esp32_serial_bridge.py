@@ -15,13 +15,27 @@ import re
 import time
 
 PREFIX = "HONEYPOT_JSON:"
+MAX_LINE_BYTES = 1024
 ALLOWED_EVENTS = {"tcp_connection", "telnet_connection", "http_probe", "service_probe"}
+
+
+def complete_lines(connection):
+    """Yield bounded, newline-terminated records and discard partial frames."""
+    discard = False
+    while True:
+        raw = connection.readline(MAX_LINE_BYTES + 1)
+        if not raw:
+            continue
+        complete = raw.endswith(b"\n")
+        if not discard and complete and len(raw) <= MAX_LINE_BYTES:
+            yield raw
+        discard = not complete
 
 
 def parse_line(raw, sensor):
     if isinstance(raw, bytes):
         raw = raw.decode("utf-8", "strict")
-    if len(raw) > 1024 or not raw.startswith(PREFIX):
+    if len(raw) > MAX_LINE_BYTES or not raw.startswith(PREFIX):
         return None
     try:
         data = json.loads(raw[len(PREFIX):])
@@ -30,14 +44,15 @@ def parse_line(raw, sensor):
     if not isinstance(data, dict):
         return None
     event = data.get("event")
-    if event not in ALLOWED_EVENTS:
+    if not isinstance(event, str) or event not in ALLOWED_EVENTS:
+        return None
+    address = data.get("src_ip")
+    port = data.get("port")
+    if not isinstance(address, str) or type(port) is not int or not 1 <= port <= 65535:
         return None
     try:
-        addr = str(ipaddress.ip_address(data["src_ip"]))
-        port = int(data["port"])
-        if port < 1 or port > 65535:
-            return None
-    except (KeyError, TypeError, ValueError):
+        addr = str(ipaddress.ip_address(address))
+    except ValueError:
         return None
     return {"honeypot": {
         "integration": "esp32_serial",
@@ -69,8 +84,7 @@ def main():
     while True:
         try:
             with serial.Serial(args.port, args.baud, timeout=2) as connection:
-                while True:
-                    raw = connection.readline(1025)
+                for raw in complete_lines(connection):
                     try:
                         event = parse_line(raw, args.sensor)
                     except UnicodeDecodeError:

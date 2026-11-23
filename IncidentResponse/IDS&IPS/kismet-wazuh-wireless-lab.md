@@ -193,7 +193,7 @@ python3 'IncidentResponse/IDS&IPS/kismet-wazuh/correlate_offline.py' \
   --output /var/log/kismet-wazuh/case-events.jsonl
 ~~~
 
-This matches Kismet **DEAUTHFLOOD/BCASTDISCON/DISASSOCTRAFFIC** alerts to PCAP bursts for a matching claimed BSSID within 120 seconds. The derived signal maps to Wazuh **rule 100340 / level 12**. It is an **offline case step** that overwrites its output; it is not a continuous live correlation service.
+This offline case step matches Kismet **DEAUTHFLOOD/BCASTDISCON/DISASSOCTRAFFIC** alerts to PCAP bursts with the same configured sensor identifier and claimed BSSID within 120 seconds. Use the same identifier for the Kismet bridge and the corresponding PCAP summary. The derived signal maps to Wazuh **rule 100340 / level 12**. Supply a new output path for each run to preserve the source records and previous results.
 
 **Crucial:** Kismet and a PCAP from the same receiver are **not independent evidence**. Confirm actual disconnects, PMF negotiation, AP/controller maintenance and client logs before an incident can be called verified. BSSIDs can be spoofed.
 
