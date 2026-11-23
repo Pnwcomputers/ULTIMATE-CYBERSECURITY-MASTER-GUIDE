@@ -52,6 +52,11 @@ no live TLS, identity-provider, hardware-key, or key-management testing was perf
 
 ## Transport Security (TLS)
 
+![Original conceptual TLS 1.3 algorithm pipeline: certificate authentication, key agreement, HKDF and AEAD protection](../assets/diagrams/algorithms-tls13-cryptographic-pipeline.svg)
+
+*Conceptual algorithm-role diagram; not a packet-accurate handshake sequence. For step-by-step parallels with search, trust graphs, entropy and constant-time execution, see [Algorithmic Parallels To Cryptography](../Algorithms/cryptography-parallels.md#4-cryptography-as-a-multi-algorithm-pipeline).*
+
+
 - **Prefer TLS 1.3**; retain TLS 1.2 only with current secure configuration and a
   compatibility need. Disable TLS 1.0/1.1 and SSLv3.
 - **Cipher suites and groups:** use AEAD suites and ephemeral key exchange for

@@ -28,6 +28,9 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | Goal | Recommended Route |
 |---|---|
 | **New to Cybersecurity** | Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) → Part I (Foundations) |
+| **Understand Everyday Algorithms & Their Security Uses** | [Algorithm Index](Algorithms/README.md) → [Complexity & Data Structures](Algorithms/foundations-and-complexity.md) → [Graphs & Routing](Algorithms/graphs-and-routing.md) → [Offline Labs](Algorithms/labs.md) |
+| **Explore PageRank, Binary Search, Sorting & Compression** | [Search, Indexing & Ranking](Algorithms/search-sorting-and-indexing.md) → [Compression, Hashing & Cryptography](Algorithms/compression-hashing-and-crypto.md) |
+| **Understand How Cryptography Relates To Other Algorithms** | [Cryptographic Algorithmic Parallels](Algorithms/cryptography-parallels.md) → [Cryptography Reference](Cryptography/algorithms.md) → [Applied TLS, KDFs & Identity](Cryptography/applied-crypto.md) |
 | **Study historical incidents & hardware disclosures** | [Case Studies Index](./CaseStudies/README.md) → [Historical Attack Analyses](./ENHANCED_MASTER_GUIDE.md#real-world-attack-case-studies) for incident details and defensive lessons. |
 | **Need Quick Commands** | Use [Cliff Notes](cybersecurity_cliff_notes.md) for security concepts or the [CLI Field Cheat Sheet](Documentation/devhints-cli-field-reference.md) for everyday Linux, transfer, GPG, Git and Docker commands |
 | **Researching source projects for this guide** | [Verified upstream source register](Documentation/upstream-security-projects-register.md) with license and integration status. |
@@ -51,6 +54,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | **Security Frameworks & Routers** | [Metasploit](Tradecraft/metasploit-framework-guide.md) + [RouterSploit](Tradecraft/routersploit-guide.md) for scoped labs & firmware verification. |
 | **Phishing, Geolocation & OSINT** | [Zphisher Threat Analysis](Tradecraft/zphisher-threat-analysis.md), [Seeker Privacy Risks](Tradecraft/seeker-geolocation-threat-analysis.md) & [Sherlock OSINT](OSINT/sherlock-guide.md). |
 | **Validating SIEM and endpoint detections** | [Atomic Red Team/Sigma lab](PlayBooks/purple-team-detection-validation.md) → [Wazuh detection rule verification](IncidentResponse/SIEM/detection-content-validation.md) → [DFIR triage](IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md). |
+| **Understand IDS Pattern Matching, Sliding Windows & Alert Scoring** | [Detection & Recommendation Algorithms](Algorithms/detection-and-recommendations.md) → [Offline Algorithm Labs](Algorithms/labs.md) → [Unified Detection Architecture](IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md). |
 | **Auditing code, dependencies or containers** | [SBOM, Scorecard, Gitleaks and signature workflow](ContainerSecurity/software-supply-chain-assessment.md). |
 | **Blue Team / SOC** | [Incident Response](IncidentResponse/README.md) + [Tsurugi Bento field response](IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) + [Blue Team Playbooks](PlayBooks/README.md) + [SIEM Guides](IncidentResponse/SIEM/README.md) |
 | **Security API and threat-feed references** | [Security API Catalog](Documentation/security-public-api-catalog.md) → [OSINT API toolkit](OSINT/Playbook/tools_api.md) → [API ingestion guidance](Data-Engineering/Phase2/api_file_ingestion.md) |

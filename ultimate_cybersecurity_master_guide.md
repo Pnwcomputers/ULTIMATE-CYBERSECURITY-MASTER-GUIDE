@@ -14,6 +14,8 @@
 
 **Curated practice and research sources:** [Topic-mapped GitHub security collections](Documentation/awesome-hacking-collections-integration.md) · [CTF/ethical lab pathways](PlayBooks/security-training-lab-pathways.md).
 
+**Foundational computing reference:** [Algorithms & Computational Foundations](Algorithms/README.md) explains Dijkstra/A*, OSPF vs BGP, PageRank, searching, sorting, compression, HTTPS cryptography, anomaly detection and reproducible offline exercises.
+
 **Featured PNWC Field Project:** [Cyberdeck Public Reference](Cyberdeck/README.md) · [Complete Documentation Index](DOCUMENTATION_INDEX.md). The Cyberdeck companion covers a portable, consent-first assessment system but does **not** release the private operator portal.
 
 

@@ -17,6 +17,8 @@
 
 ---
 
+**Search & network-analysis foundations:** [Search, Sorting, Indexing & PageRank](../Algorithms/search-sorting-and-indexing.md) covers inverted indexes, graph ranking and link-manipulation caveats; [Cryptographic Trust Graphs](../Algorithms/cryptography-parallels.md#3-network-graphs-versus-trust-graphs) explains why a valid chain of signatures is different from evidence of truth. These support source corroboration rather than replacing it.
+
 **Adjacent research ecosystems:** [h4cker OSINT, threat-intelligence and security collections](../Documentation/awesome-hacking-collections-integration.md); use [the curated Awesome OSINT reference](awesome-osint-list-curated.md) for evidence-first collection.
 
 

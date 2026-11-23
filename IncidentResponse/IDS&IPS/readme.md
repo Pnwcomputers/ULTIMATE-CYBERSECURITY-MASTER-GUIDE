@@ -16,6 +16,7 @@
 
 | Reference | Description |
 |---|---|
+| [Algorithmic Detection & Streaming](../../Algorithms/detection-and-recommendations.md) | Pattern matching, anomaly windows, threshold quality, event correlation & algorithmic limitations |
 | [Wireshark Master Filters](../../Documentation/wireshark-master-filters.md) | Indexed packet inspection filters |
 | [Wireshark Field Cheat Sheet](../../Documentation/wireshark-cheatsheet.md) | Common protocol and frame fields |
 | [802.11 Deauthentication/Disassociation](../../Documentation/wifi-deauthentication-detection.md) | Observe suspicious management-frame bursts |
