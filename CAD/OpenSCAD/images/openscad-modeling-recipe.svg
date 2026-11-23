@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">OpenSCAD modeling recipe: solids, transforms, Boolean operations, and verification</title>
+  <desc id="desc">Four connected stages show a cube and cylinder as primitives, translated and rotated into position, combined with a difference operation to cut a hole, then previewed, rendered, and exported after geometry checks.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9fb5d0"/></marker>
+    <linearGradient id="cube" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#60a5fa"/><stop offset="1" stop-color="#2563eb"/></linearGradient>
+  </defs>
+  <rect width="1200" height="560" rx="22" fill="#101827"/>
+  <text x="600" y="52" text-anchor="middle" fill="#f3f6fb" font-family="system-ui, sans-serif" font-size="28" font-weight="700">A model is a written sequence of geometric operations</text>
+  <g font-family="system-ui, sans-serif">
+    <g transform="translate(36 100)">
+      <rect width="252" height="360" rx="16" fill="#182538" stroke="#3b536f" stroke-width="2"/>
+      <circle cx="28" cy="30" r="18" fill="#2563eb"/><text x="28" y="37" text-anchor="middle" fill="white" font-size="18" font-weight="700">1</text>
+      <text x="58" y="37" fill="#eaf1fb" font-size="22" font-weight="700">Create primitives</text>
+      <path d="M70 153 121 124 173 153 121 183Z" fill="#93c5fd"/><path d="M70 153v62l51 31v-63Z" fill="#3b82f6"/><path d="M121 183v63l52-31v-62Z" fill="url(#cube)"/>
+      <ellipse cx="204" cy="153" rx="22" ry="9" fill="#fbbf24"/><path d="M182 153v50c0 12 44 12 44 0v-50" fill="#d97706"/><ellipse cx="204" cy="203" rx="22" ry="9" fill="#f59e0b"/>
+      <text x="126" y="290" text-anchor="middle" fill="#cbd5e1" font-size="17">cube() + cylinder()</text>
+      <text x="126" y="320" text-anchor="middle" fill="#94a3b8" font-size="15">Dimensions define the solids</text>
+    </g>
+    <path d="M300 280h38" stroke="#9fb5d0" stroke-width="4" marker-end="url(#arrow)"/>
+    <g transform="translate(350 100)">
+      <rect width="252" height="360" rx="16" fill="#182538" stroke="#3b536f" stroke-width="2"/>
+      <circle cx="28" cy="30" r="18" fill="#2563eb"/><text x="28" y="37" text-anchor="middle" fill="white" font-size="18" font-weight="700">2</text>
+      <text x="58" y="37" fill="#eaf1fb" font-size="22" font-weight="700">Place with transforms</text>
+      <path d="M78 182 129 153 180 182 129 212Z" fill="#93c5fd"/><path d="M78 182v54l51 31v-55Z" fill="#3b82f6"/><path d="M129 212v55l51-31v-54Z" fill="url(#cube)"/>
+      <path d="M165 139c27-26 57-17 67 2" fill="none" stroke="#fbbf24" stroke-width="4" marker-end="url(#arrow)"/>
+      <path d="M55 277h144" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)"/>
+      <text x="126" y="315" text-anchor="middle" fill="#cbd5e1" font-size="17">translate() • rotate()</text>
+      <text x="126" y="340" text-anchor="middle" fill="#94a3b8" font-size="15">Position is part of the recipe</text>
+    </g>
+    <path d="M614 280h38" stroke="#9fb5d0" stroke-width="4" marker-end="url(#arrow)"/>
+    <g transform="translate(664 100)">
+      <rect width="252" height="360" rx="16" fill="#182538" stroke="#3b536f" stroke-width="2"/>
+      <circle cx="28" cy="30" r="18" fill="#2563eb"/><text x="28" y="37" text-anchor="middle" fill="white" font-size="18" font-weight="700">3</text>
+      <text x="58" y="37" fill="#eaf1fb" font-size="22" font-weight="700">Combine with CSG</text>
+      <path d="M58 156h95v76H58z" fill="#60a5fa"/><ellipse cx="106" cy="153" rx="18" ry="9" fill="#fbbf24"/><path d="M88 153v39c0 10 36 10 36 0v-39" fill="#d97706"/><ellipse cx="106" cy="192" rx="18" ry="8" fill="#f59e0b"/>
+      <path d="M170 182h34" stroke="#9fb5d0" stroke-width="3" marker-end="url(#arrow)"/>
+      <path d="M208 153h25v79h-90v-25h65z" fill="#34d399"/>
+      <circle cx="218" cy="192" r="9" fill="#182538"/>
+      <text x="126" y="282" text-anchor="middle" fill="#cbd5e1" font-size="17">difference() cuts a hole</text>
+      <text x="126" y="311" text-anchor="middle" fill="#94a3b8" font-size="15">union • difference • intersection</text>
+      <text x="126" y="338" text-anchor="middle" fill="#94a3b8" font-size="14">Operation order matters</text>
+    </g>
+    <path d="M928 280h38" stroke="#9fb5d0" stroke-width="4" marker-end="url(#arrow)"/>
+    <g transform="translate(978 100)">
+      <rect width="186" height="360" rx="16" fill="#182538" stroke="#3b536f" stroke-width="2"/>
+      <circle cx="28" cy="30" r="18" fill="#2563eb"/><text x="28" y="37" text-anchor="middle" fill="white" font-size="18" font-weight="700">4</text>
+      <text x="58" y="37" fill="#eaf1fb" font-size="22" font-weight="700">Verify</text>
+      <rect x="33" y="112" width="120" height="48" rx="10" fill="#1d4ed8"/><text x="93" y="142" text-anchor="middle" fill="white" font-size="18" font-weight="700">F5 Preview</text>
+      <path d="M93 169v25" stroke="#9fb5d0" stroke-width="3" marker-end="url(#arrow)"/>
+      <rect x="33" y="204" width="120" height="48" rx="10" fill="#047857"/><text x="93" y="234" text-anchor="middle" fill="white" font-size="18" font-weight="700">F6 Render</text>
+      <path d="M93 261v25" stroke="#9fb5d0" stroke-width="3" marker-end="url(#arrow)"/>
+      <text x="93" y="315" text-anchor="middle" fill="#cbd5e1" font-size="17">Inspect mesh</text>
+      <text x="93" y="340" text-anchor="middle" fill="#94a3b8" font-size="15">then export</text>
+    </g>
+  </g>
+  <text x="600" y="510" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="16">Conceptual example only • check geometry and dimensions before fabrication</text>
+</svg>
