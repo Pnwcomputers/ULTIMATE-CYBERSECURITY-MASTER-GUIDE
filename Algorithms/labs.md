@@ -26,14 +26,15 @@ On a system where Python is invoked as **python** rather than **python3**, repla
 
 Read [Graphs & Routing](./graphs-and-routing.md). The script stores a directed graph:
 
-~~~text
-A --2--> B --1--> C --2--> D
-|         |                  ^
-+---5---->C                  |
-          +--------4-------->D
-~~~
+| Directed Edge | Cost |
+|---|---:|
+| A → B | 2 |
+| A → C | 5 |
+| B → C | 1 |
+| B → D | 4 |
+| C → D | 2 |
 
-Note: the ASCII diagram depicts the same listed edge weights but can make the A→C and B→D edges appear visually close. **Use the explicit graph dictionary** in the source as the authoritative topology.
+The table matches the explicit graph dictionary in the lab source.
 
 **Predict:** What is the cheapest A → D path? A → B → C → D with weight 5. Dijkstra must reject negative weights. A* should return the same optimum using the supplied heuristic, which is a valid lower bound for these synthetic nodes.
 
