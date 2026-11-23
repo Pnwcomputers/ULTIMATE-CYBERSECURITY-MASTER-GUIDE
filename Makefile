@@ -16,6 +16,7 @@ docs:
 	$(PYTHON) -B tools/check_markdown_numbered_lists.py
 
 tests:
+	$(PYTHON) -B Algorithms/labs/algorithm_lab.py
 	$(PYTHON) -B -m unittest discover -s tests/hardening -v
 	$(PYTHON) -B -m unittest discover -s tools/tests -v
 
