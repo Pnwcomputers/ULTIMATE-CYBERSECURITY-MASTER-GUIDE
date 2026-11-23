@@ -83,6 +83,15 @@ class BuildWikiTests(unittest.TestCase):
             self.assertIn(text, home)
         self.assertIn(f"{WIKI}Home", self.read("_Footer"))
 
+    def test_manual_collision_stops_before_rewriting_or_pruning_pages(self):
+        (self.out / "Home.md").write_text("Operator notes\n", encoding="utf-8")
+        (self.out / "Stale.md").write_text(build_wiki.MARKER + "\nStale\n", encoding="utf-8")
+        (self.out / "Browse-by-Topic.md").write_text(build_wiki.MARKER + "\nUnchanged\n", encoding="utf-8")
+        before = {path.name: path.read_bytes() for path in self.out.glob("*.md")}
+        with self.assertRaisesRegex(ValueError, r"generator marker: Home\.md"):
+            build_wiki.build(self.out, "o/r", root=self.repo, tracked=list(FILES))
+        self.assertEqual(before, {path.name: path.read_bytes() for path in self.out.glob("*.md")})
+
     def test_encoded_paths_resolve_to_guides_and_files_without_double_encoding(self):
         linker = build_wiki.Linker("o/r", {"OSINT/IDS&IPS/suricata+zeek.md": "Network-sensors"}, set())
         source = build_wiki.PurePosixPath("OSINT/tools.md")

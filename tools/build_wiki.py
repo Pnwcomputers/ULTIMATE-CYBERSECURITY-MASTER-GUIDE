@@ -227,6 +227,13 @@ def validate(pages, repository, tracked, directories):
         raise ValueError("Wiki validation failed:\n" + "\n".join(errors))
 
 
+def is_generated_page(path):
+    if path.is_symlink() or not path.is_file():
+        return False
+    with path.open(encoding="utf-8-sig", errors="replace") as handle:
+        return handle.readline().strip() == MARKER
+
+
 def build(output, repository, root=ROOT, tracked=None):
     root = Path(root)
     if tracked is None:
@@ -452,14 +459,16 @@ def build(output, repository, root=ROOT, tracked=None):
     validate(pages, repository, tracked_set, tracked_dirs)
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
-    for slug, lines in pages.items():
-        (output / (slug + ".md")).write_text("\n".join([MARKER, "", *lines, ""]), encoding="utf-8")
+    destinations = {output / (slug + ".md"): lines for slug, lines in pages.items()}
+    conflicts = sorted(path.name for path in destinations
+                       if (path.exists() or path.is_symlink()) and not is_generated_page(path))
+    if conflicts:
+        raise ValueError("Cannot overwrite existing wiki pages without the generator marker: " + ", ".join(conflicts))
+    for path, lines in destinations.items():
+        path.write_text("\n".join([MARKER, "", *lines, ""]), encoding="utf-8")
     for old in output.glob("*.md"):
-        if old.stem not in pages:
-            with old.open(encoding="utf-8", errors="replace") as handle:
-                generated = handle.readline().strip() == MARKER
-            if generated:
-                old.unlink()
+        if old.stem not in pages and is_generated_page(old):
+            old.unlink()
     print(f"Built {len(pages)} wiki pages covering {document_count} guides.")
     return pages
 
