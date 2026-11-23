@@ -5,13 +5,14 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import threading
 import unittest
+from unittest.mock import Mock
 import xml.etree.ElementTree as ET
 from http.server import ThreadingHTTPServer
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
 
 from diy_http_decoy import EventWriter, build_handler
-from esp32_serial_bridge import parse_line
+from esp32_serial_bridge import MAX_LINE_BYTES, complete_lines, parse_line
 
 
 HERE = Path(__file__).parent
@@ -70,6 +71,19 @@ class HoneypotTests(unittest.TestCase):
         self.assertEqual(normalized["honeypot"]["dst_port"], 23)
         self.assertIsNone(parse_line('HONEYPOT_JSON:{"event":"cmd","src_ip":"192.0.2.30","port":23}', "s3"))
         self.assertIsNone(parse_line('HONEYPOT_JSON:{"event":"tcp_connection","src_ip":"bad","port":23}', "s3"))
+
+    def test_esp32_rejects_invalid_field_types(self):
+        event = {"event": "tcp_connection", "src_ip": "192.0.2.30", "port": 23}
+        for key, value in [("event", []), ("src_ip", 1), ("port", True), ("port", 23.8), ("port", "23")]:
+            with self.subTest(key=key, value=value):
+                record = "HONEYPOT_JSON:" + json.dumps({**event, key: value})
+                self.assertIsNone(parse_line(record, "fixture-sensor"))
+
+    def test_esp32_discards_oversized_lines_and_timeout_fragments(self):
+        serial = Mock()
+        serial.readline.side_effect = [b"a" * (MAX_LINE_BYTES + 1), b"discarded tail\n",
+                                        b"partial", b"", b"discarded after timeout\n", b"valid frame\n"]
+        self.assertEqual(next(complete_lines(serial)), b"valid frame\n")
         self.assertIsNone(parse_line("unrelated serial banner", "s3"))
 
 

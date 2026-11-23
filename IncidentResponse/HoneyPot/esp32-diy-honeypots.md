@@ -32,7 +32,7 @@ A concrete reference is [NanoC6-ESP32-Honeypot](https://github.com/7h30th3r0n3/N
 HONEYPOT_JSON:{"event":"tcp_connection","src_ip":"192.0.2.30","port":23}
 ~~~
 
-Only **custom firmware that implements this format** will work with the provided [serial bridge](./lab/esp32_serial_bridge.py). This is an integration contract for builders; it does not claim to be an output of NanoC6. The bridge validates the prefix, event name, IP, and port; it **does not** accept commands, request bodies, passwords or arbitrary packet dumps.
+Only **custom firmware that implements this format** will work with the provided [serial bridge](./lab/esp32_serial_bridge.py). Each record must end with a newline and fit within 1,024 bytes including that newline. Use a string IP address and an integer port. The bridge discards partial records and writes only the recognized event metadata. Stock NanoC6's webhook uses a separate format.
 
 Connect the ESP32 over a USB serial cable to an **isolated Raspberry Pi gateway or Linux VM with USB passthrough**. First identify the correct serial interface with:
 
