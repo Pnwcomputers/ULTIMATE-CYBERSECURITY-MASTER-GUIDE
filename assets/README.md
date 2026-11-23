@@ -317,6 +317,7 @@ These editable original SVGs are embedded in their explanatory chapters and pair
 | [Safe Bash Execution Gates](./diagrams/bash-script-input-validation-and-dry-run-gates.svg) | [Bash Scripting Cheat Sheet](../Scripts/Bash/bash_scripting_cheat-sheet.md) | Validate optional args, quoting, syntax checks, side-effect boundaries |
 | [Safe HID Marker Validation](./diagrams/ducky-safe-validation-flow.svg) | [USB Rubber Ducky guide](../Scripts/Ducky/README.md#safe-build-compile--approval-workflow) | Model-specific fixed-text testing, isolated validation, stop conditions and evidence |
 | [Bash Bunny Device-Policy Validation](./diagrams/bashbunny-defensive-policy-validation.svg) | [Bash Bunny guide](../Scripts/Bash/BashBunny/README.md#authorized-field-assessment-labs--deployment-examples) | Scope and baseline, device/firmware review, minimal checks, telemetry and cleanup |
+| [Safe PDF Reference Use](./diagrams/pdf-safe-reference-use-flow.svg) | [PDF Reference Library](../PDF/README.md#-how-to-use-these-resources) | Provenance, integrity, safe inspection, primary-source checks and qualified citations |
 | [ESP32 Firmware Acceptance Gates](./diagrams/esp32-firmware-board-build-flash-acceptance.svg) | [ESP32 Security Firmware Catalog](../Documentation/esp32-security-firmware-catalog.md) | Chip/board-specific builds, flash layouts, recovery and post-boot qualification |
 
 ## Python Reference Safety, Classical Ciphers, Pentoo & Incident Casebook
