@@ -6,6 +6,12 @@
 
 **Compression** represents information using fewer bits. **Encryption** protects confidentiality under a key. **Integrity** detects changes when compared with a trusted reference or verified authentication tag/signature. **Authentication** establishes a verified origin or peer under an appropriate trust model. One technique rarely provides all four.
 
+![Conceptual contrast between compression, cryptographic hashes, authenticated encryption and digital signatures](../assets/diagrams/algorithms-compression-hashing-encryption.svg)
+
+*Original algorithm-role comparison. Cryptographic security depends on keys, nonces, trust anchors, protocol composition, and correct implementation.*
+
+See [Algorithmic Parallels To Cryptography & Trust](./cryptography-parallels.md) for a detailed connection to hash tables, entropy, PKI graphs, complexity, TLS, password KDFs, and post-quantum cryptography.
+
 | Goal | Typical Technology | What It Does **Not** Guarantee |
 |---|---|---|
 | Save storage or bandwidth | DEFLATE, LZ77, Huffman, LZW | Confidentiality or authenticity |
@@ -87,6 +93,10 @@ In **TLS 1.3**, a handshake negotiates security parameters, authenticates the se
 - Nonce reuse under the same key can catastrophically break some AEAD schemes. Do not design a homemade nonce format or security protocol.
 
 Reference: [TLS 1.3 RFC 8446](https://www.rfc-editor.org/rfc/rfc8446.html). For parameter choices, approved algorithms, post-quantum considerations and use/avoid guidance, defer to the repository's dedicated [Cryptography Algorithm Reference](../Cryptography/algorithms.md) and [Applied Cryptography](../Cryptography/applied-crypto.md).
+
+![TLS 1.3 sequence of handshake authentication, key agreement, key derivation and AEAD record protection](../assets/diagrams/algorithms-tls13-cryptographic-pipeline.svg)
+
+*Conceptual TLS 1.3 algorithm composition; this is not an exact message-by-message handshake trace. See [TLS Algorithm Parallels](./cryptography-parallels.md#4-cryptography-as-a-multi-algorithm-pipeline).*
 
 ## Password Verification Is A Separate Problem
 
