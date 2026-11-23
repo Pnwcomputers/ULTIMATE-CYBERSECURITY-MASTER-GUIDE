@@ -112,6 +112,10 @@ The secretary problem's classic approximately 37% observation strategy assumes a
 
 Suppose an inventory has 8 ordered asset IDs. Binary search compares the middle item, determines whether the target is to its left or right, and repeats until the item is found or the interval is empty. At most four comparisons are needed for a successful lookup in the worst case here; a naive linear scan may inspect eight. In a live asset system, indexing and update costs must also be included.
 
+## Parallel: Complexity Vs Cryptographic Security
+
+Algorithmic complexity predicts how work scales with input size, but **cryptographic security** concerns what adversaries can feasibly infer or forge, often using concrete attack work factors. An O(log n) index may search quickly but cannot replace a slow password-verification KDF; a fast hash table and a collision-resistant cryptographic hash target different properties. Secret-dependent execution timing may leak information despite good asymptotic performance. See [Cryptographic Parallels & Side Channels](./cryptography-parallels.md#6-correctness-complexity--side-channel-security) and [Cryptography](../Cryptography/README.md).
+
 ## Learn More
 
 | Reference | Why It Matters |
