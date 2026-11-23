@@ -121,13 +121,13 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Document | Repository Path |
 | --- | --- |
 | [README — Algorithms](./Algorithms/README.md) | `Algorithms/README.md` |
+| [compression-hashing-and-crypto.md](./Algorithms/compression-hashing-and-crypto.md) | `Algorithms/compression-hashing-and-crypto.md` |
+| [cryptography-parallels.md](./Algorithms/cryptography-parallels.md) | `Algorithms/cryptography-parallels.md` |
+| [detection-and-recommendations.md](./Algorithms/detection-and-recommendations.md) | `Algorithms/detection-and-recommendations.md` |
 | [foundations-and-complexity.md](./Algorithms/foundations-and-complexity.md) | `Algorithms/foundations-and-complexity.md` |
 | [graphs-and-routing.md](./Algorithms/graphs-and-routing.md) | `Algorithms/graphs-and-routing.md` |
-| [search-sorting-and-indexing.md](./Algorithms/search-sorting-and-indexing.md) | `Algorithms/search-sorting-and-indexing.md` |
-| [compression-hashing-and-crypto.md](./Algorithms/compression-hashing-and-crypto.md) | `Algorithms/compression-hashing-and-crypto.md` |
-| [detection-and-recommendations.md](./Algorithms/detection-and-recommendations.md) | `Algorithms/detection-and-recommendations.md` |
 | [labs.md](./Algorithms/labs.md) | `Algorithms/labs.md` |
-| [cryptography-parallels.md](./Algorithms/cryptography-parallels.md) | `Algorithms/cryptography-parallels.md` |
+| [search-sorting-and-indexing.md](./Algorithms/search-sorting-and-indexing.md) | `Algorithms/search-sorting-and-indexing.md` |
 
 ## CAD
 
