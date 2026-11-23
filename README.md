@@ -82,6 +82,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🛡️ **Defensive & Incident Response** | [IncidentResponse](./IncidentResponse/README.md) | [REMnux Malware Analysis](./ReverseEngineering/remnux-malware-analysis-guide.md) · [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md) · [SIEM](./IncidentResponse/SIEM/README.md) · [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) · [Honeypots](./IncidentResponse/HoneyPot/readme.md) · [Raspberry Pi](./IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md) · [Proxmox VM](./IncidentResponse/HoneyPot/proxmox-vm-honeynet.md) · [ESP32-S3](./IncidentResponse/HoneyPot/esp32-s3-honeypots.md) · [Honeypots → Wazuh](./IncidentResponse/HoneyPot/wazuh-honeypot-integration.md) · [Digital Forensics](./IncidentResponse/Digital-Forensics/README.md) · [Homelab](./Homelab/README.md) |
 | 🧳 **Portable Cyberdeck & Field Assessments** | [PNWC Cyberdeck](./Cyberdeck/README.md) | [Architecture](./Cyberdeck/docs/ARCHITECTURE.md) · [Assessment Workflow](./Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) · [Hardware & Status](./Cyberdeck/docs/HARDWARE_AND_STATUS.md) · [Evidence & Privacy](./Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md) |
 | 🗄️ **Data Engineering & Automation** | [Data Engineering](./Data-Engineering/README.md) | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) · [Scripts](./Scripts/README.md) |
+| 🧮 **Algorithms & Computational Foundations** | [Algorithms](./Algorithms/README.md) | [Foundations](./Algorithms/foundations-and-complexity.md) · [Graphs & Routing](./Algorithms/graphs-and-routing.md) · [Search & Sorting](./Algorithms/search-sorting-and-indexing.md) · [Compression & Crypto](./Algorithms/compression-hashing-and-crypto.md) · [Detection & Recommendations](./Algorithms/detection-and-recommendations.md) · [Offline Labs](./Algorithms/labs.md) |
 | 🔍 **OSINT & Recon** | [OSINT](./OSINT/README.md) | [Tools Catalog](./OSINT/OSINT_TOOLS_CATALOG.md) · [Tsurugi Linux OSINT](./OSINT/TSURUGI_LINUX_OSINT_GUIDE.md) · [Investigator Playbook](./OSINT/Playbook/README.md) |
 | 📍 **Wireless Surveying & Wardriving** | [Wardriving](./Wardriving/README.md) | [SigRoam](./Wardriving/sigroam-scout-lite.md) · [Marauder](./Wardriving/esp32-marauder.md) · [Biscuit](./Wardriving/biscuit.md) · [AWOK Dual C5](./Wardriving/awok-dual-c5-biscuit.md) · [Wardrive Go](./Wardriving/wardrive-go.md) · [Kismet](./Wardriving/kismet.md) · [Wireshark Filters](./Documentation/wireshark-master-filters.md) · [Deauthentication Analysis](./Documentation/wifi-deauthentication-detection.md) · [Kismet + Wazuh Lab](./IncidentResponse/IDS%26IPS/kismet-wazuh-wireless-lab.md) · [nzyme + Wazuh](./IncidentResponse/IDS%26IPS/nzyme-wazuh-integration.md) |
 | 📡 **Specialized & Hardware** | [SPECIALIZED_TOPICS_GUIDE.md](./SPECIALIZED_TOPICS_GUIDE.md) | [AI](./AI/README.md) · [SDR](./SDR/README.md) · [HardwareHacking](./HardwareHacking/README.md) · [HardwareTesting](./HardwareTesting/README.md) · [SpaceSecurity](./SpaceSecurity/README.md) · [Mobile](./Mobile/README.md) · [uConsole](./uConsole/README.md) · [CAD & 3D Printing](./CAD/README.md) |
@@ -161,6 +162,17 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | [Wazuh Deployment](./IncidentResponse/SIEM/wazuh.md) | Manager, agents, Docker, FIM, rules and integration |
 | [Snort 3 IDS/IPS](./IncidentResponse/IDS%26IPS/snort.md) | Lua, rules, packet capture, offline tests, IDS vs IPS |
 | [nzyme Wireless Detection](./IncidentResponse/IDS%26IPS/nzyme_wids.md) | Distributed monitor-mode taps, rogue AP/deauth, Wazuh |
+
+### Algorithms, Computing & Cybersecurity:
+
+| Guide | Focus |
+|---|---|
+| [Algorithm Foundations & Complexity](./Algorithms/foundations-and-complexity.md) | Big-O, data structures, correctness & secure performance |
+| [Dijkstra, A*, OSPF & BGP](./Algorithms/graphs-and-routing.md) | Shortest paths and routing policy distinctions |
+| [Binary Search, PageRank & Timsort](./Algorithms/search-sorting-and-indexing.md) | Indexed lookups, stable sorting, ranking & telemetry search |
+| [Huffman, DEFLATE, SHA-256 & TLS](./Algorithms/compression-hashing-and-crypto.md) | Data formats, authenticated encryption & integrity |
+| [Detection & Recommendation Algorithms](./Algorithms/detection-and-recommendations.md) | Pattern matching, anomaly scores, streaming & abuse prevention |
+| [Runnable Offline Algorithm Labs](./Algorithms/labs.md) | Synthetic examples & local tests without external traffic |
 
 ### Curated Research & Practice:
 
