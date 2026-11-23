@@ -14,6 +14,8 @@
 
 ---
 
+**Algorithm fundamentals for AI & ranking:** [Algorithms & Computational Foundations](../Algorithms/README.md) connects similarity/recommendation, graph ranking, statistical anomaly detection, decision thresholds, data poisoning, and resource complexity. Start with [Detection & Recommendation Algorithms](../Algorithms/detection-and-recommendations.md) and [Search & Ranking](../Algorithms/search-sorting-and-indexing.md) before translating a model score into an operational decision.
+
 **Related Research:** [h4cker AI-security resources](https://github.com/The-Art-of-Hacking/h4cker/tree/master/ai/ai-security), [prompt-injection research](https://github.com/Joe-B-Security/awesome-prompt-injection) and [PNWC's curated project map](../Documentation/awesome-hacking-collections-integration.md).
 
 ---
