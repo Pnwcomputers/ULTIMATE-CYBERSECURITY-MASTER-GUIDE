@@ -16,6 +16,8 @@
 
 **Memory reference:** [Volatility 3 cheat sheet](./Memory/volatility_cheatsheet.md) · [cheat-sheet audit index](../../Documentation/CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md). Keep original memory evidence immutable; confirm supported plugin names, dependencies and symbols locally.
 
+**Algorithmic evidence integrity:** [Cryptographic Hashes, Merkle Trees & Source Trust](../../Algorithms/cryptography-parallels.md#8-integrity-merkle-trees-signed-updates--forensics) explains why SHA-256, signatures, timeline sorting and source provenance are complementary, and why a matching digest alone cannot establish chain of custody.
+
 **Targeted forensic collection:** [Velociraptor + ForensicArtifacts triage](velociraptor-artifact-triage.md) covers consent, collection selection, UTC evidence hashes and custody; it complements existing [KAPE/Autopsy](Disks/autopsy_kape.md) and [Volatility](Memory/volatility_cheatsheet.md) workflows.
 
 ## 🎯 Purpose
