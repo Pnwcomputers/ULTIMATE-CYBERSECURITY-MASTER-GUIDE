@@ -5,6 +5,8 @@ _Reviewed: 2026-11-21. This is a case-oriented companion to the repository's exi
 > [!CAUTION]
 > **Authorized captures only.** Packet captures may contain authentication material, client identifiers and DNS histories. Obtain consent, minimize content, restrict storage and verify legal scope. These workflows examine already collected synthetic PCAP/PCAPNG files or traffic from owned lab endpoints; they do **not** instruct interception or disruptive RF actions. See [Legal Notice](../LEGAL.md).
 
+**Algorithms behind the visibility:** The [Algorithm Index](../Algorithms/README.md) explains why packet matching, event windows, hashing, graph routing and statistical anomaly detection are separate layers. See [Detection Algorithms](../Algorithms/detection-and-recommendations.md) and [TLS's cryptographic roles](../Algorithms/cryptography-parallels.md#4-cryptography-as-a-multi-algorithm-pipeline) for limits of observing encrypted payloads.
+
 ## Choose the Correct Packet Source First
 
 The most important Wireshark troubleshooting mistake is treating **packet filtering** as a substitute for **packet visibility**.
