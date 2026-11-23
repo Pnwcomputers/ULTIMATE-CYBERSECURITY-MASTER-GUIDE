@@ -2,6 +2,8 @@
 
 _Last reviewed: 2026-11-20 (upstream and visual review; no artifacts scanned)_
 
+**Related algorithmic trust models:** [Cryptographic Hashes, Certificate Chains, Merkle Trees & Signed Artifacts](../Algorithms/cryptography-parallels.md) explains how graph connectivity, signature verification, digest integrity and provenance solve distinct problems.
+
 **Prerequisites:** [Container security](containers.md) · [Docker diagnostics](docker-cli-operations-reference.md) · [Script index](../Scripts/README.md).
 
 ## Curated upstream projects
