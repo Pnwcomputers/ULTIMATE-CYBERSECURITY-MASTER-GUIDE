@@ -23,6 +23,23 @@ access or third-party payload pack.
 | Script format | pico-ducky uses `payload.dd` and a supported DuckyScript subset; Hak5 `inject.bin` is not interchangeable. |
 | Wireless variants | Pico W's runtime WebUI is not an ESP ROM flasher. Storage visibility and defaults differ between board variants. |
 
+## Safe Validation Flow
+
+```mermaid
+flowchart TD
+  A["Confirm owned board and matching firmware/files"] --> B["Power off; fit GP0-to-GND setup jumper"]
+  B --> C["Enter setup mode and stage only the fixed-text example"]
+  C --> D["Eject storage and disconnect the board"]
+  D --> E["Remove the jumper while unpowered"]
+  E --> F["Focus an empty offline text editor"]
+  F --> G["Reconnect; observe the expected phrase and newline"]
+  G --> H{"Exactly the expected output?"}
+  H -->|"Yes"| I["Record versions and script hash; clean up or restore setup mode"]
+  H -->|"No"| J["Unplug immediately; refit setup jumper before inspection"]
+```
+
+*Conceptual sequence based on the upstream [pico-ducky setup instructions](https://github.com/dbisu/pico-ducky). The jumper suppresses payload execution only when the documented setup mode is correctly established; verify the board pinout and current project instructions.*
+
 ## Prepare Without Automatic Keystrokes
 
 1. Use an owned disposable/offline host and an empty text editor. Unplug the
