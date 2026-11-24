@@ -36,9 +36,18 @@ When reviewing C2 alerts, assessing egress controls, or building detections and 
 
 A Command and Control (C2) framework provides operators with a persistent channel to interact with compromised hosts. Core components:
 
+```mermaid
+flowchart LR
+    Operator["Authorized simulation operator"] -->|"management and tasking"| Team["Team server / listener"]
+    Team <-->|"simulated channel"| Redirector["Optional redirector"]
+    Redirector <-->|"simulated channel"| Endpoint["Endpoint under test"]
+    Endpoint -->|"DNS, TLS, HTTP flow evidence"| Network["Resolver, egress gateway, or network sensor"]
+    Endpoint -->|"Process, identity, and memory events"| EDR["EDR / endpoint telemetry"]
+    Network --> SOC["Defender correlation and investigation"]
+    EDR --> SOC
 ```
-[Operator] ──► [Team Server / Listener] ◄──► [Redirectors] ◄──► [Implant on Target]
-```
+
+*Conceptual defensive topology; this is not a deployment guide or a record of a live test.*
 
 **Key concepts:**
 
@@ -111,19 +120,36 @@ flowchart LR
 ### Network-Based Detections
 
 ```yaml
-# Sigma rule: Suspicious beacon jitter pattern
-title: C2 Beacon Regular Interval Callback
+# Sigma event rule: select web-destination connection events
+title: Outbound Web Connection Event
+name: outbound_web_connection
 logsource:
-    category: network
+    category: network_connection
 detection:
     selection:
-        dst_port:
+        DestinationPort:
             - 80
             - 443
     condition: selection
-    timeframe: 1h
-    aggregate: count() > 10 AND stddev(interval) < 5  # Low jitter = beacon
 ```
+
+A separate Sigma correlation rule can count matching events over a time window:
+
+```yaml
+title: Repeated Web Connections to One Destination
+correlation:
+    type: event_count
+    rules:
+        - outbound_web_connection
+    group-by:
+        - SourceIp
+        - DestinationIp
+    timespan: 1h
+    condition:
+        gte: 10
+```
+
+This is a candidate count, **not a beacon-jitter detector**. `stddev(interval)` is not standard Sigma rule or correlation syntax. The base event fields and backend support must be checked for the actual log source; Sigma correlations support specified types such as `event_count`, but timing-variance analysis requires backend-specific time-series logic. See the [Sigma rule specification](https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-rules-specification.md) and [correlation specification](https://github.com/SigmaHQ/sigma-specification/blob/main/specification/sigma-correlation-rules-specification.md).
 
 **Key network IOCs:**
 
