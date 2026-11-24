@@ -306,16 +306,37 @@ as a version-independent instruction.
 
 ### 4. Beacon Spam
 
-Broadcasts a large number of fake SSIDs (beacon frames) to pollute client probe request logs, trigger WIDS alerts, or collect client probe requests for profiling.
+Beacon spam is an **active transmission** feature: it broadcasts beacon
+frames using SSIDs supplied to the firmware. Current upstream documentation
+distinguishes list, random and scanned-AP modes; names and behavior vary by
+target and release.
 
-**Menu:** `WiFi → Attack → Beacon Spam → Enable/Disable`
+In list mode, the firmware can also observe probe requests directed to SSIDs
+in the transmitted list. That is a limited response check, not a generic
+collection of all client probe activity. For broader probe observation, use the
+separate Probe Request Sniff feature and verify `ForceProbe` is disabled if
+the exercise must remain receive-only; upstream documents that setting as an
+active stimulus when enabled.
 
-- **Funny SSIDs mode:** Broadcasts a built-in list of joke/provocative SSIDs — useful for social engineering awareness demonstrations.
-- **Custom SSID mode:** Broadcast a specific SSID (used as a component of Evil Twin attacks).
-- Generates significant RF noise — use with caution in dense environments.
+```mermaid
+flowchart LR
+  A["Selected SSID list"] --> B["Actively broadcast beacon frames"]
+  B --> C["List mode can observe probes aimed at listed SSIDs"]
+  D["Probe Request Sniff"] --> E{"ForceProbe enabled?"}
+  E -->|"No"| F["Receive-only observation by this setting"]
+  E -->|"Yes"| G["Active stimulus may be sent"]
+```
 
-**When to use:** Social engineering demonstrations, WIDS testing, client probe collection during authorized assessments.
+Check the selected release's menu and stop controls before a lab. Every SSID
+in the list may be transmitted over the air; do not use private names or
+identifiers. Restrict transmission to an isolated lab or explicitly authorized
+scope. Probe observations and captures can identify devices and networks, so
+handle exported files as sensitive.
 
+See the upstream [Beacon Spam List](https://github.com/justcallmekoko/ESP32Marauder/wiki/Beacon-Spam-List),
+[Probe Request Sniff](https://github.com/justcallmekoko/ESP32Marauder/wiki/probe-request-sniff)
+and [Marauder Settings](https://github.com/justcallmekoko/ESP32Marauder/wiki/marauder-settings)
+for current target-specific behavior.
 ---
 
 ### 5. Rogue AP & Captive-Portal Training
