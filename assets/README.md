@@ -1,7 +1,7 @@
 <a id="diagram-and-image-asset-index"></a>
 # Diagram & Image Asset Index
 
-_Visual placements updated 2026-11-21. Figures show conceptual examples unless their captions identify live evidence._
+_Visual placements updated 2026-11-24. Figures show conceptual examples unless their captions identify live evidence._
 
 Return to [the main guide](../README.md) or [the visual reference notes](./imageplacement.md).
 
@@ -358,6 +358,7 @@ These figures illustrate the actual decision points in their respective guides; 
 | [Vigenère candidate periods](./diagrams/vigenere-candidate-periods.svg) | [Classical cryptanalysis](../Cryptography/Classical/cryptanalysis.md#the-index-of-coincidence-ic) | Mean column IC values for a reproducible synthetic repeating-key example |
 | [Encrypted DNS and DNSSEC boundaries](./diagrams/dns-encryption-and-validation-boundaries.svg) | [DNS resolver defense](../Documentation/dns-hijacking-secure-dns.md) | Shows the separate confidentiality and authenticity controls |
 | [TAP monitor capacity](./diagrams/tap-full-duplex-monitor-capacity.svg) | [Network TAPs](../Documentation/network-taps-and-packet-visibility.md#breakout-vs-aggregation-example) | Explains aggregate output oversubscription during full-duplex traffic |
+| [Network observation method selection](./diagrams/tap-observation-method-selection.svg) | [Network TAPs](../Documentation/network-taps-and-packet-visibility.md#passive-vs-active-what-to-buy-or-build-for-each-task) | Chooses SPAN, a physical TAP, or virtual switch mirroring by observation point |
 | [VLAN forwarding and enforcement](./diagrams/vlan-forwarding-policy-boundaries.svg) | [Network segmentation](../Documentation/network-segmentation-dmz-acl-vlan.md#acl-strategy--secure-defaults) | Locates policy enforcement along the actual traffic path |
 | [Passive IDS Network Visibility](./diagrams/homelab-passive-ids-visibility-mirror-tap.svg) | [Homelab Networking & Isolation](../Homelab/README.md) | Unmanaged switch visibility limitation vs configured managed SPAN; inline TAP is a separate physical option |
 
