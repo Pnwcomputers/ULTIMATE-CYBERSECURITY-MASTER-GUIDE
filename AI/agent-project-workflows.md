@@ -1,6 +1,6 @@
 # Project and Agent Workflows: Goals, Milestones, Lanes and Resuming Work
 
-_Last reviewed: 2026-11-05_
+_Last reviewed: 2026-11-24_
 
 Use a few authoritative files to make AI-assisted projects reproducible and resumable. This works with a single assistant or multiple specialist agents.
 
