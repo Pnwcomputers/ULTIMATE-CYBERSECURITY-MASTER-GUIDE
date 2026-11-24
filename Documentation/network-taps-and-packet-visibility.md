@@ -39,6 +39,10 @@ A **network TAP (test access point)** provides a copy of link traffic to a separ
 
 **"Passive" is not the same as "invisible with zero impact."** Any in-line insertion can cause a link flap, insertion loss or a change in auto-negotiation. A powered copper TAP might have fail-safe relays while still being an **active** device during normal operation.
 
+### What “Switch Monitor Mode” Means
+
+In a switch context, “monitor mode” usually means **SPAN / port mirroring**: the switch copies selected port or VLAN traffic to a dedicated destination port. The switch feature name and supported directions vary by vendor and model; check the device documentation and capture counters. This is different from **Wi-Fi monitor mode**, which receives 802.11 frames, and from a NIC's **promiscuous mode**, which only affects frames already delivered to that NIC. Promiscuous mode does not make a switch send traffic from other ports to the sensor. Cisco describes SPAN as mirroring selected ports or VLANs to a destination port in its [IOS XE SPAN guide](https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/mgmt/management-configuration-guide/span.html).
+
 ### Breakout vs Aggregation Example
 
 ![Separate TAP feeds have individual capture paths, while both one-gigabit directions can oversubscribe a one-gigabit aggregated monitor output](../assets/diagrams/tap-full-duplex-monitor-capacity.svg)
