@@ -93,7 +93,7 @@ Generic development libraries require a build; they are not complete appliance i
 | Flipper Zero | [Official / Momentum / Unleashed](./flipper_zero_guide.md) | Firmware-specific updater/qFlipper route | STM32WB device; no onboard Wi-Fi scanner. Accessory firmware is a separate installation. |
 | Proxmark3 RDV4 / supported generic variants | [RRG/Iceman](https://github.com/RfidResearchGroup/proxmark3) | Matched platform build and client flasher | Generic versus RDV4 settings differ. |
 | ChameleonUltra / Lite | [Upstream device firmware](https://github.com/RfidResearchGroup/ChameleonUltra) | Supported GUI/CLI update | Ultra and Lite feature sets differ; not an ESP32 NFC image. |
-| Supported Heltec / RAK / other LoRa boards | [Meshtastic](https://github.com/meshtastic/firmware) or [MeshCore](https://github.com/meshcore-dev/MeshCore) | Each project's exact target/role installer | Different protocols and images; region, RF module and role matter. Do not infer both projects support every model from a vendor name. |
+| Supported Heltec / RAK / other LoRa boards | [Meshtastic](https://github.com/meshtastic/firmware) or [MeshCore](https://github.com/meshcore-dev/MeshCore) | Each project's exact target/role installer | Different protocols and images; region, RF module and role matter. Do not infer both projects support every model from a vendor name. See the [radio-module frequency and protocol distinctions](./esp32-security-firmware-catalog.md#common-external-radio-examples). |
 
 ## Installation Methods
 
