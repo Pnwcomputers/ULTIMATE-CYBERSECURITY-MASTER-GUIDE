@@ -1,6 +1,6 @@
 # AI Evaluation, Regression Testing & Quality Gates
 
-_Last reviewed: 2026-11-09 · These are repeatable test methods, not claims that a live eval has run._
+_Last reviewed: 2026-11-24 · These are repeatable test methods, not claims that a live eval has run._
 
 AI evaluations (**evals**) measure whether a model or agent meets a defined task specification across a representative set of inputs. Evaluating a fluent answer is not the same as verifying tool execution, factual correctness or security. Build a suite that captures both desired behavior and prohibited actions.
 
@@ -125,7 +125,7 @@ The repository already has [Promptfoo LLM Security Evaluations](llm-security-eva
 ```bash
 # Example commands; inspect generated config and provider endpoints first.
 npx promptfoo --version
-npx promptfoo validate config -c promptfooconfig.yaml
+npx promptfoo validate -c promptfooconfig.yaml
 npx promptfoo eval -c promptfooconfig.yaml -o results.json --no-cache
 ```
 
@@ -172,7 +172,7 @@ Build 20 synthetic read-only incident-summary cases with five each of positive, 
 
 [Promptfoo](llm-security-evaluation-promptfoo.md) · [AI Audits](verification-and-ai-audits.md) · [Observability](ai-observability-and-auditing.md) · [Agent Security](agent-threat-modeling-and-security.md) · [Milestones](milestones-and-acceptance-criteria.md)
 
-Sources: [OpenAI Agent Evals](https://developers.openai.com/api/docs/guides/agent-evals) · [OpenAI Trace Grading](https://developers.openai.com/api/docs/guides/trace-grading) · [Promptfoo Docs](https://www.promptfoo.dev/docs/) · [OWASP Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/).
+Sources: [OpenAI Agent Evals](https://developers.openai.com/api/docs/guides/agent-evals) · [OpenAI Trace Grading](https://developers.openai.com/api/docs/guides/trace-grading) · [Promptfoo CLI Docs](https://www.promptfoo.dev/docs/usage/command-line/) · [OWASP Agentic Applications](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/).
 
 ---
 
