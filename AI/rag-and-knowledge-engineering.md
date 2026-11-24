@@ -1,6 +1,6 @@
 # Retrieval-Augmented Generation (RAG) & Knowledge Engineering
 
-_Last reviewed: 2026-11-09_
+_Last reviewed: 2026-11-24_
 
 Retrieval-augmented generation (RAG) provides a model with **relevant source material at answer time** rather than relying only on training or long conversation history. Good retrieval is not merely adding a vector database; it is a pipeline involving data governance, ingestion, chunking, indexing, retrieval, evidence validation and freshness.
 
@@ -9,8 +9,6 @@ Retrieval-augmented generation (RAG) provides a model with **relevant source mat
 ![RAG architecture separates authorized document ingestion and permission-aware indexing from authenticated retrieval and independent evidence checking](../assets/diagrams/rag-ingestion-retrieval-permission-boundaries.svg)
 
 *Conceptual access-boundary map, not a deployed retrieval service.* [OWASP prompt-injection prevention guidance](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html) treats retrieved documents and tool results as untrusted content; indexing or citing a passage does not make it an instruction or validate its claims. Access controls and deletion propagation must be implemented at the host/index/data-source boundary.
-
-
 
 **Do not index secrets, client raw evidence or regulated content into a shared repository.** Index access, delete propagation and retention are security requirements, not optional UI features.
 
@@ -121,7 +119,7 @@ Use four synthetic runbooks (two versions of the same Wazuh procedure, one unrel
 
 [Context Engineering](context-engineering-and-memory.md) · [Agent Security](agent-threat-modeling-and-security.md) · [Evaluations](ai-evaluation-and-regression-testing.md) · [Structured Outputs](structured-outputs-and-data-contracts.md)
 
-References: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [OWASP LLM Security](https://genai.owasp.org/llm-top-10/) · [OpenTelemetry GenAI Conventions](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/README.md).
+References: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [NIST Generative AI Profile (AI 600-1)](https://doi.org/10.6028/NIST.AI.600-1) · [OWASP Top 10 for LLM Applications 2025](https://genai.owasp.org/llm-top-10/) · [OpenTelemetry GenAI Conventions](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/README.md). The GenAI conventions are evolving; check the current schema status and pin the convention version before making it a production contract.
 
 ---
 
