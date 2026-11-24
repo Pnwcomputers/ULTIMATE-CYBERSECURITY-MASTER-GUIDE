@@ -1,6 +1,6 @@
 # AI Projects, Notebooks, GPTs, Plugins and Reusable Assistants
 
-_Last reviewed: 2026-11-20_
+_Last reviewed: 2026-11-24_
 
 Choose the smallest workspace that maintains necessary context and evidence without granting excessive access.
 
@@ -30,7 +30,7 @@ Record data versions and hashes where possible, software dependencies, seeds and
 
 As of November 2026, OpenAI has announced custom GPT retirement on **December 11, 2026**, with FedRAMP and qualifying, approved Enterprise deferrals until **February 28, 2027**. This later date does not apply to every Enterprise workspace; follow the notice for the account or workspace. Availability and eligibility vary; confirm in-product notices and the [official migration FAQ](https://help.openai.com/en/articles/20001519-custom-gpt-retirement-and-migration-faq).
 
-For an existing GPT, inventory its instructions, files, tools, users and test prompts. When migration is offered, review the copied instructions and knowledge and test the replacement. Custom GPT API actions **do not transfer automatically** and must be rebuilt and independently validated. Migration starts with a private plugin; other users do not automatically gain access. Personal ChatGPT accounts cannot create or publish new custom GPTs.
+For an existing GPT, inventory its instructions, files, tools, users and test prompts. When migration is offered, review the copied instructions and knowledge and test the replacement. Custom GPT API actions **do not transfer automatically** and must be rebuilt and independently validated. Migration starts with a private plugin; other users do not automatically gain access. Personal ChatGPT accounts cannot create or publish new custom GPTs under current policy; see [OpenAI’s creation and editing guidance](https://help.openai.com/en/articles/8554397-creating-and-editing-gpts) and follow the applicable account or workspace notice.
 
 ### Reusable Agents & Skills
 
