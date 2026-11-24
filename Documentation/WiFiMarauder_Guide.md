@@ -254,31 +254,53 @@ Before any attack, identify the target's BSSID (AP MAC) and channel.
 
 ---
 
-### 2. PMKID / Handshake Capture
+### 2. PMKID / EAPOL Capture
 
-The primary passive capture mode. Attempts to grab both PMKID frames and 4-way EAPOL handshakes without sending any deauth frames.
+Menu names and capture formats vary by board and firmware. The current
+[upstream Wi-Fi Sniffers guide](https://github.com/justcallmekoko/ESP32Marauder/wiki/wifi-sniffers)
+calls this **EAPOL/PMKID Scan**; older releases may use different labels.
 
-**Menu:** `WiFi → Scan / Sniff → PMKID`
+Capture behavior depends on device settings. Upstream documents
+[`ForcePMKID`](https://github.com/justcallmekoko/ESP32Marauder/wiki/marauder-settings)
+as disabled by default; when enabled, it sends deauthentication frames during
+PMKID capture. A previously changed setting can persist, so check the actual
+device rather than assuming the default. The diagram below describes this
+setting only; other features may transmit independently.
 
-- Capture file is saved to SD card as `YYYYMMDD_TIME.pcapng`.
-- PMKID capture works without a client connected to the AP — just needs the AP in range.
-- EAPOL handshake requires a client to authenticate during the capture window.
+```mermaid
+flowchart LR
+  A["Start EAPOL/PMKID scan"] --> B{"ForcePMKID enabled?"}
+  B -->|"No"| C["This setting adds no deauth frames"]
+  B -->|"Yes"| D["Deauthentication frames may be transmitted"]
+  C --> E["Save compatible PCAP if enabled and supported storage is present"]
+  D --> E
+```
 
-**When to use:** Start here. Passive, no deauth noise, works against WPA2/WPA3.
+The upstream `SavePCAP` setting saves compatible captures as **PCAP** when
+supported SD storage is available; do not assume a fixed filename or PCAPNG
+output across hardware and versions. PMKID and EAPOL material is not guaranteed
+just because an access point is in range: it depends on observing a compatible
+authentication exchange. WPA3-SAE commit capture is a separate capture type;
+do not label every WPA2/WPA3 capture as a crackable WPA-PSK record. See the
+upstream [settings](https://github.com/justcallmekoko/ESP32Marauder/wiki/marauder-settings)
+and [privacy guidance](https://github.com/justcallmekoko/ESP32Marauder/wiki/privacy-and-data-handling).
+Treat PCAP files and identifiers as sensitive. For conversion, preservation
+and offline analysis, follow the [hcxtools & Hashcat reference](./hcxtoolshashcat.md).
 
 ---
 
-### 3. Deauth Attack — Force Handshake Capture
+### 3. Active Capture Behavior
 
-If PMKID capture yields no usable frames, send deauthentication frames to force connected clients to re-authenticate, triggering a new EAPOL handshake.
+Some capture workflows can transmit deauthentication frames. That can interrupt
+clients and affect devices beyond the one selected. Use active transmission only
+on an isolated lab network or under explicit written authorization that names
+the APs, clients, time window and stop conditions. A target-selection option
+does not guarantee that only one device is affected.
 
-**Menu:** `WiFi → Attack → Deauth → Deauth All Clients`
-
-- Select the target AP (BSSID) from the scanned AP list.
-- Run PMKID capture (Step 2) simultaneously in the background — the handshake fires when the client reconnects.
-- **Targeted deauth:** Choose a specific client STA from the station list instead of "All Clients" to minimize noise.
-
-**When to use:** After a passive capture attempt yields no handshake. More visible — generates 802.11 deauth frames detectable by WIDS.
+Before a test, verify the selected release's current menu and radio settings;
+afterward, stop the scan and return transmission-related settings to their
+authorized baseline. Do not follow the legacy `Deauth All Clients` menu path
+as a version-independent instruction.
 
 ---
 
@@ -381,10 +403,10 @@ _Last source review: November 2026. These are procedure designs, not a claim of 
 2. Conduct one short scan of an owned AP, then stop using the firmware's documented controls. Wait for media writes to complete before removing power or SD.
 3. Enumerate actual files instead of assuming the board always uses a given directory. On a Linux evidence machine, calculate a digest for **the actual captured file**:
 
-~~~bash
+```bash
 sha256sum /path/to/approved/scan-export.csv
 file /path/to/approved/scan-export.csv
-~~~
+```
 
 4. Preserve the unmodified original; create redacted analysis copies. Log evidence source, collection time, firmware, path, digest, and chain of custody.
 5. If no output appears, check board SD support and scan-versus-save behavior before assuming collection failed.
