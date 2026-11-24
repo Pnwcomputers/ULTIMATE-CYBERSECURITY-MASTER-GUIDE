@@ -35,7 +35,7 @@ This guide walks through a local-inference setup and the checks needed before de
 
 **Offline option**: Local inference can continue without internet after models and dependencies are installed, if cloud features, telemetry, and optional network integrations are disabled and egress is controlled.
 
-**Uncensored Models**: Dolphin models are specifically trained to be helpful without unnecessary restrictions, making them ideal for technical work, creative writing, and research.
+**Behavior and refusal controls**: Some Dolphin model cards describe their behavior as “uncensored” or steerable. Treat that as a safety property to evaluate, not a guarantee of quality or suitability. Test refusal and prompt-injection behavior in isolation, and enforce tool permissions and authorization outside the model before connecting it to sensitive data or actions.
 
 **Easy to Use**: AnythingLLM provides a modern, intuitive interface similar to ChatGPT.
 
