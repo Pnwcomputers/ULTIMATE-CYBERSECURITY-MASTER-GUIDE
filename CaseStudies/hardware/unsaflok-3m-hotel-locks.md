@@ -2,7 +2,7 @@
 
 **Case type:** Coordinated hardware/RFID security disclosure — **not** a confirmed mass intrusion.
 
-**Source review:** November 20, 2026. Original findings published March 21, 2024; current patch adoption rate **not established by this page**.
+**Source review:** November 24, 2026. Original findings published March 21, 2024; current patch adoption rate **not established by this page**.
 
 ## Summary & Scope
 
@@ -45,9 +45,12 @@ The researchers stated that they **were not aware of confirmed real-world attack
 | Are system logs reliable for attribution? | Management audit configuration, clock integrity, access-log limitations | Corroborate with independently collected evidence |
 | Are guests adequately protected? | Physical secondary-door protection and operator procedures | Communicate mitigation without promising that an electronic deadbolt alone prevents bypass |
 
+**Current vendor guidance:** dormakaba's [Security Support Center](https://go.dormakaba.com/bg/security-support) says a mitigation solution is available for affected Saflok systems using System 6000, Ambiance, or Community. Property operators should coordinate with dormakaba or their authorized integrator and confirm remediation from deployment records; the public notice does not show which properties have completed upgrades.
+
 ## Primary Sources & Boundaries
 
 - [Unsaflok — Researcher Disclosure, FAQ & Timeline](https://unsaflok.com/) — first-party findings, explicit limits and historical patch percentage.
+- [CVE-2024-29916](https://www.cve.org/CVERecord?id=CVE-2024-29916) — vulnerability record.
 - [KU Leuven COSIC — Researchers' Announcement](https://www.esat.kuleuven.be/cosic/news/hackers-found-a-way-to-open-any-of-3-million-hotel-keycard-locks-in-seconds/) — institutional source.
 - [WIRED — March 21, 2024 Reporting](https://www.wired.com/story/saflok-hotel-lock-unsaflok-hack-technique/) — interview and vendor response.
 
