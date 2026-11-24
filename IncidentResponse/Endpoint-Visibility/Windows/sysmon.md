@@ -7,7 +7,7 @@ Windows Sysmon deployment guide - covering installation, configuration (SwiftOnS
 Covers: Sysmon installation and update, configuration XML structure, critical event IDs (1/process create, 3/network, 7/image load, 8/CreateRemoteThread, 10/access, 11/file create, 22/DNS), hash algorithms, log forwarding to SIEM, and detection use cases per event type.
 
 ## 🏆 Goal
-Configure Sysmon on Windows endpoints to generate rich process, network, and file telemetry that feeds a SIEM and enables detection of common attacker TTPs.
+Configure Sysmon to emit selected endpoint events for collection and investigation. Coverage depends on the installed version, XML filters, Windows Event Log retention, and the collector; Sysmon does not analyze or classify attacks by itself.
 
 ## 📋 When to Use
 - Setting up Windows endpoint visibility for a SOC or purple team environment
@@ -27,14 +27,14 @@ This guide covers installing, configuring, and maintaining Sysmon across your en
 
 ## 🎯 Why Sysmon?
 
-Standard Windows logging misses critical security events. Sysmon fills these gaps:
+Windows provides several logging sources. Sysmon can add configurable endpoint events that complement native logs; it is not a universal replacement for built-in telemetry.
 
 | Telemetry | What Sysmon can provide | Important limit |
 |---|---|---|
 | Process creation | Command line, parent context and process GUID (Event ID 1) | Fields depend on OS and configuration |
 | Image hashes | Configured hashes for process images | Does not hash every file-creation event |
 | Network connections | Process-linked connection metadata (Event ID 3) | Disabled by default; enable and filter deliberately |
-| Image and driver loads | Module/driver metadata and signatures (Events 6–7) | Must be configured; image-load volume can be high |
+| Driver and image loads | Driver-load metadata (Event ID 6) and selected image-load metadata (Event ID 7) | Event 7 is disabled by default; volume and useful fields depend on filters and version |
 | File and registry activity | Selected event types | Coverage depends on filters and can be incomplete |
 | Central analysis | Can be collected by WEC or SIEM agents | Sysmon does not analyze events or guarantee delivery |
 
@@ -320,7 +320,7 @@ foreach ($computer in $computers) {
 
 ## 📝 Part 5: Key Event IDs
 
-Understanding Sysmon Event IDs is crucial for effective monitoring and threat hunting.
+Sysmon Event IDs identify event types. They are observations to investigate, not conclusions about intent.
 
 ### Critical Events for Security Monitoring
 
@@ -328,19 +328,19 @@ Event IDs identify telemetry types; they are not enabled uniformly and are not f
 
 | Event ID | Name | Why It Matters |
 |----------|------|----------------|
-| **1** | Process Create | Full command line capture reveals encoded PowerShell, LOLBins, suspicious arguments |
-| **3** | Network Connect | Identifies C2 callbacks, lateral movement, data exfiltration |
-| **6** | Driver Load | Detects rootkit installation, vulnerable driver loading |
-| **7** | Image Load | DLL side-loading, injection detection |
+| **1** | Process Create | Provides process image, command line and parent context that can support investigation |
+| **3** | Network Connect | Provides process-linked connection metadata that can support investigation of unusual peers or processes |
+| **6** | Driver Load | Records driver-load metadata, including configured hashes and signature information |
+| **7** | Image Load | Records configured module-load metadata; investigate unusual paths and process context |
 | **8** | CreateRemoteThread | Potential cross-process thread creation; investigate source, target, access context and corroborating telemetry. The event alone does not prove malicious injection. |
-| **10** | Process Access | Credential dumping (LSASS access) |
-| **11** | File Create | Malware drops, tool staging, webshells |
-| **12/13/14** | Registry Events | Persistence mechanisms, configuration changes |
+| **10** | Process Access | Records one process opening another; access to LSASS needs context and corroboration |
+| **11** | File Create | Can help investigate selected file creation or overwrite activity |
+| **12/13/14** | Registry Events | Can help investigate selected registry key/value changes |
 | **15** | FileCreateStreamHash | Alternate Data Stream abuse (hiding payloads) |
-| **17/18** | Pipe Events | Named pipe C2 communication (Cobalt Strike) |
-| **22** | DNS Query | DNS-based C2, tunneling, suspicious resolutions |
-| **23** | File Delete | Archived file deletion (anti-forensics) |
-| **25** | Process Tampering | Process hollowing, herpaderping |
+| **17/18** | Pipe Events | Record named-pipe creation and connection activity; a pipe is not inherently malicious |
+| **22** | DNS Query | Provides process-associated DNS-query metadata; query patterns need corroboration |
+| **23** | File Delete | Records selected deletions and can archive the file; confirm configuration and archive policy |
+| **25** | Process Tampering | Reports process-image tampering signals; investigate with process and memory context |
 
 ### Event ID 1: Process Creation (Most Important)
 
@@ -378,9 +378,9 @@ User: DOMAIN\username
 Protocol: tcp
 SourceIp: 192.168.1.100
 SourcePort: 49234
-DestinationIp: 185.234.72.19
+DestinationIp: 198.51.100.20
 DestinationPort: 443
-DestinationHostname: evil-c2-server.com
+DestinationHostname: example.invalid
 ```
 
 **Red Flags:**
@@ -400,9 +400,11 @@ TargetImage: C:\Windows\System32\lsass.exe
 GrantedAccess: 0x1010
 ```
 
-**Red Flags:**
-- Any non-system process accessing LSASS
-- `GrantedAccess` values: `0x1010`, `0x1410`, `0x1438` (memory read)
+**Investigate:**
+- Unexpected LSASS access, checking the process identity, signer, user, access mask and surrounding activity
+- Access-mask values only in the context of the host, expected software and the relevant rule; they are not universal indicators
+
+Examples below are synthetic placeholders, not threat indicators.
 
 ### Event ID 22: DNS Query
 
@@ -462,18 +464,7 @@ Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 50 |
 
 ### Atomic Red Team Testing
 
-Use Atomic Red Team to generate realistic attack telemetry:
-
-```powershell
-# Install Atomic Red Team
-IEX (IWR 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/master/install-atomicredteam.ps1' -UseBasicParsing)
-
-# Run a test (T1059.001 - PowerShell)
-Invoke-AtomicTest T1059.001 -TestNumbers 1
-
-# Check Sysmon logs for detection
-Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 20 | Format-Table TimeCreated, Id, Message -Wrap
-```
+Atomic Red Team tests can alter system state, require dependencies, trigger security controls, or leave artifacts. Use them only on a dedicated, disposable system you are authorized to test. Before running one, read its full test definition, prerequisites and cleanup steps; pin and review the selected test/framework version. Confirm that Sysmon collection is active, run only the selected test, then verify and clean up its effects. Do not pipe a remote installer script directly into PowerShell or run an entire technique by default. See the [official getting-started guidance](https://github.com/redcanaryco/atomic-red-team/wiki/Getting-started) and [Invoke-AtomicRedTeam documentation](https://github.com/redcanaryco/invoke-atomicredteam/wiki).
 
 ---
 
@@ -520,7 +511,7 @@ Schedule via Group Policy Preferences → Scheduled Tasks.
 
 ### Wazuh Integration
 
-Wazuh automatically collects Sysmon events. Ensure the agent configuration includes:
+To collect Sysmon events with a Wazuh Windows agent, configure the event channel in the agent and verify that events arrive at the manager:
 
 ```xml
 <!-- In ossec.conf on the Windows agent -->
