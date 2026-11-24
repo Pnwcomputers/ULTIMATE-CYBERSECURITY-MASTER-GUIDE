@@ -1,6 +1,6 @@
 # AI Model Selection, Routing, Privacy & Cost Management
 
-_Last reviewed: 2026-11-19 · Models, prices, quotas and service terms change; verify before deployment._
+_Last reviewed: 2026-11-24 · Models, prices, quotas and service terms change; verify before deployment._
 
 A model-routing policy decides which provider or local model should perform a specific class of work based on **required capability, privacy, measured quality, latency, resilience and price**. Cheapest per token is not necessarily cheapest per verified outcome.
 
@@ -80,11 +80,14 @@ estimated_model_cost =
 + applicable tool, retrieval and other service charges
 ```
 
-Map usage to the provider's billing categories before applying rates. For example,
-OpenAI includes cached tokens in the input total. When a distinct cache rate
-applies, count those tokens at that rate and exclude them from the regular input
-subtotal. Reconcile estimates against reported costs.
-[OpenAI prompt caching](https://developers.openai.com/api/docs/guides/prompt-caching) ·
+Map usage to the provider's billing categories before applying rates. In the
+OpenAI Responses API, `input_tokens` includes the cached input and cache-write
+tokens reported in `input_tokens_details`. When the model has separate rates,
+subtract those categories from ordinary input before pricing them; apply the
+cache-write rate for its documented cache lifetime. Do not assume cache-write
+pricing exists, or use a single cache multiplier, for every provider or model.
+Reconcile estimates against reported costs.
+[OpenAI prompt-caching usage and cost calculation](https://developers.openai.com/api/docs/guides/prompt-caching) ·
 [OpenAI pricing](https://developers.openai.com/api/docs/pricing).
 
 For locally hosted models also count amortized hardware, power, storage, monitoring, maintenance and operator time. Include unsuccessful attempts, retries and evaluation runs.
