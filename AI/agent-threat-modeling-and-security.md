@@ -1,6 +1,6 @@
 # AI Agent Threat Modeling, Guardrails & Defense in Depth
 
-_Last reviewed: 2026-11-17 · Defensive and authorized validation only._
+_Last reviewed: 2026-11-24 · Defensive and authorized validation only._
 
 Agentic AI systems expand the attack surface because models read untrusted content and can call powerful tools. Prompt wording can reduce mistakes, but **security boundaries must live in code, identity, network and approval systems**. This guide provides a practical threat-model and defensive evaluation method.
 
@@ -109,7 +109,9 @@ Bind an approval, when required by the workflow, to the concrete action, target,
 identity and material arguments. Recheck policy and relevant state at execution;
 changed recipients, content, tool definitions or resources may invalidate it.
 Authorized workflows may permit repeated low-risk actions within a defined scope.
-The server must still check every request. Use separate credentials and least
+The server must still check every request.
+
+The [OWASP Agent Control Standard (ACS)](https://genai.owasp.org/resource/agent-control-standard-acs/) is a developing runtime-control approach based on middleware hooks and policy enforcement. Assess the standard and each implementation separately: the project's [reference repository documents implementation-specific gaps](https://github.com/GenAI-Security-Project/agent-control-standard#where-this-reference-implementation-stands), including a fail-open default and an unauthenticated TypeScript Guardian in the implementation described there. Verify the exact version's wire authentication, failure behavior, hook coverage, and bypass paths before relying on an implementation in production. Use separate credentials and least
 privilege at the downstream service; a model's decision to call a tool is not
 an authorization decision.
 
@@ -157,7 +159,7 @@ Disable the affected integration or credential; preserve tamper-resistant logs; 
 
 [MCP & Permissions](mcp-tooling-and-permissions.md) · [Security Evals](llm-security-evaluation-promptfoo.md) · [AI Evaluations](ai-evaluation-and-regression-testing.md) · [Security Operations](ai-security-operations-workflows.md) · [Context Engineering](context-engineering-and-memory.md)
 
-References: [OWASP Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) · [OWASP MCP Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/MCP_Security_Cheat_Sheet.html) · [MITRE ATLAS](https://atlas.mitre.org/) · [NIST Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence).
+References: [OWASP Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) · [OWASP Agent Control Standard](https://genai.owasp.org/resource/agent-control-standard-acs/) · [OWASP MCP Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/MCP_Security_Cheat_Sheet.html) · [MITRE ATLAS](https://atlas.mitre.org/) · [NIST Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence).
 
 ---
 
