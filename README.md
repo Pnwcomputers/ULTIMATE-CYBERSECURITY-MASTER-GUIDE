@@ -52,6 +52,7 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 |---|---|
 | Explore The PNWC Cyberdeck Project | [Cyberdeck Public Reference & Project Index](./Cyberdeck/README.md) |
 | Browse Every Documentation Page | [Complete Documentation Index](./DOCUMENTATION_INDEX.md) |
+| Search Inside Guides & File Names | [Local search helper](./tools/search_docs.py) — run `python tools/search_docs.py "printer identification dots"` from a clone |
 | Learn Basic Computer & Network Concepts & Technician SOP's | [IT Manual](https://pnw-computers.github.io/IT-Manual/) |
 | Choose A Learning Path By Role | [Start Here: Choose Your Path](./START_HERE.md#-choose-your-path) |
 | Find A Guide By Goal Or Task | [Start Here: Quick Start](./START_HERE.md#-quick-start) |
