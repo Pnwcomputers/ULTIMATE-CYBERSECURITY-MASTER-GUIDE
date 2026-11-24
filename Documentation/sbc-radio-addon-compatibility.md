@@ -74,6 +74,10 @@ A **single-board computer (SBC)** commonly runs Linux, with a USB host controlle
 
 **Power/voltage:** 3.3 V GPIO signaling is the safe default for Pi/Flipper/ESP32 digital pins unless **specific** documentation says otherwise. A module breakout accepting 5 V at its regulator **does not mean its TX/RX/SPI pins are 5 V tolerant**. Use logic-level conversion when necessary. Never wire radio TX pins into another active output or hot-plug an energized SPI module.
 
+![CC1101 reference sheet: M5Stack-style RF module and common 433 MHz breakout, typical application schematic, key configuration registers and command strobes, and an SPI pin comparison table mapping MOSI/MISO/SCLK/CSN to chip pins 20, 2, 1 and 7](../assets/cc1101-reference-cheatsheet.jpg)
+
+*CC1101 quick reference. The chip-pin column (SI = 20, SO/GDO1 = 2, SCLK = 1, CSn = 7) follows the [TI CC1101 data sheet](https://www.ti.com/product/CC1101); breakout **wire colors are illustrative only** and differ between vendors. The tuned band and output power depend on the specific module's matching network (the pictured M5-style module is an 868/915 MHz part; the blue breakout is a 433 MHz part), so confirm the module marking and your local band rules before transmitting.*
+
 ### Raspberry Pi HAT & GPIO Checklist
 
 1. Verify the Pi/carrier model and **40-pin header orientation**, occupied pins and HAT EEPROM/device-tree overlays.

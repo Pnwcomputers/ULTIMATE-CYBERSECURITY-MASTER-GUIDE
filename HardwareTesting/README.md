@@ -58,6 +58,30 @@ The overall goal of this section is to make hardware validation repeatable, prac
 
 ---
 
+## Bench & Client Quick References
+
+Printable one-page references for intake, triage and client hand-off. They summarize procedures; confirm the exact model, firmware and vendor documentation before acting on any single line.
+
+### Charging & Power Diagnostics
+
+![Charging diagnostics and power reference: USB and mobile charging standards, laptop USB-C and DC barrel voltages and wattages, and meter readings mapped to probable faults](../assets/charging-diagnostics-power-reference.jpg)
+
+*Typical voltage, current and wattage ranges for USB-PD, Qualcomm QC and common laptop barrel adapters, plus USB-meter readings mapped to likely faults. Values are typical ranges, not a specification: always match the adapter rating printed on the device or its label, and use a current-limited supply for any powered test.*
+
+### Mac Startup & Reset
+
+![Mac startup and reset cheat sheet: Apple silicon and Intel startup keys, Recovery and First Aid, NVRAM/PRAM and SMC resets by model type, T2 model list, PowerPC keys and firmware revive/restore](../assets/mac-startup-reset-cheatsheet.png)
+
+*Identify the chip first (Apple menu → About This Mac). NVRAM and SMC key sequences apply only to Intel Macs; Apple silicon resets these automatically. Each panel cites its Apple Support source in the footer. A firmware **Restore** erases the Mac; **Revive** preserves data.*
+
+### PC & Mac Everyday Maintenance
+
+![PC and Mac maintenance guide: updates, cleaning and cooling, storage targets, startup programs, security tools, 3-2-1 backups and a weekly to six-month maintenance schedule](../assets/pc-mac-maintenance-guide.jpg)
+
+*Client hand-out covering updates, cleaning, storage headroom, startup items, malware protection and the 3-2-1 backup rule. Product names are examples, not endorsements. Menu paths reflect Windows 11 and current macOS releases and may move in later versions; Windows 10 support ended October 14, 2025.*
+
+---
+
 ## Contents
 
 ### ✅ Available Now
@@ -452,7 +476,7 @@ These hardware testing guides and scripts are provided for:
 ---
 
 *Pacific Northwest Computers · [pnwcomputers.com](https://pnwcomputers.com) · Vancouver, WA*
-*Last updated: 06-11-2026*
+*Last updated: 11-23-2026*
 
 ---
 

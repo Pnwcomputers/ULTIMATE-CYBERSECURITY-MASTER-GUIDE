@@ -524,6 +524,10 @@ Original conceptual workflow; the exact test method and safe limits depend on th
 | [AI agent architecture](./ai_agent_arch.png) | [AI section](../AI/README.md) | Conceptual file-system-first agent/tool boundaries |
 | [Hardware diagnostics](./hardware_diagnostics.png) | [Hardware Testing](../HardwareTesting/README.md) | Reference board-level diagnostic workflow |
 | [Network architecture](./network_security_arch.png) | [Homelab](../Homelab/README.md) | Example segmented design, not a verified live topology |
+| [Charging diagnostics & power reference](./charging-diagnostics-power-reference.jpg) | [Hardware Testing](../HardwareTesting/README.md#charging--power-diagnostics) | Typical USB/laptop charging ranges and meter-reading fault isolation; match the device's own rating |
+| [Mac startup & reset cheat sheet](./mac-startup-reset-cheatsheet.png) | [Hardware Testing](../HardwareTesting/README.md#mac-startup--reset) | Apple-sourced startup keys, NVRAM/SMC resets by chip type and firmware revive/restore |
+| [PC & Mac maintenance guide](./pc-mac-maintenance-guide.jpg) | [Hardware Testing](../HardwareTesting/README.md#pc--mac-everyday-maintenance) | Client hand-out for updates, cleaning, storage, startup items, security and 3-2-1 backups |
+| [CC1101 reference sheet](./cc1101-reference-cheatsheet.jpg) | [SBC & radio add-on compatibility](../Documentation/sbc-radio-addon-compatibility.md#add-on-modules--hats-abilities--integration) | Datasheet chip pins, key registers and module examples; wire colors are vendor-specific |
 | [RAM versus storage](./ram_vs_storage.png) | [Manjaro test bench](../HardwareTesting/Manjaro_Intel_TestBench.md#5-memory-and-storage-diagnostics) | Introductory CPU/RAM/storage mental model |
 | [VM compartmentalization](./vm_compartmentalization.png) | [OPSEC guide](../OPSEC/README.md#principles) | Boundary illustration with important host/guest limitations |
 | [Wireless auditing](./wireless_auditing.png) | [Network Audit Playbook](../PlayBooks/NetworkAuditPlayBook.md#section-2-wireless-specific-testing-procedures) | Wireless engagement workflow |
