@@ -1,6 +1,6 @@
 # 🔎 Osquery Deployment Guide
 
-_Last reviewed: 2026-07-30_
+_Last reviewed: 2026-11-24_
 
 ## 🎯 Purpose
 Osquery deployment and query guide - covering installation, configuration, and SQL-based queries for Linux endpoint visibility, threat hunting, and security monitoring.
@@ -19,7 +19,7 @@ Deploy osquery as a host-based security monitoring tool that enables SQL-based q
 
 **Osquery** is an open-source tool developed by Facebook that exposes operating system information as a relational database. Using SQL queries, you can interrogate endpoints to gather security-relevant data about processes, users, network connections, file changes, and more. A local osquery instance exposes supported endpoint tables; fleet-wide query scheduling and collection require their own configured management infrastructure.
 
-This guide covers deploying Osquery on Windows and Linux, configuring security-focused queries, and integrating with your SIEM.
+This guide covers osquery on Windows and Linux. Package availability and table support vary by release and platform; validate each query against the installed build before scheduling it.
 
 ---
 
@@ -56,75 +56,31 @@ This guide covers deploying Osquery on Windows and Linux, configuring security-f
 
 ### Supported Operating Systems
 
-| OS | Supported Versions |
-|----|-------------------|
-| Windows | 10, 11, Server 2016/2019/2022 |
-| Ubuntu | 18.04, 20.04, 22.04 |
-| Debian | 10, 11, 12 |
-| CentOS/RHEL | 7, 8, 9 |
-| macOS | 10.14+ |
+osquery publishes packages and binaries by release. Supported OS versions, distributions, architectures, and installation methods can change between releases. Use the [official Linux installation guide](https://osquery.readthedocs.io/en/stable/installation/install-linux/), [Windows installation guide](https://osquery.readthedocs.io/en/stable/installation/install-windows/), and the selected release's assets before deployment; the examples below are not a compatibility guarantee.
 
 ### System Requirements
 
-| Component | Minimum |
-|-----------|---------|
-| RAM | 512 MB available |
-| Disk | 100 MB |
-| CPU | Minimal (scheduled queries) |
+There is no universal resource minimum for every deployment. Query cost, event subscriptions, monitored paths, logging volume, retention, and endpoint workload all affect resource use. Start with a small schedule, measure on representative hosts, and tune before broad deployment.
 
 ---
 
 ## 🛠️ Part 1: Installation
 
-### Linux Installation (Debian/Ubuntu)
+### Linux Installation
 
-```bash
-# Add osquery repository (apt-key is deprecated on Ubuntu 22.04+/Debian 12+;
-# use a dedicated keyring with signed-by instead)
-export OSQUERY_KEY=1484120AC4E9F8A1A577AEEE97A80C63C9D8B80B
-sudo mkdir -p /etc/apt/keyrings
-sudo gpg --no-default-keyring --keyring /etc/apt/keyrings/osquery.gpg \
-  --keyserver keyserver.ubuntu.com --recv-keys $OSQUERY_KEY
-echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/osquery.gpg] https://pkg.osquery.io/deb deb main" \
-  | sudo tee /etc/apt/sources.list.d/osquery.list
-
-# Install osquery
-sudo apt update
-sudo apt install -y osquery
-```
-
-### Linux Installation (RHEL/CentOS)
-
-```bash
-# Add osquery repository
-curl -L https://pkg.osquery.io/rpm/GPG | sudo tee /etc/pki/rpm-gpg/RPM-GPG-KEY-osquery
-sudo yum-config-manager --add-repo https://pkg.osquery.io/rpm/osquery-s3-rpm.repo
-sudo yum-config-manager --enable osquery-s3-rpm
-
-# Install osquery
-sudo yum install -y osquery
-```
+Follow the current [official Linux installation instructions](https://osquery.readthedocs.io/en/stable/installation/install-linux/) for the target distribution and package manager. The project publishes release packages for supported systems; verify the selected release, architecture, repository signing setup, and distribution before installing. Avoid copying repository-key commands from older guides.
 
 ### Windows Installation
 
-#### Method 1: MSI Installer
+The osquery project recommends [Chocolatey or the latest official binaries](https://osquery.readthedocs.io/en/stable/installation/install-windows/). Use the current release rather than a version-pinned installer copied from an older guide.
 
-Download from [osquery.io/downloads](https://github.com/osquery/osquery/releases):
-
-```powershell
-# Download installer
-$url = "https://pkg.osquery.io/windows/osquery-5.11.0.msi"
-Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\osquery.msi"
-
-# Install silently
-Start-Process msiexec.exe -ArgumentList "/i $env:TEMP\osquery.msi /quiet /qn" -Wait
-```
-
-#### Method 2: Chocolatey
+For a host that should run the `osqueryd` Windows service, install through Chocolatey with the documented service parameter:
 
 ```powershell
-choco install osquery -y
+choco install osquery --yes --params="/InstallService"
 ```
+
+For an interactive-only installation, follow the current Windows guide and omit service setup. For a manually downloaded binary, use the current [official releases](https://github.com/osquery/osquery/releases) and verify its integrity before installation.
 
 ### Verify Installation
 
@@ -251,8 +207,11 @@ WHERE g.groupname IN ('sudo', 'wheel', 'admin');
 SELECT * FROM user_groups 
 WHERE groupname = 'Administrators';
 
--- Recently created users (by UID range)
-SELECT * FROM users WHERE uid > 1000 ORDER BY uid DESC;
+-- User accounts above a locally chosen UID baseline (UID is not an account-creation timestamp)
+SELECT uid, gid, username, description, directory, shell
+FROM users
+WHERE uid > 1000
+ORDER BY uid;
 ```
 
 #### Persistence Mechanisms
@@ -292,11 +251,11 @@ FROM autoexec;
 SELECT path, mode, uid, gid 
 FROM suid_bin;
 
--- World-writable files in /etc (Linux)
-SELECT path, mode 
-FROM file 
-WHERE path LIKE '/etc/%' 
-  AND mode LIKE '%7';
+-- Entries in /etc with the other-write permission bit set (Linux; review file and directory types)
+SELECT path, mode
+FROM file
+WHERE path LIKE '/etc/%'
+  AND (CAST(mode AS INTEGER) & 2) != 0;
 
 -- Recently modified files
 SELECT path, mtime, size 
@@ -350,7 +309,7 @@ sudo mkdir -p /var/log/osquery
 
 ### Step 3.2: Create Main Configuration
 
-Create `/etc/osquery/osquery.conf` (Linux) or `C:\Program Files\osquery\osquery.conf` (Windows):
+The following is a Linux-oriented example for `/etc/osquery/osquery.conf`; its Linux paths and logger settings must not be copied unchanged to Windows. The filesystem configuration path is platform-specific. Check the [official configuration guide](https://osquery.readthedocs.io/en/stable/deployment/configuration/) and the installed build's flags before adapting it:
 
 ```json
 {
@@ -367,6 +326,7 @@ Create `/etc/osquery/osquery.conf` (Linux) or `C:\Program Files\osquery\osquery.
     "verbose": "false",
     "worker_threads": "2",
     "enable_monitor": "true",
+    "disable_events": "false",
     "schedule_default_interval": "3600"
   },
 
@@ -427,7 +387,7 @@ Create `/etc/osquery/osquery.conf` (Linux) or `C:\Program Files\osquery\osquery.
 
 ### Step 3.3: Create Security Query Pack
 
-Create `/etc/osquery/packs/security.conf`:
+Create `/etc/osquery/packs/security.conf`. This is an illustrative starting point, not a cross-platform drop-in: tables and event publishers vary by operating system and release. Split or tag queries for the platforms you actually deploy, and enable the required event sources; osquery event tables are disabled by default. See the official [event flags](https://osquery.readthedocs.io/en/stable/installation/cli-flags/) and [process auditing](https://osquery.readthedocs.io/en/stable/deployment/process-auditing/) guidance.
 
 ```json
 {
@@ -529,10 +489,17 @@ Create `/etc/osquery/packs/security.conf`:
 
 ### Step 3.4: Configure File Integrity Monitoring (FIM)
 
-Add to `osquery.conf`:
+This is a Linux `file_events` example. FIM events are disabled by default: enable `--disable_events=false` and `--enable_file_events=true` for the daemon, then schedule a query against `file_events`. Merge the entries below into the existing top-level JSON object; do not paste a second JSON object into the same file. Keep existing schedule entries and merge the new query into the `schedule` map. Windows uses `ntfs_journal_events` with its own publisher flag, and macOS has different event-source requirements. Check the official [FIM guide](https://osquery.readthedocs.io/en/stable/deployment/file-integrity-monitoring/) before enabling event collection.
 
 ```json
 {
+  "schedule": {
+    "linux_file_fim": {
+      "query": "SELECT * FROM file_events;",
+      "interval": 300,
+      "removed": false
+    }
+  },
   "file_paths": {
     "etc": [
       "/etc/%%"
@@ -558,7 +525,6 @@ Add to `osquery.conf`:
       "/var/tmp/%%"
     ]
   },
-  "file_accesses": ["etc", "sensitive"],
   "exclude_paths": {
     "etc": [
       "/etc/mtab",
@@ -567,6 +533,8 @@ Add to `osquery.conf`:
   }
 }
 ```
+
+`file_accesses` is separate from file-integrity events; enable it only when access auditing is specifically required. On Linux it can produce substantial event volume and performance overhead. This FIM example intentionally does not enable it.
 
 ---
 
@@ -798,16 +766,16 @@ WHERE fragment_path LIKE '/tmp/%'
 ### Detect Credential Access
 
 ```sql
--- Processes accessing sensitive files (Linux)
-SELECT p.name, p.path, p.cmdline, pof.path AS file_accessed
+-- Processes currently holding selected sensitive paths open (Linux snapshot; not historical file-access auditing)
+SELECT p.name, p.path, p.cmdline, pof.path AS file_open
 FROM processes p
 JOIN process_open_files pof ON p.pid = pof.pid
 WHERE pof.path IN ('/etc/shadow', '/etc/passwd', '/etc/sudoers');
 
--- LSASS access attempts (Windows)
-SELECT p.name, p.path, p.cmdline 
-FROM processes p
-WHERE p.name = 'lsass.exe';
+-- LSASS process presence only (this does not detect another process accessing LSASS)
+SELECT pid, name, path, cmdline
+FROM processes
+WHERE name = 'lsass.exe';
 
 -- Mimikatz indicators
 SELECT * FROM processes 
@@ -841,7 +809,7 @@ WHERE name IN ('psexec.exe', 'psexesvc.exe', 'paexec.exe', 'winexesvc.exe')
 ### Detect Exfiltration
 
 ```sql
--- Large outbound connections
+-- Remote socket endpoints on common transfer ports (not a traffic-volume or exfiltration detector)
 SELECT s.pid, p.name, p.path, s.remote_address, s.remote_port
 FROM process_open_sockets s
 JOIN processes p ON s.pid = p.pid
@@ -875,10 +843,10 @@ FROM file
 WHERE (path LIKE '/tmp/.%' OR path LIKE '/var/tmp/.%')
   AND type = 'regular';
 
--- Timestomped files (mtime before ctime)
-SELECT path, mtime, ctime 
-FROM file 
-WHERE path LIKE '/tmp/%' 
+-- Files in /tmp where mtime predates ctime (a review lead, not proof of timestomping)
+SELECT path, mtime, ctime
+FROM file
+WHERE path LIKE '/tmp/%'
   AND mtime < ctime;
 
 -- Disabled security products (Windows)
@@ -932,7 +900,8 @@ WHERE (name LIKE '%defender%'
 | Table | Description | Platform |
 |-------|-------------|----------|
 | `file` | File metadata | All |
-| `file_events` | FIM events | All |
+| `file_events` | File-change events (event source and flag required) | Linux/macOS |
+| `ntfs_journal_events` | NTFS journal file events (event publisher and flag required) | Windows |
 | `hash` | File hashes | All |
 | `suid_bin` | SUID binaries | Linux/macOS |
 | `authorized_keys` | SSH authorized keys | Linux/macOS |
