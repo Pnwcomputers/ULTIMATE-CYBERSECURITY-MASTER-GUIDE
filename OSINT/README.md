@@ -10,7 +10,7 @@
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md)*
 
 ![OSINT](https://img.shields.io/badge/OSINT-Intelligence%20Gathering-blue?style=for-the-badge)
-![Tools](https://img.shields.io/badge/Tools-400%2B-green?style=for-the-badge)
+![Tools](https://img.shields.io/badge/Tools-Curated-green?style=for-the-badge)
 ![Legal](https://img.shields.io/badge/Use-Legal%20Only-red?style=for-the-badge)
 
 </div>
@@ -74,7 +74,7 @@ This directory contains **comprehensive Open Source Intelligence (OSINT) resourc
 
 **What You'll Find Here:**
 - 📚 Complete OSINT methodology and frameworks
-- 🛠️ 400+ categorized OSINT tools with usage examples
+- 🛠️ Curated OSINT tool references with usage notes
 - 📖 Step-by-step investigation workflows
 - 🖥️ VM setup guides and automation scripts
 - 🔐 OPSEC and privacy best practices
@@ -362,9 +362,9 @@ This OSINT knowledge base is continuously growing. Contributions are welcome!
 
 ```
 📁 Total Files: Growing collection
-🛠️ Tools Documented: 400+
+🛠️ Tools Documented: Curated catalog; count and availability vary
 📖 Guides: Core guide complete, more coming
-🔄 Last Updated: November 2024
+🔄 Editorial status checked: November 24, 2026 (individual tools require separate verification)
 👥 Maintained by: Pacific Northwest Computers (PNWC)
 ```
 
@@ -402,7 +402,7 @@ This OSINT collection supports:
 
 ## 📈 Published Coverage & Remaining Gaps
 
-_Editorial status checked November 11, 2026. Individual commands, APIs and target websites require their own verification._
+_Editorial status checked November 24, 2026. Individual commands, APIs and target websites require their own verification._
 
 | Area | Published Resource | Current Limitation |
 |---|---|---|
@@ -489,7 +489,7 @@ This OSINT collection wouldn't exist without:
 - Tim Tomes (Recon-ng)
 - OWASP Team (Amass)
 - ProjectDiscovery Team (Subfinder, Nuclei)
-- And 400+ other tool creators
+- And many other tool creators
 
 ### Organizations
 - OWASP Foundation
@@ -803,7 +803,7 @@ This OSINT resource collection has **zero tolerance** for misuse. We strongly co
 └─────────────────────────────────────────────────────────────┘
 ```
 
-**Last Updated**: November 2025  
+**Disclaimer reviewed**: November 24, 2026  
 **Review this disclaimer regularly as laws and regulations evolve.**
 
 ## Related Files
