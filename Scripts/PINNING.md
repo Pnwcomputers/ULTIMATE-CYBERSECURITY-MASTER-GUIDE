@@ -36,6 +36,10 @@ This fix restores a safely tracked manifest and testable supply-chain controls; 
 
 ## Behaviour
 
+![Flow diagram showing strict pin lookup, fail-closed handling, and checksum verification](../assets/diagrams/script-pin-validation-flow.svg)
+
+*Conceptual flow: a valid unique entry selects an exact source; malformed requested entries stop installation. Downloaded bytes must match their pinned SHA-256 before use.*
+
 * **No pin, no install.** A tool without a pin is skipped and listed in the
   summary under "no pin". It is never installed from `latest` or a branch head.
 * **Downloads, repository keys and installer scripts are never unpinned.** They
@@ -43,7 +47,7 @@ This fix restores a safely tracked manifest and testable supply-chain controls; 
   checked before extraction or execution, over HTTPS only.
 * **`--allow-unpinned` / `PNWC_ALLOW_UNPINNED=1`** is a lab-only override for
   pip, gem, go, cargo and git tools. Every use is reported in the summary.
-* **A malformed pin is a hard failure**, not a fallback to unpinned.
+* **An empty, malformed, or duplicate requested pin is a hard failure**, not a fallback to unpinned. The installer distinguishes this from an absent key, so the lab-only override cannot bypass a bad manifest entry.
 * The installers exit non-zero if any tool failed or (OSINT installer) any
   expected tool is missing.
 
