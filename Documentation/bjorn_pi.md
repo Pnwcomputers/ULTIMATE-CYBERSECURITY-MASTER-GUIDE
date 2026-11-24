@@ -45,7 +45,7 @@ The fundamental contrast with the previous two chapters:
 | Operator interaction | Constant (menu-driven) | Constant (menu-driven) | Minimal (autonomous after launch) |
 | Attack surface | Wi-Fi L2 | Wi-Fi + BLE + Sub-GHz + NFC + IR + FM | Network services (L4-L7) |
 | Primary technique | Captive portals, deauth, KARMA | Multi-radio: portal, deauth, RF replay, NFC clone | Brute-force + data exfiltration |
-| Legal exposure | § 333 + CFAA (limited) | § 333 + § 301/302a + CFAA | **CFAA core + SCA + Wiretap Act** |
+| Scope priority | Keep radio tests within approved bands and targets | Confirm accessory, firmware and transmission scope | Name targets, services, credentials, data access and lockout stop conditions |
 | Time on engagement | Minutes-to-hours, supervised | Minutes-to-hours, supervised | **Hours-to-days, unsupervised** |
 
 This shift in posture matters enormously, both operationally and legally. The remaining sections of this chapter unpack why.
@@ -54,53 +54,68 @@ This shift in posture matters enormously, both operationally and legally. The re
 
 ## 2. Legal and regulatory framework; read this twice
 
-The Evil-M5 and Bruce chapters discussed the FCC's 47 USC § 333 (willful interference) and Part 15 considerations because those tools transmit on regulated radio bands. Bjorn does none of that; it transmits only standard 2.4 GHz Wi-Fi frames at consumer power levels, well within Part 15 compliance. The legal problem is elsewhere, and it is much larger.
+**Source review: November 24, 2026.** This chapter is a technical guide, not a
+legal opinion. Whether a law applies depends on the specific conduct, the
+authorization, statutory elements, jurisdiction and other facts. A tool's
+name, an account lockout, or an unsuccessful login does not by itself establish
+a crime or a particular penalty.
 
-### 2.1 The CFAA, in detail
+Bjorn can discover hosts, attempt authentication, access files and produce
+service impact. Use it only in an isolated lab or under a written rules of
+engagement (ROE) that explicitly identifies the targets, services, accounts,
+permitted actions, time window, lockout limits, stop conditions, data-handling
+requirements and cleanup. Permission for vulnerability scanning should not be
+treated as permission for credential attempts or file retrieval. Use synthetic
+accounts and data unless the ROE specifically authorizes a controlled
+alternative.
 
-The **Computer Fraud and Abuse Act**, 18 U.S.C. § 1030, is the federal statute that governs unauthorized computer access in the United States. Each of the following subsections directly implicates Bjorn's normal operation:
+### 2.1 Official U.S. references
 
-- **§ 1030(a)(2)(C); Unauthorized access to obtain information.** "Whoever ... intentionally accesses a computer without authorization or exceeds authorized access, and thereby obtains ... information from any protected computer ..." Bjorn's brute-force connectors literally do this: they authenticate to a service the operator has not been authorized to access, and they obtain information from it. First offense: misdemeanor up to one year; felony (up to five years) if the value of the information exceeds $5,000 or the conduct is for commercial advantage.
-- **§ 1030(a)(4); Access with intent to defraud.** "Knowingly and with intent to defraud, accesses a protected computer without authorization ... and by means of such conduct furthers the intended fraud and obtains anything of value ..." If Bjorn's exfiltrated data is used for any commercial advantage, this applies. Felony, up to five years.
-- **§ 1030(a)(5)(A); Knowing damage.** "Knowingly causes the transmission of a program, information, code, or command, and as a result of such conduct, intentionally causes damage without authorization, to a protected computer." Brute-force authentication attempts that lock accounts, cause service disruptions, or trigger automated response cascades meet the "damage" definition (§ 1030(e)(8): "any impairment to the integrity or availability of data, a program, a system, or information"). Felony, up to ten years.
-- **§ 1030(a)(5)(B)/(C); Reckless or negligent damage.** Even if intent is harder to prove, reckless damage from autonomous attack tooling has been successfully prosecuted. Up to five years for reckless; up to one year for the negligent variant.
+These statutes contain distinct provisions and requirements; the links are
+starting points for review, not a determination that any particular Bjorn
+operation violates them.
 
-The "protected computer" definition in § 1030(e)(2) is breathtakingly broad; it includes any computer "used in or affecting interstate or foreign commerce or communication." That is, in practice, every networked computer in the United States.
+| Reference | General subject | Reading boundary |
+|---|---|---|
+| [18 U.S.C. § 1030 (CFAA)](https://uscode.house.gov/us/usc/119-134/t18/s1030/) | Several offenses involving unauthorized computer access, fraud, and damage | The elements and penalties differ by subsection; the tool's operation alone does not decide whether an offense occurred. |
+| [18 U.S.C. § 2701 (Stored Communications Act)](https://uscode.house.gov/us/usc/119-134/t18/s2701/) | Certain unauthorized access to facilities through which electronic communication services are provided | A file transfer or protocol name alone does not establish that the statute applies. |
+| [18 U.S.C. § 2511 (Wiretap Act)](https://uscode.house.gov/us/usc/119-134/t18/s2511/) | Certain intentional interceptions, disclosures or uses of wire or electronic communications, subject to statutory limits and exceptions | A network scan or packet capture is not automatically a Wiretap Act violation; assess the actual collection, authorization and applicable exceptions. |
+| [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud) | Department of Justice policy for federal CFAA charging decisions | This is prosecutorial guidance, not a substitute for the statute or legal advice. |
 
-### 2.2 Stored Communications Act
+State and local laws, privacy rules, contracts, client policies and radio
+regulations may also apply. Obtain qualified counsel for engagement-specific
+legal advice; do not infer an outcome from this guide.
 
-The **Stored Communications Act**, 18 U.S.C. § 2701, applies to electronic communications held by service providers. Bjorn's file exfiltration via SSH/SMB/FTP; particularly if it grabs email stores, message archives, or cloud-sync caches; implicates § 2701(a)(1): "intentionally accesses without authorization a facility through which an electronic communication service is provided." Penalties run up to ten years for offenses committed for commercial advantage or malicious destruction.
+### 2.2 Scope controls for an autonomous tool
 
-### 2.3 Wiretap Act
+Before a lab or engagement, confirm that the selected Bjorn release and
+configuration will stay inside the approved scope. In particular:
 
-The **Wiretap Act**, 18 U.S.C. § 2511, applies when Bjorn's network scanning captures live communications in transit. If you point Bjorn at a switched LAN and its scanner intercepts authentication exchanges or session data en route between hosts, that's potentially a § 2511 violation. Penalties: up to five years per offense.
+- Name the authorized subnets, hosts and services; constrain discovery to
+  those targets and verify the resulting list before active testing.
+- Explicitly authorize each credential-testing method, account set, attempt
+  limit and lockout threshold.
+- Define whether file access is permitted, which synthetic files may be read,
+  where results may be written, and when artifacts must be deleted.
+- Set a short time window, assign an operator to monitor activity, and define
+  a stop condition for unexpected hosts, lockouts or service impact.
+- Keep the web interface and output artifacts restricted; they may contain
+  credentials or other sensitive data.
 
-### 2.4 State analogues
+If the actual behavior or target set cannot be confirmed, stop and use a
+purpose-built isolated lab. A written ROE is an operational safeguard; it does
+not itself guarantee that every action is lawful.
 
-- **Washington:** RCW 9A.90.040 (computer trespass first degree), RCW 9A.90.050 (computer trespass second degree), RCW 9A.90.060 (electronic data service interference). The Washington Cybercrime Act provides state-level remedies that parallel CFAA but can be charged independently.
-- **Oregon:** ORS 164.377 (computer crime), with felony bumps for damage and commercial-advantage motivations.
-- **California, New York, Texas, Florida:** all maintain analogous statutes. State-level enforcement is often more aggressive than federal because state prosecutors don't need the federal jurisdictional hook.
+### 2.3 Autonomous behavior is a safety concern
 
-### 2.5 The bottom line, plainly stated
+Bjorn is designed to run an orchestration pipeline, but the actual actions
+depend on its installed release, configuration, enabled connectors, discovered
+hosts and operator controls. Do not assume that launching it against a network
+means it will stay within one host or one service. Validate the configuration
+in an isolated lab, monitor the run, and stop it if the observed target set or
+activity differs from the approved plan.
 
-**Bjorn's brute-force connectors, file stealers, and SQL exfiltration modules are illegal to operate against any system you do not own or have explicit written authorization to test.** This is not a "use with caution" caveat; it is a statement that the core operations of the tool, in any non-authorized context, are felonies. The "educational and authorized testing purposes only" disclaimer in the README is not a legal shield, it is a request from the developer that you comply with the law.
-
-The corollary, and the only safe operational posture:
-
-1. **Air-gapped or fully-isolated lab use only**, against intentionally vulnerable VMs you have provisioned for the purpose. Metasploitable2, Metasploitable3, DVWA, OWASP WebGoat/Juice Shop; these exist precisely so practitioners can learn attack tooling without breaking the law.
-2. **Documented and signed ROE that specifically enumerates authorized brute-force activity**; many ROEs that authorize "vulnerability scanning" do not authorize "credential brute force" or "data exfiltration." Bjorn does the latter two automatically. If the ROE doesn't say so explicitly, do not run Bjorn under it.
-3. **No "drive-by" deployment.** Once Bjorn is on a network, the operator has, by design, given up moment-to-moment control of what it attacks. The deployment location, the network it attaches to, and the time-bounded scope of its operation must all be enumerated in the ROE.
-
-A compliance checklist tailored to Bjorn's posture appears in Appendix C.
-
-### 2.6 A note on the autonomous nature
-
-Bjorn's defining feature is autonomy. Unlike Evil-M5 (where you press a button to send a deauth and stop pressing it to stop) or Bruce (where you select a payload and trigger it explicitly), Bjorn's orchestrator runs through its attack pipeline on its own, against every host it finds, until you intervene.
-
-The operational implication is this: **you can't claim "I only meant to scan one host" if Bjorn scanned a hundred and brute-forced every SSH port.** The tool's design makes that defense unavailable. The legal implication is that intent (a CFAA element) is established at the moment of deployment, not at the moment of any particular packet. If you turn Bjorn on inside a network you're not authorized to attack, you have already committed the offense; Bjorn's continued operation is the foreseeable consequence of your deployment decision.
-
-This is why the lab-only posture is not a stylistic recommendation. It is the only defensible operational posture for this class of tool.
-
+Appendix C lists the guide's conservative pre-flight controls.
 ---
 
 ## 3. The hardware
@@ -385,7 +400,7 @@ Once a host has been compromised, Bjorn writes it to `data/output/zombies/` alon
 
 This is not implanted persistence; Bjorn does not write to the target. It is simply persistent credential reuse from the attacker side. If the target rotates the credential, Bjorn's zombie entry goes stale and falls back to brute-force on the next cycle.
 
-The term "zombification" in the README is colorful marketing language; the actual behavior is cataloged credential reuse against unwitting targets. The legal posture is unchanged; repeatedly authenticating to a service you're not authorized to access is repeated CFAA violation, not a single one.
+The term "zombification" in the README is colorful marketing language; the behavior described here is cataloged credential reuse. Do not use credential material against accounts or services outside the approved scope. Whether repeated attempts implicate a particular law depends on the conduct, authorization, applicable statutory elements and jurisdiction.
 
 ### 7.6 The display layer
 
@@ -543,7 +558,7 @@ Every exercise in this section assumes a **fully isolated lab environment**. The
 - You can quantify how many accounts Bjorn locked.
 - You can estimate the operational impact this would have in a production environment.
 
-**Debrief.** A 5/30 lockout policy and Bjorn-level brute-force means an attacker can lock every account in a domain in under an hour, denying legitimate users access. This is a CFAA § 1030(a)(5) damage event in its own right; *before* any credential is recovered. Document this for your client's account-policy review.
+**Debrief.** Account lockouts can deny legitimate users access, but the timing and number of affected accounts depend on the connector, its rate limits, the target policy and the lab setup. Measure the result with synthetic accounts and report the observed lockouts and duration; do not extrapolate an unmeasured rate to production. A lockout is an operational impact, not by itself proof of a particular statutory offense. Discuss legal questions with qualified counsel.
 
 ---
 
@@ -651,7 +666,7 @@ For a complete portable Bjorn deployment:
 
 ## Appendix C; Pre-flight compliance checklist (Bjorn-specific)
 
-This checklist is stricter than the ones for Evil-M5 and Bruce because Bjorn's core operations are CFAA-actionable, not just regulatory:
+This is the guide's conservative operational run standard, not a statement that each item is required by law or that checking every item guarantees legal compliance:
 
 - [ ] Lab subnet is **fully isolated**; VLAN with no L3 route to any production network. Verified by attempting to ping a known production host from the lab VLAN (should fail).
 - [ ] No third-party devices accessible from the lab subnet. Verified by enumerating all hosts on the subnet and confirming each is a known lab VM.
@@ -730,7 +745,7 @@ Ragnar is worth knowing about because:
 
 ---
 
-*This chapter is provided for educational and authorized red-team use only. Bjorn, like any offensive security tool, is a felony to operate against systems you do not own or are not explicitly authorized to test. The author of this chapter, the Bjorn developer (infinition), the Raspberry Pi Foundation, and Waveshare bear no responsibility for misuse. Unapproved access, interception, credential use or service disruption can implicate the Computer Fraud and Abuse Act, Stored Communications Act, state laws and contractual restrictions; legal exposure depends on the specific facts and authorization. Treat the laboratory-isolation requirement as inviolable. The technical interest of the tool is genuine; the legal risk of operating it outside a properly-scoped lab or signed engagement is also genuine, and is the more important of the two.*
+*This chapter is for educational, authorized lab work. Unauthorized access, interception, credential use, file retrieval or service disruption may have legal or contractual consequences depending on the conduct, authorization, jurisdiction and applicable legal elements. This guide does not determine whether a particular action is lawful or state a penalty; consult qualified counsel for engagement-specific advice. Keep tests inside the defined lab or written scope and protect any data produced.*
 
 ---
 
