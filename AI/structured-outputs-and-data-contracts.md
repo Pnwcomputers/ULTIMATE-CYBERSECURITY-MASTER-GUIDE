@@ -1,6 +1,6 @@
 # Structured AI Outputs, JSON Schema & Workflow Contracts
 
-_Last reviewed: 2026-11-09 · Platform-neutral; API-specific structured-output features may differ._
+_Last reviewed: 2026-11-24 · Platform-neutral; API-specific structured-output features may differ._
 
 When AI output controls scripts, tickets, databases or security actions, plain prose is a dangerous integration boundary. Use a **validated, versioned data contract** to distinguish model suggestions from permitted instructions and verified outcomes.
 
@@ -55,7 +55,7 @@ A bounded incident-triage draft:
 }
 ```
 
-This is a **general JSON Schema**, not a promise it is accepted unchanged by every vendor's structured-output feature. Vendor APIs often support a subset and may impose additional requirements, so consult the current provider-specific contract.
+This is a **general JSON Schema**, not a promise it is accepted unchanged by every vendor's structured-output feature. Vendor APIs often support a subset and may impose additional requirements, so consult the current provider-specific contract. For example, OpenAI's current strict Structured Outputs subset does not list `const`, `minLength`, `maxLength` or `uniqueItems` as supported keywords. For that API, represent the fixed `schema_version` with a single-value `enum`, enforce string lengths and source-ID uniqueness in the application validator, and validate against the current provider subset before sending the schema.
 
 ### Example Valid Output
 
