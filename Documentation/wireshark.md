@@ -104,17 +104,17 @@ A [unified Wazuh/Snort/nzyme/NetAlertX detection stack](../IncidentResponse/IDS%
 
 ## 📂 Capture Methods
 
-Before filtering, choose the right capture mode for your scenario.
+Before filtering, choose the right capture mode for your scenario. The [Wireshark User's Guide](https://www.wireshark.org/docs/wsug_html/) documents capture options and hardware-dependent monitor-mode support. A TAP or SPAN only supplies the traffic selected at its configured observation point; see the [LAN TAP and SPAN guide](./network-taps-and-packet-visibility.md) for placement and capacity tradeoffs.
 
 | Method | Use Case | Notes |
 |--------|----------|-------|
-| **Promiscuous mode** | Capture all frames the NIC receives | Standard for wired analysis |
-| **Monitor mode** | Capture all 802.11 frames including other stations | Requires compatible wireless NIC |
-| **Port mirroring / SPAN** | Mirror another switch port to your monitoring interface | Requires managed switch |
-| **Network tap** | Passive in-line capture on a physical link | Most accurate, no network impact |
+| **Promiscuous mode** | Receive frames delivered to this interface | On a switched LAN, this does not make the switch send neighboring unicast traffic to your port |
+| **Monitor mode** | Capture raw 802.11 frames when supported | Hardware, driver, and OS support vary; capture is channel-specific and may disconnect normal Wi-Fi service |
+| **Port mirroring / SPAN** | Mirror configured switch traffic to a monitoring interface | Coverage depends on switch configuration; oversubscription or platform limits can drop packets |
+| **Network TAP** | Copy traffic crossing one selected physical link | A TAP does not reveal paths outside that link; inline installation can interrupt service, and output/aggregation capacity must match expected traffic |
 | **Remote SSH capture** | Live stream from router or remote device into Wireshark | See [Remote Capture](#️-remote-capture-via-ssh) section |
 
-> ✅ **Tip:** Enable promiscuous mode in **Capture → Options → Promiscuous** before starting. For wireless, use **Capture → Options → Monitor Mode**.
+> ✅ **Tip:** Select promiscuous mode for a wired interface when needed, but remember that it cannot expose switched traffic the port never receives. For raw 802.11 frames, use monitor mode only when the adapter, driver, and OS support it; the capture remains limited to the tuned channel.
 
 ---
 
@@ -137,7 +137,7 @@ arp                    # ARP (address resolution, network mapping)
 dns                    # DNS queries and responses
 dhcp                   # DHCPv4 traffic (legacy versions may use bootp)
 http                   # HTTP (cleartext web traffic)
-tls                    # TLS/HTTPS (encrypted; metadata only)
+tls                    # TLS handshakes/records; application data is encrypted unless appropriate session secrets are supplied
 ftp                    # FTP control channel
 ftp-data               # FTP data transfer
 smb || smb2            # SMB / Windows file sharing
@@ -148,7 +148,7 @@ ssh                    # SSH (filtered by protocol field)
 
 ```wireshark
 wlan                   # 802.11 WiFi frames
-eapol                  # WPA handshake capture (key exchange)
+eapol                  # EAP over LAN frames; may include WPA key-management exchanges
 btle                   # Bluetooth Low Energy
 btatt                  # BLE GATT operations (IoT attribute reads/writes)
 smp                    # BLE Security Manager (pairing events)
