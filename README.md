@@ -186,7 +186,7 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 |---|---|
 | [Cypherpunk Historical Toolkit Review](./Documentation/cypherpunk-pentesting-toolkit-review.md) | Historical tools and their modern relevance |
 | [Awesome OSINT List](./OSINT/awesome-osint-list-curated.md) | Curated OSINT discovery and research resources |
-| [Awesome-Hacking / h4cker / Training Ecosystems](./Documentation/awesome-hacking-collections-integration.md) | Curated security-project and learning references |
+| [Awesome-Hacking / h4cker / Training Ecosystems](./Documentation/awesome-hacking-collections-integration.md) | [Awesome-Hacking](https://github.com/Hack-with-Github/Awesome-Hacking) and [h4cker](https://github.com/The-Art-of-Hacking/h4cker), plus topic-specific routing and review caveats |
 | [Ethical CTF Pathways](./PlayBooks/security-training-lab-pathways.md) | Controlled lab and training progression |
 
 ### DIY Hardware & Firmware References: *(ESP32, RaspberryPi, etc)*

@@ -107,7 +107,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 | [M5StickC Plus2 Hardware Lab](HardwareHacking/m5stickc-plus2-hackstarterpack.md) | Portable hardware exercises |
 | [Cypherpunk Toolkit Review](Documentation/cypherpunk-pentesting-toolkit-review.md) | Historical projects and cautions |
 | [Awesome OSINT List](OSINT/awesome-osint-list-curated.md) | Curated research sources |
-| [Security GitHub Ecosystems](Documentation/awesome-hacking-collections-integration.md) | Reviewed community collections |
+| [Security GitHub Ecosystems](Documentation/awesome-hacking-collections-integration.md) | Browse [Awesome-Hacking](https://github.com/Hack-with-Github/Awesome-Hacking) and [h4cker](https://github.com/The-Art-of-Hacking/h4cker) topic collections; independently verify downstream projects |
 | [Ethical CTF Pathways](PlayBooks/security-training-lab-pathways.md) | Safe training exercises |
 
 **Featured Blue Team Sequence:** [Incident Response](IncidentResponse/README.md) → [SIEM/Wazuh](IncidentResponse/SIEM/README.md) → [Wireless IDS](IncidentResponse/IDS%26IPS/readme.md) → [Honeypots](IncidentResponse/HoneyPot/readme.md) → [Honeypot-to-Wazuh Reporting](IncidentResponse/HoneyPot/wazuh-honeypot-integration.md).
