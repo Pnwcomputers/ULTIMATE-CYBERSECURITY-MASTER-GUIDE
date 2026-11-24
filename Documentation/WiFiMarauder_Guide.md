@@ -6,8 +6,9 @@
 
 Use the [upstream install/update wiki](https://github.com/justcallmekoko/ESP32Marauder/wiki/update-firmware)
 and [JCMK installer](https://justcallmekoko.github.io/MarauderInstaller/) for the
-exact hardware revision. The upstream release page listed v1.20.0 when checked on
-2026-11-19; this changes over time. Match the complete board name, firmware suffix,
+exact hardware revision. The [upstream release page](https://github.com/justcallmekoko/ESP32Marauder/releases)
+listed v1.21.0 when checked on 2026-11-24 (released 2026-11-20); the latest
+release changes over time. Match the complete board name, firmware suffix,
 chip, and flash layout before installing. A Flipper FAP is a separate artifact from
 its accessory's ESP firmware. Do not infer supported bands or GPS/SD locations from
 a family name.
@@ -50,7 +51,7 @@ Enable security professionals to select the right Marauder hardware variant, fla
 > **For:** Security professionals, wireless penetration testers, researchers, and enthusiasts  
 > **Original guide baseline:** November 2025  
 > **Companion project links checked:** October 26, 2026  
-> **Version snapshot:** The upstream release page listed **v1.20.0** on 2026-11-19. Release assets and board support change; verify the current upstream release and hardware matrix before installing.  
+> **Version snapshot:** Upstream v1.21.0 was released on 2026-11-20 and checked on 2026-11-24. Release assets and board support change; verify the current upstream release and hardware matrix before installing.  
 > **Skill Level:** Intermediate to Advanced wireless security
 
 ---
