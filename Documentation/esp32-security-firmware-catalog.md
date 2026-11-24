@@ -85,7 +85,7 @@ software-defined radio; RF means radio frequency.
 | Check | Interpretation |
 |---|---|
 | Exact chip versus board | ESP32, S2, S3, C3, C5, C6 and H2 are different targets. A chip-family label does not validate a particular display, pin map, flash size or antenna. |
-| USB HID | An onboard USB-to-UART bridge does not provide native keyboard emulation. S2/S3 USB device builds require the correct port and firmware; original ESP32 boards may need another MCU. [Espressif USB documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/peripherals/usb_device.html). |
+| USB HID | ESP32-S2/S3 USB-OTG hardware can run HID-capable device firmware, but the board must route its USB data pins to the port and the selected build must implement HID. ESP32-C5's built-in USB Serial/JTAG interface is fixed-function CDC/JTAG and cannot be reconfigured as HID; a USB-to-UART bridge is also only a serial path. Original ESP32 boards commonly need a separate USB-capable MCU for native keyboard emulation. ([S2](https://docs.espressif.com/projects/esp-usb/en/latest/esp32s2/usb_device.html), [S3](https://docs.espressif.com/projects/esp-usb/en/latest/esp32s3/usb_device.html), [C5](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c5/api-guides/usb-serial-jtag-console.html).) |
 | Bluetooth | BLE advertising, GATT, BLE HID and Bluetooth Classic capture are separate capabilities. A scanner does not automatically capture connections or decrypt traffic. S2 has no Bluetooth. |
 | Wi-Fi bands | Espressif documents ESP32-S3 and ESP32-C6 Wi-Fi at 2.4 GHz; ESP32-C5 supports 1T1R dual-band Wi-Fi at 2.4 and 5 GHz; ESP32-H2 has no Wi-Fi radio. These are chip capabilities: board RF design, antenna and firmware still determine what a specific device exposes. C5’s single 1T1R radio is not simultaneous 2.4/5 GHz reception. ([S3](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/about.html), [C6](https://docs.espressif.com/projects/esp-idf/en/stable/esp32c6/about.html), [C5 datasheet](https://documentation.espressif.com/esp32-c5_datasheet_en.html), [H2](https://www.espressif.com/en/products/socs/esp32-h2).) |
 | Sub-GHz / RFID | CC1101, NRF24, PN532, LoRa modules and RFID frontends are separate hardware; firmware cannot create a missing radio. Their protocols and bands are not interchangeable. |
@@ -103,6 +103,17 @@ flowchart LR
 ```
 
 *Chip-level summary based on Espressif specifications; it is not a firmware support matrix or a claim that a device was tested.*
+
+USB HID follows a separate path from Wi-Fi capability:
+
+```mermaid
+flowchart LR
+  S2S3["ESP32-S2 / S3<br/>USB-OTG device hardware"] --> ROUTE["Board routes D+ / D−<br/>to the connected USB port"]
+  ROUTE --> FW["Selected firmware implements<br/>the USB HID class"]
+  FW --> HID["Host can enumerate<br/>a keyboard-class device"]
+  C5["ESP32-C5<br/>fixed CDC + JTAG"] --> SERIAL["Serial / debug interface;<br/>not reconfigurable as HID"]
+  BRIDGE["USB-to-UART bridge"] --> UART["USB serial transport;<br/>not native HID"]
+```
 
 ## Reading Activity & Install Columns
 
