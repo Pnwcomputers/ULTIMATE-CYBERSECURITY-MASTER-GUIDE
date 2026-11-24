@@ -26,16 +26,16 @@
 
 | Section |
 |---|
-| [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification)
-| [AI Engineering & Agent Operations Handbook](#ai-engineering--agent-operations-handbook)
-| [Recommended Reading Flow](#recommended-reading-flow)
-| [Overview](#-overview)
-| [Folder Contents](#-folder-contents)
-| [Resource Categories](#️-resource-categories)
-| [How to Use These Resources](#-how-to-use-these-resources) 
-| [Security & Legal Disclaimer](#️-security--legal-disclaimer)
-| [Contributing](#-contributing)
-| [Resources](#-resources)
+| [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification) |
+| [AI Engineering & Agent Operations Handbook](#ai-engineering--agent-operations-handbook) |
+| [Recommended Reading Flow](#recommended-reading-flow) |
+| [Overview](#-overview) |
+| [Folder Contents](#-folder-contents) |
+| [Resource Categories](#️-resource-categories) |
+| [How to Use These Resources](#-how-to-use-these-resources)  |
+| [Security & Legal Disclaimer](#️-security--legal-disclaimer) |
+| [Contributing](#-contributing) |
+| [Resources](#-resources) |
 
 ---
 
