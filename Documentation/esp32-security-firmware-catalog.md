@@ -134,7 +134,7 @@ These parts use different frequency ranges, physical interfaces and protocol fam
 | Example | What the component specification says | Compatibility boundary |
 |---|---|---|
 | [TI CC1101](https://www.ti.com/product/CC1101) | Sub-1 GHz transceiver covering 300–348, 387–464 and 779–928 MHz, with an integrated modem and packet-handling support. | Match the module's frequency variant, antenna and firmware configuration; legal transmit limits depend on location and the complete system. |
-| [Nordic nRF24L01+](https://docs.nordicsemi.com/r/bundle/pdf_ps_nrf24l01p/page/pdf/nrf24/nrf24l01p_ps_1.0/ps_nrf24l01p.html?contentId=Zmp4Uae~y5kMW1467U9ZZA) | 2.4 GHz transceiver with Nordic's Enhanced ShockBurst packet engine. | This is not Wi-Fi or BLE; the firmware must implement the expected packet protocol and module wiring. |
+| [Nordic nRF24L01+](https://docs.nordicsemi.com/bundle/nRF24L01P_PS_v1.0/raw/resource/enus/nRF24L01P_PS_v1.0.pdf) | 2.4 GHz transceiver with Nordic's Enhanced ShockBurst packet engine. | This is not Wi-Fi or BLE; the firmware must implement the expected packet protocol and module wiring. |
 | [NXP PN532](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf) | 13.56 MHz NFC controller with documented reader/writer and card-emulation modes for NFC-related protocols. | NFC/HF RFID hardware is distinct from UHF RFID and sub-GHz radios; antenna and tag protocol support matter. |
 | [Semtech LoRa radios](https://www.semtech.com/products/wireless-rf/lora-connect) | Band depends on the transceiver: examples include SX1262 at 150–960 MHz and SX1280 at 2.4 GHz. | “LoRa” alone does not identify the frequency, module, regional variant or LoRaWAN compatibility. Check the exact part and target firmware. |
 
