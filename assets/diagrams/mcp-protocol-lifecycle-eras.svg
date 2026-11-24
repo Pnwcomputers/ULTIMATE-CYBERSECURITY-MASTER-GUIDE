@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+<title id="title">MCP legacy handshake and modern stateless protocol eras</title>
+<desc id="desc">Side-by-side comparison. Protocols through 2025-11-25 use initialize to establish a version and may use a session. Version 2026-07-28 has no initialize handshake or protocol session; each request carries version metadata and server discover is available for capability discovery.</desc>
+<rect width="1200" height="520" fill="#f3f7fa"/>
+<text x="40" y="48" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700" fill="#16354b">MCP protocol lifecycle: two eras to check</text>
+<text x="40" y="80" font-family="Arial,Helvetica,sans-serif" font-size="17" fill="#405b70">A host or SDK may support both; verify the exact revision and transport.</text>
+<rect x="40" y="112" width="540" height="330" rx="18" fill="#ffffff" stroke="#86a9bf" stroke-width="2"/>
+<rect x="40" y="112" width="540" height="62" rx="18" fill="#dbeaf3"/>
+<text x="64" y="151" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Handshake era • through 2025-11-25</text>
+<circle cx="78" cy="220" r="15" fill="#337b98"/><text x="73" y="226" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#fff">1</text>
+<text x="108" y="226" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#16354b">Initialize exchange selects protocol version</text>
+<circle cx="78" cy="281" r="15" fill="#337b98"/><text x="73" y="287" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#fff">2</text>
+<text x="108" y="287" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#16354b">Connection/session lifecycle may apply</text>
+<circle cx="78" cy="342" r="15" fill="#337b98"/><text x="73" y="348" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#fff">3</text>
+<text x="108" y="342" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#16354b">Version handling depends on revision</text>
+<text x="108" y="370" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#405b70">and transport (including HTTP headers).</text>
+<rect x="620" y="112" width="540" height="330" rx="18" fill="#ffffff" stroke="#72b7a1" stroke-width="2"/>
+<rect x="620" y="112" width="540" height="62" rx="18" fill="#d8f0e8"/>
+<text x="644" y="151" font-family="Arial,Helvetica,sans-serif" font-size="22" font-weight="700" fill="#16354b">Stateless era • 2026-07-28</text>
+<circle cx="658" cy="220" r="15" fill="#27815f"/><text x="653" y="226" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#fff">1</text>
+<text x="688" y="226" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#16354b">No initialize handshake or protocol session</text>
+<circle cx="658" cy="281" r="15" fill="#27815f"/><text x="653" y="287" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#fff">2</text>
+<text x="688" y="281" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#16354b">Each request carries version/client metadata</text>
+<circle cx="658" cy="342" r="15" fill="#27815f"/><text x="653" y="348" font-family="Arial,Helvetica,sans-serif" font-size="16" font-weight="700" fill="#fff">3</text>
+<text x="688" y="342" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#16354b">Optional server/discover returns capabilities</text>
+<text x="688" y="370" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#405b70">Each request can be handled independently.</text>
+<rect x="40" y="462" width="1120" height="38" rx="10" fill="#e6edf2"/>
+<text x="60" y="487" font-family="Arial,Helvetica,sans-serif" font-size="16" fill="#16354b">Conceptual comparison based on the official MCP specifications; SDK support and transport behavior can differ.</text>
+</svg>
