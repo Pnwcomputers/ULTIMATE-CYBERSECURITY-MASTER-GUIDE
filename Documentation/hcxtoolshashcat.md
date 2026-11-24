@@ -14,7 +14,7 @@ Validate captured PSK-derived PMKID/EAPOL records from approved test systems and
 ## 📋 When to Use
 - For an authorized PSK lab capture that includes an applicable PMKID record; availability depends on the AP and protocol
 - When comparing truly receive-only packet observation to active wireless testing, after confirming the chosen program's behavior
-- When integrating with a Pwnagotchi or similar automated passive capture rig (see [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md))
+- When reviewing an automated capture rig such as Pwnagotchi; check whether the selected fork/mode transmits or interacts with the WLAN (see [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md))
 - When you have a `.pcapng` from any source and need to convert it to Hashcat format
 
 ---
@@ -85,37 +85,31 @@ hashcat -m 22000 hash.hc22000 wordlist.txt -a 6 ?d?d?d?d
 
 **Session Management**
 ```bash
-# Resume a previous cracking session
-hashcat -m 22000 hash.hc22000 /path/to/wordlist.txt --session=mysession --restore
+# Start an authorized session with a name that can be used for resuming
+hashcat -m 22000 hash.hc22000 /path/to/wordlist.txt --session=mysession
 
-# Show cracked passwords
+# After the session is interrupted, resume it with --session and --restore only
+hashcat --session=mysession --restore
+
+# Show matches already in the potfile; handle the plaintext output as sensitive
 hashcat -m 22000 hash.hc22000 --show
 ```
 
 ---
 
-# HCXTools for File Analysis
+# Preserve Captures & Inspect Derived Files
 
-**File Conversion & Cleaning**
+The upstream hcxtools project warns against editing, merging, or converting PCAPNG captures because optional packet-comment metadata can be lost. It also cautions against third-party capture-cleaning tools (except Wireshark/TShark). Keep the original capture unchanged, convert each source separately, and record any transformation performed on a working copy.
+
 ```bash
-# Convert a legacy .cap file to pcapng for hcxpcapngtool input
-editcap -F pcapng capture.cap output.pcapng
+# Read one authorized capture and write a separate Hashcat-format artifact
+hcxpcapngtool -o capture-1.hc22000 capture-1.pcapng
 
-# Merge multiple pcapng files before conversion
-mergecap -w merged.pcapng file1.pcapng file2.pcapng
-
-# Clean up handshake files (remove unneeded data)
-wpaclean cleaned.cap capture-01.cap
+# Inspect the derived hash file; --info=stdout belongs to hcxhashtool
+hcxhashtool -i capture-1.hc22000 --info=stdout
 ```
 
-**Inspecting and Filtering Captured Data**
-```bash
-# View unique BSSIDs/ESSIDs found in a capture file (use hcxpcapngtool for .pcapng)
-hcxpcapngtool --info=stdout capture.pcapng
-
-# Deduplicate and filter hashes before cracking
-hcxhashtool -i hash.hc22000 -o unique.hc22000
-```
+Do not treat an unfiltered `hcxhashtool -i input -o output` invocation as a deduplication operation. Review the installed `hcxhashtool --help`, choose a specific documented filter if needed, and keep the original hash output for comparison.
 
 ---
 
@@ -145,7 +139,7 @@ hcxhashtool -i hash.hc22000 -o unique.hc22000
 - [wifi-adapter-selection-guide.md](wifi-adapter-selection-guide.md) - Verified USB chipset, monitor mode and capture compatibility
 - [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
 - [Aircrack-ng_Commands.md](Aircrack-ng_Commands.md) - Traditional active-deauth workflow, WEP, WPS attacks
-- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Automated passive PMKID/handshake capture using hcxtools output
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Fork-aware automated capture guidance; some modes actively interact with wireless networks
 - [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32-based WiFi attacks (different hardware path)
 - [../Cryptography/Classical/security.md](../Cryptography/Classical/security.md) - Leet substitutions and hashcat leet rule files
 
