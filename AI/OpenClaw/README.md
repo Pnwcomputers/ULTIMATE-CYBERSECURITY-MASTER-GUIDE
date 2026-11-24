@@ -240,7 +240,7 @@ Use the current [OpenClaw Ollama provider guide](https://docs.openclaw.ai/provid
 Use the provider's current model-discovery command and inspect the installed OpenClaw configuration schema before changing an allowlist or model reference. A model appearing in an upstream provider catalog does not prove that the installed app, account, plugin, or plan can use it.
 
 ---
-## Part 4: Verify Providers
+## Part 4: Verify All Providers
 
 Restart the app only if the installed version's instructions require it, then inspect the providers and models available to this specific deployment:
 
