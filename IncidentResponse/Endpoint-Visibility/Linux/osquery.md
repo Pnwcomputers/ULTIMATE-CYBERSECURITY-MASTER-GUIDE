@@ -219,7 +219,7 @@ FROM startup_items;
 SELECT * FROM crontab;
 
 -- Systemd units (Linux)
-SELECT id, description, load_state, active_state, sub_state, path 
+SELECT id, description, load_state, active_state, sub_state, fragment_path 
 FROM systemd_units 
 WHERE active_state = 'active';
 
@@ -245,11 +245,11 @@ FROM autoexec;
 SELECT path, mode, uid, gid 
 FROM suid_bin;
 
--- Entries in /etc with the other-write permission bit set (Linux; review file and directory types)
+-- Entries in /etc whose POSIX permission string marks other-write (Linux; review file and directory types)
 SELECT path, mode
 FROM file
 WHERE path LIKE '/etc/%'
-  AND (CAST(mode AS INTEGER) & 2) != 0;
+  AND substr(mode, 9, 1) = 'w';
 
 -- Recently modified files
 SELECT path, mtime, size 
@@ -754,7 +754,7 @@ WHERE command LIKE '%curl%'
    OR command LIKE '%/dev/tcp%';
 
 -- Suspicious systemd services
-SELECT id, path, fragment_path 
+SELECT id, fragment_path 
 FROM systemd_units 
 WHERE fragment_path LIKE '/tmp/%' 
    OR fragment_path LIKE '/var/tmp/%'
