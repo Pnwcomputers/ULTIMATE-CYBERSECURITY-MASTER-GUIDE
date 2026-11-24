@@ -89,7 +89,7 @@ software-defined radio; RF means radio frequency.
 | Bluetooth | Chip radios differ: the original ESP32 supports Bluetooth BR/EDR (Classic) and BLE; S2 has no Bluetooth; S3, C3, C5, C6 and H2 document BLE support, not Classic. Firmware may expose a smaller feature set. On any chip, BLE advertising, GATT, BLE HID and connection capture are distinct capabilities; scanning does not automatically capture connections or decrypt traffic. ([ESP32](https://documentation.espressif.com/esp32_datasheet_en.html), [S2](https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32s2/hw-reference/chip-series-comparison.html), [S3](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/ble/ble-introduction.html), [C3](https://documentation.espressif.com/esp32-c3_datasheet_en.html), [C5](https://documentation.espressif.com/esp32-c5_datasheet_en.html), [C6](https://documentation.espressif.com/esp32-c6_datasheet_en.html), [H2](https://www.espressif.com/en/products/socs/esp32-h2).) |
 | Wi-Fi bands | Espressif documents ESP32-S3 and ESP32-C6 Wi-Fi at 2.4 GHz; ESP32-C5 supports 1T1R dual-band Wi-Fi at 2.4 and 5 GHz; ESP32-H2 has no Wi-Fi radio. These are chip capabilities: board RF design, antenna and firmware still determine what a specific device exposes. C5’s single 1T1R radio is not simultaneous 2.4/5 GHz reception. ([S3](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/about.html), [C6](https://docs.espressif.com/projects/esp-idf/en/stable/esp32c6/about.html), [C5 datasheet](https://documentation.espressif.com/esp32-c5_datasheet_en.html), [H2](https://www.espressif.com/en/products/socs/esp32-h2).) |
 | Sub-GHz / RFID | CC1101, NRF24, PN532, LoRa modules and RFID frontends are separate hardware; firmware cannot create a missing radio. Their protocols and bands are not interchangeable. |
-| SDR | ESP32 + CC1101 is a narrowband radio controller, not a HackRF substitute. HackRF supplies IQ samples and is half duplex. |
+| SDR | CC1101 is a sub-1 GHz transceiver with an integrated modem (300–348, 387–464 and 779–928 MHz); adding it to an ESP32 does not make a general-purpose SDR. HackRF One is a host-connected SDR that streams 8-bit I/Q samples, supports up to 20 MS/s across its 1 MHz–6 GHz tuning range, and is half duplex (receive or transmit at a time). [TI CC1101 datasheet](https://www.ti.com/lit/ds/symlink/cc1101.pdf) · [Great Scott Gadgets HackRF One specifications](https://greatscottgadgets.com/hackrf/one/). |
 | Client versus device | A Flipper FAP, a phone app, an ESP image, a UF2 and an SD-card Linux image are different artifacts. Match firmware, companion client and data assets. |
 
 The radio distinction is easier to see at the chip level; the final column still depends on the exact board and firmware target:
@@ -114,6 +114,18 @@ flowchart LR
   C5["ESP32-C5<br/>fixed CDC + JTAG"] --> SERIAL["Serial / debug interface;<br/>not reconfigurable as HID"]
   BRIDGE["USB-to-UART bridge"] --> UART["USB serial transport;<br/>not native HID"]
 ```
+
+A simplified signal-path view helps distinguish a packet transceiver from an SDR:
+
+```mermaid
+flowchart LR
+  MCU["ESP32"] <-->|"SPI control / packet data"| CC["CC1101<br/>Sub-1 GHz transceiver<br/>integrated modem"]
+  CC <-->|"RF"| ANT1["Antenna"]
+  HOST["Host + SDR software"] <-->|"USB I/Q samples"| HACK["HackRF One<br/>1 MHz–6 GHz<br/>half-duplex SDR"]
+  HACK <-->|"RF"| ANT2["Antenna"]
+```
+
+*The diagram shows the usual high-level data paths; exact host software and antenna setup depend on the hardware and task.*
 
 ## Reading Activity & Install Columns
 
