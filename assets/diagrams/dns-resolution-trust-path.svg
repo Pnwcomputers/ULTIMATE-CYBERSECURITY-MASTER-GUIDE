@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">DNS resolution trust path and control points</title>
+<desc id="desc">A conceptual four-stage DNS lookup path from client and browser through local network configuration and recursive resolver to authoritative DNS. Each stage has distinct attack surfaces, controls, and evidence. DNSSEC validates signed DNS data; encrypted DNS protects the client-to-resolver transport hop.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#355a78"/></marker><style>text{font-family:Arial,Helvetica,sans-serif;fill:#17324a}.title{font-size:31px;font-weight:700}.head{font-size:21px;font-weight:700}.body{font-size:17px}.small{font-size:15px}.attack{font-size:15px;font-weight:700;fill:#9c3939}</style></defs>
+<rect width="1200" height="760" rx="20" fill="#f5f8fc"/>
+<text x="600" y="52" text-anchor="middle" class="title">A DNS answer crosses several trust boundaries</text>
+<text x="600" y="84" text-anchor="middle" class="body">A changed answer can originate at different stages; trace the path before attributing cause.</text>
+<rect x="42" y="122" width="255" height="46" rx="12" fill="#fee7e5" stroke="#bb5751" stroke-width="2"/><text x="170" y="151" text-anchor="middle" class="attack">Endpoint / browser tampering</text>
+<rect x="332" y="122" width="255" height="46" rx="12" fill="#fee7e5" stroke="#bb5751" stroke-width="2"/><text x="460" y="151" text-anchor="middle" class="attack">Rogue DHCP or IPv6 RA</text>
+<rect x="622" y="122" width="255" height="46" rx="12" fill="#fee7e5" stroke="#bb5751" stroke-width="2"/><text x="750" y="151" text-anchor="middle" class="attack">Resolver compromise</text>
+<rect x="912" y="122" width="255" height="46" rx="12" fill="#fee7e5" stroke="#bb5751" stroke-width="2"/><text x="1040" y="151" text-anchor="middle" class="attack">Zone or registrar takeover</text>
+<rect x="42" y="205" width="255" height="205" rx="16" fill="#e2eff8" stroke="#416886" stroke-width="2"/>
+<text x="65" y="241" class="head">1. Client</text><text x="65" y="277" class="body">OS resolver and browser</text><text x="65" y="309" class="small">hosts file • VPN • DoH policy</text><text x="65" y="353" class="body">Check</text><text x="65" y="380" class="small">resolver config, process, trust</text>
+<rect x="332" y="205" width="255" height="205" rx="16" fill="#eaf2df" stroke="#6d8742" stroke-width="2"/>
+<text x="355" y="241" class="head">2. Local network</text><text x="355" y="277" class="body">DHCP • IPv6 RA • gateway</text><text x="355" y="309" class="small">resolver and route assignment</text><text x="355" y="353" class="body">Control / inspect</text><text x="355" y="380" class="small">snooping • RA Guard • port logs</text>
+<rect x="622" y="205" width="255" height="205" rx="16" fill="#eee8f8" stroke="#7964a5" stroke-width="2"/>
+<text x="645" y="241" class="head">3. Recursive resolver</text><text x="645" y="277" class="body">Receives the query</text><text x="645" y="309" class="small">may validate DNSSEC signatures</text><text x="645" y="353" class="body">Check</text><text x="645" y="380" class="small">trusted endpoint, logs, validation</text>
+<rect x="912" y="205" width="255" height="205" rx="16" fill="#fff1d8" stroke="#ae7b26" stroke-width="2"/>
+<text x="935" y="241" class="head">4. Authoritative DNS</text><text x="935" y="277" class="body">Publishes zone records</text><text x="935" y="309" class="small">registrar • delegation • signing key</text><text x="935" y="353" class="body">Protect</text><text x="935" y="380" class="small">MFA • change review • DNSSEC</text>
+<line x1="297" y1="300" x2="322" y2="300" stroke="#355a78" stroke-width="4" marker-end="url(#arrow)"/><line x1="587" y1="300" x2="612" y2="300" stroke="#355a78" stroke-width="4" marker-end="url(#arrow)"/><line x1="877" y1="300" x2="902" y2="300" stroke="#355a78" stroke-width="4" marker-end="url(#arrow)"/>
+<text x="310" y="285" text-anchor="middle" class="small">query</text><text x="600" y="285" text-anchor="middle" class="small">query</text><text x="890" y="285" text-anchor="middle" class="small">query</text>
+<rect x="42" y="445" width="1110" height="118" rx="16" fill="#deedf6" stroke="#4d7895" stroke-width="2"/>
+<text x="68" y="482" class="head">Encrypted DNS transport</text><text x="68" y="517" class="body">Protects query content only between the client and its selected resolver (DoH, DoT, or DoQ); that resolver still sees the query.</text>
+<rect x="42" y="588" width="1110" height="118" rx="16" fill="#e5f3e8" stroke="#52845d" stroke-width="2"/>
+<text x="68" y="625" class="head">DNSSEC validation</text><text x="68" y="660" class="body">A validating resolver checks signed DNS data through a chain of trust. It does not encrypt queries or authenticate unsigned records.</text>
+<text x="600" y="735" text-anchor="middle" class="small">Investigate with endpoint, DHCP/RA, resolver, authoritative-zone, and change-history evidence.</text>
+</svg>
