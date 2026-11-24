@@ -29,8 +29,8 @@ SRE practice. It is not a reproduction of any commercial book.
 
 > [!NOTE]
 > Version note (checked 2026-11-24): the [Ghidra releases page](https://github.com/NationalSecurityAgency/ghidra/releases)
-> lists **Ghidra 12.1.3** as the latest public release. Its tagged [Getting Started guide](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.1.3_build/GhidraDocs/GettingStarted.md)
-> requires a **64-bit Java 21 Runtime and Development Kit**. Requirements can change between releases; follow the Getting Started file bundled with the exact archive you install.
+> lists **Ghidra 12.2** as the latest public release. Its tagged [Getting Started guide](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/GhidraDocs/GettingStarted.md)
+> requires a **64-bit Java 25 Runtime and Development Kit**. Requirements can change between releases; follow the Getting Started file bundled with the exact archive you install.
 
 ---
 
@@ -213,20 +213,32 @@ Download the asset named `ghidra_<version>_PUBLIC_<date>.zip`. The two GitHub
 
 ### Requirements (verify against *your* zip)
 
-The table summarizes NSA's [Ghidra 12.1.3 release](https://github.com/NationalSecurityAgency/ghidra/releases/tag/Ghidra_12.1.3_build)
-and its tagged [Getting Started guide](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.1.3_build/GhidraDocs/GettingStarted.md).
+The table summarizes NSA's [Ghidra 12.2 release](https://github.com/NationalSecurityAgency/ghidra/releases/tag/Ghidra_12.2_build)
+and its tagged [Getting Started guide](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/GhidraDocs/GettingStarted.md).
 Use the documentation bundled with the exact archive if you install a later release.
 
-| Item | Ghidra 12.1.3 (latest public when checked 2026-11-24) |
+| Item | Ghidra 12.2 (latest public when checked 2026-11-24) |
 | --- | --- |
 | OS | Windows 10 build 1809 or later, Linux, macOS 10.13 or later; 32-bit OS is deprecated |
-| Java | 64-bit **Java 21 Runtime and Development Kit (JDK)** |
+| Java | 64-bit **Java 25 Runtime and Development Kit (JDK)** |
 | RAM | 4 GB minimum |
 | Disk | ~1 GB for the install |
-| Python | Python 3.9–3.14 for PyGhidra and debugger support |
+| Python | Python 3.9–3.15 for PyGhidra; debugger support is documented for Python 3.7–3.14 |
 
 JDK vendors called out upstream: Adoptium Temurin, Amazon Corretto. A JRE-only
 install is not the documented requirement.
+
+**Release-to-runtime check**
+
+```mermaid
+flowchart LR
+  A[NSA release page] --> B[Download the PUBLIC archive]
+  B --> C[Read its bundled GettingStarted.md]
+  C --> D[Install the matching 64-bit JDK]
+  D --> E[Extract to a new directory and launch]
+```
+
+The bundled `GettingStarted.md` is authoritative if a later release changes these requirements.
 
 ### Install
 
