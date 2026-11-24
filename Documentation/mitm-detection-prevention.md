@@ -1,6 +1,6 @@
 # Man-in-the-Middle Detection, Prevention & Packet-Analysis Playbook
 
-_Reviewed: 2026-11-21. All exercises use authorized, synthetic evidence or configuration reviews, not interception of production sessions._
+_Reviewed: 2026-11-24. All exercises use authorized, synthetic evidence or configuration reviews, not interception of production sessions._
 
 > [!CAUTION]
 > **Defensive scope only.** MITM simulations can intercept credentials, sessions and private content or disable connectivity. Do not install rogue certificates, poison ARP, run evil-twin APs or redirect third-party traffic. Scope every capture and minimize sensitive PCAP retention. See [Legal Notice](../LEGAL.md).
@@ -14,7 +14,7 @@ A man-in-the-middle (MITM) attack places an unauthorized intermediary in a commu
 | ARP spoofing or gateway impersonation | Gateway IP resolves to unexpected MAC, unsolicited/conflicting ARP replies | Dynamic ARP Inspection (DAI) with DHCP snooping, managed access ports, 802.1X |
 | Rogue DHCP / IPv6 RA | Alternate DNS/default router offered to endpoints | DHCP snooping, RA Guard, NAC, allowed-router inventory |
 | DNS hijack | Resolver or answer changes, DNSSEC failures | Secure resolvers, DNSSEC validation, administrative hardening and TLS validation |
-| Rogue Wi-Fi / evil twin | Same SSID with unexpected BSSID/security/certificate; client misassociation | WPA3-Personal or EAP-TLS enterprise, PMF, trusted server certificates, WIDS |
+| Rogue Wi-Fi / evil twin | Same SSID with an unexpected BSSID/security profile; client misassociation; invalid EAP server identity | Use managed profiles and safe autojoin settings; WPA3-Personal where supported; for enterprise 802.1X/EAP, validate the expected server name and trusted CA; PMF and WIDS add defenses but do not prove AP identity |
 | Transparent/explicit proxy | Unapproved system proxy, PAC/WPAD, newly trusted CA | Managed proxy and root stores, disable unsafe auto-discovery, endpoint integrity |
 | Switch/router compromise | Unauthorized route/ACL config, new SPAN or forwarding policy | Management isolation, MFA, config audit, change control |
 | TLS interception | Certificate subject/issuer/root differs from expected, client errors | Correct hostname/certificate validation, pinning where applicable, inspect root CA policy |
@@ -22,6 +22,10 @@ A man-in-the-middle (MITM) attack places an unauthorized intermediary in a commu
 | LAN port aggregation/tap misuse | Unauthorized inline device or mirror destination | Physical security, managed port inventory and change logs |
 
 ## Data Integrity & Encryption Boundaries
+
+![Conceptual MITM path showing what remains visible when TLS validation succeeds and which trust failures can expose application traffic](../assets/diagrams/mitm-path-and-tls-boundaries.svg)
+
+*Conceptual diagram: a network intermediary can observe path-level metadata and affect availability while correctly validated TLS protects application payloads. It is not a measured capture.*
 
 - HTTPS authenticates a server **when** hostname and certificate-chain validation are correctly enforced and the local trust store has not been subverted. TLS protects payloads on that connection; it cannot verify the **business legitimacy** of a phishing domain with a valid certificate.
 - DNS over HTTPS (DoH) / DNS over TLS (DoT) protect DNS messages on the client-to-resolver hop, not the rest of the connection. DNSSEC authenticates DNS data only when validation succeeds.
@@ -89,7 +93,7 @@ The tests should be conducted through regular clients and administrative review,
 |---|---|---|
 | Access switch | 802.1X/NAC, disable unused ports, DHCP snooping, DAI, port security | MAC moves, unexpected DHCP, port config diff |
 | IPv6 | RA Guard, approved routers, IPv6 ACLs | Unexpected RAs, neighbor anomalies |
-| Wi-Fi | PMF, WPA3/EAP-TLS, validated RADIUS cert, client isolation | Kismet/nzyme/AP anomalies, new BSSID/security changes |
+| Wi-Fi | Managed profiles and safe autojoin; WPA3-Personal where supported; for enterprise 802.1X/EAP validate the expected RADIUS server name and CA; PMF and client isolation where appropriate | Kismet/nzyme/AP anomalies, new BSSID/security changes, EAP certificate warnings |
 | DNS | Validating resolvers, DoH/DoT policy, DNSSEC where appropriate | Resolver config change, SERVFAIL/DNSSEC alerts |
 | Endpoint | Trusted root store, EDR, secure browser, proxy profile | New proxy/root CA, credential theft attempts |
 | Network | Default-deny inter-VLAN ACLs, protected management | Zeek/Suricata flows and configuration drift |
@@ -125,6 +129,7 @@ The tests should be conducted through regular clients and administrative review,
 - [LAN TAPs & Packet Visibility](./network-taps-and-packet-visibility.md)
 - [Wireshark Advanced Reference](./wireshark.md)
 - [OWASP Transport Layer Protection](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Security_Cheat_Sheet.html)
+- [IETF RFC 9190: EAP-TLS 1.3](https://www.rfc-editor.org/rfc/rfc9190.html) and [RFC 9525: Service Identity in TLS](https://www.rfc-editor.org/rfc/rfc9525.html) for validating expected server identities
 - [CISA Network Hardening & Segmentation](https://www.cisa.gov/sites/default/files/2025-01/joint-guidance-enhanced-visibility-hardening-guide-for-comms-infrastructure-508c_0.pdf)
 
 ---

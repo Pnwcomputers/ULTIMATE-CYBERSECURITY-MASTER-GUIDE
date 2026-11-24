@@ -49,6 +49,7 @@ These six original SVG diagrams use descriptive alternative text, avoid external
 | [Unicode and IDN risk assessment](./diagrams/unicode-idn-risk-assessment.svg) | [Classical cryptography security](../Cryptography/Classical/security.md) | Interpretation of visual similarity in identifiers |
 | [USB-to-UART safe observation](./diagrams/usb-uart-safe-observation.svg) | [BitPirate](../HardwareHacking/BitPirate.md) | Voltage checks and receive-only observation |
 | [Passive and active wireless scope](./diagrams/wireless-passive-active-boundary.svg) | [Network audit playbook](../PlayBooks/NetworkAuditPlayBook.md) | Separates passive observations from actions requiring approval |
+| [MITM path and TLS trust boundaries](./diagrams/mitm-path-and-tls-boundaries.svg) | [MITM detection playbook](../Documentation/mitm-detection-prevention.md#data-integrity--encryption-boundaries) | Shows what an on-path intermediary can observe and the trust failures that expose payloads |
 
 ## Evidence Collection and Release Verification
 
