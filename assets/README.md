@@ -57,6 +57,7 @@ These six original SVG diagrams use descriptive alternative text, avoid external
 |---|---|---|
 | [Bento evidence media boundaries](./diagrams/bento-live-response-media-boundaries.svg) | [Bento portable DFIR guide](../IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) | Separates tools, the live source, and the protected evidence destination |
 | [Pipeline CI trust and promotion](./diagrams/data-pipeline-ci-trust-and-promotion.svg) | [Pipeline testing and CI/CD](../Data-Engineering/Phase3/pipeline_testing_cicd.md) | Connects test scope, trusted artifact identity and deployment approval |
+| [Supply-chain attestation layers](./diagrams/supply-chain-attestation-layers.svg) | [Software supply-chain assessment](../ContainerSecurity/software-supply-chain-assessment.md#attestations-verification-and-policy-are-separate) | Separates artifact subject binding and signer verification from policy checks on provenance claims |
 | [Unified visibility evidence sources](./diagrams/unified-visibility-evidence-sources.svg) | [Unified network visibility](../IncidentResponse/IDS%26IPS/unified-network-visibility-architecture.md#reference-topology) | Compares wireless observations, wired traffic and device inventory before correlation |
 
 ## Processing Cadence and Assessment Decisions
