@@ -267,11 +267,8 @@ cd kalibrate-hackrf && ./bootstrap && ./configure && make && sudo make install
 # Consult https://arduino.github.io/arduino-cli/latest/installation/ and verify the installer/version before executing
 ```
 
-**`Ghidra`** - manual download (needs JDK 17+):
-```bash
-sudo apt install -y openjdk-17-jdk
-# Download latest from: https://github.com/NationalSecurityAgency/ghidra/releases
-```
+**`Ghidra`** - NSA's current public release (12.2, checked 2026-11-24) requires a 64-bit JDK 25.
+Follow [Adoptium's signed Linux package instructions](https://adoptium.net/installation/linux/) or another supported vendor, then verify `java -version` and `javac -version`. Download only the official `PUBLIC` archive from [NSA's release page](https://github.com/NationalSecurityAgency/ghidra/releases) and check its bundled `GettingStarted.md`.
 
 ---
 
@@ -476,7 +473,7 @@ Quick descriptions of what each tool does, organized by category.
 | `unblob` | Modern firmware unpacker - generally faster and more accurate than binwalk. |
 | `radare2` | Reverse engineering framework - disassembly, debugging, patching. |
 | `cutter` | GUI for radare2/rizin (needs WSLg under WSL). |
-| `Ghidra` | NSA's reverse engineering suite with decompiler. Needs JDK 17+. |
+| `Ghidra` | NSA's reverse engineering suite. Current public release 12.2 needs a 64-bit JDK 25; confirm requirements in the bundled guide. |
 | `qemu-user-static` | Run foreign-architecture binaries directly (MIPS/ARM router firmware on x86). |
 | `squashfs-tools` | Mount and extract SquashFS filesystems (common in router firmware). |
 | `cpio` / `cabextract` | Extract initramfs and Microsoft cabinet archives. |

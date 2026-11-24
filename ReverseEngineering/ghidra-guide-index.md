@@ -1,6 +1,6 @@
 # 🔍 Ghidra Master Guide
 
-Last reviewed: 2026-11-19
+Last reviewed: 2026-11-24
 
 *Part of the [Reverse Engineering section](./README.md) · [Master Index](../README.md)*
 
@@ -28,10 +28,9 @@ This is original documentation synthesized from official Ghidra sources and publ
 SRE practice. It is not a reproduction of any commercial book.
 
 > [!NOTE]
-> Version note (checked 2026-11-19): the [Ghidra releases page](https://github.com/NationalSecurityAgency/ghidra/releases)
-> lists **Ghidra 12.2** as the latest public release. Its [Getting Started guide](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/GhidraDocs/GettingStarted.md)
-> requires a **64-bit JDK 25**. Requirements can change between releases; always
-> follow the Getting Started file bundled with the exact archive you install.
+> Version note (checked 2026-11-24): the [Ghidra releases page](https://github.com/NationalSecurityAgency/ghidra/releases)
+> lists **Ghidra 12.2** as the latest public release. Its tagged [Getting Started guide](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/GhidraDocs/GettingStarted.md)
+> requires a **64-bit Java 25 Runtime and Development Kit**. Requirements can change between releases; follow the Getting Started file bundled with the exact archive you install.
 
 ---
 
@@ -214,18 +213,32 @@ Download the asset named `ghidra_<version>_PUBLIC_<date>.zip`. The two GitHub
 
 ### Requirements (verify against *your* zip)
 
-From upstream `GhidraDocs/GettingStarted.md` and current public releases:
+The table summarizes NSA's [Ghidra 12.2 release](https://github.com/NationalSecurityAgency/ghidra/releases/tag/Ghidra_12.2_build)
+and its tagged [Getting Started guide](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/GhidraDocs/GettingStarted.md).
+Use the documentation bundled with the exact archive if you install a later release.
 
-| Item | Typical public 12.1.x | Development 12.2 docs |
-| --- | --- | --- |
-| OS | Windows 10 1809+, Linux, macOS 10.13+ | Same; 32-bit OS deprecated |
-| Java | 64-bit **JDK 21** | 64-bit **JDK 25** |
-| RAM | 4 GB minimum | Same |
-| Disk | ~1 GB for the install | Same |
-| Python | 3.9–3.14 for PyGhidra; debugger similar | Same ranges documented |
+| Item | Ghidra 12.2 (latest public when checked 2026-11-24) |
+| --- | --- |
+| OS | Windows 10 build 1809 or later, Linux, macOS 10.13 or later; 32-bit OS is deprecated |
+| Java | 64-bit **Java 25 Runtime and Development Kit (JDK)** |
+| RAM | 4 GB minimum |
+| Disk | ~1 GB for the install |
+| Python | Python 3.9–3.15 for PyGhidra; debugger support is documented for Python 3.7–3.14 |
 
 JDK vendors called out upstream: Adoptium Temurin, Amazon Corretto. A JRE-only
 install is not the documented requirement.
+
+**Release-to-runtime check**
+
+```mermaid
+flowchart LR
+  A[NSA release page] --> B[Download the PUBLIC archive]
+  B --> C[Read its bundled GettingStarted.md]
+  C --> D[Install the matching 64-bit JDK]
+  D --> E[Extract to a new directory and launch]
+```
+
+The bundled `GettingStarted.md` is authoritative if a later release changes these requirements.
 
 ### Install
 

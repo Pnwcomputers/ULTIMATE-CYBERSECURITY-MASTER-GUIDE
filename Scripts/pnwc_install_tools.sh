@@ -268,7 +268,7 @@ install_dev() {
                 base-devel git curl wget python python-pip python-virtualenv \
                 ruby go nodejs npm rust cmake automake autoconf libtool \
                 libpcap libnet libnl swig zlib libusb bluez-libs jre-openjdk \
-                jdk-openjdk docker docker-compose jq vim tmux screen
+                jdk25-openjdk docker docker-compose jq vim tmux screen
             ;;
         dnf)
             pkg_install \
@@ -276,7 +276,7 @@ install_dev() {
                 python3-devel openssl-devel libffi-devel ruby ruby-devel \
                 golang nodejs npm cargo cmake automake autoconf libtool \
                 libpcap-devel libnl3-devel swig zlib-devel libusb-devel \
-                java-17-openjdk docker docker-compose jq vim tmux screen
+                java-25-openjdk-devel docker docker-compose jq vim tmux screen
             ;;
     esac
 
@@ -789,8 +789,8 @@ install_forensics() {
     # a pinned SHA-256 (dl:ghidra:sha256:any) before it is extracted.
     if ! command -v ghidra &>/dev/null && [[ ! -d /opt/ghidra ]]; then
         info "Installing Ghidra (pinned SHA-256 required)…"
-        local GHIDRA_VER="12.1.4" gh
-        local GHIDRA_URL="https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VER}_build/ghidra_${GHIDRA_VER}_PUBLIC_20260921.zip"
+        local GHIDRA_VER="12.2" gh
+        local GHIDRA_URL="https://github.com/NationalSecurityAgency/ghidra/releases/download/Ghidra_${GHIDRA_VER}_build/ghidra_${GHIDRA_VER}_PUBLIC_20261016.zip"
         safe_mktemp_dir gh
         if fetch_pinned ghidra any "$GHIDRA_URL" "$gh/ghidra.zip" \
             && mkdir "$gh/x" && safe_extract_all "$gh/ghidra.zip" "$gh/x" \
@@ -798,6 +798,14 @@ install_forensics() {
             && mv "$gh/x/ghidra_${GHIDRA_VER}_PUBLIC" /opt/ghidra \
             && ln -sf /opt/ghidra/ghidraRun /usr/local/bin/ghidra; then
             ok "Ghidra installed to /opt/ghidra"
+            local java_major=0
+            if command -v javac &>/dev/null; then
+                java_major="$(javac -version 2>&1 | awk '{print $2}' | sed -E 's/^1\.([0-9]+).*/\1/; s/^([0-9]+).*/\1/')"
+            fi
+            if [[ ! "$java_major" =~ ^[0-9]+$ ]] || (( java_major < 25 )); then
+                warn "Ghidra 12.2 requires a 64-bit JDK 25; install a supported JDK before launching it"
+                MANUAL_TOOLS+=("Ghidra Java runtime (JDK 25): https://adoptium.net/installation/linux/")
+            fi
         else
             warn "Ghidra not installed — pin its SHA-256 or install manually from https://ghidra-sre.org"
             MANUAL_TOOLS+=("ghidra (https://ghidra-sre.org, or pin dl:ghidra:sha256:any)")

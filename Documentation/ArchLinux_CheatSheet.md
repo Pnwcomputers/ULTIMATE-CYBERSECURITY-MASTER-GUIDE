@@ -344,11 +344,13 @@ cd kalibrate-hackrf && ./bootstrap && ./configure && make && sudo make install
 # Use the official Arduino CLI package/release instructions at https://arduino.github.io/arduino-cli/latest/installation/ ; review the script before execution
 ```
 
-**`Ghidra`** — manual download (needs JDK 17+):
+**`Ghidra`** — NSA's current public release (12.2, checked 2026-11-24) requires a 64-bit JDK 25:
 ```bash
-sudo pacman -S jdk17-openjdk
-# Download latest from: https://github.com/NationalSecurityAgency/ghidra/releases
+sudo pacman -S jdk25-openjdk
+java -version
+javac -version
 ```
+Download only the official `PUBLIC` archive from [NSA's release page](https://github.com/NationalSecurityAgency/ghidra/releases), and check the archive's bundled `GettingStarted.md`.
 
 ### 11.5 AUR Helper Setup
 
@@ -566,7 +568,7 @@ Quick descriptions of what each tool does, organized by category.
 | `unblob` | Modern firmware unpacker - generally faster and more accurate than binwalk. |
 | `radare2` | Reverse engineering framework - disassembly, debugging, patching. |
 | `cutter` | GUI for radare2/rizin. Install: `yay -S cutter-re`. |
-| `Ghidra` | NSA's reverse engineering suite with decompiler. Needs JDK 17+. |
+| `Ghidra` | NSA's reverse engineering suite. Current public release 12.2 needs a 64-bit JDK 25; confirm requirements in the bundled guide. |
 | `qemu-user-static` | Run foreign-architecture binaries (MIPS/ARM firmware on x86). |
 | `squashfs-tools` | Mount and extract SquashFS filesystems (common in router firmware). |
 | `cpio` / `cabextract` | Extract initramfs and Microsoft cabinet archives. |
