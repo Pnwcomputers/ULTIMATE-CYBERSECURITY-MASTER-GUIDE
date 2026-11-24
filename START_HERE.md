@@ -21,7 +21,7 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 **Can't find a topic?** Browse the [Complete Documentation Index](DOCUMENTATION_INDEX.md), including all nested guides.
 
-**Need to search inside guide text?** From a local clone, run `python tools/search_docs.py "printer identification dots"`. Add `--section CaseStudies` to narrow the search or `--all-terms` to require every query word; results include the matching file and line.
+**Search without a local copy:** [Search guide text on GitHub](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/search?type=code) and enter your topic in the search box (GitHub sign-in is required). [Search Wiki pages](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/wiki) from the Wiki search field. If you have a clone, the [local search helper](tools/search_docs.py) also searches file names and guide text: `python tools/search_docs.py "printer identification dots"`; use `--section CaseStudies` to narrow results or `--all-terms` to require every query word.
 
 Choose your goal, follow the linked guides, and return here for the next stage. Read the [Legal Terms & Disclaimer](LEGAL.md) before testing systems; client or third-party security testing requires clear authorization.
 
