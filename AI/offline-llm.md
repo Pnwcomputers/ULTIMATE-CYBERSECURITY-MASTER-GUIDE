@@ -848,8 +848,8 @@ If you run into issues during setup:
 *This guide was created for Pacific Northwest Computers. For professional IT consulting, cybersecurity services, or help setting up local AI systems for your business, visit our website or contact us.*
 
 **Document Version**: 1.0  
-**Last Updated**: November 2025  
-**Compatible With**: Ollama 0.1.x+, AnythingLLM 1.0+, Dolphin 2.5+
+**Last fact-checked**: 2026-11-24  
+**Compatibility**: This is a general setup guide, not a current compatibility matrix. Check the selected Ollama and AnythingLLM releases, operating system/driver, and exact model artifact together. Record versions and model digest when validating a deployment.
 
 ---
 
