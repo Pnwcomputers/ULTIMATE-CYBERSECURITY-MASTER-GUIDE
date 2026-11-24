@@ -280,24 +280,38 @@ safe_detect_arch() {
 #   VALUE : [A-Za-z0-9._/+-]*   (no spaces, quotes, $, backticks or ;)
 
 # safe_pin_get FILE KEY
-#   Prints the value; returns 1 if the key is absent or its value is empty or
-#   malformed. Malformed lines are ignored, never interpreted.
+#   Prints a valid value; returns 1 when absent and 2 when the requested
+#   entry is empty, malformed, or duplicated. Unrelated malformed lines are
+#   ignored, never interpreted.
 safe_pin_get() {
-    local file="$1" key="$2" line k v
+    local file="$1" key="$2" line v found=0 result=""
     [[ -f "$file" && ! -L "$file" ]] || return 1
     while IFS= read -r line || [[ -n "$line" ]]; do
-        [[ "$line" =~ ^[A-Za-z0-9:_./@+-]+=[A-Za-z0-9._/+-]*$ ]] || continue
-        k="${line%%=*}"
-        v="${line#*=}"
-        if [[ "$k" == "$key" ]]; then
-            [[ -n "$v" ]] || return 1
-            printf '%s\n' "$v"
-            return 0
-        fi
-    done < "$file"
-    return 1
-}
+        [[ -z "$line" || "$line" == #* ]] && continue
 
+        # Match the exact requested key before applying the strict value syntax.
+        if [[ "$line" == "$key"* ]]; then
+            local rest="${line#"$key"}"
+            case "$rest" in
+                =*)
+                    v="${rest#=}"
+                    [[ "$line" =~ ^[A-Za-z0-9:_./@+-]+=[A-Za-z0-9._/+-]+$ ]] || return 2
+                    (( found == 0 )) || return 2
+                    result="$v"
+                    found=1
+                    continue
+                    ;;
+                ""|[[:space:]]*|[!A-Za-z0-9:_./@+-]*)
+                    return 2
+                    ;;
+            esac
+        fi
+
+        [[ "$line" =~ ^[A-Za-z0-9:_./@+-]+=[A-Za-z0-9._/+-]+$ ]] || continue
+    done < "$file"
+    (( found == 1 )) || return 1
+    printf '%s\n' "$result"
+}
 safe_allow_unpinned() { [[ "${PNWC_ALLOW_UNPINNED:-0}" == 1 ]]; }
 
 safe_is_commit()  { [[ "${1:-}" =~ ^[0-9a-f]{40}$ ]]; }
@@ -330,8 +344,13 @@ _pnwc_venv_python() { printf '%s' "${PNWC_VENV_PYTHON:-${INSTALL_DIR:?PNWC_VENV_
 # A missing pin means "skip and report". --allow-unpinned is the only override,
 # and only for pip / go / git / gem sources. Downloaded binaries, archives,
 # repository keys and installer scripts ALWAYS require a pinned SHA-256.
-pin_get()     { safe_pin_get "$PINS_FILE" "$1"; }
-pin_version() { local v; v=$(pin_get "dl:$1:version") && safe_is_version "$v" && printf '%s\n' "$v"; }
+pin_get() { safe_pin_get "$PINS_FILE" "$1"; }
+pin_version() {
+    local v rc
+    v=$(pin_get "dl:$1:version") || { rc=$?; return "$rc"; }
+    safe_is_version "$v" || return 2
+    printf '%s\n' "$v"
+}
 
 # unpinned_ok KEY — true only with the explicit opt-in; always loud and recorded.
 unpinned_ok() {
@@ -348,9 +367,9 @@ unpinned_ok() {
 
 # pip_spec NAME — prints NAME==VERSION. 0 pinned | 1 no pin | 2 invalid pin.
 pip_spec() {
-    local name="$1" ver
+    local name="$1" ver rc
     [[ "$name" =~ ^[A-Za-z0-9._-]+$ ]] || return 2
-    ver=$(pin_get "pip:$name") || return 1
+    ver=$(pin_get "pip:$name") || { rc=$?; return "$rc"; }
     safe_is_version "$ver" || return 2
     printf '%s==%s\n' "$name" "$ver"
 }
@@ -410,15 +429,21 @@ go_install() {
         FAILED_TOOLS+=("go:$pkg (GOSUMDB=off)")
         return 0
     fi
-    ver=$(pin_get "go:$pkg") && rc=0 || rc=1
-    if (( rc == 0 )); then
-        safe_is_version "$ver" || { error "  invalid pin for go:$pkg"; FAILED_TOOLS+=("go:$pkg (invalid pin)"); return 0; }
-        target="$pkg@$ver"
-    elif unpinned_ok "go:$pkg"; then
-        target="$pkg@latest"
-    else
-        return 0
-    fi
+    ver=$(pin_get "go:$pkg"); rc=$?
+    case "$rc" in
+        0)
+            safe_is_version "$ver" || { error "  invalid pin for go:$pkg"; FAILED_TOOLS+=("go:$pkg (invalid pin)"); return 0; }
+            target="$pkg@$ver"
+            ;;
+        1)
+            if unpinned_ok "go:$pkg"; then target="$pkg@latest"; else return 0; fi
+            ;;
+        *)
+            error "  malformed pin for go:$pkg"
+            FAILED_TOOLS+=("go:$pkg (invalid pin)")
+            return 0
+            ;;
+    esac
     info "  go install: $target"
     if env -u GONOSUMDB -u GONOSUMCHECK -u GOINSECURE GOPATH="$(_pnwc_gopath)" go install "$target" >> "${LOGFILE:-/dev/null}" 2>&1; then
         ok "  $pkg (go) installed"
@@ -442,7 +467,12 @@ git_clone_tool() {
         return 0
     fi
 
-    commit=$(pin_get "git:$name") && rc=0 || rc=1
+    commit=$(pin_get "git:$name"); rc=$?
+    if (( rc == 2 )); then
+        error "  malformed pin for git:$name"
+        FAILED_TOOLS+=("git:$name (invalid pin)")
+        return 0
+    fi
     if (( rc == 0 )); then
         if ! safe_is_commit "$commit"; then
             error "  invalid pin for git:$name (need 40 lowercase hex characters)"
@@ -502,10 +532,15 @@ git_clone_tool() {
 # SHA-256 (dl:<NAME>:sha256:<ARCH>). There is NO bypass for a missing pin.
 fetch_pinned() {
     local name="$1" tag="$2" url="$3" dest="$4" sha rc
-    if ! sha=$(pin_get "dl:${name}:sha256:${tag}"); then
+    sha=$(pin_get "dl:${name}:sha256:${tag}"); rc=$?
+    if (( rc == 1 )); then
         warn "  $name: no pinned SHA-256 (dl:${name}:sha256:${tag}) — not downloading"
         SKIPPED_TOOLS+=("dl:${name} (no pinned SHA-256)")
         return 10
+    elif (( rc != 0 )); then
+        error "  $name: malformed or duplicated SHA-256 pin"
+        FAILED_TOOLS+=("dl:${name} (invalid pin)")
+        return 2
     fi
     safe_fetch_verified "$url" "$sha" "$dest" && rc=0 || rc=$?
     case "$rc" in
@@ -527,14 +562,31 @@ release_prereqs() {
     REL_VER=""; REL_ARCH="any"
     # A source may be pinned by release version (dl:NAME:version) or, for raw files
     # served from a repository, by a 40-hex commit (dl:NAME:commit).
-    local c
-    if c=$(pin_get "dl:${name}:commit") && safe_is_commit "$c"; then
+    local c rc
+    c=$(pin_get "dl:${name}:commit"); rc=$?
+    if (( rc == 0 )); then
+        if ! safe_is_commit "$c"; then
+            error "  $name: invalid commit pin (dl:${name}:commit)"
+            FAILED_TOOLS+=("dl:${name} (invalid pin)")
+            return 1
+        fi
         REL_VER="$c"
-    elif ! REL_VER=$(pin_version "$name"); then
-        REL_VER=""
-        warn "  $name: no pinned version (dl:${name}:version or dl:${name}:commit) in $PINS_FILE — not installing"
-        SKIPPED_TOOLS+=("dl:${name} (no pinned version)")
+    elif (( rc == 2 )); then
+        error "  $name: malformed or duplicated commit pin"
+        FAILED_TOOLS+=("dl:${name} (invalid pin)")
         return 1
+    else
+        REL_VER=$(pin_version "$name"); rc=$?
+        if (( rc == 2 )); then
+            error "  $name: invalid version pin (dl:${name}:version)"
+            FAILED_TOOLS+=("dl:${name} (invalid pin)")
+            return 1
+        elif (( rc != 0 )); then
+            REL_VER=""
+            warn "  $name: no pinned version (dl:${name}:version or dl:${name}:commit) in $PINS_FILE — not installing"
+            SKIPPED_TOOLS+=("dl:${name} (no pinned version)")
+            return 1
+        fi
     fi
     if [[ "$arch_mode" != any ]]; then
         if ! REL_ARCH=$(safe_detect_arch); then
