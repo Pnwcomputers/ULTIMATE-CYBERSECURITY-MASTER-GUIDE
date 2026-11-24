@@ -90,27 +90,19 @@ The **ESP32 Marauder** is an advanced wireless security testing platform built o
 - 💾 **SD card logging** for extended capture sessions  
 - 🎯 **Targeted attacks** against specific devices
 
-### Why Use Marauder?
+### How Marauder Fits Among Nearby Platforms
 
-**Advantages over traditional tools**:
-- **Portable:** Pocketable, battery-powered  
-- **Affordable:** ~$50–$150 vs. $500+ for commercial tools  
-- **Versatile:** WiFi, Bluetooth, GPS in one device  
-- **Expandable:** Open-source firmware, active development  
-- **Educational:** Learn wireless protocols hands-on  
-- **Small form factor:** Portable for authorized lab and field work
+These devices are not direct substitutes: they use different radios, software
+paths and hardware. Capabilities depend on the exact device, accessory,
+firmware and release. Confirm those details before selecting a workflow.
 
-**Comparison to similar tools**:
-
-| Feature | Marauder | WiFi Pineapple | HackRF One | Flipper Zero | Pwnagotchi |
-|---------|----------|----------------|------------|--------------|------------|
-| Price | $50–150 | $200–400 | $350+ | $170 | $50–100 |
-| WiFi Attacks | ✅ Full | ✅ Full | ⚠️ Limited | ⚠️ Basic | ✅ Passive |
-| Bluetooth | ✅ Yes | ❌ No | ✅ SDR | ✅ Yes | ❌ No |
-| GPS | ✅ Optional | ❌ No | ❌ No | ❌ No | ✅ Optional |
-| Portability | ✅ Excellent | ⚠️ Good | ⚠️ Fair | ✅ Excellent | ✅ Excellent |
-| Battery | ✅ Built-in | ⚠️ External | ❌ No | ✅ Built-in | ✅ Built-in |
-| AI/ML | ❌ No | ❌ No | ❌ No | ❌ No | ✅ Yes |
+| Platform | Wi-Fi radio path | Behavior and boundary |
+|---|---|---|
+| **ESP32 Marauder** | A supported ESP32 board running a matching Marauder firmware target | This guide covers receive-only capture as well as active test features. Menus and features vary by board and firmware release; use the [upstream supported-hardware matrix](https://github.com/justcallmekoko/ESP32Marauder/wiki/Supported-Hardware). |
+| **Wi-Fi Pineapple** | Dedicated Wi-Fi assessment hardware; the supported bands and modes vary by model and adapter | For example, Hak5 documents monitor mode and frame injection for Mark VII with supported adapters. See the [model-specific compatibility notes](https://docs.hak5.org/wifi-pineapple/faq/compatible-802.11ac-adapters). |
+| **HackRF One** | General-purpose SDR covering 1 MHz–6 GHz, with a half-duplex transceiver | It is an RF tool, not a turnkey 802.11 adapter; Wi-Fi protocol work requires suitable host software and a compatible workflow. See [Great Scott Gadgets' specifications](https://greatscottgadgets.com/hackrf/one/). |
+| **Flipper Zero** | The device has BLE, 802.15.4 and sub-GHz radios, but no built-in Wi-Fi radio; Wi-Fi Developer Board is a separate ESP32-S2 accessory | Wi-Fi functionality depends on the accessory and its firmware. See the [Flipper Zero hardware specifications](https://docs.flipper.net/zero/development/hardware/tech-specs) and [Developer Board documentation](https://docs.flipper.net/zero/development/hardware/devboard-schematics). |
+| **Pwnagotchi** | Raspberry Pi/Linux system with a compatible monitor-mode Wi-Fi interface | Upstream behavior can include passive capture and active authentication, association or deauthentication; AI support and defaults depend on the project lineage and mode. See the [fork-aware Pwnagotchi guide](./pwnagotchi_cheatsheet.md) and [upstream project](https://github.com/evilsocket/pwnagotchi). |
 
 ### Core Capabilities
 
