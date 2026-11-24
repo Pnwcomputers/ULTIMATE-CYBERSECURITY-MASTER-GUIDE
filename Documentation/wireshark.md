@@ -84,8 +84,8 @@ For a protocol-level explanation of legitimate 802.11 disconnects versus forged 
 |---|---|---|
 | Deauth, disassociation & rogue AP | `wlan.fc.type_subtype == 0x0c`, beacons, channel and AP event log | [Deauth Detection](./wifi-deauthentication-detection.md) |
 | Suspected Pwnagotchi/Evil-M5 behavior | SSID/BSSID security changes, AP logs and management frames | [Counter-Surveillance](./counter-surveillance-wireless-threats.md) |
-| MITM / rogue gateway, DHCP or IPv6 RA | `arp`, `dhcp || bootp`, `icmpv6.type == 134` | [MITM Detection & Prevention](./mitm-detection-prevention.md) |
-| DNS hijack and secure DNS | `dns`, `tcp.port == 853 || udp.port == 853` plus endpoint logs | [Secure DNS](./dns-hijacking-secure-dns.md) |
+| MITM / rogue gateway, DHCP or IPv6 RA | `arp`, `dhcp or bootp`, `icmpv6.type == 134` | [MITM Detection & Prevention](./mitm-detection-prevention.md) |
+| DNS hijack and secure DNS | `dns`, `tcp.port == 853 or udp.port == 853` plus endpoint logs | [Secure DNS](./dns-hijacking-secure-dns.md) |
 | VLAN/DMZ/ACL test | `vlan.id == 20`, owned positive/negative flows and firewall logs | [Segmentation & VLANs](./network-segmentation-dmz-acl-vlan.md) |
 | Copper/fiber link visibility | Both directions, dropped frames, TAP/SPAN metadata | [Network TAPs & SPAN](./network-taps-and-packet-visibility.md) |
 | Bluetooth LE packet capture | Nordic/TI/compatible RF PCAP vs BlueZ HCI trace | [Passive/Active BLE Sniffing](./bluetooth-passive-scanning-sniffing.md) |
