@@ -87,10 +87,22 @@ software-defined radio; RF means radio frequency.
 | Exact chip versus board | ESP32, S2, S3, C3, C5, C6 and H2 are different targets. A chip-family label does not validate a particular display, pin map, flash size or antenna. |
 | USB HID | An onboard USB-to-UART bridge does not provide native keyboard emulation. S2/S3 USB device builds require the correct port and firmware; original ESP32 boards may need another MCU. [Espressif USB documentation](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/peripherals/usb_device.html). |
 | Bluetooth | BLE advertising, GATT, BLE HID and Bluetooth Classic capture are separate capabilities. A scanner does not automatically capture connections or decrypt traffic. S2 has no Bluetooth. |
-| Wi-Fi bands | Most legacy ESP targets are 2.4 GHz; C5 adds 5 GHz on supporting firmware. Dual-band capability does not imply concurrent reception. |
+| Wi-Fi bands | Espressif documents ESP32-S3 and ESP32-C6 Wi-Fi at 2.4 GHz; ESP32-C5 supports 1T1R dual-band Wi-Fi at 2.4 and 5 GHz; ESP32-H2 has no Wi-Fi radio. These are chip capabilities: board RF design, antenna and firmware still determine what a specific device exposes. C5’s single 1T1R radio is not simultaneous 2.4/5 GHz reception. ([S3](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/about.html), [C6](https://docs.espressif.com/projects/esp-idf/en/stable/esp32c6/about.html), [C5 datasheet](https://documentation.espressif.com/esp32-c5_datasheet_en.html), [H2](https://www.espressif.com/en/products/socs/esp32-h2).) |
 | Sub-GHz / RFID | CC1101, NRF24, PN532, LoRa modules and RFID frontends are separate hardware; firmware cannot create a missing radio. Their protocols and bands are not interchangeable. |
 | SDR | ESP32 + CC1101 is a narrowband radio controller, not a HackRF substitute. HackRF supplies IQ samples and is half duplex. |
 | Client versus device | A Flipper FAP, a phone app, an ESP image, a UF2 and an SD-card Linux image are different artifacts. Match firmware, companion client and data assets. |
+
+The radio distinction is easier to see at the chip level; the final column still depends on the exact board and firmware target:
+
+```mermaid
+flowchart LR
+  S["ESP32-S3 / ESP32-C6<br/>2.4 GHz Wi-Fi"] --> CHECK["Check exact board,<br/>antenna and firmware target"]
+  C5["ESP32-C5<br/>2.4 + 5 GHz Wi-Fi<br/>1T1R"] --> CHECK
+  H2["ESP32-H2<br/>No on-chip Wi-Fi"] --> CHECK
+  CHECK --> RESULT["Documented build features<br/>may be narrower than chip features"]
+```
+
+*Chip-level summary based on Espressif specifications; it is not a firmware support matrix or a claim that a device was tested.*
 
 ## Reading Activity & Install Columns
 
