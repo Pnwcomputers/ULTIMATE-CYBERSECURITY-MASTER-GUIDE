@@ -26,6 +26,21 @@ This guide is separate from [Bluetooth/BLE & Radio Adapter Comparison](./bluetoo
 
 **A single-channel sniffer cannot prove an entire network was quiet.** For complete observations, use multiple radios or a documented coverage methodology. WPA3/PMF and PHY behavior also change what can be observed or transmitted.
 
+```mermaid
+flowchart TD
+  A["Identify exact adapter and host"] --> B["Record model/revision, USB ID, chipset, kernel and driver"]
+  B --> C{"What is the required task?"}
+  C -->|"Client connectivity"| D["Check managed mode and required bands"]
+  C -->|"Receive-only capture"| E["Check monitor mode, legal channel and capture interface"]
+  C -->|"Frame transmission"| F["Confirm explicit authorization and isolated test scope"]
+  D --> G["Validate the needed capability with an owned lab AP"]
+  E --> G
+  F --> G
+  G --> H["Record the tested hardware, software and limits"]
+```
+
+*Qualification flow: a mode advertised by a driver is a starting point; local test results apply only to the recorded adapter, revision, kernel, driver and channel.*
+
 ## Adapter Comparison Matrix
 
 **Symbols:** **Candidate** means suitable for evaluation after a local test; **Conditional** means specific kernel/driver/firmware tests are required; **No** means not supported by the identified radio. These are not universal success guarantees.
@@ -135,7 +150,7 @@ Use the [SBC, Firmware & Add-On Matrix](./sbc-radio-addon-compatibility.md) for 
 ## Official & Cross-Referenced Sources
 
 - [ALFA Linux support: MT7612U](https://docs.alfa.com.tw/Support/Linux/MT7612U/), [MT7610U](https://docs.alfa.com.tw/Support/Linux/MT7610U/) & [AR9271](https://docs.alfa.com.tw/Support/Linux/AR9271/)
-- [Linux Wireless documentation](https://wireless.docs.kernel.org/), [Linux-compatible USB adapter list](https://github.com/morrownr/USB-WiFi) & [Kali NetHunter cards](https://www.kali.org/docs/nethunter/wireless-cards/)
+- [Linux Wireless documentation](https://wireless.docs.kernel.org/), [upstream Linux `rtw88_8812au` driver configuration](https://github.com/torvalds/linux/blob/master/drivers/net/wireless/realtek/rtw88/Kconfig), [Linux-compatible USB adapter list](https://github.com/morrownr/USB-WiFi) & [Kali NetHunter cards](https://www.kali.org/docs/nethunter/wireless-cards/)
 - [Kismet Data Sources](https://www.kismetwireless.net/docs/readme/datasources/)
 - [Aircrack-ng Guide](./Aircrack-ng_Commands.md), [Kismet Field Guide](../Wardriving/kismet.md), [Bluetooth/BLE Comparison](./bluetooth-radio-adapter-guide.md)
 - [WPA/PMKID Protocol Boundaries](./hcxtoolshashcat.md), [Wi-Fi Deauthentication Detection](./wifi-deauthentication-detection.md)
