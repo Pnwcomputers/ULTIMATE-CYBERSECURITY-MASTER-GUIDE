@@ -163,9 +163,9 @@ Targeted follow-up on 2026-11-24: checked the [official JanOS C5 flasher](https:
 for its OTA-slot and full-erase behavior; confirmed the three C5Lab repositories
 linked above are not archived, while `CodeHedge/diy_node_web_flasher` is archived.
 This follow-up does not refresh the other vendors' status or their 2026-11-07 page checks.
-This establishes page availability, not a successful serial connection, download,
-manifest validation, image authenticity or hardware flash. No device was connected
-and no firmware was written.
+The 2026-11-07 page checks establish page availability only, not a successful
+serial connection, download, manifest validation, image authenticity or hardware
+flash. No device was connected and no firmware was written.
 
 The local link checker could not validate the Biscuit endpoint's TLS certificate
 chain; a separate Firecrawl retrieval returned HTTP 200 with the expected official
