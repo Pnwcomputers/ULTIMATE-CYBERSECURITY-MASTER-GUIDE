@@ -78,12 +78,12 @@ Each incident title opens its analysis in the Enhanced Master Guide. The source 
 
 | Incident | Type |
 |---|---|
-| [Stuxnet](../ENHANCED_MASTER_GUIDE.md#stuxnet-analysis) | Nation-state cyberweapon - Iranian nuclear facilities · [Source](https://en.wikipedia.org/wiki/Stuxnet) |
+| [Stuxnet](../ENHANCED_MASTER_GUIDE.md#stuxnet-analysis) | Nation-state cyberweapon - Iranian nuclear facilities · [Technical analysis: Symantec Stuxnet dossier](https://nsarchive.gwu.edu/sites/default/files/documents/2700124/Document-44.pdf) |
 | [WannaCry](../ENHANCED_MASTER_GUIDE.md#wannacry-breakdown) | Global ransomware outbreak · [Source](https://www.cisa.gov/news-events/alerts/2017/05/12/indicators-associated-wannacry-ransomware) |
 | [EternalBlue / NSA Leak](../ENHANCED_MASTER_GUIDE.md#eternalblue-exploitation) | NSA exploit leaked by Shadow Brokers · [Source](https://www.microsoft.com/en-us/security/blog/2017/05/12/wannacrypt-ransomware-worm-targets-out-of-date-systems/) |
 | [SolarWinds](../ENHANCED_MASTER_GUIDE.md#solarwinds-attack) | Software supply chain compromise · [Source](https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a) |
 | [Carbanak](../ENHANCED_MASTER_GUIDE.md#carbanak-apt-campaign) | APT banking theft campaign · [Source](https://cloud.google.com/blog/topics/threat-intelligence/behind-the-carbanak-backdoor) |
-| [NotPetya](../ENHANCED_MASTER_GUIDE.md#notpetya-ransomware) | Destructive malware disguised as ransomware · [Source](https://www.wired.com/story/notpetya-cyberattack-ukraine-russia-code-crashed-the-world/) |
+| [NotPetya](../ENHANCED_MASTER_GUIDE.md#notpetya-ransomware) | Destructive malware disguised as ransomware · [Microsoft technical analysis](https://www.microsoft.com/en-us/security/blog/2017/10/03/advanced-threat-analytics-security-research-network-technical-analysis-notpetya/) · [UK Government attribution](https://www.gov.uk/government/news/foreign-office-minister-condemns-russia-for-notpetya-attacks) |
 | [Edward Snowden / NSA](../ENHANCED_MASTER_GUIDE.md#edward-snowden-revelations) | Mass surveillance program revelations · [Source](https://www.theguardian.com/world/edward-snowden) |
 
 ## Hardware, RFID & Embedded Security
