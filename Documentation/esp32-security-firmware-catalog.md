@@ -88,7 +88,7 @@ software-defined radio; RF means radio frequency.
 | USB HID | ESP32-S2/S3 USB-OTG hardware can run HID-capable device firmware, but the board must route its USB data pins to the port and the selected build must implement HID. ESP32-C5's built-in USB Serial/JTAG interface is fixed-function CDC/JTAG and cannot be reconfigured as HID; a USB-to-UART bridge is also only a serial path. Original ESP32 boards commonly need a separate USB-capable MCU for native keyboard emulation. ([S2](https://docs.espressif.com/projects/esp-usb/en/latest/esp32s2/usb_device.html), [S3](https://docs.espressif.com/projects/esp-usb/en/latest/esp32s3/usb_device.html), [C5](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c5/api-guides/usb-serial-jtag-console.html).) |
 | Bluetooth | Chip radios differ: the original ESP32 supports Bluetooth BR/EDR (Classic) and BLE; S2 has no Bluetooth; S3, C3, C5, C6 and H2 document BLE support, not Classic. Firmware may expose a smaller feature set. On any chip, BLE advertising, GATT, BLE HID and connection capture are distinct capabilities; scanning does not automatically capture connections or decrypt traffic. ([ESP32](https://documentation.espressif.com/esp32_datasheet_en.html), [S2](https://docs.espressif.com/projects/esp-idf/en/v4.3.5/esp32s2/hw-reference/chip-series-comparison.html), [S3](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-guides/ble/ble-introduction.html), [C3](https://documentation.espressif.com/esp32-c3_datasheet_en.html), [C5](https://documentation.espressif.com/esp32-c5_datasheet_en.html), [C6](https://documentation.espressif.com/esp32-c6_datasheet_en.html), [H2](https://www.espressif.com/en/products/socs/esp32-h2).) |
 | Wi-Fi bands | Espressif documents ESP32-S3 and ESP32-C6 Wi-Fi at 2.4 GHz; ESP32-C5 supports 1T1R dual-band Wi-Fi at 2.4 and 5 GHz; ESP32-H2 has no Wi-Fi radio. These are chip capabilities: board RF design, antenna and firmware still determine what a specific device exposes. C5’s single 1T1R radio is not simultaneous 2.4/5 GHz reception. ([S3](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/about.html), [C6](https://docs.espressif.com/projects/esp-idf/en/stable/esp32c6/about.html), [C5 datasheet](https://documentation.espressif.com/esp32-c5_datasheet_en.html), [H2](https://www.espressif.com/en/products/socs/esp32-h2).) |
-| Sub-GHz / RFID | CC1101, NRF24, PN532, LoRa modules and RFID frontends are separate hardware; firmware cannot create a missing radio. Their protocols and bands are not interchangeable. |
+| Sub-GHz / RFID | These are external radio/front-end hardware, not ESP32 features. See [common module distinctions](#common-external-radio-examples): the exact part determines its band and protocol, and firmware must support that part. |
 | SDR | CC1101 is a sub-1 GHz transceiver with an integrated modem (300–348, 387–464 and 779–928 MHz); adding it to an ESP32 does not make a general-purpose SDR. HackRF One is a host-connected SDR that streams 8-bit I/Q samples, supports up to 20 MS/s across its 1 MHz–6 GHz tuning range, and is half duplex (receive or transmit at a time). [TI CC1101 datasheet](https://www.ti.com/lit/ds/symlink/cc1101.pdf) · [Great Scott Gadgets HackRF One specifications](https://greatscottgadgets.com/hackrf/one/). |
 | Client versus device | A Flipper FAP, a phone app, an ESP image, a UF2 and an SD-card Linux image are different artifacts. Match firmware, companion client and data assets. |
 
@@ -126,6 +126,32 @@ flowchart LR
 ```
 
 *The diagram shows the usual high-level data paths; exact host software and antenna setup depend on the hardware and task.*
+
+## Common External Radio Examples
+
+These parts use different frequency ranges, physical interfaces and protocol families. A project mentioning a radio category does not prove that every module variant or carrier board is supported.
+
+| Example | What the component specification says | Compatibility boundary |
+|---|---|---|
+| [TI CC1101](https://www.ti.com/product/CC1101) | Sub-1 GHz transceiver covering 300–348, 387–464 and 779–928 MHz, with an integrated modem and packet-handling support. | Match the module's frequency variant, antenna and firmware configuration; legal transmit limits depend on location and the complete system. |
+| [Nordic nRF24L01+](https://docs.nordicsemi.com/bundle/nRF24L01P_PS_v1.0/raw/resource/enus/nRF24L01P_PS_v1.0.pdf) | 2.4 GHz transceiver with Nordic's Enhanced ShockBurst packet engine. | This is not Wi-Fi or BLE; the firmware must implement the expected packet protocol and module wiring. |
+| [NXP PN532](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf) | 13.56 MHz NFC controller with documented reader/writer and card-emulation modes for NFC-related protocols. | NFC/HF RFID hardware is distinct from UHF RFID and sub-GHz radios; antenna and tag protocol support matter. |
+| [Semtech LoRa radios](https://www.semtech.com/products/wireless-rf/lora-connect) | Band depends on the transceiver: examples include SX1262 at 150–960 MHz and SX1280 at 2.4 GHz. | “LoRa” alone does not identify the frequency, module, regional variant or LoRaWAN compatibility. Check the exact part and target firmware. |
+
+The categories are easier to compare in a compact view:
+
+```mermaid
+flowchart LR
+  CC["CC1101<br/>Sub-1 GHz packet radio"]
+  NRF["nRF24L01+<br/>2.4 GHz packet radio"]
+  NFC["PN532<br/>13.56 MHz NFC"]
+  LORA["LoRa transceiver<br/>band depends on part"]
+  FW["Exact module + board wiring<br/>+ firmware support"]
+  CC --> FW
+  NRF --> FW
+  NFC --> FW
+  LORA --> FW
+```
 
 ## Reading Activity & Install Columns
 
