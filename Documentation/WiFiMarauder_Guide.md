@@ -318,22 +318,42 @@ Broadcasts a large number of fake SSIDs (beacon frames) to pollute client probe 
 
 ---
 
-### 5. Evil Twin (Rogue AP)
+### 5. Rogue AP & Captive-Portal Training
 
-Clones a legitimate AP's SSID to lure clients into connecting to a controlled access point, then serves a captive portal to capture credentials or perform a man-in-the-middle attack.
+An **Evil Twin** is a rogue access point that imitates a legitimate network
+name. Use this workflow only in an isolated lab with owned test devices and
+synthetic credentials; do not collect real users' passwords or direct clients
+to an impersonating network without explicit authorization.
 
-**Marauder's role (RF layer):**
-1. Scan and identify the target SSID + BSSID + channel.
-2. Use **Beacon Spam** with the cloned SSID on the same channel to broadcast a competing AP.
-3. Use **Deauth** against the legitimate AP to force clients to disconnect and probe for reconnection.
+On supported Marauder targets, the upstream `evilportal` feature can create
+the access point and host a local web page on the device. It needs a selected
+network name and a portal HTML file; storage, menus and setup vary by hardware
+and firmware. Follow the upstream [Evil Portal requirements](https://github.com/justcallmekoko/ESP32Marauder/wiki/evilportal)
+for the exact target. An external host running `hostapd`/`dnsmasq` or a
+Wi-Fi Pineapple is an alternative setup, not a required component for the
+built-in Marauder feature.
 
-**External component required (captive portal):**
-- Marauder handles the RF attack layer but does not run a full DHCP/HTTP stack.
-- Pair with a Raspberry Pi, laptop running hostapd + dnsmasq, or a WiFi Pineapple to serve the captive portal and capture credentials.
-- Alternatively, the [Evil-M5Project (evil_m5.md)](evil_m5.md) on an M5Cardputer provides a built-in captive portal with credential logging.
+```mermaid
+flowchart LR
+  C["Owned lab client"] --> A["Marauder AP"]
+  A --> P["Local portal page"]
+  P -->|"Synthetic test input only"| L["Marauder screen, serial output and logs"]
+  S{"EPDeauth enabled?"} -->|"No"| N["Portal-only test"]
+  S -->|"Yes"| D["Deauthentication may interrupt selected AP clients"]
+  D -. "only when explicitly authorized" .-> A
+```
 
-**When to use:** Red team wireless footholds, credential capture assessments with explicit written authorization. 802.11w/PMF-protected networks are resistant to deauth-based client forcing.
+The upstream `EPDeauth` setting is disabled by default. If enabled, selected
+APs can be deauthenticated while the portal runs; a selected target does not
+guarantee that only one client is affected. Leave it disabled for a portal-only
+training demonstration. Portal submissions may appear on the screen, serial
+output and logs, so use invented test values and protect or remove the resulting
+artifacts after the exercise. See the upstream [settings](https://github.com/justcallmekoko/ESP32Marauder/wiki/marauder-settings)
+and [privacy guidance](https://github.com/justcallmekoko/ESP32Marauder/wiki/privacy-and-data-handling).
 
+PMF protects certain robust management frames in supported states; it does not
+prevent every pre-association frame, a rogue access point, or radio jamming.
+Do not describe PMF as a general defense against Evil Twin behavior.
 ---
 
 ## Bluetooth & BLE Operations
