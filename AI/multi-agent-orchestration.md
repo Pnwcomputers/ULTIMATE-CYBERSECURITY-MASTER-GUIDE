@@ -1,6 +1,6 @@
 # Multi-Agent Orchestration, Delegation & Conflict Resolution
 
-_Last reviewed: 2026-11-09_
+_Last reviewed: 2026-11-24_
 
 Multi-agent systems can split work into specialist roles, but create new failure modes: inconsistent context, duplicate actions, privilege amplification, handoff errors and uncertain ownership. Use multiple agents **only when a single bounded process is insufficient**; additional agents are not automatically more accurate.
 
