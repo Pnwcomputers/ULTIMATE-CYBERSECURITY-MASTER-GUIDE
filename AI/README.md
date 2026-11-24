@@ -26,16 +26,16 @@
 
 | Section |
 |---|
-| [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification)
-| [AI Engineering & Agent Operations Handbook](#ai-engineering--agent-operations-handbook)
-| [Recommended Reading Flow](#recommended-reading-flow)
-| [Overview](#-overview)
-| [Folder Contents](#-folder-contents)
-| [Resource Categories](#️-resource-categories)
-| [How to Use These Resources](#-how-to-use-these-resources) 
-| [Security & Legal Disclaimer](#️-security--legal-disclaimer)
-| [Contributing](#-contributing)
-| [Resources](#-resources)
+| [Practical AI Usage, Project Planning/Management & Provided Data Verification](#practical-ai-usage-project-planning-and-independent-verification) |
+| [AI Engineering & Agent Operations Handbook](#ai-engineering--agent-operations-handbook) |
+| [Recommended Reading Flow](#recommended-reading-flow) |
+| [Overview](#-overview) |
+| [Folder Contents](#-folder-contents) |
+| [Resource Categories](#️-resource-categories) |
+| [How to Use These Resources](#-how-to-use-these-resources)  |
+| [Security & Legal Disclaimer](#️-security--legal-disclaimer) |
+| [Contributing](#-contributing) |
+| [Resources](#-resources) |
 
 ---
 
@@ -162,13 +162,13 @@ These detailed chapters turn a working AI chat or self-hosted model into a **mea
 **Purpose**: Deploy persistent AI agents on your own hardware that connect to messaging platforms, tools, and services.
 
 **What's included:**
-- **OpenClaw on TrueNAS SCALE** - Full deployment guide for a multi-provider AI agent framework running as a TrueNAS community app. Connects to Telegram, Discord, Slack, and 50+ channels. Routes tasks automatically between Anthropic, Gemini, Groq, and local Ollama models based on cost and capability.
+- **OpenClaw on TrueNAS SCALE** - Full deployment guide for a multi-provider AI agent framework running as a TrueNAS community app. Connects to Telegram, Discord, Slack, and 50+ channels. Can route tasks across configured hosted providers and local Ollama models; verify model IDs, data handling, fallback routes and spending controls before enabling each provider.
 - **AnythingLLM AgentFlows** - Custom automation flows for incident response, OSINT collection, log analysis, and security audits running inside a self-hosted AnythingLLM instance.
 
 **Key capabilities:**
 - Run 24/7 on your homelab with no cloud dependency
-- Free inference via Groq (Llama 3.3 70B) and Gemini free tiers
-- Fully local/private inference via Ollama for sensitive data
+- Hosted-provider no-cost access may be available, but models, quotas, eligibility, pricing and data-use terms change; verify them before use
+- Local inference with Ollama can keep prompts on-device when models, tools, telemetry and routing remain local; verify the full data path before using sensitive data
 - Scheduled automations, cron jobs, and event-driven hooks
 
 ---
@@ -333,10 +333,12 @@ Always comply with:
 - **NIST AI Risk Management Framework** - https://airc.nist.gov/
 - **OWASP LLM Top 10** - https://owasp.org/www-project-top-10-for-large-language-model-applications
 
-**LLM Providers (Free Tiers Available):**
-- **Groq** (Llama 3.3 70B, free tier) - https://console.groq.com
-- **Google Gemini** (1M context, free tier) - https://aistudio.google.com
-- **Anthropic Claude** - https://console.anthropic.com
+**LLM Providers:**
+- **Groq** - [models](https://console.groq.com/docs/models), [rate limits](https://console.groq.com/docs/rate-limits), and [deprecations](https://console.groq.com/docs/deprecations)
+- **Google Gemini API** - [models and context windows](https://ai.google.dev/gemini-api/docs/models), [pricing and data-use terms](https://ai.google.dev/gemini-api/docs/pricing), and [Google AI Studio](https://aistudio.google.com)
+- **Anthropic Claude** - [models](https://docs.anthropic.com/en/docs/about-claude/models) and [pricing](https://www.anthropic.com/pricing)
+
+Provider model availability, context limits, quotas, pricing and data-use terms vary by plan and change over time. Google states that content submitted on the Gemini API Free tier may be used to improve its products; do not send sensitive security or client data through a no-cost tier without reviewing its current terms and obtaining the required approval.
 
 ---
 
