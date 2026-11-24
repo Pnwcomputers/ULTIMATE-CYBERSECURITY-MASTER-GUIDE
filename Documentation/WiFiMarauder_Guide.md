@@ -403,10 +403,10 @@ _Last source review: November 2026. These are procedure designs, not a claim of 
 2. Conduct one short scan of an owned AP, then stop using the firmware's documented controls. Wait for media writes to complete before removing power or SD.
 3. Enumerate actual files instead of assuming the board always uses a given directory. On a Linux evidence machine, calculate a digest for **the actual captured file**:
 
-~~~bash
+```bash
 sha256sum /path/to/approved/scan-export.csv
 file /path/to/approved/scan-export.csv
-~~~
+```
 
 4. Preserve the unmodified original; create redacted analysis copies. Log evidence source, collection time, firmware, path, digest, and chain of custody.
 5. If no output appears, check board SD support and scan-versus-save behavior before assuming collection failed.
