@@ -19,16 +19,16 @@ Serve as a starting point for manual tool selection and verification. Listing in
 - Looking up the purpose and usage of a specific OSINT tool
 - Deciding which tool to use for a specific data type during an investigation
 
-The playbook integrates the following industry-standard tools for deep reconnaissance:
+The catalog lists the following tools for manual selection and review. Their presence here does not mean the Playbook invokes or integrates them:
 
 | Tool | Category | Primary Function |
 | :--- | :--- | :--- |
 | [**theHarvester**](https://github.com/laramies/theHarvester) | Recon | Email, subdomain, and host harvesting. |
-| [**Sherlock**](https://github.com/sherlock-project/sherlock) | Social | Username search across 400+ platforms. |
+| [**Sherlock**](https://github.com/sherlock-project/sherlock) | Social | Username search across configured services; results require independent identity verification. |
 | [**Xquik**](https://github.com/Xquik-dev/x-twitter-scraper) | Social | X/Twitter search, profile lookup, follower export, and monitoring. |
 | [**Recon-ng**](https://github.com/lanmaster53/recon-ng) | Framework | Modular web-reconnaissance and data management. |
 | [**Amass**](https://github.com/owasp-amass/amass) | Infrastructure | In-depth DNS enumeration and attack surface mapping. |
-| [**SpiderFoot**](https://github.com/smicallef/spiderfoot) | Automation | Automated OSINT collection from 100+ sources. |
+| [**SpiderFoot**](https://github.com/smicallef/spiderfoot) | Automation | Automated OSINT collection using configured modules and sources; coverage changes with module and provider availability. |
 | [**Maltego**](https://www.maltego.com/) | Analysis | Visual link analysis and relationship mapping. |
 | [**Photon**](https://github.com/s0md3v/Photon) | Crawler | High-speed extraction of URLs, keys, and files. |
 | [**H8mail**](https://github.com/khast3x/h8mail) | Breach | Email breach hunting and credential leak analysis. |
