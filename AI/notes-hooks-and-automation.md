@@ -1,6 +1,6 @@
 # Notes, Memory, Hooks & Automation in AI Projects
 
-_Last reviewed: 2026-11-09_
+_Last reviewed: 2026-11-24_
 
 This guide explains how to **retain context safely** and **react to events predictably** when using AI assistants, coding agents, cybersecurity workflows, or self-hosted agent frameworks. It covers concepts, implementation, verification, failure handling, and real security operations examples. The mechanisms are not interchangeable: a note records information; a hook executes behavior.
 
@@ -238,7 +238,7 @@ chmod +x scripts/check-working-tree.sh
 
 Test the script manually, then confirm via hook logs/agent behavior that it runs after an edit. `git diff --check` does **not** check new untracked files or staged changes, so pair this with other project checks. The handler inherits execution permissions and environment from its host; never enable arbitrary downloaded hook commands without review. Hook return/exit semantics vary by event.
 
-**Official reference:** [Anthropic — Configuring Claude Code Hooks](https://claude.com/resources/articles/how-to-configure-hooks).
+**Official reference:** [Claude Code Hooks Reference](https://code.claude.com/docs/en/hooks).
 
 ### OpenClaw — Internal Hooks Versus Plugin Hooks Versus Webhooks
 
@@ -258,11 +258,15 @@ openclaw hooks info command-logger
 openclaw hooks check
 # Only after reviewing where the logger writes and what it captures:
 openclaw hooks enable command-logger
+# In a disposable authorized conversation routed to this Gateway, send /new or /reset.
+# Then inspect the event log on the Gateway host:
+tail -n 5 ~/.openclaw/logs/commands.log
+# With a custom stateDir, inspect <stateDir>/logs/commands.log instead.
 # Disable again after the controlled test:
 openclaw hooks disable command-logger
 ```
 
-These commands act on the Gateway host/configuration selected by the CLI. Enabling a local hook does not necessarily mutate a remote Gateway. If using a multi-agent installation, inspect the selection and scoping behavior first. Keep log data restricted and retained only as long as necessary.
+Run the enable/disable commands on the Gateway host; they update local configuration and do not change a remote Gateway over RPC. `openclaw hooks check` reports readiness conditions, but the fresh JSON log line is the evidence that the hook actually fired. The log contains session and sender identifiers; restrict access, set retention, and disable the logger if you do not need those records. If using multiple agents, inspect global hook selection and scope first.
 
 **Important:** OpenClaw's current internal hook configuration uses named `hooks.internal.entries` / installed hook directories; do **not** build `hooks.internal` as an array of `{event, prompt, enabled}` objects or assume that text prompts themselves are handlers. To implement a custom event, follow the documented `HOOK.md` + handler contract. HTTP webhook settings under `hooks.enabled` are separate. A daily security digest belongs in OpenClaw's scheduler/cron facilities, not an internal `command:new` hook.
 
