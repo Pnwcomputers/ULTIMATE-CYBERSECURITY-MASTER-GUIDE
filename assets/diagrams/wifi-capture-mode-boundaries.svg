@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<title id="title">Wireless capture modes and offline analysis boundaries</title>
+<desc id="desc">Three distinct paths are shown. Receive-only capture listens for existing wireless exchanges and may not capture useful material. Active collection transmits or interacts with access points or clients and can disrupt them. Offline analysis starts with an authorized capture, converts supported records, then tests only applicable WPA-PBKDF2 PMKID or EAPOL material. Tool behavior depends on version and configuration.</desc>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker>
+<style>
+.bg{fill:#f8fafc}.title{font:700 27px system-ui,sans-serif;fill:#0f172a}.sub{font:16px system-ui,sans-serif;fill:#334155}
+.panel{fill:#fff;stroke:#64748b;stroke-width:2;rx:16}.active{fill:#fff7ed;stroke:#c2410c;stroke-width:2;rx:16}.offline{fill:#eff6ff;stroke:#2563eb;stroke-width:2;rx:16}
+.h{font:700 20px system-ui,sans-serif;fill:#0f172a}.body{font:15px system-ui,sans-serif;fill:#334155}.cap{font:600 14px system-ui,sans-serif;fill:#7c2d12}
+.arrow{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}.banner{fill:#e0f2fe;stroke:#0284c7;stroke-width:1.5;rx:12}.bannertext{font:600 15px system-ui,sans-serif;fill:#075985}
+</style>
+</defs>
+<rect class="bg" width="1200" height="560"/>
+<text class="title" x="44" y="52">Wireless capture: check what the radio actually does</text>
+<text class="sub" x="44" y="82">“No deauthentication command” and “PMKID” do not, by themselves, mean receive-only.</text>
+
+<rect class="panel" x="40" y="125" width="350" height="310"/>
+<text class="h" x="62" y="165">1 · Receive-only observation</text>
+<text class="body" x="62" y="205"><tspan x="62">Listen for frames already present</tspan><tspan x="62" dy="25">on the tuned channel. No probes,</tspan><tspan x="62" dy="25">association attempts or client</tspan><tspan x="62" dy="25">disconnects are sent.</tspan></text>
+<rect x="62" y="330" width="306" height="74" rx="10" fill="#f1f5f9" stroke="#94a3b8"/>
+<text class="body" x="80" y="359"><tspan x="80">Capture may contain no useful</tspan><tspan x="80" dy="22">PMKID / EAPOL exchange.</tspan></text>
+
+<rect class="active" x="425" y="125" width="350" height="310"/>
+<text class="h" x="447" y="165">2 · Active collection</text>
+<text class="body" x="447" y="205"><tspan x="447">Some collection modes transmit or</tspan><tspan x="447" dy="25">interact with an AP/client. This may</tspan><tspan x="447" dy="25">include association requests or</tspan><tspan x="447" dy="25">client disassociation, and can</tspan><tspan x="447" dy="25">disrupt service.</tspan></text>
+<text class="cap" x="447" y="375"><tspan x="447">Only within written scope and an</tspan><tspan x="447" dy="22">isolated, controlled RF lab.</tspan></text>
+
+<rect class="offline" x="810" y="125" width="350" height="310"/>
+<text class="h" x="832" y="165">3 · Offline analysis</text>
+<text class="body" x="832" y="205"><tspan x="832">Authorized PCAP/PCAPNG →</tspan><tspan x="832" dy="25">supported-record conversion →</tspan><tspan x="832" dy="25">applicable WPA-PBKDF2 PMKID /</tspan><tspan x="832" dy="25">EAPOL password-strength test.</tspan></text>
+<rect x="832" y="330" width="306" height="74" rx="10" fill="#dbeafe" stroke="#60a5fa"/>
+<text class="body" x="850" y="359"><tspan x="850">Hashcat mode 22000 does not mean</tspan><tspan x="850" dy="22">generic WPA3-SAE / EAP cracking.</tspan></text>
+
+<path class="arrow" d="M395 278 H417"/>
+<path class="arrow" d="M780 278 H802"/>
+<rect class="banner" x="115" y="465" width="970" height="62"/>
+<text class="bannertext" x="145" y="491"><tspan x="145">Verify the installed program version and current help/README. Upstream hcxdumptool documents active default behavior;</tspan><tspan x="145" dy="22">tool names, capture modes and option meanings can change. This diagram describes boundaries, not a capture recipe.</tspan></text>
+</svg>

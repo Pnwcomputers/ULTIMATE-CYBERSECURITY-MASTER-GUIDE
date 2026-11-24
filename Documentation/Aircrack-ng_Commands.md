@@ -3,13 +3,13 @@
 **Reference index and audit status:** [Reviewed cheat sheets and references](./CHEATSHEET-REFERENCE-AUDIT-2026-10-31.md).
 
 > [!WARNING]
-> **Reviewed October 31, 2026.** This is a legacy/professional lab command reference. Injection, deauthentication, WEP replay and WPS tests are **active transmissions**, not passive monitoring, and can disrupt networks. Require a written scope and lab AP; do not treat default interface names, driver support, PMF negotiation or WPA3-SAE behavior as interchangeable. Prefer the [Wi-Fi detection and PMF reference](./wifi-deauthentication-detection.md) for passive incident analysis, the [Wardriving index](../Wardriving/README.md) for surveying and the [official aircrack-ng documentation](https://www.aircrack-ng.org/documentation.html) for supported command syntax.
+> **Reviewed November 24, 2026.** This is a legacy/professional lab command reference. Injection, deauthentication, WEP replay and WPS tests are **active transmissions**, not passive monitoring, and can disrupt networks. Require a written scope and lab AP; do not treat default interface names, driver support, PMF negotiation or WPA3-SAE behavior as interchangeable. Prefer the [Wi-Fi detection and PMF reference](./wifi-deauthentication-detection.md) for passive incident analysis, the [Wardriving index](../Wardriving/README.md) for surveying and the [official aircrack-ng documentation](https://www.aircrack-ng.org/documentation.html) for supported command syntax.
 
 ## 🎯 Purpose
-Command reference for the aircrack-ng suite covering the full traditional Wi-Fi lab auditing workflows, including passive monitoring and separately authorized active deauthentication/WEP/WPS testing. This is the active-deauth approach, as opposed to the passive PMKID method covered in [hcxtoolshashcat.md](hcxtoolshashcat.md).
+Command reference for the aircrack-ng suite covering traditional Wi-Fi lab workflows, including receive-only monitoring and separately authorized active deauthentication/WEP/WPS testing. PMKID collection is not inherently passive: behavior depends on the capture tool, its version and configuration.
 
 ## ⚙️ Function
-Organized by workflow phase and attack type: basic WPA/WPA2 handshake workflow, advanced deauth options, WEP cracking, WPS attacks, airodump/aireplay advanced flags, and file format conversion. Unlike hcxtoolshashcat.md (which uses hcxtools for passive capture and Hashcat mode 22000), this file uses aircrack-ng's own cracking engine and covers legacy formats including WEP and WPS PIN attacks that hcxtools does not address.
+Organized by workflow phase and attack type: basic WPA/WPA2 handshake workflow, advanced deauth options, WEP cracking, WPS attacks, airodump/aireplay advanced flags, and file format conversion. This file uses aircrack-ng's own cracking engine and covers legacy formats including WEP and WPS PIN attacks. The [HCXTools & Hashcat guide](hcxtoolshashcat.md) distinguishes radio capture behavior from offline conversion and testing; `hcxdumptool` can also transmit or interact actively.
 
 ## 🏆 Goal
 Capture a WPA handshake or recover a WEP/WPS key using the aircrack-ng toolkit, then crack the resulting hash via dictionary attack.
@@ -105,12 +105,17 @@ sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -vv
 sudo reaver -i wlan1mon -b AA:BB:CC:DD:EE:FF -vv -K
 ```
 
-**PMKID Attack (Clientless - No Deauth Needed)**
+**PMKID Collection (Capture Behavior Depends on Tool and Mode)**
+
+![Receive-only wireless observation, active collection and offline analysis are distinct paths; capture behavior depends on the installed tool and mode](../assets/diagrams/wifi-capture-mode-boundaries.svg)
+
+*Conceptual boundary diagram, not an RF test or command recipe.* Upstream [hcxdumptool documentation](https://github.com/ZerBea/hcxdumptool) states that its default behavior includes active association to an access point and client disassociation. Options and behavior vary across releases. If a review requires receive-only capture, verify the installed receiver's exact mode and ensure it transmits nothing. No explicit deauthentication command does not by itself establish passive behavior.
+
 ```bash
-# Capture PMKID passively
-# hcxdumptool options have changed by version; verify `hcxdumptool --help`.
-# Use approved passive capture (dumpcap/Kismet) rather than assuming this
-# command is passive or compatible with every build.
+# For receive-only observation, capture existing traffic with a
+# packet receiver explicitly configured and verified to transmit nothing.
+# Do not assume a named capture tool or a no-deauth mode is passive.
+# Convert an existing authorized capture (syntax varies by tool release).
 
 # Convert to Hashcat unified format (mode 22000)
 hcxpcapngtool -o pmkid.hc22000 pmkid.pcapng
@@ -225,6 +230,6 @@ Note that Aircrack-ng includes both receive-focused capture utilities and tools 
 
 ## Related Files
 - [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory
-- [hcxtoolshashcat.md](hcxtoolshashcat.md) - Modern passive PMKID/handshake capture with hcxtools and Hashcat mode 22000
-- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Automated passive capture using hcxtools/bettercap
+- [hcxtoolshashcat.md](hcxtoolshashcat.md) - Capture-mode boundaries, offline conversion, and applicable Hashcat mode 22000 analysis
+- [pwnagotchi_cheatsheet.md](pwnagotchi_cheatsheet.md) - Fork-specific capture behavior; active and passive modes vary
 - [WifiMarauder_CheatSheet.md](WifiMarauder_CheatSheet.md) - ESP32 Marauder for mobile WiFi auditing
