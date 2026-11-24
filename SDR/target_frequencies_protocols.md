@@ -53,6 +53,17 @@ Frequency is a clue—not a protocol identification. Several unrelated protocols
 
 **Operating scope:** Begin with public broadcasts and your own devices. Obtain appropriate authorization for private system analysis. Reception, decoding, storage, disclosure, and transmission are separate activities with different rules. Device ownership or an amateur license does not authorize arbitrary transmissions in other services. Consult the [FCC allocation guidance](https://www.fcc.gov/engineering-technology/policy-and-rules-division/general/radio-spectrum-allocation) and applicable service rules; this reference is not a transmit permission table.
 
+```mermaid
+flowchart LR
+  Q["Define the question and scope"] --> BAND["Find a candidate band or channel"]
+  BAND --> HW["Check antenna, receiver range<br/>and instantaneous bandwidth"]
+  HW --> PHY["Match protocol, region<br/>and decoder settings"]
+  PHY --> CAP["Capture and record<br/>sample settings + metadata"]
+  CAP --> EVIDENCE["Classify the result:<br/>energy → decode → attribution → finding"]
+```
+
+*Frequency matching is only one step; it does not establish that a waveform is captured, decoded, or attributable to a device.*
+
 ## 2. Receiver and hardware limits
 
 | Hardware | Useful coverage or role | Material limits |
@@ -63,7 +74,7 @@ Frequency is a clue—not a protocol identification. Several unrelated protocols
 | **CC1101-based hardware** | Chip supports 300–348, 387–464, and 779–928 MHz | Three separate ranges, not continuous 300–928 MHz coverage. Board matching, antenna, firmware, and region can narrow support. No 2.4 GHz or LoRa PHY demodulation. |
 | **Flipper Zero / Sub-GHz handhelds** | Supported Sub-GHz packet formats plus separate LF/NFC functions on applicable models | A recognized frequency does not imply supported decoding. Firmware cannot replace missing radio hardware. |
 | **Proxmark3 / LF-HF readers** | LF/HF near-field card investigation | Use the appropriate antenna and protocol support. Not a general UHF EPC reader. |
-| **PN532** | Selected 13.56 MHz ISO 14443A/B and FeliCa/NFC operations | No 125/134.2 kHz or UHF support; do not assume ISO 15693 support. Existing modules remain useful, but NXP marks PN532 not recommended for new designs. |
+| **PN532** | Selected 13.56 MHz ISO 14443A/B and FeliCa/NFC operations | No 125/134.2 kHz or UHF support; do not assume ISO 15693 support. Existing modules remain useful for supported setups; NXP marks PN532 not recommended for new designs and recommends [PN7160](https://www.nxp.com/products/PN7160) for new designs ([PN532 lifecycle notice](https://www.nxp.com/products/rfid-nfc/nfc-hf/nfc-readers/nfc-integrated-solution:PN5321A3HN)). |
 | **Monitor-mode Wi-Fi adapter** | 802.11 frames, beacons, channel metadata | Chipset, driver, OS, band, width, and monitor-mode support determine capture capability. |
 | **BLE / 802.15.4 / Z-Wave sniffer** | Protocol-aware capture | Verify PHY, firmware, channel-following, and decryption support. One receiver may miss other channels. |
 | **UHF RFID reader / UWB development kit** | Backscatter inventory or wideband ranging analysis | Dedicated hardware is generally required for practical protocol work. |
