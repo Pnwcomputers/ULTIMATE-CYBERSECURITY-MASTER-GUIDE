@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+<title id="title">Strict pin lookup and verified installation</title>
+<desc id="desc">A pin manifest is parsed as data. A valid unique requested pin selects an exact version or commit. A missing pin skips the item unless an explicit supported lab override applies. A malformed, empty, or duplicate requested entry stops the install. Downloaded files must also pass an exact SHA-256 check before use.</desc>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#52667d"/></marker>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#182433}
+    .head{font-size:25px;font-weight:700}.label{font-size:18px;font-weight:700}.small{font-size:15px}
+    .box{stroke-width:2;rx:14}.line{stroke:#52667d;stroke-width:3;fill:none;marker-end:url(#arrow)}
+  </style>
+</defs>
+<rect width="1200" height="500" fill="#f6f8fb" rx="20"/>
+<text x="600" y="48" text-anchor="middle" class="head">Pin lookup: fail closed on bad entries</text>
+<rect x="35" y="190" width="205" height="120" fill="#e7eef8" stroke="#56708e" class="box"/>
+<text x="137" y="230" text-anchor="middle" class="label">Pin manifest</text>
+<text x="137" y="260" text-anchor="middle" class="small">parsed as data</text>
+<text x="137" y="282" text-anchor="middle" class="small">never executed</text>
+<rect x="300" y="190" width="220" height="120" fill="#e7eef8" stroke="#56708e" class="box"/>
+<text x="410" y="230" text-anchor="middle" class="label">Exact key lookup</text>
+<text x="410" y="260" text-anchor="middle" class="small">syntax + uniqueness</text>
+<text x="410" y="282" text-anchor="middle" class="small">checked before use</text>
+<path d="M240 250 H294" class="line"/>
+<rect x="590" y="80" width="255" height="120" fill="#e4f5e9" stroke="#398252" class="box"/>
+<text x="717" y="118" text-anchor="middle" class="label">Valid, unique pin</text>
+<text x="717" y="148" text-anchor="middle" class="small">exact version or commit</text>
+<text x="717" y="172" text-anchor="middle" class="small">downloads also need SHA-256</text>
+<path d="M520 220 C550 220 548 140 584 140" class="line"/>
+<rect x="910" y="80" width="250" height="120" fill="#dcefe2" stroke="#398252" class="box"/>
+<text x="1035" y="118" text-anchor="middle" class="label">Verify, then use</text>
+<text x="1035" y="148" text-anchor="middle" class="small">download hash must match</text>
+<text x="1035" y="172" text-anchor="middle" class="small">before extraction or execution</text>
+<path d="M845 140 H904" class="line"/>
+<rect x="590" y="220" width="255" height="100" fill="#fff3d6" stroke="#b08322" class="box"/>
+<text x="717" y="258" text-anchor="middle" class="label">Pin is absent</text>
+<text x="717" y="286" text-anchor="middle" class="small">skip; limited lab override</text>
+<text x="717" y="306" text-anchor="middle" class="small">only for supported source types</text>
+<path d="M520 250 H584" class="line"/>
+<rect x="590" y="365" width="255" height="100" fill="#fde7e7" stroke="#b34a4a" class="box"/>
+<text x="717" y="403" text-anchor="middle" class="label">Malformed / empty / duplicate</text>
+<text x="717" y="433" text-anchor="middle" class="small">hard failure; override cannot bypass</text>
+<path d="M500 290 C545 290 545 415 584 415" class="line"/>
+<text x="875" y="420" class="small" fill="#7b3131">No install or download</text>
+</svg>
