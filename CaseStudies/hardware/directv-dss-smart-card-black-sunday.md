@@ -19,7 +19,7 @@ Understand why protecting a broadcast cipher alone is insufficient when a custom
 
 Read alongside hardware threat modeling when evaluating removable security modules, offline entitlement checks, or devices deployed in physically untrusted locations.
 
-**Evidence review:** November 17, 2026. Historical primary-source review; no card, receiver, firmware, or satellite-service reproduction performed.
+**Evidence review:** November 24, 2026. Historical primary-source review; no card, receiver, firmware, or satellite-service reproduction performed.
 
 ## System & Documented Events
 
