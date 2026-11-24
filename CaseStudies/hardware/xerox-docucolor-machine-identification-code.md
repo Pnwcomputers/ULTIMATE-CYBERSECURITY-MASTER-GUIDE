@@ -16,7 +16,7 @@ Recognize that a device can disclose identifying metadata through ordinary physi
 
 Use this case when assessing printer privacy, interpreting document evidence, or teaching how to infer an undocumented data format from controlled samples.
 
-**Evidence review:** November 17, 2026. Historical primary-source review; no physical printer or paper sample tested. The exercise below is proposed, not lab-verified.
+**Evidence review:** November 24, 2026. EFF's 2005 announcement and DocuColor decoding guide were checked as primary sources; no physical printer or paper sample was tested. The exercise below is proposed, not lab-verified.
 
 ## Discovery & Scope
 
