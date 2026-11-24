@@ -20,7 +20,7 @@
 
 ---
 
-**Visuals and navigation reviewed:** November 17, 2026. These are historical accounts and conceptual diagrams, not laboratory reproductions or proof of current exploitability.
+**Index and visual-placement review:** November 24, 2026. This review covers navigation and the hardware-study visual references; it does not re-audit the historical incident analyses linked in the Enhanced Master Guide. Diagrams are conceptual unless a caption identifies source material; they are not laboratory reproductions or proof of current exploitability.
 
 ## 🎯 Purpose
 
