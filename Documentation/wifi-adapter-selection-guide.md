@@ -1,6 +1,6 @@
 # Wi-Fi Adapters: Chipsets, Drivers, Monitor Mode & Compatibility
 
-_Reference research: 2026-11-21. This matrix is a **documentation-based comparison**, not a hands-on certification of every adapter and firmware revision._
+_Reference research: 2026-11-24. This matrix is a **documentation-based comparison**, not a hands-on certification of every adapter and firmware revision._
 
 > [!CAUTION]
 > **Authorized use only.** Passive capture, monitor mode, packet injection, WPS tests and channel operations have different effects and legal constraints. Do not transmit test frames outside an approved RF lab. Do not change the regulatory domain to evade local rules. See [Legal Notice](../LEGAL.md).
@@ -81,10 +81,12 @@ The command `iw list` reports capability **advertised by the driver**, not proof
 | Dual-band Linux capture | AWUS036ACM / MT7612U | In-kernel `mt76x2u`; widely documented | Test precise channel and frame capture |
 | Compact dual-band | AWUS036ACHM / MT7610U | In-kernel `mt76x0u` | 1×1 design, not interchangeable with ACM |
 | Legacy Realtek lab / high-gain | AWUS036ACH / RTL8812AU | Common 802.11ac adapter | Driver/kernel-dependent; not an effortless universal choice |
-| 6 GHz observation & Wi-Fi 6E inventory | AWUS036AXM / AXML | Capable tri-band silicon | Region, DFS/6 GHz rules, firmware, driver & capture caveats |
+| 6 GHz observation & Wi-Fi 6E inventory | AWUS036AXM / AXML | Capable tri-band silicon | Local 6 GHz rules and device class, firmware, driver & capture caveats |
 | IoT/AP survey with GPS | Compatible adapter + Kismet | Logging, GPS and capture UI | Requires reliable GNSS and careful retention |
 
 No adapter can be identified as "best" without knowing host kernel, radio bands, antenna/physical conditions and whether receive-only capture suffices. When reliability matters, prefer a **known working in-kernel driver** over flashy throughput specifications.
+
+**Band rules are distinct:** DFS requirements apply to specified 5 GHz U-NII channels, not as a generic label for all 5 GHz operation. 6 GHz has separate device-class and jurisdiction rules. In the United States, standard-power access points use Automated Frequency Coordination (AFC), while low-power indoor access points are restricted to indoor use; client operation depends on the associated access-point class. A radio's advertised band support does not authorize transmission. Check current local rules and host regulatory configuration before any active test. See the FCC's [6 GHz device-class summary](https://docs.fcc.gov/public/attachments/DA-24-1217A1_Rcd.pdf) and [DFS rule discussion for specified 5 GHz bands](https://docs.fcc.gov/public/attachments/FCC-03-110A3_Rcd.pdf).
 
 ## Lab Qualification & Evidence Template
 
