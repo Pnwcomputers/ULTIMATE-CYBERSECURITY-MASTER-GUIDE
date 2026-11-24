@@ -5,7 +5,7 @@
 > Flashing may erase keys, settings and logs. Review [LEGAL.md](../LEGAL.md) and
 > identify the exact board, chip, revision and recovery procedure first.
 
-_Last reviewed: 2026-11-07_
+_Last reviewed: 2026-11-24 (targeted LAB5/Biscuit follow-up; other vendor entries were not rechecked)._
 
 ## Biscuit Release & Recovery Routes
 
@@ -51,6 +51,20 @@ Several dedicated installers support many boards but only one firmware family;
 that does not make them multi-firmware catalogs. Links were established from
 project READMEs, project wiki installation pages or vendor documentation.
 
+**A device image and its controller app are separate artifacts.** Match each
+one to the hardware that runs it, then confirm the documented serial/API pairing.
+
+```mermaid
+flowchart LR
+  C5[ESP32-C5 radio board] -->|radio firmware image| J[JanOS / projectZero]
+  CARD[Cardputer / ADV] -->|separate controller app| CUI[Cardputer controller UI]
+  TAB[Tab5] -->|separate controller app| TUI[Tab5 controller UI]
+  FLIP[Flipper Zero] -->|FAP package| FAP[Lab_C5 controller app]
+  J -. compatible serial/API .-> CUI
+  J -. compatible serial/API .-> TUI
+  J -. check Flipper firmware/API support .-> FAP
+```
+
 | Firmware / Official Installer | Scope & Important Limits |
 |---|---|
 | [Bruce Web Flasher](https://bruce.computer/flasher) | [Bruce upstream](https://github.com/BruceDevices/firmware). Select exact M5Stack/LILYGO/CYD or other supported board. Optional RF/NFC hardware is still required. |
@@ -76,6 +90,9 @@ project READMEs, project wiki installation pages or vendor documentation.
 | [nyanBOX Installer](https://nyandevices.com/flasher) | Dedicated device installer linked by [upstream](https://github.com/jbohack/nyanBOX); not a generic NRF24 or ESP32 image. |
 | [SquachWatch Installer](https://squachwatch.com/) | Dedicated project installer linked by [upstream](https://github.com/skizzophrenic/SquachWatch-CYD); distinguish display controllers and beta targets. |
 | [MeshCore Installer](https://meshcore.io/flasher) | Dedicated ecosystem installer linked by [upstream](https://github.com/meshcore-dev/MeshCore); role, LoRa module and region settings differ from Meshtastic. |
+
+> [!CAUTION]
+> The [official JanOS C5 flasher](https://c5lab.github.io/projectZero/janos_flash.html) documents that its optional **Erase** action clears the full flash, including NVS settings. Normal flashing writes both OTA app slots. Back up first; use full erase only when the upstream recovery instructions call for it.
 
 ## Multi-Device / Multi-Firmware Web Flashers
 
@@ -141,6 +158,11 @@ establish upstream endorsement, freshness or integrity.
 Installer association was checked against upstream/vendor documentation and the
 pages were retrieved on 2026-11-07. All listed dedicated installer pages and
 general flasher entrypoints returned HTTP 200 through the review fetches.
+
+Targeted follow-up on 2026-11-24: checked the [official JanOS C5 flasher](https://c5lab.github.io/projectZero/janos_flash.html)
+for its OTA-slot and full-erase behavior; confirmed the three C5Lab repositories
+linked above are not archived, while `CodeHedge/diy_node_web_flasher` is archived.
+This follow-up does not refresh the other vendors' status or their 2026-11-07 page checks.
 This establishes page availability, not a successful serial connection, download,
 manifest validation, image authenticity or hardware flash. No device was connected
 and no firmware was written.
