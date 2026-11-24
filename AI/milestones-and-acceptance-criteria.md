@@ -1,6 +1,6 @@
 # AI Project Milestones, Acceptance Criteria & Evidence-Driven Progress
 
-_Last reviewed: 2026-11-09_
+_Last reviewed: 2026-11-24_
 
 Milestones turn a large AI-assisted project into **specific outcomes that can be independently checked**. They protect against vague "almost done" claims, lost context between sessions, premature releases, and agents working outside authorization. This is a hands-on implementation guide for a solo operator or multi-agent team.
 
@@ -41,7 +41,7 @@ A **task can be complete while its milestone remains blocked**. For example, wri
 
 ### GitHub Milestones Versus Project Milestones
 
-GitHub also has a **Milestones** feature that groups issues and pull requests. It is useful for tracking work, but issue closure does not automatically prove that technical acceptance tests passed. Put acceptance criteria and links to evidence in the milestone description, a tracking issue, or the project's source-controlled records. Treat the GitHub progress display as project management metadata, not technical attestation.
+GitHub **Milestones** group issues and pull requests, and GitHub's progress view summarizes how many associated items remain open. This is useful project tracking, but issue closure does not prove that technical acceptance tests passed. Put acceptance criteria and evidence links in the milestone description, a tracking issue, or source-controlled project records. Treat the [GitHub progress display](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/viewing-your-milestones-progress) as project metadata, not technical attestation.
 
 ## Design a Good Milestone
 
