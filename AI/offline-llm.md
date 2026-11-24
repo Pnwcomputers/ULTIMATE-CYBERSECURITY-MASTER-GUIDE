@@ -43,23 +43,29 @@ This guide walks through a local-inference setup and the checks needed before de
 
 ## System Requirements
 
-### Minimum Requirements
-- **CPU**: Modern multi-core processor (Intel i5/AMD Ryzen 5 or better)
-- **RAM**: 16GB minimum (8GB for model + 8GB for OS/applications)
-- **Storage**: 50GB free space (models can be 4-20GB each)
-- **OS**: Windows 10/11, macOS 10.15+, or Linux
+Plan hardware against the exact model artifact and workload you intend to run. Parameter count or downloaded file size alone does not predict whether a model will fit or how quickly it will respond. Quantization changes weight size; longer contexts and concurrent requests increase KV-cache memory; runtime buffers and other applications also need room.
 
-### Recommended Specifications
-- **CPU**: Intel i7/AMD Ryzen 7 or better
-- **RAM**: 32GB or more for larger models
-- **GPU**: NVIDIA GPU with 8GB+ VRAM (optional but significantly faster)
-- **Storage**: 100GB+ SSD for multiple models
+```mermaid
+flowchart LR
+  W["Model weights<br/>quantization affects size"] --> B["Memory available to inference"]
+  C["Context / KV cache<br/>grows with context and parallel requests"] --> B
+  R["Runtime and compute buffers"] --> B
+  O["Operating system and other applications"] --> B
+  B --> S["System RAM for CPU/offloaded layers"]
+  B --> G["GPU VRAM for GPU layers"]
+```
 
-### Performance Notes
-- **4GB models**: Run reasonably on 16GB RAM systems
-- **7B models**: Work best with 16GB+ RAM
-- **13B models**: Require 32GB+ RAM for good performance
-- **GPU acceleration**: NVIDIA GPUs provide 5-10x faster inference
+*Conceptual budget: CPU RAM and GPU VRAM are separate pools on most systems; unified-memory machines share physical memory. The runtime's allocation depends on the model, backend, context and concurrent workload.*
+
+Before selecting hardware:
+
+- Check the specific model's current artifact size, quantization, context limit and license in the [Ollama model library](https://ollama.com/library) and upstream model card.
+- Reserve memory for the operating system, AnythingLLM, the vector store, and other running services; leave headroom rather than sizing to the model file alone.
+- Treat context size and parallel requests as memory choices, not only quality or throughput settings. Ollama documents that parallel requests increase effective context/memory use in its [local FAQ](https://docs.ollama.com/faq#how-does-ollama-handle-concurrent-requests).
+- Use `ollama ps` while the model is loaded to inspect CPU/GPU placement; the [CLI reference](https://docs.ollama.com/cli) documents this command. Check the [GPU compatibility guide](https://docs.ollama.com/gpu) for supported hardware.
+- Benchmark cold and warm starts with representative prompts and context lengths on the target system. Record the runtime version, exact model tag/digest, quantization, context, concurrency and latency; do not generalize a single machine's speed result.
+
+Small models may run on modest systems, but the needed RAM/VRAM and practical speed vary substantially by artifact, quantization, backend, context and workload. There is no universal 16 GB / 32 GB model-size rule or guaranteed GPU speedup.
 
 ## Part 1: Installing Ollama
 
