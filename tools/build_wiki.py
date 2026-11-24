@@ -389,6 +389,8 @@ def build(output, repository, root=ROOT, tracked=None):
         "## 🧭 Start Here", "",
         "| Starting Point | When to Use It |", "| --- | --- |",
         f"| [Browse by Topic]({wiki}Browse-by-Topic) | See every subject area and how many pages it holds. |",
+        f"| [Search Guide Text on GitHub]({base}/search?type=code) | Enter a topic to search guide text and file paths on the default branch; GitHub sign-in is required. |",
+        f"| [Search Wiki Pages]({wiki}) | Open the Wiki and use its search field to find terms across its pages. |",
         f"| [All Repository Files]({wiki}Repository-Files) | Access every tracked file, including maintenance records and downloads. |",
     ])
     routes = [
