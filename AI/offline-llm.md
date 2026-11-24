@@ -869,35 +869,32 @@ If you run into issues during setup:
 
 ## Frequently Asked Questions
 
-**Q: Can I use this setup for commercial purposes?**  
-A: Yes! Dolphin models are open-source and can be used commercially. Check specific model licenses on HuggingFace.
+**Q: Can I use a Dolphin model commercially?**  
+A: There is no blanket answer for every Dolphin model or quantized artifact. Check the exact model card, its base-model license, and the terms for the specific version you downloaded. For example, the [Dolphin 3.0 Llama 3.1 model card](https://huggingface.co/dphn/Dolphin3.0-Llama3.1-8B) identifies the Llama 3.1 license, while [Dolphin Phi's listing](https://ollama.com/library/dolphin-phi) points to a different base model. Local hosting does not change license obligations.
 
-**Q: How much does this cost?**  
-A: After initial hardware investment, there are zero recurring costs. No subscriptions or API fees.
+**Q: Is local inference free after buying hardware?**  
+A: It avoids per-token charges for inference that stays local, but hardware, electricity, cooling, storage, maintenance and backups still cost money. Hosted integrations, APIs or cloud features may add usage charges.
 
-**Q: Is this as good as ChatGPT?**  
-A: For many tasks, yes. Larger Dolphin models (mixtral) perform comparably to GPT-3.5. They won't match GPT-4, but the privacy and cost benefits are significant.
+**Q: Is a local Dolphin model as capable as a hosted assistant?**  
+A: There is no universal equivalence. Compare the exact model and quantization on representative, held-out tasks; score correctness, safety, latency and context handling instead of relying on broad model-to-model claims.
 
-**Q: Can I run this on a laptop?**  
-A: Yes! A laptop with 16GB RAM can run smaller models (phi, mistral-7b) effectively. Performance varies by CPU.
+**Q: Can I run a model on a laptop with 16 GB of RAM?**  
+A: Some smaller artifacts may fit, but memory needs depend on the exact model, quantization, context, backend and other running applications. Use the sizing guidance above and check actual CPU/GPU placement while it runs.
 
 **Q: Do I need a GPU?**  
-A: No, but it helps significantly. CPU-only inference works but is slower. NVIDIA GPUs provide the best acceleration.
+A: No. CPU inference is possible, and supported GPUs may improve performance. The speed difference depends on the model, backend, memory placement and workload; benchmark the target system rather than assuming a fixed multiplier.
 
-**Q: Can I access this from multiple devices?**  
-A: Yes! Set up Ollama on a server and configure AnythingLLM on multiple devices to connect to it. Ensure proper network security.
+**Q: Can I access Ollama from other devices?**  
+A: Configure only the network path you need. Do not expose Ollama's API port directly to the public internet; restrict it with firewall rules and use a private network or an authenticated, TLS-protected gateway. Review the local service's bind address, origins and any proxy before connecting clients.
 
-**Q: How often should I update?**  
-A: Check for updates monthly. Ollama and AnythingLLM release improvements regularly. Model updates are less frequent.
+**Q: How often should I update Ollama and models?**  
+A: Track security and compatibility updates, but test runtime and model changes before using them in a production workflow. Record the version, model tag/digest and evaluation results; moving tags can change behavior.
 
-**Q: Can I use other models besides Dolphin?**  
-A: Absolutely! Ollama supports Llama, Mistral, CodeLlama, Vicuna, and many others. Dolphin is recommended for its uncensored nature.
+**Q: Can I use models besides Dolphin?**  
+A: Yes. Ollama's [model library](https://ollama.com/library) changes over time. Check the exact model card, capabilities, artifact requirements and license before downloading or connecting a model to a workflow.
 
-**Q: Is this legal?**  
-A: Model use is governed by the specific model's license and any applicable service terms. Verify the license and permitted use for the exact model/version you download; local hosting does not change those terms.
-
-**Q: Can I train or fine-tune models?**  
-A: While this guide focuses on inference, you can fine-tune models using tools like Axolotl or LLaMA Factory, then run them in Ollama.
+**Q: Can I fine-tune a model with this guide?**  
+A: This guide covers inference, not training. Fine-tuning requires separate dataset-rights, provenance, hardware, evaluation and security planning; consult the current documentation for the chosen framework and model.
 
 ---
 
