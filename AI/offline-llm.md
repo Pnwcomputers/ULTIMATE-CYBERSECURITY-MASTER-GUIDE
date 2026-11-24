@@ -124,65 +124,52 @@ Ollama runs as a background service automatically. If needed, restart it from yo
 
 ## Part 2: Installing Dolphin Models
 
-Dolphin models are available in various sizes. Choose based on your hardware capabilities.
+Treat model names, tags, sizes, context limits and licenses as properties of a specific library entry. The table below is a **catalog snapshot checked 2026-11-24**, not a performance ranking; tags and artifacts can change. Confirm the exact model card, license and digest before a repeatable or commercial deployment.
 
-### Understanding Model Sizes
+| Ollama library entry | Catalog snapshot | Consideration |
+|---|---|---|
+| [`dolphin3`](https://ollama.com/library/dolphin3) | 8B; about 4.9 GB; listed 128K context | Newer general-purpose Dolphin example; benchmark on your task and machine |
+| [`dolphin-mistral`](https://ollama.com/library/dolphin-mistral) | 7B; about 4.1 GB; listed 32K context | Smaller Mistral-based option; current library version shown as v2.8 |
+| [`dolphin-phi`](https://ollama.com/library/dolphin-phi) | 2.7B; about 1.6 GB; listed 2K context | Smaller footprint, but short listed context limits its document use |
+| [`dolphin-mixtral`](https://ollama.com/library/dolphin-mixtral) | 8x7B about 26 GB / 32K context; 8x22B about 80 GB / 64K context | Much larger memory and storage needs; check the exact tag before pulling |
 
-- **a small model selected from the current Ollama library**: Smallest, fastest, good for simple tasks
-- **dolphin-mistral (7B)**: Balanced performance and quality
-- **dolphin-mixtral (8x7B)**: High quality, requires more resources; the `dolphin2.5-mixtral` tag has been retired and folded into this one's `latest` tag
+Sizes/context values above are taken from Ollama's catalog entries and can differ for other tags or quantizations. Context in a model card is a model limit, not a guarantee that your hardware can run the full window.
 
-### Downloading Dolphin Models
+### Download a Selected Model
 
-```bash
-# Option 1: Dolphin-Mistral 7B (Recommended for most users)
-ollama pull dolphin-mistral
-
-# Option 2: Dolphin-Mixtral 8x7B (Better quality, needs more RAM; `dolphin2.5-mixtral` no longer exists as a separate tag)
-ollama pull dolphin-mixtral
-
-# Option 3: Dolphin-Phi (Fastest, smaller model)
-ollama pull dolphin-phi
-```
-
-The download may take 10-30 minutes depending on your internet speed and model size.
-
-### Testing Your Model
-
-Once downloaded, test the model directly from the command line:
+Use the exact tag you reviewed. These are examples, not universal recommendations:
 
 ```bash
-ollama run dolphin-mistral
+# Pick one candidate from the current Ollama library
+ollama pull dolphin3
+# or: ollama pull dolphin-mistral
+# or: ollama pull dolphin-phi
+# or: ollama pull dolphin-mixtral:8x7b
+
+# Inspect installed artifacts
+ollama ls
 ```
 
-At the Ollama prompt, enter a test message. Enter `/bye` to exit. For example:
+Downloads can take widely varying time depending on artifact size and network speed. For repeatability, record the model name, tag and digest shown by your installed tools; a moving `latest` tag can point to a changed artifact.
 
-```text
->>> Hello! Can you introduce yourself?
->>> /bye
-```
-
-### Listing Installed Models
+### Test the Selected Model
 
 ```bash
-# See all installed models
-ollama list
-
-# Example output:
-# NAME                    ID              SIZE    MODIFIED
-# dolphin-mistral:latest  abc123def456    4.1GB   2 minutes ago
+ollama run dolphin3
 ```
 
-### Managing Models
+At the prompt, try a harmless task from your intended workload. Use `/bye` to exit. Check response quality and context handling independently; a successful load is not evidence that the model is suitable for an operational security decision.
+
+### Manage Model Versions
 
 ```bash
-# Remove a model you no longer need
+# Remove an installed model you no longer need
 ollama rm dolphin-phi
 
-# Pull a specific version
-ollama pull dolphin-mistral:7b-v2.6
+# Pull a specific published tag after reviewing its model-card notes
+ollama pull dolphin-mistral:v2.6
 
-# Update an existing model
+# Refresh a moving tag only after checking what will change
 ollama pull dolphin-mistral
 ```
 
