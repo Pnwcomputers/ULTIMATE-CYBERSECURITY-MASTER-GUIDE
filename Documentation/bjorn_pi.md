@@ -46,9 +46,9 @@ The fundamental contrast with the previous two chapters:
 | Attack surface | Wi-Fi L2 | Wi-Fi + BLE + Sub-GHz + NFC + IR + FM | Network services (L4-L7) |
 | Primary technique | Captive portals, deauth, KARMA | Multi-radio: portal, deauth, RF replay, NFC clone | Brute-force + data exfiltration |
 | Scope priority | Keep radio tests within approved bands and targets | Confirm accessory, firmware and transmission scope | Name targets, services, credentials, data access and lockout stop conditions |
-| Time on engagement | Minutes-to-hours, supervised | Minutes-to-hours, supervised | **Hours-to-days, unsupervised** |
+| Operating model | Operator-triggered menu actions | Operator-triggered multi-radio actions | Configured orchestration; runtime, actions and supervision depend on release and setup |
 
-This shift in posture matters enormously, both operationally and legally. The remaining sections of this chapter unpack why.
+These platforms differ in what they do and how they operate. The remaining sections describe Bjorn's behavior, scope controls and defensive implications.
 
 ---
 
