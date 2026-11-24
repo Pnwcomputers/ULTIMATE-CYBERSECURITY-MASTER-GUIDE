@@ -25,7 +25,7 @@ Use this workflow to document PCI DSS scope for merchants or service providers, 
 | **CDE** | People, processes, and technology that store, process, or transmit account data, and the network segments containing such components. |
 | **Connected-to systems** | Components that have connectivity to the CDE, even if they never directly hold PAN. Assess the actual reachability and privilege. |
 | **Security-impacting systems** | Components or services that can affect CDE security, such as administrative access, identity, deployment/configuration, logging, backups, and some cloud or web control planes. |
-| **TPSP** | A third-party service provider whose services store/process/transmit payment account data **or can impact its security**, or which meets a PCI DSS requirement for a customer. The full PCI SSC definition and facts of the service govern. |
+| **TPSP** | Evaluate the provider in the context of the specific service: it may be subject to TPSP expectations when that service stores/processes/transmits payment account data, can impact its security, or meets PCI DSS requirements on the customer's behalf. Assess the service's people, processes, technology, access and shared responsibilities; do not classify every service from the same vendor identically. |
 | **Out of scope** | A supported conclusion **after** testing and documenting why the component neither handles account data, connects to, nor can affect security of the CDE. |
 | **SAQ / ROC / AOC** | Reporting instruments: Self-Assessment Questionnaire / Report on Compliance / Attestation of Compliance. The reporting route is **not** selected solely by a web diagram or by a vendor's marketing claim. |
 
