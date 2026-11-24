@@ -356,25 +356,15 @@ While web scraping requires internet, you can download pages offline:
 
 ### Hardware Optimization
 
-**Enable GPU Acceleration (NVIDIA)**:
+Ollama chooses supported acceleration and memory placement for the installed backend. Check placement after loading a model with `ollama ps`; consult the current [GPU compatibility guide](https://docs.ollama.com/gpu) if acceleration is unavailable. Do not assume a GPU is being used just because one is installed.
 
-```bash
-# Ollama automatically detects CUDA-capable GPUs
-# Verify GPU is being used:
-ollama run dolphin-mistral --verbose
+**Set a context window for an interactive run**:
 
-# You should see GPU memory allocation in the output
+```text
+>>> /set parameter num_ctx 4096
 ```
 
-**Adjust Model Parameters**:
-
-```bash
-# Run with custom context window
-ollama run dolphin-mistral --ctx-size 4096
-
-# Run with specific number of GPU layers
-ollama run dolphin-mistral --n-gpu-layers 35
-```
+Start the session with `ollama run dolphin-mistral`, then enter the setting at the Ollama prompt. The value must fit the selected model and available memory. For a persistent custom model, use a `PARAMETER num_ctx` entry in an Ollama [Modelfile](https://docs.ollama.com/modelfile); this changes a model configuration, not GPU layer placement.
 
 ### Memory Management
 
@@ -394,12 +384,7 @@ ps aux | grep ollama
 
 ### Model Selection Tips
 
-| Use Case | Recommended Model | RAM Needed | Performance |
-|----------|------------------|------------|-------------|
-| Quick questions | dolphin-phi | 8GB | Fast |
-| General use | dolphin-mistral | 16GB | Balanced |
-| Complex tasks | dolphin-mixtral | 32GB | Best quality |
-| Technical work | dolphin-mixtral | 32GB | High accuracy |
+Use the catalog snapshot and model-specific constraints in [Part 2](#part-2-installing-dolphin-models) to choose a candidate. Then use the [hardware sizing guidance](#system-requirements) and [benchmark method](#part-13-performance-benchmarks) on the target system. Model quality, memory use and speed depend on the exact artifact, quantization, context, backend and task; avoid assigning a universal RAM requirement or quality ranking.
 
 ## Part 8: Best Practices for Offline Use
 
