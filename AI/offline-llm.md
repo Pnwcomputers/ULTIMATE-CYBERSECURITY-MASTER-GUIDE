@@ -805,16 +805,17 @@ Repeat each case several times and report the range or median, not a single best
 
 ### Feature Comparison
 
-| Feature | Offline Setup | ChatGPT Plus | Claude Pro |
-|---------|--------------|--------------|------------|
-| Ongoing cost | Hardware, electricity, and administration | Current plan and usage pricing varies | Current plan and usage pricing varies |
-| Privacy | Can process locally; verify the full deployment and provider settings | Check provider-specific terms and controls | Check provider-specific terms and controls |
-| Internet Required | Not for local inference after setup; updates and optional integrations may need it | Service-dependent | Service-dependent |
-| Response Speed | Varies by hardware | Fast | Fast |
-| Model Updates | Manual | Automatic | Automatic |
-| Model behavior | Varies by model and configuration | Provider/model-specific | Provider/model-specific |
-| API access cost | No provider token bill for local inference; hardware and operations still cost money | Check current API pricing | Check current API pricing |
-| Customization | Full control | Limited | Limited |
+This is a decision aid, not a guarantee about any particular subscription or release. Verify current plan features, workspace settings, data terms and provider controls before choosing.
+
+| Feature | Ollama running locally | Hosted assistant plans (for example, ChatGPT Plus or Claude Pro) |
+|---|---|---|
+| Ongoing cost | Hardware, electricity, storage and administration; no per-token provider charge for local inference | Current subscription terms, included usage limits, and possible API or add-on charges |
+| Data path | Can keep inference on-device; verify integrations, telemetry, logs, backups and network egress | Data handling depends on provider, plan, settings and connected tools; review current terms and controls |
+| Internet | Not needed for inference after model/dependencies are downloaded, if cloud features and external integrations are disabled | Usually requires network access; exact capabilities vary by service |
+| Response time | Depends on hardware, model, quantization, context and workload; measure locally | Depends on model, service load, network and plan limits; measure for the intended task |
+| Model versioning | Operator chooses when to pull a model and should record its tag/digest | Provider manages model availability and may change or retire versions; check current release notes and plan access |
+| Customization | Choose compatible local model/settings, subject to model license and runtime capabilities | Features vary by product, plan, account and workspace controls |
+| API access | Local API can avoid hosted token charges, but must be restricted to trusted clients | API access and billing are separate from many consumer subscriptions; verify current provider pricing |
 
 ### Cost Analysis
 
