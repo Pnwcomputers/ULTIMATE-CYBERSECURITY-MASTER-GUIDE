@@ -44,7 +44,7 @@ OpenClaw is a free, open-source AI agent framework that runs on your own hardwar
 
 **Why self-host it?**
 - Your conversations stay on your hardware
-- Use free tiers of Groq and Gemini for most tasks, reserving paid APIs (like Claude) for complex work
+- Compare current model availability, limits, pricing, retention and data-use terms for every provider; do not send sensitive engagement data to a hosted tier until its terms and approvals are checked
 - Integrate with your existing homelab infrastructure
 - Full control over models, tools, and data
 
@@ -86,7 +86,7 @@ This repository includes three guides. Start here, then refer to the others once
 - [OPNsense](https://opnsense.org/) or similar router
 - A [DuckDNS](https://www.duckdns.org/) (or other [DDNS](https://github.com/cloudflare/cloudflare-docs/blob/production/src/content/docs/dns/manage-dns-records/how-to/managing-dynamic-ip-addresses.mdx)) domain pointed at your public IP
 - [Ollama](https://ollama.com/) running somewhere on your network (optional, for local inference)
-- [API keys](https://www.ibm.com/think/topics/api-key) for: Anthropic, Groq, Google Gemini (all have free tiers)
+- provider credentials for Anthropic, Groq, Google Gemini and Ollama; availability, billing and data-use terms vary by account and change over time
 
 ---
 
@@ -132,9 +132,7 @@ Fill in the app installer form as follows:
 
 **Storage Configuration:**
 
-> ⚠️ **CRITICAL: Leave storage type as `ixVolume` - do NOT change to Host Path.**
->
-> There is a known bug in OpenClaw 2026.3.2+ where the config init container fails when using Host Path storage. The ixVolume option (TrueNAS managed storage) is the only storage type that works reliably with the TrueNAS Community app.
+> Choose a storage type supported by the current TrueNAS app chart and your backup plan. This guide’s ixVolume setup reflects the tested deployment snapshot below; it is not a universal compatibility guarantee. Check current app documentation and release notes before changing storage. Back up the app configuration and persistent data before any migration, and do not delete/reinstall an app as a troubleshooting shortcut.
 
 **Resources Configuration:**
 | Field | Value |
@@ -221,101 +219,47 @@ At each prompt:
 
 ## Part 3: Configure AI Providers
 
-### 3.1 Fix Groq (Manual Config Edit)
+Provider setup and configuration schemas change between OpenClaw releases. Follow the [current provider documentation](https://docs.openclaw.ai/providers) for the installed version and use the TrueNAS app's supported environment-variable or secret fields for credentials. Never print keys in terminal output or commit them to configuration files.
 
-The Groq wizard often completes without registering models. Fix this by editing the config file directly on the TrueNAS host:
+### 3.1 Groq
 
-```bash
-sudo python3 -c "
-import json
-path = '/mnt/.ix-apps/app_mounts/openclaw/config/.openclaw/openclaw.json'
-with open(path) as f:
-    config = json.load(f)
-
-config['auth']['profiles']['groq:default'] = {'provider': 'groq', 'mode': 'api_key'}
-config['plugins']['entries']['groq'] = {'enabled': True}
-config['agents']['defaults']['models']['groq/llama-3.3-70b-versatile'] = {}
-
-with open(path, 'w') as f:
-    json.dump(config, f, indent=2)
-print('Done')
-"
-```
-
-Validate the JSON:
+OpenClaw's current [Groq provider guide](https://docs.openclaw.ai/providers/groq) documents an official provider plugin and model references. For this deployment, first check whether the installed app includes the provider and list what it recognizes:
 
 ```bash
-sudo python3 -c "import json; json.load(open('/mnt/.ix-apps/app_mounts/openclaw/config/.openclaw/openclaw.json')); print('Valid')"
+sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs models list --provider groq
 ```
 
-> ⚠️ **Important:** Never use `config set` to add nested provider objects like `models.providers.groq`. OpenClaw's schema validator rejects partial provider entries written one field at a time. Always use the Python direct-edit method above for provider configuration.
+If the provider is unavailable, follow the plugin installation steps for the installed OpenClaw release. Review and approve the plugin package/version as third-party executable code before installing it. Do not use the older manual JSON edits or assume that onboarding always adds a working provider. Check [Groq's current model list](https://console.groq.com/docs/models) and [deprecation notices](https://console.groq.com/docs/deprecations) before selecting an ID; the former `llama-3.3-70b-versatile` example in this guide has been retired.
 
-### 3.2 Fix Ollama API Key
+### 3.2 Ollama
 
-The Ollama wizard sets the API key to the literal string `"OLLAMA_API_KEY"` instead of resolving the value. Fix it:
+Use the current [OpenClaw Ollama provider guide](https://docs.openclaw.ai/providers/ollama) and [Ollama documentation](https://docs.ollama.com/) for the installed versions. Set the service URL through the supported app/provider configuration, and verify reachability from the OpenClaw container's network namespace. Do not expose Ollama's API broadly: allow only the gateway host or required container network.
 
-```bash
-sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set models.providers.ollama.apiKey "ollama-local"
-```
+### 3.3 Model access
 
-### 3.3 Add Ollama Models To Allowlist
-
-Check what models you have available:
-
-```bash
-curl -s http://YOUR_OLLAMA_IP:11434/api/tags
-```
-
-Then add your models to the agents allowlist:
-
-```bash
-sudo python3 -c "
-import json
-path = '/mnt/.ix-apps/app_mounts/openclaw/config/.openclaw/openclaw.json'
-with open(path) as f:
-    config = json.load(f)
-
-# Replace with your actual model name from the api/tags output
-config['agents']['defaults']['models']['ollama/YOUR_MODEL_NAME:latest'] = {}
-
-with open(path, 'w') as f:
-    json.dump(config, f, indent=2)
-print('Done')
-"
-```
+Use the provider's current model-discovery command and inspect the installed OpenClaw configuration schema before changing an allowlist or model reference. A model appearing in an upstream provider catalog does not prove that the installed app, account, plugin, or plan can use it.
 
 ---
+## Part 4: Verify Providers
 
-## Part 4: Verify All Providers
-
-Restart the app from the TrueNAS UI (Stop → Start), then verify:
+Restart the app only if the installed version's instructions require it, then inspect the providers and models available to this specific deployment:
 
 ```bash
 sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs models list
+sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs models list --provider groq
 ```
 
-Expected output:
-
-```
-Model                                      Input      Ctx      Local Auth  Tags
-google/gemini-3.1-pro-preview              text+image 1024k    no    yes   default,configured
-anthropic/claude-opus-4-7                  text+image 977k     no    yes   configured
-anthropic/claude-haiku-4-5                 text+image 195k     no    yes   configured
-ollama/YOUR_MODEL:latest                   text       8k       no    yes   configured
-groq/llama-3.3-70b-versatile               text       128k     no    yes   configured
-```
-
-All four providers should be listed. If any are missing, revisit the relevant section in Part 3.
+Output differs by OpenClaw release, installed plugins, account entitlements and provider catalog. Confirm the exact model reference, context limit and authentication status from the installed CLI and current provider documentation. Send a harmless test prompt, verify which provider handled it, and check usage/billing. Do not copy model IDs or context windows from old screenshots or examples as guaranteed values.
 
 ---
 
 <a id="part-5-set-default-model-and-tools-profile"></a>
 ## Part 5: Set Default Model & Tools Profile
 
-Set Groq as the default model to minimize API costs:
+To set a default, first confirm the exact model reference in your installed model list and the current [Groq provider documentation](https://docs.openclaw.ai/providers/groq). The documented example at review time is `groq/openai/gpt-oss-120b`; model availability and pricing can change, so re-check before using it.
 
 ```bash
-sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set agents.defaults.model.primary "groq/llama-3.3-70b-versatile"
+sudo docker exec -it ix-openclaw-openclaw-1 node /app/openclaw.mjs config set agents.defaults.model.primary "groq/openai/gpt-oss-120b"
 ```
 
 Set the tools profile. Valid values are `minimal`, `coding`, `messaging`, or `full`:
@@ -463,11 +407,9 @@ Limit initial access to the intended trusted clients. Review both the Gateway's 
 
 ## Troubleshooting
 
-### App Fails To Start: `config service exit 1`
+### App Fails To Start
 
-This is a known bug in OpenClaw 2026.3.2+ triggered by Host Path storage.
-
-**Fix:** Delete the app and reinstall using **ixVolume** storage (the default). Do not change the storage type to Host Path.
+Inspect the app's lifecycle logs and current TrueNAS chart/OpenClaw release notes first. App startup failures can have several causes; do not infer a storage bug from the error alone. Before changing storage or reinstalling, export/backup the configuration and persistent data, confirm a restorable backup, and follow current vendor guidance.
 
 ### App Fails To Start After Editing Config File
 
@@ -489,17 +431,13 @@ sudo python3 -c "import json; json.load(open('/mnt/.ix-apps/app_mounts/openclaw/
 
 Then start the app from the TrueNAS UI.
 
-### `config set` Fails With Schema Validation Error
+### Provider Configuration Fails
 
-OpenClaw requires all fields of a provider entry to be present simultaneously. Setting nested provider objects one field at a time always fails validation.
+Configuration keys and provider schemas vary by OpenClaw version and packaged app. Use the current provider guide and installed CLI help, back up the configuration, change one setting at a time, then run the built-in security/configuration checks. A valid JSON file alone does not establish schema or runtime validity.
 
-**Fix:** Use the Python direct-edit method from Part 3.
+### Ollama Cannot Be Reached
 
-### Ollama Shows "Could Not Be Reached At 127.0.0.1:11434"
-
-The `OLLAMA_HOST` environment variable is not supported by this version.
-
-**Fix:** In the TrueNAS app environment variables, use `OLLAMA_BASE_URL` instead of `OLLAMA_HOST`.
+Check the configured Ollama address from the OpenClaw container's network namespace and confirm that the Ollama service allows only the required network path. Container-local `localhost` refers to the container itself. Use currently supported provider settings for the installed version; do not assume an environment variable name from another release.
 
 ### Websocket Disconnected (1006) Through Npmplus
 
@@ -573,18 +511,15 @@ sudo docker logs ix-openclaw-openclaw-1 2>&1 | tail -n 30
 
 ---
 
-## Cost Optimization
+## Provider Selection and Cost Controls
 
-| Provider | Cost | Best For |
-|----------|------|----------|
-| Groq | Free tier (generous) | Default for most tasks - fast Llama 3.3 70B |
-| Google Gemini | Free tier | Long context tasks (1M token window) |
-| Ollama (local) | Free forever | Sensitive tasks, offline use |
-| Anthropic (Claude) | Paid | Complex reasoning, long documents |
+| Option | Evaluate before use |
+|---|---|
+| Hosted provider | Current per-model prices, rate limits, retention/training terms, region, account eligibility and fallback behavior |
+| Local Ollama | Hardware and electricity cost, model license, actual performance, telemetry and whether every integration remains local |
+| Automatic routing | Which model receives each request, privacy boundaries, budget caps, fallback behavior and how routing decisions are logged |
 
-The **Adaptive** model mode in the dashboard automatically routes to a stronger model only when the task requires it, keeping costs minimal.
-
----
+Check official current [Groq pricing and limits](https://console.groq.com/docs/rate-limits), [Gemini API pricing and data-use terms](https://ai.google.dev/gemini-api/docs/pricing), and [Anthropic pricing](https://www.anthropic.com/pricing). No-cost tiers can have strict quotas or different data-use terms; do not treat “free” as a privacy control. Verify account usage limits and cost alerts before enabling hosted providers.
 
 ## Operational Engineering & Safe Integration Path
 
@@ -617,7 +552,7 @@ The OpenClaw guides contain historical, environment-specific commands. **Inspect
 
 ---
 
-*Tested deployment snapshot: TrueNAS SCALE 25.04 · Dell R630 · OPNsense · NPMplus · Ollama · OpenClaw 2026.4.15*
+*Deployment snapshot tested at the time: TrueNAS SCALE 25.04 · Dell R630 · OPNsense · NPMplus · Ollama · OpenClaw 2026.4.15. This historical snapshot does not guarantee compatibility with current releases.*
 
 ## Related Files
 - [../README.md](../README.md) - AI section index
