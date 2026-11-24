@@ -1,6 +1,6 @@
 # LAN TAPs, Passive & Active Network Taps, SPAN & Packet Visibility
 
-_Reviewed: 2026-11-21. Product claims come from manufacturer documentation; no Ethernet link or throughput was physically tested._
+_Reviewed: 2026-11-24. Product claims were checked against manufacturer documentation; no Ethernet link or throughput was physically tested._
 
 > [!CAUTION]
 > **Authorized in-line work only.** Inserting a network TAP means unplugging a production link, which can interrupt service and alter negotiation. Treat changes as scheduled maintenance with rollback and packet-data confidentiality controls. A monitoring tool's access to copied packets is sensitive. See [Legal Notice](../LEGAL.md).
@@ -83,6 +83,16 @@ These are **categories and examples**, not current pricing recommendations. Vali
 | Managed switch SPAN | Software-managed copy | Existing lab switch and initial IDS PoC | Switch can filter/drop/reshape mirrored traffic |
 | Virtual switch mirror | Hypervisor/software copy | Observe VM-to-VM flows without extra box | **Only** traffic on mirrored virtual switching plane |
 
+## Pros & Cons by Approach
+
+| Approach | Advantages | Tradeoffs and failure considerations |
+|---|---|---|
+| **Commercial passive TAP** | No powered electronics in the copy path; dedicated physical observation; models exist for copper or fiber | Must match media and link speed; insertion can flap a link; passive copper models may be speed-limited; optical split consumes power budget; directions may need separate sensor ports |
+| **Commercial active TAP / packet broker** | Supports higher rates and media; options for breakout, aggregation, regeneration and multiple tools | Higher cost and power needs; behavior is model-specific; aggregation can drop packets; verify power-loss and bypass behavior from the datasheet and test plan |
+| **Switch SPAN / RSPAN / ERSPAN** | Often uses existing switch features; avoids unplugging the physical link; convenient selection of ports/VLANs and remote collection | Requires a supported, correctly configured switch; may omit traffic outside the selected path; destination oversubscription or switch limits can lose copies; remote mirroring adds transport and bandwidth constraints |
+| **DIY passive kit (for example, Throwing Star)** | Low-cost hands-on learning; published design; no power required for the passive tap itself | The Throwing Star is designed for 10/100, not transparent gigabit; signal quality is reduced; physical insertion still affects the link; use a documented design and rated components, never assume a generic Ethernet splitter is a TAP |
+| **DIY active Linux bridge** | Flexible for a controlled lab; can reuse available Linux hardware and provide explicit forwarding/capture points | It is an **in-path active bridge, not a passive TAP**; the OS and NICs forward production packets, so configuration, reboot, overload or failure can interrupt or alter traffic. Keep experiments on an isolated test link and validate forwarding before relying on captures |
+
 ## Passive vs Active: What to Buy or Build For Each Task
 
 | Scenario | Most Suitable Starting Option | Why |
@@ -95,6 +105,10 @@ These are **categories and examples**, not current pricing recommendations. Vali
 | IDS + forensic PCAP recorder simultaneously | Regeneration TAP / packet broker | Multiple tool feeds |
 | Inline IPS must survive tool outage | Documented bypass/fail-open or fail-closed product | Availability behavior must be explicitly tested |
 | Proxmox Snort/Suricata VM behind unmanaged switch | Add a **rated TAP**, replace unmanaged switch with SPAN-capable one, or mirror at upstream gateway | Ordinary unmanaged switches **cannot be assumed** to provide configurable SPAN |
+
+![Conceptual selection diagram for switch port mirroring, a physical network TAP, or a virtual switch mirror based on where the traffic crosses](../assets/diagrams/tap-observation-method-selection.svg)
+
+*Conceptual guide: validate the required traffic path and monitor-port capacity for the specific switch, TAP and sensor.*
 
 ### Fail-Open, Fail-Closed & Monitor Failure
 
@@ -183,6 +197,7 @@ Before installing: identify link endpoints, scheduled maintenance, service owner
 - [Datacom Systems: Copper Network TAPs 101](https://www.datacomsystems.com/copper-network-taps-101/)
 - [Garland Technology TAP Guide](https://www.garlandtechnology.com/network-tap)
 - [Niagara Networks: Network TAP Guide](https://www.niagaranetworks.com/products/network-tap-how-to-guide)
+- [Cisco IOS XE 17: SPAN and port mirroring](https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/mgmt/management-configuration-guide/span.html)
 - [Network Detection](../Tradecraft/network-detection.md)
 - [Wireshark](./wireshark.md) & [Wireshark Capture / Display Filter Guide](./wireshark-master-filters.md)
 - [Homelab: Proxmox Security Visibility](../Homelab/proxmox-security-monitoring-visibility.md)
