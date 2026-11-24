@@ -173,17 +173,11 @@ JOIN processes p ON s.pid = p.pid
 WHERE s.state = 'ESTABLISHED'
 ORDER BY p.name;
 
--- Connections to external IPs
+-- Remote socket endpoints for triage (this does not classify public vs. private IP ranges)
 SELECT s.pid, p.name, s.remote_address, s.remote_port
 FROM process_open_sockets s
 JOIN processes p ON s.pid = p.pid
-WHERE s.remote_address NOT LIKE '127.%'
-  AND s.remote_address NOT LIKE '10.%'
-  AND s.remote_address NOT LIKE '192.168.%'
-  AND s.remote_address NOT LIKE '172.16.%'
-  AND s.remote_address != ''
-  AND s.remote_address != '0.0.0.0'
-  AND s.remote_address != '::';
+WHERE s.remote_address NOT IN ('', '0.0.0.0', '::');
 ```
 
 #### User and Authentication
@@ -387,7 +381,7 @@ The following is a Linux-oriented example for `/etc/osquery/osquery.conf`; its L
 
 ### Step 3.3: Create Security Query Pack
 
-Create `/etc/osquery/packs/security.conf`. This is an illustrative starting point, not a cross-platform drop-in: tables and event publishers vary by operating system and release. Split or tag queries for the platforms you actually deploy, and enable the required event sources; osquery event tables are disabled by default. See the official [event flags](https://osquery.readthedocs.io/en/stable/installation/cli-flags/) and [process auditing](https://osquery.readthedocs.io/en/stable/deployment/process-auditing/) guidance.
+Create `/etc/osquery/packs/security.conf`. This is an illustrative starting point, not a cross-platform drop-in: tables and event publishers vary by operating system and release. The process/socket event examples below target Linux; use the matching audit/BPF configuration there. Modern macOS process events use EndpointSecurity tables, while Windows has different event sources. Split or tag queries for the platforms you deploy and enable the required event sources; osquery event tables are disabled by default. See the official [event flags](https://osquery.readthedocs.io/en/stable/installation/cli-flags/) and [process auditing](https://osquery.readthedocs.io/en/stable/deployment/process-auditing/) guidance.
 
 ```json
 {
@@ -395,27 +389,31 @@ Create `/etc/osquery/packs/security.conf`. This is an illustrative starting poin
   "queries": {
     
     "process_events": {
-      "query": "SELECT auid, pid, uid, euid, gid, egid, owner_uid, owner_gid, cmdline, path, time FROM process_events;",
+      "query": "SELECT * FROM process_events;",
       "interval": 60,
-      "description": "Process execution events"
+      "description": "Linux process execution events",
+      "platform": "linux"
     },
 
     "socket_events": {
       "query": "SELECT action, pid, path, remote_address, remote_port, local_address, local_port, time FROM socket_events WHERE action = 'connect';",
       "interval": 60,
-      "description": "Network connection events"
+      "description": "Linux socket connection events",
+      "platform": "linux"
     },
 
     "file_events": {
       "query": "SELECT target_path, category, action, md5, sha256, time FROM file_events;",
       "interval": 60,
-      "description": "File integrity monitoring events"
+      "description": "File integrity monitoring events",
+      "platform": "linux,darwin"
     },
 
     "user_events": {
       "query": "SELECT * FROM user_events;",
       "interval": 60,
-      "description": "User login/logout events"
+      "description": "Linux user login/logout events",
+      "platform": "linux"
     },
 
     "suid_bin_changes": {
@@ -868,7 +866,9 @@ WHERE (name LIKE '%defender%'
 | Table | Description | Platform |
 |-------|-------------|----------|
 | `processes` | Running processes | All |
-| `process_events` | Process execution events | All |
+| `process_events` | Process execution events | Linux; macOS 10.15 and older |
+| `bpf_process_events` | BPF process events | Linux (kernel 4.18+) |
+| `es_process_events` | EndpointSecurity process events | macOS 10.15+ |
 | `process_open_files` | Files opened by processes | All |
 | `process_open_sockets` | Network sockets | All |
 | `process_memory_map` | Process memory regions | All |
@@ -878,7 +878,8 @@ WHERE (name LIKE '%defender%'
 | Table | Description | Platform |
 |-------|-------------|----------|
 | `listening_ports` | Listening network ports | All |
-| `socket_events` | Socket connection events | Linux/macOS |
+| `socket_events` | Audit/OpenBSM socket events | Linux; macOS 10.15 and older |
+| `bpf_socket_events` | BPF socket events | Linux (kernel 4.18+) |
 | `interface_addresses` | Network interface IPs | All |
 | `routes` | Routing table | All |
 | `arp_cache` | ARP cache | All |
