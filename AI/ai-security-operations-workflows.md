@@ -1,6 +1,6 @@
 # AI-Augmented Security Operations: Authorized, Auditable Workflows
 
-_Last reviewed: 2026-11-09 · Reference blueprint; no claim of production deployment or live testing._
+_Last reviewed: 2026-11-24 · Reference blueprint; no claim of production deployment or live testing._
 
 This guide connects the AI engineering topics into a **repeatable security-operations pipeline** for an authorized lab or properly scoped client engagement. It emphasizes human authorization, observational analysis, reproducible tests, evidence, auditability, and limited automation. An assistant may assist with triage, correlation, documentation and suggestions; it does **not** automatically gain authority to run intrusive testing, isolate endpoints, send customer communications or modify production controls.
 
@@ -76,7 +76,7 @@ Classify telemetry (public/internal/confidential/regulated); redact or tokenize 
 {
   "schema_version": "1.0",
   "event_id": "LAB-WAZUH-00014",
-  "timestamp": "2026-11-09T14:30:00-08:00",
+  "timestamp": "2026-11-24T14:30:00-08:00",
   "tenant": "authorized-lab",
   "source": "wazuh-synthetic-fixture",
   "asset_ref": "LAB-HOST-02",
@@ -224,7 +224,7 @@ Before controlled rollout:
 | Detection quality and trace evidence | [Evaluations](ai-evaluation-and-regression-testing.md) · [Observability](ai-observability-and-auditing.md) |
 | Prompt injection and governance | [Agent Security](agent-threat-modeling-and-security.md) · [AI Audits](verification-and-ai-audits.md) |
 
-Primary references: [Wazuh Documentation](https://documentation.wazuh.com/) · [MITRE ATT&CK](https://attack.mitre.org/) · [OWASP Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) · [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [OpenTelemetry GenAI](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/README.md).
+Primary references: [Wazuh Documentation](https://documentation.wazuh.com/) · [MITRE ATT&CK](https://attack.mitre.org/) · [OWASP Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) · [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) · [NIST Generative AI Profile (AI 600-1)](https://doi.org/10.6028/NIST.AI.600-1) · [OpenTelemetry GenAI](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/README.md).
 
 ---
 
