@@ -1,6 +1,6 @@
 # DNS Hijacking, Secure DNS, DNSSEC, DoH, DoT & Resolver Defense
 
-_Reviewed: 2026-11-21. Commands demonstrate observation of approved client configuration or harmless public DNS diagnostics; no DNS service was reconfigured._
+_Reviewed: 2026-11-24. Commands demonstrate observation of approved client configuration or harmless public DNS diagnostics; no DNS service was reconfigured._
 
 > [!CAUTION]
 > **Defensive use only.** Unauthorized changes to DHCP/DNS/gateway settings can redirect traffic or interrupt production. Do not intercept others' queries, provision a rogue resolver or change client trust stores. Capture files may contain sensitive domain histories. See [Legal Notice](../LEGAL.md).
@@ -8,6 +8,10 @@ _Reviewed: 2026-11-21. Commands demonstrate observation of approved client confi
 ## DNS Trust Boundaries & Common Threats
 
 A DNS lookup can be manipulated at a **client**, **local network**, **recursive resolver**, **authoritative DNS**, **registrar**, **application**, or **browser** layer. "DNS hijacking" is not one exploit and cannot be repaired by changing an individual DNS setting in isolation.
+
+![Conceptual DNS lookup path showing separate endpoint, local network, recursive resolver, and authoritative-zone trust boundaries](../assets/diagrams/dns-resolution-trust-path.svg)
+
+*Conceptual path: controls and evidence differ at each stage. DNSSEC validates signed DNS data; encrypted DNS protects only the configured client-to-resolver transport.*
 
 | Threat | Attacker-Controlled Surface | Evidence | Defensive Control |
 |---|---|---|---|
@@ -32,8 +36,8 @@ A DNS lookup can be manipulated at a **client**, **local network**, **recursive 
 | Traditional DNS | Basic name resolution | UDP/TCP 53 | Usually plaintext between client and resolver |
 | **DNSSEC** | Authenticated integrity and origin of **signed DNS data**, validated via chain of trust | Works with regular DNS, DoH or DoT | Does **not** encrypt names; only effective with validation and correctly signed zones |
 | **DNS over TLS (DoT)** | TLS encryption of client–resolver connection | TCP 853 typically | Does **not** guarantee DNSSEC; trust resolver and certificate |
-| **DNS over HTTPS (DoH)** | DNS queries/responses transported through HTTPS | HTTPS usually TCP 443, potentially HTTP/3 over QUIC | Can bypass organization DNS policies unless managed; does **not** by itself authenticate authoritative zone data |
-| **DNS over QUIC (DoQ)** | Encrypted DNS over QUIC | UDP 853 commonly | Implementation/enterprise support varies; not equivalent to DNSSEC |
+| **DNS over HTTPS (DoH)** | DNS queries/responses transported through HTTPS | HTTPS, commonly TCP 443; HTTP/3 uses QUIC/UDP | Can bypass organization DNS policies unless managed; does **not** by itself authenticate authoritative zone data |
+| **DNS over QUIC (DoQ)** | Encrypted DNS over QUIC | UDP 853 by default | Encrypted transport does not itself validate authoritative DNS data; alternate ports require agreement |
 | **Oblivious DoH (ODoH)** | Separates client identity from DNS question under a proxy/target model | HTTPS via proxy | Availability, key distribution and trust model differ |
 | **Protective DNS (PDNS)** | Resolver-side threat filtering and policy enforcement | Any supported transport | False positives/negatives and privacy concerns; not a firewall substitute |
 | **DANE / TLSA** | DNSSEC-backed service-certificate assertions where supported | DNSSEC-signed records | Application support varies; not automatic for browsers |
