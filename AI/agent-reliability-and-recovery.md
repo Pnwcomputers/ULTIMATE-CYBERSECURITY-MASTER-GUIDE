@@ -1,6 +1,6 @@
 # AI Agent Reliability, Idempotency & Failure Recovery
 
-_Last reviewed: 2026-11-09_
+_Last reviewed: 2026-11-24_
 
 An agent is reliable when it **does the intended work within its boundaries, detects failures, and recovers without duplicating or corrupting side effects**. A successful model answer is not necessarily a successful workflow.
 
@@ -56,10 +56,14 @@ In distributed systems, "exactly once" is hard; practical workflows often use **
 def handle_event(event, db, client):
     key = event["event_id"]
     with db.transaction():
-        if db.was_processed(key):
-            return db.previous_result(key)
-        # Reserve a durable in-progress record, uniquely keyed by event ID.
-        db.reserve_unique(key)
+        record = db.get_operation(key)
+        if record is not None:
+            if record.status == "SUCCEEDED":
+                return record.result
+            # RUNNING, UNKNOWN or FAILED is not proof of success or safe replay.
+            raise NeedsReconciliation(key)
+        # Atomic unique insert prevents concurrent local reservations.
+        db.reserve_unique(key, status="RUNNING")
     try:
         result = client.create_draft(
             case_id=event["case_id"],
@@ -74,7 +78,7 @@ def handle_event(event, db, client):
         raise
 ```
 
-The pseudocode is **not atomic across a database and remote API**; a unique local record alone cannot prevent duplicates if the remote endpoint lacks idempotency. Use remote idempotency support where available, a transactional outbox if appropriate, and reconciliation by external key.
+The pseudocode is **not atomic across a database and remote API**; a unique local record alone cannot prevent duplicates if the remote endpoint lacks idempotency. Use remote idempotency support where available, a transactional outbox if appropriate, and reconciliation by external key. On replay, reconcile an existing `RUNNING` or `UNKNOWN` operation with the remote service before making another request. If the endpoint has no idempotency support and no reliable lookup by operation key, keep the action blocked for manual resolution; a timeout or missing result does not prove that the side effect did not occur.
 
 ## 4. Retry, Timeout & Circuit-Breaker Policies
 
@@ -133,7 +137,7 @@ Measure: **incorrect side effects, duplicated writes, unresolved ambiguous opera
 
 [Milestones](milestones-and-acceptance-criteria.md) · [Multi-Agent Orchestration](multi-agent-orchestration.md) · [Observability](ai-observability-and-auditing.md) · [MCP Permissions](mcp-tooling-and-permissions.md)
 
-References: [OpenAI Running Agents](https://developers.openai.com/api/docs/guides/agents/running-agents) · [OpenAI Agents Testing](https://openai.github.io/openai-agents-js/guides/testing/) · [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework).
+References: [OpenAI Running Agents](https://developers.openai.com/api/docs/guides/agents/running-agents) · [OpenAI Agents Testing](https://openai.github.io/openai-agents-js/guides/testing/) · [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [NIST Generative AI Profile](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence).
 
 ---
 
