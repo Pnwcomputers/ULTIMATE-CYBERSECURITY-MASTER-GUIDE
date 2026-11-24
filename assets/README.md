@@ -1207,3 +1207,12 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 |---|---|
 | [Asset and checkin join grain](./diagrams/sql-asset-checkin-join-grain.svg) | [SQL joins](../Data-Engineering/Phase1/sql_data_modeling.md#4-joins) |
 | [Complete dataset version publication](./diagrams/dataset-version-publication.svg) | [Publish complete versions](../Data-Engineering/Phase2/data_storage_file_formats.md#publication) |
+
+
+## Script Pinning Visual
+
+Original conceptual flow for strict manifest parsing and supply-chain checks. Malformed requested pins stop the install; downloads require an exact SHA-256 match before use.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Script pin validation and verified installation](./diagrams/script-pin-validation-flow.svg) | [Tool pinning policy](../Scripts/PINNING.md#behaviour) |
