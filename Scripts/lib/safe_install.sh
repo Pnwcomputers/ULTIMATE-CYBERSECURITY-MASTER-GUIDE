@@ -277,7 +277,7 @@ safe_detect_arch() {
 
 # Format: KEY=VALUE, one per line; '#' comments and blank lines ignored.
 #   KEY   : [A-Za-z0-9:_./@+-]+
-#   VALUE : [A-Za-z0-9._/+-]*   (no spaces, quotes, $, backticks or ;)
+#   VALUE : [A-Za-z0-9._/+-]+   (no spaces, quotes, $, backticks or ;)
 
 # safe_pin_get FILE KEY
 #   Prints a valid value; returns 1 when absent and 2 when the requested
@@ -287,7 +287,7 @@ safe_pin_get() {
     local file="$1" key="$2" line v found=0 result=""
     [[ -f "$file" && ! -L "$file" ]] || return 1
     while IFS= read -r line || [[ -n "$line" ]]; do
-        [[ -z "$line" || "$line" == #* ]] && continue
+        [[ -z "$line" || "$line" == \\#* ]] && continue
 
         # Match the exact requested key before applying the strict value syntax.
         if [[ "$line" == "$key"* ]]; then
