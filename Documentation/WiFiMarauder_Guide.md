@@ -230,7 +230,7 @@ The following menu and feature descriptions are from the v1.8.9-era baseline and
 ### Bluetooth & BLE
 
 - BLE and Classic scanning, spam (SwiftPair, Sour Apple), vendor/manufacturer data parsing.  
-- **New – AirTag Monitor (v1.8.9):** detect nearby AirTags and show **Last-Seen** timer to gauge persistence/movement during authorized investigations.
+- **Historical AirTag Monitor (v1.8.9):** supported builds listed detected AirTag advertisements with a **Last-Seen** timer and signal strength. Treat these as limited BLE observations, not proof that a tracker is following someone.
 
 ### GPS (if equipped)
 
@@ -382,10 +382,22 @@ Do not describe PMF as a general defense against Evil Twin behavior.
 
 ### AirTag Monitor (v1.8.9)
 
-**Purpose:** Detect nearby **Apple AirTags** and track **Last-Seen** timing to identify potential trackers persisting around test subjects or areas.  
-**Menu:** `Bluetooth → AirTag Monitor`  
-**Output:** device ID, RSSI, **Last-Seen** (hh:mm:ss).  
-**Field Use:** Walk the route and watch **Last-Seen** shrink/grow; combine with **GPS POIs** to flag recurring spots.
+This is a historical, release-specific feature. The [upstream AirTag Monitor documentation](https://github.com/justcallmekoko/ESP32Marauder/wiki/Airtag-Monitor) describes a list of observed AirTag advertisements with signal strength and elapsed time since the last sighting. Availability and displayed fields depend on the board and firmware.
+
+A Last-Seen timer records when this receiver last observed a matching advertisement. RSSI is affected by distance, obstacles, orientation, interference and receiver conditions; it is not a reliable distance meter. Repeated sightings or changing signal strength do **not** establish ownership, prove that a device is accompanying a person, or provide a route. Do not use these observations to attribute a tracker or follow a person.
+
+```mermaid
+flowchart LR
+  A["Supported build observes a matching BLE advertisement"] --> B["Display may show RSSI and time since last sighting"]
+  B --> C["Treat as a preliminary, non-attributed observation"]
+  C --> D{"Purpose of follow-up?"}
+  D -->|"Personal safety"| E["Use current platform unwanted-tracker alerts and official guidance"]
+  D -->|"Authorized lab"| F["Repeat with an owned beacon and controlled positions"]
+  E --> G["Do not infer identity, ownership, distance, or a person's route from Marauder output"]
+  F --> G
+```
+
+For personal-safety concerns, follow [Apple's unwanted-tracker guidance](https://support.apple.com/en-us/119874) and the relevant Android safety guidance; a Marauder scan is not a substitute for those tools. In a lab, use an owned beacon, synthetic records, and a documented setup. Do not publish raw identifiers or location-linked observations.
 
 ---
 
@@ -544,7 +556,7 @@ Every delivered finding must include test ID, written scope, exact board/firmwar
 - Client protections (Windows/macOS/Linux).  
 - Incident response and containment workflow.
 
-**New BLE Indicator (v1.8.9):** consider **AirTag beacon** patterns and **Last-Seen** trends as contextual indicators during blue-team exercises.
+**Historical BLE indicator (v1.8.9):** AirTag-pattern advertisements and Last-Seen timestamps may be used as limited sensor observations in an authorized exercise. They do not independently establish device identity, ownership, or tracking of a person; corroborate through approved procedures.
 
 ---
 
