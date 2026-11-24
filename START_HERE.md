@@ -21,6 +21,8 @@ Routes readers by role and objective (beginner, pentester, OSCP candidate, blue 
 
 **Can't find a topic?** Browse the [Complete Documentation Index](DOCUMENTATION_INDEX.md), including all nested guides.
 
+**Need to search inside guide text?** From a local clone, run `python tools/search_docs.py "printer identification dots"`. Add `--section CaseStudies` to narrow the search or `--all-terms` to require every query word; results include the matching file and line.
+
 Choose your goal, follow the linked guides, and return here for the next stage. Read the [Legal Terms & Disclaimer](LEGAL.md) before testing systems; client or third-party security testing requires clear authorization.
 
 ### 🎓 Learning, Research & Career
