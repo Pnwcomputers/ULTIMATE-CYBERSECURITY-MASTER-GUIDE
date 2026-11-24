@@ -1,6 +1,6 @@
 # Practical AI Usage and Interaction Guide
 
-_Last reviewed: 2026-11-20_
+_Last reviewed: 2026-11-24_
 
 Use this guide to turn chats into reliable outputs. A model's assertion is not proof, and its statement that it performed an action is not a tool receipt.
 
@@ -22,7 +22,6 @@ See [Projects, Notebooks and Assistants](ai-workspaces-notebooks-and-assistants.
 ![Mission, context, boundaries, execution, and evidence form a prompt contract; bounded work is verified, approved before side effects, and saved in a handoff](../assets/diagrams/ai-five-layer-prompt-to-evidence-handoff.svg)
 
 *Conceptual workflow. The prompt describes intent; system permissions and human approval enforce access and side-effect boundaries.*
-
 
 1. **Mission:** Specify the outcome, intended user and definition of done.
 2. **Context:** Provide authoritative sources, environment, version and current state.
@@ -122,7 +121,7 @@ Before calling work complete, verify the actual output, source grounding, author
 
 [Prompting](ai_prompts.md) · [Project & Agent Lanes](agent-project-workflows.md) · [Milestones & Acceptance Criteria](milestones-and-acceptance-criteria.md) · [Notes & Hooks](notes-hooks-and-automation.md) · [Fact-Checking & AI Audits](verification-and-ai-audits.md) · [Workspaces & Notebooks](ai-workspaces-notebooks-and-assistants.md)
 
-References: [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) · [OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/)
+References: [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) · [NIST Generative AI Profile (AI 600-1)](https://doi.org/10.6028/NIST.AI.600-1) · [OWASP Top 10 for LLM Applications (2025)](https://genai.owasp.org/llm-top-10/)
 
 ---
 
