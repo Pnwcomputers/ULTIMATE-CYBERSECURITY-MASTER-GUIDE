@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+<title id="title">Choose a way to search the cybersecurity guide</title>
+<desc id="desc">With a local repository copy, use the included offline search helper. Without a local copy, search repository files on GitHub, which requires sign-in, or search the project Wiki. To browse all documentation pages, use the complete documentation index.</desc>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#52667d"/></marker>
+  <style>text{font-family:Arial,Helvetica,sans-serif;fill:#172638}.title{font-size:27px;font-weight:700}.head{font-size:20px;font-weight:700}.small{font-size:16px}.box{stroke-width:2;rx:16}.line{stroke:#52667d;stroke-width:3;fill:none;marker-end:url(#arrow)}</style>
+</defs>
+<rect width="1200" height="520" rx="20" fill="#f6f8fb"/>
+<text x="600" y="50" text-anchor="middle" class="title">Find a topic in the guide</text>
+<rect x="380" y="85" width="440" height="90" fill="#e7eef8" stroke="#56708e" class="box"/>
+<text x="600" y="122" text-anchor="middle" class="head">Where are you reading?</text>
+<text x="600" y="151" text-anchor="middle" class="small">Choose the search route that fits your access</text>
+<path d="M460 175 C460 210 205 200 205 240" class="line"/>
+<path d="M600 175 V240" class="line"/>
+<path d="M740 175 C740 210 995 200 995 240" class="line"/>
+<rect x="45" y="250" width="320" height="150" fill="#e4f5e9" stroke="#398252" class="box"/>
+<text x="205" y="288" text-anchor="middle" class="head">Local copy available</text>
+<text x="205" y="320" text-anchor="middle" class="small">Run the included offline search helper</text>
+<text x="205" y="350" text-anchor="middle" class="small">Searches files in your checkout</text>
+<text x="205" y="378" text-anchor="middle" class="small">No network lookup required</text>
+<rect x="440" y="250" width="320" height="150" fill="#fff3d6" stroke="#b08322" class="box"/>
+<text x="600" y="288" text-anchor="middle" class="head">No local copy</text>
+<text x="600" y="320" text-anchor="middle" class="small">GitHub repository search</text>
+<text x="600" y="350" text-anchor="middle" class="small">Sign-in required for code search</text>
+<text x="600" y="378" text-anchor="middle" class="small">Or search pages in the project Wiki</text>
+<rect x="835" y="250" width="320" height="150" fill="#e7eef8" stroke="#56708e" class="box"/>
+<text x="995" y="288" text-anchor="middle" class="head">Want to browse instead?</text>
+<text x="995" y="320" text-anchor="middle" class="small">Open the Complete Documentation Index</text>
+<text x="995" y="350" text-anchor="middle" class="small">Use section indexes to follow related guides</text>
+<text x="995" y="378" text-anchor="middle" class="small">This route works in the GitHub browser</text>
+<text x="600" y="465" text-anchor="middle" class="small">Search results help you locate material; verify the guide's sources, scope and date before applying it.</text>
+</svg>

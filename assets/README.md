@@ -1216,3 +1216,12 @@ Original conceptual flow for strict manifest parsing and supply-chain checks. Ma
 | Diagram | Embedded guide |
 |---|---|
 | [Script pin validation and verified installation](./diagrams/script-pin-validation-flow.svg) | [Tool pinning policy](../Scripts/PINNING.md#behaviour) |
+
+
+## Repository Search Visual
+
+Conceptual guide to choosing the local helper, GitHub code search, Wiki search, or the complete documentation index based on where the reader is browsing.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Repository search paths](./diagrams/repository-search-paths.svg) | [Main README](../README.md) |

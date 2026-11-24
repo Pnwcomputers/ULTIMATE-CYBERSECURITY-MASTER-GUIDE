@@ -60,6 +60,10 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 | Find A Guide By Goal Or Task | [Start Here: Quick Start](./START_HERE.md#-quick-start) |
 | Browse Every Section | [Navigate By Area](#-navigate-by-area) |
 
+![Diagram showing when to use local search, GitHub code search, Wiki search, or the complete documentation index](./assets/diagrams/repository-search-paths.svg)
+
+*Use the offline helper when you have a local copy; otherwise use GitHub code search, the Wiki, or the documentation index.*
+
 ---
 
 ## 🧭 Navigate By Area:
@@ -862,13 +866,13 @@ See [LEGAL.md](./LEGAL.md) for general legal and responsible-use considerations.
 
 | Feature | Detail |
 |---|---|
-| 📚 70+ professional books synthesized | Complete coverage from recognized industry experts |
-| 🏢 90+ PNWC internal docs | Real operational experience - not just theory |
-| 🎯 10+ attack case studies | Root cause, TTPs, IOCs, and defensive lessons analyzed |
+| 📚 Reference bibliography | Curated books and researchers; verify technical claims against the cited sources and editions |
+| 🏢 Original guides and runbooks | Topic-focused explanations, field checklists and operational references |
+| 🎯 Security case studies | Evidence-based analysis of incidents, controls and defensive lessons |
 | ⚙️ Operational playbook collection | Procedures for assessment, incident response, and team exercises |
 | 🛠️ Security script collection | Source examples to review and validate in the intended environment |
-| 📡 20+ hardware devices | IoT and embedded security from real-world toolkit |
-| 🔍 400+ OSINT tools | Organized by category with usage methodology |
+| 📡 Hardware and embedded security | Device, protocol, firmware and compatibility guides |
+| 🔍 OSINT research resources | Curated sources and methods; listings do not imply every project is verified or integrated |
 | 🤖 AI security workflows | Self-hosted LLM integration for security operations |
 | 🎓 Cert-aligned content | OSCP · CEH · GPEN · CySA+ · CISSP mapped |
 | 🔁 Cross-domain coverage | Offense + Defense + Operations + Forensics + Data Engineering |
@@ -899,7 +903,7 @@ Want to help the community?
 
 ---
 
-*Main index editorial review: November 11, 2026 (not a whole-repository code or external-link certification) · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
+*Main index editorial review: November 24, 2026 (index and navigation reviewed; not a whole-repository code or external-link certification) · Maintained by [PNW Computers](https://pnwcomputers.com) · Vancouver, WA*
 
 ## Related Files
 
