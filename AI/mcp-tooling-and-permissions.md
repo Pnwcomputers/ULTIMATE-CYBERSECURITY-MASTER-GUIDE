@@ -1,6 +1,6 @@
 # MCP, Tool Integration & Secure Agent Permissions
 
-_Last reviewed: 2026-11-09 · Consult the exact protocol and SDK version before implementation._
+_Last reviewed: 2026-11-24 · Consult the exact protocol and SDK version before implementation._
 
 The **Model Context Protocol (MCP)** standardizes how an AI host/client discovers and uses external **tools, resources and prompts**. It does *not* automatically authorize access, guarantee that a tool is safe, or validate an agent's decision to call it. Tools may cause real-world side effects.
 
@@ -34,7 +34,11 @@ GitHub / Calendar / Wazuh / Files / Database / Ticketing
 | Prompt | Reusable template | Not a host security policy |
 | Transport | Communication channel, commonly HTTP or stdio | Authentication and deployment assumptions differ |
 
-The 2026-07-28 MCP specification documents JSON-RPC, version negotiation, multiple message patterns and optional feature sets. HTTP authorization follows the protocol's authorization specification; stdio deployments normally receive credentials from their runtime environment rather than the HTTP OAuth flow. Review current transport/extension support before selecting an SDK.
+MCP has two lifecycle eras. Revisions through 2025-11-25 use an `initialize` exchange; session behavior depends on the revision and transport. Revision 2026-07-28 removes the initialize handshake and protocol session: each request carries version and client metadata, and clients can use `server/discover` to retrieve capabilities. Do not assume a persistent session or compatibility from an SDK name alone. HTTP authorization follows the protocol's authorization specification; stdio deployments normally receive credentials from their runtime environment rather than the HTTP OAuth flow. Review exact revision and transport support before selecting an SDK.
+
+![Comparison of MCP's handshake-era and stateless-era protocol lifecycles](../assets/diagrams/mcp-protocol-lifecycle-eras.svg)
+
+*Conceptual comparison based on the [2026-07-28 MCP specification](https://modelcontextprotocol.io/specification/2026-07-28) and the [authorization specification](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization). Older SDKs and deployments may implement earlier revisions; confirm their actual behavior.*
 
 ## 2. Inventory & Classify Tools Before Connection
 
