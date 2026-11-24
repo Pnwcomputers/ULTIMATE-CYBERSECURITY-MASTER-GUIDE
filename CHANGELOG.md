@@ -1,14 +1,16 @@
-# 🔄 Change Log - November 23, 2026
+# 🔄 Change Log - November 24, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 2032
-- **Files Modified**: 4047
-- **New Files**: 1366
+- **Commits Analyzed**: 2036
+- **Files Modified**: 4059
+- **New Files**: 1372
 - **Deleted Files**: 124
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: compare LAN TAP options and add selection diagram (#629) (`8e8449a`)
+- feat: add local repository documentation search (#628) (`867aaef`)
 - docs(bash-bunny): add defensive policy review visual (#622) (`3bdd0ea`)
 - docs: add canonical guides for Nmap, Hydra, sqlmap, Sherlock, Zphisher, Seeker, RouterSploit & Metasploit (#583) (`27dfbab`)
 - Add OWASP A01 authorization decision diagram (#552) (`1036c60`)
@@ -1514,6 +1516,8 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: link upstream Awesome-Hacking and h4cker collections (#627) (`a31d7ed`)
+- docs: embed charging, Mac reset, PC maintenance and CC1101 reference sheets (#625) (`e919c66`)
 - Improve formatting and clarity in README.md (`138376d`)
 - docs: connect PNWC WinPE recovery builder to DFIR workflows (#624) (`8fe6de8`)
 - docs(pdf): illustrate safe use of archived references (#623) (`7205cc9`)
@@ -2056,15 +2060,26 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Documentation/network-taps-and-packet-visibility.md`
+- `assets/README.md`
+- `assets/diagrams/tap-observation-method-selection.svg`
 - `README.md`
-- `DOCUMENTATION_INDEX.md`
+- `START_HERE.md`
+- `tools/search_docs.py`
+- `Documentation/awesome-hacking-collections-integration.md`
+- `REVIEW_2026-11-19.md`
+- `Documentation/sbc-radio-addon-compatibility.md`
 - `HardwareTesting/README.md`
+- `assets/cc1101-reference-cheatsheet.jpg`
+- `assets/charging-diagnostics-power-reference.jpg`
+- `assets/mac-startup-reset-cheatsheet.png`
+- `assets/pc-mac-maintenance-guide.jpg`
+- `CHANGELOG.md`
+- `DOCUMENTATION_INDEX.md`
 - `IncidentResponse/Digital-Forensics/README.md`
 - `IncidentResponse/Digital-Forensics/pnwc-winpe-recovery-triage.md`
 - `IncidentResponse/README.md`
 - `PDF/README.md`
-- `REVIEW_2026-11-19.md`
-- `assets/README.md`
 - `assets/diagrams/pdf-safe-reference-use-flow.svg`
 - `Scripts/Bash/BashBunny/README.md`
 - `assets/diagrams/bashbunny-defensive-policy-validation.svg`
@@ -2093,7 +2108,6 @@
 - `IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md`
 - `Makefile`
 - `OSINT/README.md`
-- `START_HERE.md`
 - `assets/diagrams/algorithm-families-cybersecurity-map.svg`
 - `assets/diagrams/algorithms-compression-hashing-encryption.svg`
 - `assets/diagrams/algorithms-detection-evaluation-pipeline.svg`
@@ -2104,7 +2118,6 @@
 - `.github/workflows/publish-wiki.yml`
 - `tools/build_wiki.py`
 - `tools/tests/test_build_wiki.py`
-- `Documentation/sbc-radio-addon-compatibility.md`
 - `ENHANCED_MASTER_GUIDE.md`
 - `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
 - `IncidentResponse/SIEM/README.md`
@@ -2224,7 +2237,6 @@
 - `assets/diagrams/unified-visibility-evidence-sources.svg`
 - `Documentation/dns-hijacking-secure-dns.md`
 - `Documentation/network-segmentation-dmz-acl-vlan.md`
-- `Documentation/network-taps-and-packet-visibility.md`
 - `assets/diagrams/dns-encryption-and-validation-boundaries.svg`
 - `assets/diagrams/tap-full-duplex-monitor-capacity.svg`
 - `assets/diagrams/vlan-forwarding-policy-boundaries.svg`
@@ -2246,7 +2258,6 @@
 - `Compliance/pci-dss-scoping.md`
 - `assets/diagrams/csf-profiles-gap-and-action-plan.svg`
 - `assets/diagrams/pci-dss-provider-evidence-decision.svg`
-- `CHANGELOG.md`
 - `SDR/nanovna/06-cables-filters-other-uses.md`
 - `SDR/nanovna/10-antenna-types-and-special-cases.md`
 - `assets/diagrams/nanovna-swr-reference-impedance.svg`
@@ -3014,7 +3025,6 @@
 - `ReverseEngineering/README.md`
 - `SDR/nanovna/README.md`
 - `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
-- `Documentation/awesome-hacking-collections-integration.md`
 - `Documentation/cypherpunk-pentesting-toolkit-review.md`
 - `Documentation/upstream-security-projects-register.md`
 - `OSINT/awesome-osint-list-curated.md`
