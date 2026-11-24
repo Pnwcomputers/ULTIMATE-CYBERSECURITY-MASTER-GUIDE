@@ -1,6 +1,6 @@
 # AI Agent Observability, Tracing, Audit Trails & SIEM Integration
 
-_Last reviewed: 2026-11-09 · Runtime details vary by model, agent framework and telemetry provider._
+_Last reviewed: 2026-11-24 · Runtime details vary by model, agent framework and telemetry provider._
 
 Observability answers **what actually happened inside an agent workflow**, while an audit record answers **who authorized what action, against which resource, and with which outcome**. A trace, log, metric and evidence report serve different purposes and must not be conflated.
 
@@ -25,7 +25,7 @@ Collect only the fields needed for each destination. Trace sampling can reduce d
 
 ```json
 {
-  "timestamp": "2026-11-09T16:00:00-08:00",
+  "timestamp": "2026-11-24T16:00:00-08:00",
   "event_id": "synthetic-evt-014",
   "trace_id": "lab-trace-014",
   "parent_task_id": "lab-m3",
@@ -118,7 +118,7 @@ A practical approach is to write **sanitized JSON security events** from your ag
 
 ## 6. Privacy, Retention & Incident Review
 
-Treat model prompts, user content, retrieved passages, tool arguments, tool responses and raw traces as potentially confidential. Minimize content capture, scrub tokens/PII, set retention schedules, encrypt at rest/transit, enforce role-based access, and keep an integrity-protected audit trail. ZDR or private deployments may disable some vendor tracing surfaces; confirm the product-specific contract.
+Treat model prompts, user content, retrieved passages, tool arguments, tool responses and raw traces as potentially confidential. Minimize content capture, scrub tokens/PII, set retention schedules, encrypt at rest/transit, enforce role-based access, and keep an integrity-protected audit trail. OpenAI Agents SDK tracing can record model-generation and function-tool inputs and outputs; in its Python SDK, `RunConfig(trace_include_sensitive_data=False)` retains spans while excluding those payloads. Tracing can also be disabled with SDK-specific controls such as `OPENAI_AGENTS_DISABLE_TRACING=1`; verify the setting and behavior for the exact SDK/runtime. OpenAI documents tracing as unavailable for organizations operating under a ZDR policy, so confirm the product-specific contract before enabling any vendor trace export. Disabling tracing and excluding sensitive span payloads are separate controls.
 
 If an incident occurs, preserve trace IDs and evidence pointers before disabling risky connections. Assess whether data crossed organizational boundaries; avoid deleting evidence prematurely. For regulated workflows follow the applicable legal and contractual retention/notification policy.
 
@@ -141,7 +141,7 @@ Instrument a synthetic triage workflow. Trigger a normal read, denied unauthoriz
 
 [Security Operations](ai-security-operations-workflows.md) · [Reliability](agent-reliability-and-recovery.md) · [Evaluations](ai-evaluation-and-regression-testing.md) · [Agent Security](agent-threat-modeling-and-security.md)
 
-References: [OpenTelemetry GenAI Conventions](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/README.md) · [OpenAI Agents Tracing](https://openai.github.io/openai-agents-js/guides/tracing/) · [OpenAI Integrations & Observability](https://developers.openai.com/api/docs/guides/agents/integrations-observability) · [Wazuh Docs](https://documentation.wazuh.com/).
+References: [OpenTelemetry GenAI Conventions](https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/README.md) · [OpenTelemetry sensitive-data guidance](https://opentelemetry.io/docs/security/handling-sensitive-data/) · [OpenAI Agents SDK tracing](https://openai.github.io/openai-agents-python/tracing/) · [OpenAI Agents SDK trace configuration](https://openai.github.io/openai-agents-python/config/) · [OpenAI Agents API tracing](https://developers.openai.com/api/docs/guides/agents-api/tracing) · [Wazuh Docs](https://documentation.wazuh.com/).
 
 ---
 
