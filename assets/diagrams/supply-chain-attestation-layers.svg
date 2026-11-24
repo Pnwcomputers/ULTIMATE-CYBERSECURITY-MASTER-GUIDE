@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="500" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+<title id="title">How to evaluate a software supply-chain attestation</title>
+<desc id="desc">An artifact digest is named as the subject in an in-toto statement with a typed predicate. A signed envelope or bundle carries the statement. Verification checks the trusted signer and subject binding. A separate policy decision evaluates whether the predicate claims meet requirements.</desc>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker>
+  <style>
+    .bg{fill:#f8fafc}.title{font:700 27px system-ui,sans-serif;fill:#0f172a}.sub{font:16px system-ui,sans-serif;fill:#334155}
+    .box{fill:#fff;stroke:#64748b;stroke-width:2;rx:14}.head{font:700 18px system-ui,sans-serif;fill:#0f172a}.body{font:15px system-ui,sans-serif;fill:#334155}
+    .arrow{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}.note{fill:#e0f2fe;stroke:#0284c7;stroke-width:1.5;rx:12}.noteText{font:600 15px system-ui,sans-serif;fill:#075985}
+  </style>
+</defs>
+<rect class="bg" width="1200" height="500"/>
+<text class="title" x="48" y="54">Attestation checks have distinct layers</text>
+<text class="sub" x="48" y="84">Cryptographic verification establishes who signed what; policy judges whether the claims are acceptable.</text>
+
+<rect class="box" x="45" y="145" width="205" height="145"/>
+<text class="head" x="65" y="180">1 · Artifact</text>
+<text class="body" x="65" y="213"><tspan x="65">Pinned image or file</tspan><tspan x="65" dy="24">identified by digest</tspan></text>
+
+<rect class="box" x="290" y="145" width="220" height="145"/>
+<text class="head" x="310" y="180">2 · Statement</text>
+<text class="body" x="310" y="213"><tspan x="310">Subject digest +</tspan><tspan x="310" dy="24">predicate type and data</tspan><tspan x="310" dy="24">(for example, provenance)</tspan></text>
+
+<rect class="box" x="550" y="145" width="220" height="145"/>
+<text class="head" x="570" y="180">3 · Signed package</text>
+<text class="body" x="570" y="213"><tspan x="570">Statement carried in a</tspan><tspan x="570" dy="24">signed envelope or bundle</tspan></text>
+
+<rect class="box" x="810" y="145" width="165" height="145"/>
+<text class="head" x="830" y="180">4 · Verify</text>
+<text class="body" x="830" y="213"><tspan x="830">Trusted signer</tspan><tspan x="830" dy="24">and subject binding</tspan><tspan x="830" dy="24">under chosen mode</tspan></text>
+
+<rect class="note" x="1010" y="145" width="150" height="145"/>
+<text class="head" x="1030" y="180">5 · Decide</text>
+<text class="body" x="1030" y="213"><tspan x="1030">Evaluate claims</tspan><tspan x="1030" dy="24">against policy</tspan><tspan x="1030" dy="24">and context</tspan></text>
+
+<path class="arrow" d="M252 218 H282"/><path class="arrow" d="M512 218 H542"/><path class="arrow" d="M772 218 H802"/><path class="arrow" d="M977 218 H1002"/>
+<rect class="note" x="110" y="345" width="430" height="88"/>
+<text class="noteText" x="135" y="377"><tspan x="135">Keyless verification: check expected certificate identity</tspan><tspan x="135" dy="24">and OIDC issuer, plus the configured trust roots.</tspan></text>
+<rect class="note" x="575" y="345" width="515" height="88"/>
+<text class="noteText" x="600" y="377"><tspan x="600">Key-based verification: trust the specified public key</tspan><tspan x="600" dy="24">and validate the artifact or attestation binding.</tspan></text>
+</svg>
