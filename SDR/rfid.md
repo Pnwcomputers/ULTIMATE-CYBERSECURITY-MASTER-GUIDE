@@ -222,22 +222,23 @@ When an approved lab tool displays an identifier, treat it as a credential: do n
 
 Reader front-ends differ by frequency band and protocol. Use manufacturer documentation and synthetic fixtures; do not collect or rewrite data from issued credentials.
 
-### PN532 (13.56 MHz HF)
+### PN532 (13.56 MHz HF; legacy component)
 
-Supports selected ISO 14443 and NFC modes; actual support depends on the module, firmware, and library. Use a synthetic tag to check compatibility and record only the protocol family and observed reader policy.
+The PN532 supports selected 13.56 MHz modes, including ISO/IEC 14443 A/B, FeliCa, and NFCIP-1; the exact module, firmware and library can narrow that set. **NXP marks PN532 “Not Recommended for New Designs” and recommends PN7160 for new designs.** Treat PN532 as an existing-platform or lab compatibility target, not a current design recommendation. Use synthetic tags and record only the protocol family and observed reader policy. ([NXP product status and recommendation](https://www.nxp.com/products/rfid-nfc/nfc-hf/nfc-readers/nfc-integrated-solution:PN5321A3HN), [PN532 datasheet](https://www.nxp.com/docs/en/nxp/data-sheets/PN532_C1.pdf))
 
-### EM4095 / RDM6300 (125 kHz LF)
+### EM4095 front end and RDM6300 reader module (LF)
 
-These front-ends support specific LF tag and reader configurations. Verify their data sheets and output formats. Use synthetic test tags; do not log identifiers from issued credentials or build covert access logging devices.
+These are different product layers. The **EM4095** is an LF RFID analog front end with a 100–150 kHz carrier range; it interfaces with a host controller and supports specific transponder configurations. The **RDM6300** is a finished 125 kHz reader module with a UART interface and stated support for EM4100-compatible tags. Neither description establishes support for every LF credential. Use synthetic test tags; do not log identifiers from issued credentials or build covert access-logging devices. ([EM Microelectronic EM4095](https://www.emmicroelectronic.com/index.php/product/rf-reader-ics/em4095), [ITEAD RDM6300](https://itead.cc/product/rdm6300/))
 
 ### Reader Front-End Matrix
 
-| Feature | PN532 Module | EM4095 / RDM6300 Module |
-| :--- | :--- | :--- |
-| **Frequency** | 13.56 MHz (HF) | Typically 125 kHz (LF); confirm module specification |
-| **Protocol support** | Module/library-dependent HF modes | Module-dependent LF tag formats |
-| **Use in this guide** | Synthetic-tag compatibility and reader-policy review | Synthetic-tag compatibility and reader-policy review |
-| **Credential data** | Do not dump, retain, or rewrite issued-card data | Do not log identifiers from issued cards |
+| Example | Hardware role | RF / documented support | Selection limit |
+| :--- | :--- | :--- | :--- |
+| [NXP PN532](https://www.nxp.com/products/rfid-nfc/nfc-hf/nfc-readers/nfc-integrated-solution:PN5321A3HN) | 13.56 MHz NFC controller | Selected ISO/IEC 14443 A/B, FeliCa, and NFCIP-1 modes | NXP does not recommend it for new designs; board, library and firmware affect exposed modes. |
+| [EM4095](https://www.emmicroelectronic.com/index.php/product/rf-reader-ics/em4095) | Host-controlled LF analog front end | 100–150 kHz carrier; manufacturer lists selected EM transponder families | This is an IC/front end, not a complete reader module; host firmware, antenna and protocol implementation matter. |
+| [RDM6300](https://itead.cc/product/rdm6300/) | LF reader module with UART output | 125 kHz; vendor lists EM4100-compatible tags | Reader behavior is module-specific; it does not imply broad LF protocol or waveform support. |
+
+For all three devices, use synthetic-tag compatibility and reader-policy tests only. Do not dump, retain, or rewrite issued-card data.
 
 ---
 
