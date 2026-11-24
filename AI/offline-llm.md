@@ -788,34 +788,31 @@ ollama pull llava              # Vision tasks
 
 ## Part 13: Performance Benchmarks
 
-### Response Time Expectations
+Performance depends on the exact model artifact and quantization, context length, CPU/GPU and memory placement, runtime version, prompt length, concurrency, and whether the model is already loaded. The former fixed response-time ranges and “5–10x faster” GPU claim are removed because they were not tied to a reproducible test record.
 
-**dolphin-phi (2.7B)** on 16GB RAM system:
-- Simple query: 1-3 seconds
-- Complex analysis: 5-15 seconds
-- Code generation: 3-10 seconds
+Use this sequence when comparing local configurations:
 
-**dolphin-mistral (7B)** on 16GB RAM system:
-- Simple query: 3-8 seconds
-- Complex analysis: 15-30 seconds
-- Code generation: 10-20 seconds
+```mermaid
+flowchart LR
+  A["Pin runtime and model artifact"] --> B["Record hardware, context and concurrency"]
+  B --> C["Run cold-load and warm-up cases"]
+  C --> D["Repeat representative prompts"]
+  D --> E["Report latency, output rate and memory placement"]
+  E --> F["Compare quality and task success too"]
+```
 
-**dolphin-mixtral (8x7B)** on 32GB RAM + GPU:
-- Simple query: 2-5 seconds (with GPU)
-- Complex analysis: 10-25 seconds
-- Code generation: 8-18 seconds
+Capture at least:
 
-### Optimization Results
+| Field | Record |
+|---|---|
+| Runtime | Ollama and AnythingLLM versions, OS, driver/backend |
+| Model | Exact tag/digest, quantization, source and license |
+| Machine | CPU, RAM, GPU model/VRAM, and whether layers use CPU, GPU, or both |
+| Workload | Prompt/input length, output length, context limit, concurrency, task type |
+| Results | Cold-start time, warm time-to-first-token, generated tokens per second, peak memory, errors |
+| Quality | Whether the output passed the task's expected checks; speed alone is not a quality measure |
 
-**With GPU acceleration** (NVIDIA RTX 3060):
-- 5-10x faster inference
-- Better for interactive conversations
-- Required for larger models
-
-**CPU-only performance**:
-- Suitable for batch processing
-- Acceptable for non-real-time use
-- Consider smaller models
+Repeat each case several times and report the range or median, not a single best run. Distinguish cold model loading from warm inference. Use `ollama ps` to observe current CPU/GPU placement and the [Ollama local FAQ](https://docs.ollama.com/faq) for context and concurrency effects. Benchmark only models and configurations you can actually run on the target system.
 
 ## Part 14: Comparison with Cloud Services
 
