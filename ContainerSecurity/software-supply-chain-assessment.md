@@ -38,6 +38,8 @@ These checks complement one another. A Scorecard result is not a security certif
 
 ![An artifact digest is bound to an in-toto statement and signed package; signer and subject verification are separate from policy evaluation of the predicate](../assets/diagrams/supply-chain-attestation-layers.svg)
 
+*Figure 2 — Conceptual verification flow only. It does not represent a specific verifier configuration or attest that any artifact was checked.*
+
 An [in-toto Statement](https://github.com/in-toto/attestation/blob/main/spec/v1/statement.md) identifies subjects (commonly by digest) and carries a typed predicate with claims such as build provenance. [SLSA provenance](https://slsa.dev/spec/v1.2/build-provenance) is one predicate type; its presence does not itself mean a build meets a chosen SLSA level. A verifier first checks signature trust and subject binding, then applies policy to predicate contents and assessment context. These stages answer different questions.
 
 ## Safe read-only local version queries
@@ -56,7 +58,7 @@ These fail normally if tools are not installed. No packages or CI workflows were
 
 ![Record a precise assessment subject, retain versioned results and gaps, then decide and retest against that subject](../assets/diagrams/supply-chain-subject-binding.svg)
 
-*Figure 2 — Original evidence-management workflow for this guide. It is not a deployed CI pipeline or a software-safety certificate. A new build or changed dependency inventory can require a new assessment.*
+*Figure 3 — Original evidence-management workflow for this guide. It is not a deployed CI pipeline or a software-safety certificate. A new build or changed dependency inventory can require a new assessment.*
 
 Produce a source/digest inventory, SBOM hash and format, vulnerability status, verified secret exposure status (never the secret value), signing policy outcomes, remediation owner and retest date. Recheck lockfile and build metadata; SBOMs and advisories can be incomplete. Keep failed and skipped checks visible; do not convert a lack of matches into proof of safety. Hashing an SBOM protects its identity for comparison, not its completeness.
 
