@@ -1,6 +1,6 @@
 # EUCLEAK: ECDSA Side-Channel Exposure in Infineon Secure Elements (2024)
 
-**Case type:** Published physical side-channel vulnerability with a coordinated vendor advisory. **CVE:** CVE-2024-45678. **Disclosure:** September 3, 2024. **Source review:** November 20, 2026.
+**Case type:** Published physical side-channel vulnerability with a coordinated vendor advisory. **CVE:** CVE-2024-45678. **Disclosure:** September 3, 2024. **Source review:** November 24, 2026.
 
 ## What Was Demonstrated
 
@@ -18,6 +18,7 @@ Yubico's YSA-2024-03 advisory lists these affected ranges: YubiKey 5, 5 FIPS, 5 
 | Prerequisite or Concern | Interpretation |
 |---|---|
 | Attacker needs physical possession | This is **not** a remote Internet compromise of every token |
+| Target-account context | Yubico says the attacker must know which accounts to target; depending on credential policy and login flow, username/password, credential ID, PIN or biometric may also be required |
 | Specialist EM equipment & knowledge | High skill/resource barrier; the original paper and advisory should define practical bounds |
 | ECDSA signing operation leakage | Protect physical custody and verify cryptographic primitive/firmware/model |
 | Credential replacement | For affected, high-risk ECDSA credentials, assess controlled migration to an unaffected device; revoke and re-enroll through the normal account recovery process |
