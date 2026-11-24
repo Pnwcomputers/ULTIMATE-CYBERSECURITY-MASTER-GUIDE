@@ -3,7 +3,7 @@
 
 
 
-Last reviewed: 2026-10-07
+Last reviewed: 2026-11-24
 
 > [!CAUTION]
 > **Authorized use only.** Reverse engineering, disassembly, decompilation, binary
@@ -59,9 +59,10 @@ automate what repeats, and compare versions.
 Practice only in an isolated lab: [Homelab](../Homelab/).
 
 > [!NOTE]
-> Public Ghidra **12.1.x** wants a 64-bit **JDK 21**. Development docs already
-> describe **12.2** and **JDK 25**. Trust the `GettingStarted.md` inside *your*
-> extracted zip, not a remembered version number.
+> NSA's [current public release](https://github.com/NationalSecurityAgency/ghidra/releases/tag/Ghidra_12.2_build)
+> is **Ghidra 12.2**, which requires a 64-bit **JDK 25**. Check the versioned
+> [Getting Started guide](https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_12.2_build/GhidraDocs/GettingStarted.md)
+> and the file bundled with your downloaded archive before installing.
 
 ---
 
