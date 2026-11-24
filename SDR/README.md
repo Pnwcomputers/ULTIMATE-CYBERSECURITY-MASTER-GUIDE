@@ -107,6 +107,25 @@ Move from an RF question to a documented result: identify the relevant band and 
 | Research an unfamiliar waveform or implementation | [sdr_hacking.md](sdr_hacking.md) | Controlled experiments and reproducible evidence. |
 | Audit Wi-Fi frames, BLE traffic, or Thread/Zigbee | [Master list](target_frequencies_protocols.md) | A compatible protocol sniffer and network configuration. |
 
+This quick map helps match the question to the right kind of instrument. Exact frequency coverage, bandwidth, supported protocol, antenna and firmware still need to be checked for the selected model.
+
+```mermaid
+flowchart TD
+  Q["What do you need to measure or observe?"]
+  Q --> ANT["Antenna, cable or passive filter"]
+  ANT --> VNA["Use a VNA<br/>S11 / S21 measurements"]
+  Q --> SIG["Unknown RF signal or waveform"]
+  SIG --> SDR["Use an SDR that covers<br/>the frequency and bandwidth"]
+  Q --> FRAME["Wi-Fi, BLE or 802.15.4 frames"]
+  FRAME --> SNIFF["Use a compatible protocol sniffer<br/>and driver stack"]
+  Q --> TAG["LF / HF / UHF tag or credential"]
+  TAG --> READER["Use a reader/front end<br/>for the matching band and protocol"]
+  Q --> REMOTE["Owned sub-GHz remote or sensor"]
+  REMOTE --> RX["Use a matching receiver + decoder,<br/>or an SDR for waveform analysis"]
+```
+
+*An instrument's tuning range alone does not establish that it can capture or decode the signal.*
+
 ---
 
 ## Hardware Ecosystem
