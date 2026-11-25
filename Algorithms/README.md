@@ -65,6 +65,16 @@ Readers should be able to trace a small algorithm by hand, explain its complexit
 | [Detection, Streaming & Recommendation Algorithms](./detection-and-recommendations.md) | Pattern matchers, anomaly detection, sliding windows, rate limiting, sketches, correlation, recommender systems & security evaluation |
 | [Hands-On, Offline Algorithm Labs](./labs.md) | Runnable Python standard-library demos; repeatable assertions, synthetic network/log datasets, failure cases & extension exercises |
 
+## Hexadecimal, ASCII & Data Representation
+
+These are foundational representations rather than algorithms. Learn to inspect raw bytes before applying parsing, hashing, encryption or detection logic.
+
+| Guide | Focus |
+|---|---|
+| [Hexadecimal & Binary Data Analysis](./hexadecimal-and-binary-analysis.md) | Number bases, byte inspection, endianness, binary editing & security applications |
+| [ASCII, Unicode & Character Encoding](./ascii-and-character-encoding.md) | Text encodings, control bytes, decoding & input validation |
+| [Hex & ASCII Field Reference & Offline Labs](./hex-ascii-field-reference.md) | Full ASCII lookup table, commands, synthetic binary, encoding, YARA & packet labs |
+
 ## Everyday Technology → Algorithm → Cybersecurity Connection
 
 | Everyday Example | Algorithm Or Technique | Security Application & Qualification |

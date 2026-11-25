@@ -16,6 +16,9 @@
 
 **Adjacent embedded-security research:** [Awesome Embedded and IoT](https://github.com/fkie-cad/awesome-embedded-and-iot-security), [h4cker hardware](https://github.com/The-Art-of-Hacking/h4cker/tree/master/cybersecurity-domains/hardware-embedded-security) and [project routing](../Documentation/awesome-hacking-collections-integration.md).
 
+
+**Byte-level foundations:** [Hexadecimal & Binary Data Analysis](../Algorithms/hexadecimal-and-binary-analysis.md) · [ASCII, Unicode & Character Encoding](../Algorithms/ascii-and-character-encoding.md) · [Hex & ASCII Field Reference & Offline Labs](../Algorithms/hex-ascii-field-reference.md).
+
 ## Expanded Device & Firmware Coverage
 
 | Resource | Description / Boundary |

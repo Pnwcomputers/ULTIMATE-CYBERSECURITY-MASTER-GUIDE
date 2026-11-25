@@ -31,6 +31,7 @@ Choose your goal, follow the linked guides, and return here for the next stage. 
 |---|---|
 | **New to Cybersecurity** | Start with [Ultimate Master Guide](ultimate_cybersecurity_master_guide.md) → Part I (Foundations) |
 | **Understand Everyday Algorithms & Their Security Uses** | [Algorithm Index](Algorithms/README.md) → [Complexity & Data Structures](Algorithms/foundations-and-complexity.md) → [Graphs & Routing](Algorithms/graphs-and-routing.md) → [Offline Labs](Algorithms/labs.md) |
+| **Read Hex, ASCII & Binary Data** | [Hexadecimal](./Algorithms/hexadecimal-and-binary-analysis.md) → [ASCII & Unicode](./Algorithms/ascii-and-character-encoding.md) → [Field Reference & Labs](./Algorithms/hex-ascii-field-reference.md) |
 | **Explore PageRank, Binary Search, Sorting & Compression** | [Search, Indexing & Ranking](Algorithms/search-sorting-and-indexing.md) → [Compression, Hashing & Cryptography](Algorithms/compression-hashing-and-crypto.md) |
 | **Understand How Cryptography Relates To Other Algorithms** | [Cryptographic Algorithmic Parallels](Algorithms/cryptography-parallels.md) → [Cryptography Reference](Cryptography/algorithms.md) → [Applied TLS, KDFs & Identity](Cryptography/applied-crypto.md) |
 | **Study historical incidents & hardware disclosures** | [Case Studies Index](./CaseStudies/README.md) → [Historical Attack Analyses](./ENHANCED_MASTER_GUIDE.md#real-world-attack-case-studies) for incident details and defensive lessons. |
