@@ -1,6 +1,6 @@
 # Kismet + Wazuh: Hands-on Wireless Intrusion Detection Lab
 
-_Last reviewed: 2026-10-31 · Passive detection only · Python 3.10+ · Wazuh 4.x_
+_Last reviewed: 2026-11-24 · Passive detection only · Python 3.10+ · Wazuh 4.x_
 
 > [!CAUTION]
 > Monitor only infrastructure you own or are authorized to assess. This lab **does not** transmit deauthentication frames, collect credentials, or automatically retaliate. An alert is evidence to investigate, not proof of an attack. First review the [deauthentication packet guide](../../Documentation/wifi-deauthentication-detection.md) and [legal terms](../../LEGAL.md).
@@ -99,7 +99,7 @@ sudo install -m 0644 \
   /etc/systemd/system/kismet-wazuh-bridge.service
 ~~~
 
-The example unit assumes a nonroot account called **kismet**. Check **id kismet**, and adapt User/Group if needed. systemd's StateDirectory and LogsDirectory create the persistent paths /var/lib/kismet-wazuh and /var/log/kismet-wazuh. Run **only one** collector per cursor/output file.
+The unit runs as nonroot **kismet** with primary group **wazuh**, so live event files are group-readable by the local Wazuh agent but not world-readable. Check `id kismet` and `getent group wazuh`; adapt the service group if the installed Wazuh account uses a different group. systemd creates `/var/lib/kismet-wazuh` and `/var/log/kismet-wazuh`; the log directory's setgid bit preserves its `wazuh` group on new files. Run **only one** collector per cursor/output file.
 
 ~~~bash
 id kismet
@@ -108,6 +108,7 @@ sudo systemctl enable --now kismet-wazuh-bridge
 sudo systemctl status kismet-wazuh-bridge --no-pager
 sudo journalctl -u kismet-wazuh-bridge -n 30 --no-pager
 sudo tail -n 5 /var/log/kismet-wazuh/events.jsonl
+sudo -u wazuh test -r /var/log/kismet-wazuh/events.jsonl && echo 'Wazuh can read the event file'
 ~~~
 
 No output yet may simply mean there were no recent Kismet alerts. The bridge polls every three seconds, keeps a persisted cursor and event hashes, and retries after transient errors. A crash between appending logs and cursor checkpointing may create a duplicate event; the **wids.event_id** field helps downstream deduplication.
@@ -133,7 +134,7 @@ On the **sensor's Wazuh agent**, insert these blocks within its existing ossec_c
 </localfile>
 ~~~
 
-The last two files are optional for case work. Keep data and file permissions restricted but readable by the agent. Restart:
+The last two files are optional for case work. Run offline tools with a controlled `umask 027` as the `kismet` service account so new files inherit the `wazuh` group and use mode `0640`. After creating each optional file, verify `sudo -u wazuh test -r /var/log/kismet-wazuh/<file>` before enabling its `<localfile>` block. Restart:
 
 ~~~bash
 sudo systemctl restart wazuh-agent
@@ -181,7 +182,7 @@ python3 'IncidentResponse/IDS&IPS/kismet-wazuh/pcap_burst_detector.py' \
   --output /var/log/kismet-wazuh/pcap-events.jsonl
 ~~~
 
-These are **illustrative**, adjustable thresholds: 12, 40 or 100 observed deauth **plus disassoc** frames for one claimed BSSID per **fixed 30-second bucket** (not sliding windows). Counts may contain retransmissions or duplicates and do not prove the sender or that a PMF-protected client accepted the frames. The script is **not a live monitor**; Kismet is the base live detection engine. Do not run two capture tools on one Wi-Fi radio unless supported.
+Run the offline command under the `kismet` account with `umask 027`, and preserve the source PCAP separately. These are **illustrative**, adjustable thresholds: 12, 40 or 100 observed deauth **plus disassoc** frames for one claimed BSSID per **fixed 30-second bucket** (not sliding windows). Counts may contain retransmissions or duplicates and do not prove the sender or that a PMF-protected client accepted the frames. The script is **not a live monitor**; Kismet is the base live detection engine. Do not run two capture tools on one Wi-Fi radio unless supported.
 
 ## 7. Optional offline cross-signal correlation
 
@@ -193,7 +194,7 @@ python3 'IncidentResponse/IDS&IPS/kismet-wazuh/correlate_offline.py' \
   --output /var/log/kismet-wazuh/case-events.jsonl
 ~~~
 
-This offline case step matches Kismet **DEAUTHFLOOD/BCASTDISCON/DISASSOCTRAFFIC** alerts to PCAP bursts with the same configured sensor identifier and claimed BSSID within 120 seconds. Use the same identifier for the Kismet bridge and the corresponding PCAP summary. The derived signal maps to Wazuh **rule 100340 / level 12**. Supply a new output path for each run to preserve the source records and previous results.
+Run this command under the `kismet` account with `umask 027` so Wazuh can read the resulting case file. This offline case step matches Kismet **DEAUTHFLOOD/BCASTDISCON/DISASSOCTRAFFIC** alerts to PCAP bursts with the same configured sensor identifier and claimed BSSID within 120 seconds. Use the same identifier for the Kismet bridge and the corresponding PCAP summary. The derived signal maps to Wazuh **rule 100340 / level 12**. Supply a new output path for each run to preserve the source records and previous results.
 
 **Crucial:** Kismet and a PCAP from the same receiver are **not independent evidence**. Confirm actual disconnects, PMF negotiation, AP/controller maintenance and client logs before an incident can be called verified. BSSIDs can be spoofed.
 
