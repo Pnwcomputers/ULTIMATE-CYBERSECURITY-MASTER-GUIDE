@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+  <title id="title">OpenClaw Gateway trust boundary</title>
+  <desc id="desc">A Gateway is one shared trust boundary. Mutually trusting operators may share its agent and delegated tools. Adversarial users should use separate Gateway instances and preferably separate operating-system users or hosts. Pairing and separate sessions do not by themselves create tenant isolation.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#36536b"/></marker>
+    <style>
+      .title{font:700 30px system-ui,sans-serif;fill:#102a43}
+      .label{font:700 20px system-ui,sans-serif;fill:#102a43}
+      .body{font:16px system-ui,sans-serif;fill:#243b53}
+      .small{font:14px system-ui,sans-serif;fill:#334e68}
+      .box{rx:16;stroke-width:2}
+      .arrow{stroke:#36536b;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="650" rx="24" fill="#f5f8fb"/>
+  <text x="54" y="58" class="title">OpenClaw: one Gateway is one trust boundary</text>
+
+  <rect x="48" y="150" width="240" height="150" class="box" fill="#e6f0fa" stroke="#7aa7d3"/>
+  <text x="168" y="193" text-anchor="middle" class="label">Trusted operators</text>
+  <text x="168" y="229" text-anchor="middle" class="body">Mutually trusting team</text>
+  <text x="168" y="257" text-anchor="middle" class="small">May share this Gateway</text>
+
+  <rect x="346" y="112" width="505" height="300" rx="22" fill="#edf5fc" stroke="#467ba3" stroke-width="3"/>
+  <text x="598" y="151" text-anchor="middle" class="label">One Gateway trust boundary</text>
+  <rect x="381" y="183" width="205" height="135" class="box" fill="#ffffff" stroke="#8ca8bd"/>
+  <text x="483" y="222" text-anchor="middle" class="label">Agent &amp; sessions</text>
+  <text x="483" y="253" text-anchor="middle" class="body">Context, memory,</text>
+  <text x="483" y="279" text-anchor="middle" class="body">messages, schedules</text>
+  <rect x="611" y="183" width="205" height="135" class="box" fill="#fff3cd" stroke="#d6a638"/>
+  <text x="713" y="222" text-anchor="middle" class="label">Delegated tools</text>
+  <text x="713" y="253" text-anchor="middle" class="body">Files, commands,</text>
+  <text x="713" y="279" text-anchor="middle" class="body">integrations, services</text>
+  <path d="M586 250 H603" class="arrow"/>
+  <text x="598" y="360" text-anchor="middle" class="small">Anyone admitted to a tool-enabled agent shares its delegated authority.</text>
+  <path d="M288 224 H337" class="arrow"/>
+
+  <rect x="48" y="382" width="240" height="150" class="box" fill="#fde8e7" stroke="#d66b63"/>
+  <text x="168" y="424" text-anchor="middle" class="label">Adversarial users</text>
+  <text x="168" y="459" text-anchor="middle" class="body">Do not share the</text>
+  <text x="168" y="485" text-anchor="middle" class="body">same Gateway</text>
+  <path d="M288 457 H320 Q333 457 333 440 V410 Q333 395 346 395" stroke="#b94b45" stroke-width="3" stroke-dasharray="8 7" fill="none"/>
+  <path d="M312 441 l18 18 M330 441 l-18 18" stroke="#b94b45" stroke-width="4"/>
+
+  <rect x="894" y="150" width="258" height="250" class="box" fill="#e7f5ec" stroke="#62a878"/>
+  <text x="1023" y="193" text-anchor="middle" class="label">Separate boundary</text>
+  <text x="1023" y="231" text-anchor="middle" class="body">Separate Gateway</text>
+  <text x="1023" y="259" text-anchor="middle" class="body">+ OS user or host</text>
+  <text x="1023" y="305" text-anchor="middle" class="small">Narrow tools and sessions</text>
+  <text x="1023" y="331" text-anchor="middle" class="small">for that trust group</text>
+  <path d="M851 264 H886" class="arrow"/>
+
+  <rect x="134" y="565" width="932" height="52" rx="12" fill="#fff" stroke="#aab8c5" stroke-width="2"/>
+  <text x="600" y="598" text-anchor="middle" class="body">Pairing and separate chat sessions control access or routing; they do not by themselves provide tenant isolation.</text>
+</svg>
