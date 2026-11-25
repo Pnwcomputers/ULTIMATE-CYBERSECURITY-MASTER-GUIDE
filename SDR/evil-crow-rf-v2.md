@@ -17,6 +17,25 @@ validates installation and receiver behavior without replaying access-control si
 **Prerequisites:** [Sub-GHz concepts](./subghz.md), identified hardware revision,
 suitable antennas, a controlled RF bench and an owned test transmitter.
 
+```mermaid
+flowchart LR
+    subgraph Control["Control and management"]
+        browser["Browser panel"] --> esp["ESP32 firmware"]
+        isolated["Isolated bench Wi-Fi"] -. management access .-> browser
+    end
+    esp --> ccA["CC1101 radio A"]
+    esp --> ccB["CC1101 radio B"]
+    esp --> nrf["NRF24L01"]
+    testSub["Owned test signal<br/>supported Sub-GHz band"] -->|receive path| ccA
+    testSub -->|receive path| ccB
+    test24["Separate 2.4 GHz test context"] -->|separate radio path| nrf
+    ccA -. captured representation .-> esp
+    ccB -. captured representation .-> esp
+    nrf -. device-specific data .-> esp
+```
+
+*Conceptual component map based on the linked upstream project. It distinguishes the two CC1101 Sub-GHz radios from the separate NRF24L01 and shows only a high-level receive workflow; it is not a wiring diagram, a feature-completeness claim, or a protocol decoder.*
+
 ## Firmware & Hardware Choices
 
 | Choice | Consequence |
