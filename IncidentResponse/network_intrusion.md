@@ -124,7 +124,7 @@ Elastic or Kismet fields. Replace the synthetic values and maintain the actual
 site baseline. Missing fields and missing sensor coverage require separate checks.
 
 ```kql
-pnwc.wireless.ssid: "Corporate-Wifi" AND pnwc.wireless.bssid: * AND NOT pnwc.wireless.bssid: ("02:00:00:00:00:01" OR "02:00:00:00:00:02")
+pnwc.wireless.ssid: "Corporate-Wifi" AND pnwc.wireless.bssid: * AND NOT (pnwc.wireless.bssid: "02:00:00:00:00:01" OR pnwc.wireless.bssid: "02:00:00:00:00:02")
 ```
 
 This filters candidate observations; it does not identify clients that connected.
