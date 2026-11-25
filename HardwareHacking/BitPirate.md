@@ -40,7 +40,8 @@ Use this workflow only on hardware you own or are explicitly authorized to asses
 * Do not connect if the voltage or pinout is uncertain. USB-to-UART adapters can expose VCC pins; the target should remain separately powered unless its documentation explicitly requires otherwise.
 
 ### 2. Connect
-* Connect common ground and cross the data lines: adapter `GND` to target `GND`, adapter `RX` to target `TX`, and adapter `TX` to target `RX`.
+* For receive-only boot-log observation, connect adapter `GND` to target `GND` and adapter `RX` to target `TX`; leave adapter `TX` disconnected so the adapter cannot send input to the target.
+* Connect adapter `TX` to target `RX` only for a separately authorized interactive session after confirming the target console behavior.
 * Leave adapter `VCC` disconnected unless both device and adapter documentation explicitly call for a power connection and the voltage/current plan is understood.
 
 ### 3. Observe
