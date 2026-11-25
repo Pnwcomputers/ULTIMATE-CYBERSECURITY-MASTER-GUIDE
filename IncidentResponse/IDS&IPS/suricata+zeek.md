@@ -15,10 +15,10 @@
 ---
 
 ## 🎯 Purpose
-Guide for deploying an open-source network Intrusion Detection/Prevention System. Suricata for signature-based detection and inline blocking, Zeek for protocol-level network security monitoring (NSM). Run either standalone on Linux or via a firewall VM's built-in package (OPNsense/pfSense).
+Guide for deploying an open-source network Intrusion Detection/Prevention System. Suricata for signature-based detection and inline blocking, Zeek for protocol-level network security monitoring (NSM). Run on Linux, through OPNsense's integrated IDS/IPS service, or through pfSense's add-on package; capture modes and setup differ by platform.
 
 ## ⚙️ Function
-Covers choosing IDS-only (passive/tap) vs IPS (inline/blocking) deployment mode, standalone Suricata install on Debian/Ubuntu, the OPNsense built-in Suricata path, rule management, Zeek as a complementary NSM layer, validation/testing, and the gotchas that actually cost time during a real build.
+Covers choosing IDS-only (passive/tap) vs IPS (inline/blocking) deployment mode, standalone Suricata install on Debian/Ubuntu, OPNsense's integrated IDS/IPS interface, and the separate pfSense Suricata add-on, rule management, Zeek as a complementary NSM layer, validation/testing, and the gotchas that actually cost time during a real build.
 
 ## 🏆 Goal
 Get a homelab or small-network operator from bare hardware to a validated, alert-tuned IDS with a clear, informed path to IPS (active blocking) only after the detection side has been proven safe.
@@ -54,7 +54,7 @@ Get a homelab or small-network operator from bare hardware to a validated, alert
 | Mode | What it does | Failure behavior | Deployment |
 |---|---|---|---|
 | **IDS** (Intrusion *Detection*) | Passively inspects a copy of traffic, generates alerts | For a truly passive tap/SPAN copy, a sensor outage does not interrupt the observed forwarding path, but visibility is lost. A host or capture-path failure can still affect traffic if it is not actually passive. | Tap/SPAN/mirror port, or passive capture mode |
-| **IPS** (Intrusion *Prevention*) | Sits inline, actively drops/rejects matching traffic in real time | Fails differently depending on config; can fail open (bypass) or fail closed (outage) | Inline bridge, or `af-packet`/NFQUEUE in IPS mode |
+| **IPS** (Intrusion *Prevention*) | Sits inline, actively drops/rejects matching traffic in real time | Fails differently depending on config; can fail open (bypass) or fail closed (outage) | Inline bridge, or Linux-specific `af-packet`/NFQUEUE IPS modes |
 
 **The practical rule:** validate in passive or alert-only mode first. Move to blocking only after confirming capture coverage, ruleset behavior, expected and benign traffic, throughput, update and rollback procedures, and an explicit change window. There is no universal observation period; use representative traffic and risk-based acceptance criteria. Inline failure behavior depends on the capture method and firewall/bypass configuration.
 
@@ -64,8 +64,8 @@ Get a homelab or small-network operator from bare hardware to a validated, alert
 
 | Engine | Type | Blocking (IPS) | Strength | Weakness |
 |---|---|---|---|---|
-| **Suricata** | Signature + protocol-aware | ✅ Yes (native) | Multi-threaded, deep packet inspection, large community ruleset (ET Open) | Signature-based; blind to genuinely novel traffic patterns |
-| **Snort** | Signature-based | ✅ Yes (native) | Mature, huge rule ecosystem, well documented | Historically single-threaded; scales worse on busy links than Suricata |
+| **Suricata** | Signature and protocol-aware | ✅ Yes (native) | Multi-threaded engine, protocol-aware detection, supported community rule sources | Coverage depends on enabled rules, protocol visibility, version, and tuning |
+| **Snort** | Signature-based | ✅ Yes (native) | Mature engine with established rule sources and documentation | Capabilities and performance depend on Snort version, DAQ, rules, hardware, and configuration; benchmark the target workload |
 | **Zeek** | Protocol analysis and scripting | ❌ No. Not an inline traffic blocker | Structured protocol logs such as `conn.log`, `dns.log` and `ssl.log`; available fields depend on analyzers, traffic and configuration | Does not guarantee payload visibility or complete capture; steeper scripting learning curve |
 
 Suricata can provide signature-based IDS/IPS and protocol-aware outputs; Zeek provides complementary protocol analysis and structured logs. Whether to deploy one or both depends on coverage needs, capture capacity, privacy constraints, operational skill and storage. Neither replaces validation of sensor placement or packet loss.
@@ -79,36 +79,37 @@ Suricata can provide signature-based IDS/IPS and protocol-aware outputs; Zeek pr
 ## 🚀 Deployment Workflow
 
 ```text
-1. Placement Decision:
-   └─> IDS only (safest start): tap/SPAN/mirror port, passive af-packet.
-   └─> IPS (active blocking): inline bridge or NFQUEUE, only after IDS-mode validation.
+1. Placement:
+   └─> IDS: receive a TAP/SPAN copy or use the platform's passive mode.
+   └─> IPS: inline only after IDS-mode validation and rollback planning.
 
-2. Engine Install:
-   └─> Standalone Linux (apt install suricata), OR
-   └─> Firewall VM's built-in package (OPNsense Services -> Intrusion Detection).
+2. Install:
+   └─> Linux: use a supported distribution package or the official OISF package source.
+   └─> OPNsense: configure its integrated IDS/IPS service.
+   └─> pfSense: install the Suricata add-on package.
 
-3. Interface Configuration:
-   └─> Confirm actual interface names on your platform (eth0 vs em0/em1, etc.)
-       before touching af-packet config — a wrong interface name is the
-       single most common reason capture just doesn't happen.
+3. Capture setup:
+   └─> Select the actual interface and capture mode for that platform.
+   └─> Linux AF_PACKET/NFQUEUE settings do not apply to firewall GUIs.
 
-4. Rule Deployment:
-   └─> suricata-update / ruleset download (ET Open, Abuse.ch).
-   └─> Leave IPS mode OFF. Run alert-only.
+4. Rules:
+   └─> Use sources available for the installed version; check standalone source IDs
+       with `suricata-update list-sources` or the firewall's ruleset page.
+   └─> Begin in alert-only mode.
 
-5. Validation:
-   └─> Offline replay of an approved capture with matching and benign controls.
-   └─> Verify expected test events and benign traffic; record capture loss and alert-only behavior against agreed acceptance criteria.
+5. Validate:
+   └─> Replay an approved capture with matching and benign controls.
+   └─> Check expected events, capture loss, benign workflows, and rollback.
 
-6. IPS Cutover (optional, once validated):
-   └─> Enable inline/blocking mode.
-   └─> Stage the change for a limited, monitored scope; confirm rollback and
-       test the configured bypass/failure behavior before wider deployment.
+6. IPS cutover (optional):
+   └─> Use a limited, monitored scope and a planned change window.
+   └─> Test failure/bypass behavior and confirm a recovery path first.
 
-7. Extend Visibility:
-   └─> Add Zeek on the same tap/mirror for protocol-level logs.
-   └─> Forward alerts to a SIEM (see Resources below).
+7. Extend visibility:
+   └─> Add Zeek to a feed that the sensor and mirror can sustain.
+   └─> Forward events to a SIEM when useful.
 ```
+
 
 ---
 
@@ -183,91 +184,36 @@ sudo systemctl status suricata
 
 ## 🔩 Suricata on OPNsense/pfSense
 
-Both OPNsense and pfSense ship Suricata as a built-in package so no separate install is needed. This is a common path for a firewall-integrated IDS/IPS since the traffic is already flowing through the box.
+### OPNsense (integrated IDS/IPS service)
 
-### 1. Enable and Configure
+OPNsense includes Suricata through its IDS/IPS interface; you do not install the pfSense add-on package there. The current [OPNsense IDS/IPS manual](https://docs.opnsense.org/manual/ips.html) names these capture modes:
 
-**Services → Intrusion Detection → Administration:**
-
-| Setting | Value |
-|---|---|
-| Enable IDS/IPS | ✅ |
-| IPS Mode | ❌ leave unchecked initially, alert-only first |
-| Promiscuous Mode | ✅ |
-| Pattern Matcher | `Hyperscan` |
-| Interfaces to Protect | LAN, WAN (or whichever segments you want visibility on) |
-
-Save, then **Services → Intrusion Detection → Download**, enable the **ET Open/Emerging Threats** and **Abuse.ch** rulesets, and click **Download & Update Rules** (takes 5–10 minutes).
-
-Click **Apply** on the Administration page to start Suricata.
-
-### 2. Fix the Interface Name Mismatch
-
-This is the gotcha that actually cost time in a real build: the config can default to a generic interface name (`eth0`) that doesn't exist on a BSD-based firewall — physical/virtual NICs there use driver-based names (`em0`, `em1`, `igb0`, etc., depending on the underlying hardware or virtio/e1000 emulation).
-
-From the OPNsense shell (console option 8, or SSH):
-
-```bash
-mkdir -p /var/log/suricata /var/run/suricata
-chmod 755 /var/log/suricata /var/run/suricata
-
-# Check what's actually configured
-cat /usr/local/etc/suricata/suricata.yaml | grep -A 20 "af-packet:"
-```
-
-If it shows `eth0` instead of your real interfaces:
-
-```bash
-ee /usr/local/etc/suricata/suricata.yaml
-```
-
-```yaml
-af-packet:
-  - interface: em0
-    threads: auto
-    cluster-id: 98
-    cluster-type: cluster_flow
-  - interface: em1
-    threads: auto
-    cluster-id: 99
-    cluster-type: cluster_flow
-```
-
-Save (Ctrl+C → save changes and exit), then re-apply from the Administration page and confirm it's running:
-
-```bash
-service suricata status
-tail -50 /var/log/suricata/suricata_*.log
-```
-
-Look for `Engine started` at the end of the log; that's success.
-
-### 3. Enable IPS Mode _(only after validating)_
-
-**Services → Intrusion Detection → Administration → IPS Mode → check → Save → Apply.**
-
-> ⚠️ Do this only after running alert-only for 1–2 weeks with no false positives on legitimate traffic. Flipping this on day one is how you find out DNS or a software updater matches a rule you didn't expect.
-
-### 4. Email Alerting _(optional)_
-**System → Settings → Notifications** — SMTP host/port/credentials...
-
----
-
-## pfSense-Specific Differences
-pfSense and OPNsense share FreeBSD roots, but Suricata isn't built in on pfSense the way it is on OPNsense so you need to install it as a package first:
-
-**System → Package Manager → Available Packages** → search "Suricata" → **Install**.
-
-Once installed, the menu path is also different from OPNsense:
-
-| Feature | OPNsense | pfSense |
+| OPNsense capture mode | Use | Important constraint |
 |---|---|---|
-| Package install | Built in, nothing to install | **System → Package Manager → Available Packages** first |
-| Configuration menu | Services → Intrusion Detection | **Services → Suricata** |
-| Per-interface setup | One combined interface list | **Services → Suricata → Interfaces → Add** (one entry per interface you want monitored) |
-| Inline/IPS mode | `af-packet` IPS mode, toggled in Administration | **Netmap-based Inline Mode** — requires a NIC/driver with netmap support; check pfSense's Suricata docs for supported drivers before enabling, don't assume it works on your NIC |
+| **PCAP live mode (IDS)** | Alert-only/passive inspection | Select the interface where traffic is visible; promiscuous mode may be needed for a mirrored feed |
+| **Netmap (IPS)** | Inline inspection and packet drops | Requires supported real interfaces; disable hardware offloading and check NIC/driver support |
+| **Divert (IPS)** | Firewall-rule-directed inspection and drops | Requires firewall rules using Divert-to; follow the platform manual |
 
-Same discipline applies regardless of platform: enable as IDS, watch alerts, tune out false positives, **then** consider inline/IPS mode; a noisy rule in blocking mode can cut off legitimate traffic on a live firewall, including your own management access.
+```mermaid
+flowchart LR
+    A[Linux host] --> B[IDS: passive AF_PACKET]
+    A --> C[IPS: NFQUEUE or AF_PACKET bridge]
+    D[OPNsense] --> E[IDS: PCAP live mode]
+    D --> F[IPS: Netmap or Divert]
+    G[pfSense] --> H[Install Suricata add-on; use package-supported capture mode]
+```
+
+Choose the interface that actually sees the traffic. Capturing on WAN behind NAT can show translated addresses rather than internal clients. In IPS mode, the OPNsense manual requires supported real interfaces; with VLANs, enable IPS on the parent interface. Disable hardware offloading for IPS as described in the current platform manual.
+
+Use the IDS/IPS ruleset page to review the providers available in the installed release. Install/enable the sources and policies you need, then apply the configuration. Availability varies by release and installed plugins; do not assume a fixed provider list or update time. Avoid copying Linux `af-packet` YAML into OPNsense.
+
+### pfSense (Suricata add-on package)
+
+pfSense provides Suricata as an add-on package through **System → Packages → Available Packages**. The package list and UI can vary by release; use the current [Netgate package documentation](https://docs.netgate.com/pfsense/en/latest/packages/list.html) and [IDS/IPS package guidance](https://docs.netgate.com/pfsense/en/latest/packages/snort/index.html) before installing or changing capture mode.
+
+The menu and available options differ from OPNsense. Use the installed Suricata package's interface/rules pages, and verify inline-mode support for the exact NIC, driver, and release before enabling it. Do not apply OPNsense menu paths or Linux `af-packet` examples to pfSense.
+
+On either firewall, begin in IDS/alert-only mode. Move to blocking only after validating coverage, rule behavior against expected and benign traffic, throughput, update handling, and rollback procedures. Use a defined change window and retain a recovery path for management access.
 
 ---
 
@@ -280,7 +226,8 @@ suricata-update
 # List and enable rule sources
 suricata-update list-sources
 suricata-update enable-source et/open          # Emerging Threats (free)
-suricata-update enable-source abuse.ch/sslbl   # SSL Blacklist
+suricata-update enable-source abuse.ch/sslbl-blacklist  # current SSLBL source ID
+# Check 'suricata-update list-sources' for current IDs; don't use deprecated sslbl-c2.
 
 # Test rules against a pcap before trusting them live
 suricata -r capture.pcap -l /tmp/logs/ -c /etc/suricata/suricata.yaml
@@ -304,7 +251,7 @@ apt-cache policy zeek
 # sudo apt install -y zeek  # Use only after confirming version and platform
 
 # Option 2: Zeek project's OBS packages, Ubuntu 24.04 only
-# See https://docs.zeek.org/en/lts/install.html (reviewed 2026-11-11)
+# See https://docs.zeek.org/en/lts/install.html (reviewed 2026-11-24)
 curl --fail --show-error --silent --location \
   --proto '=https' --proto-redir '=https' \
   'https://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04/Release.key' \
@@ -358,8 +305,8 @@ The [Suricata CLI reference](https://docs.suricata.io/en/latest/command-line-opt
 | No alerts at all, engine reports running | Interface name in config doesn't match the real capture interface | Verify with `ip -br link` (Linux) or check the actual driver name (`em0`/`em1`, not `eth0`) on BSD-based firewalls |
 | Testing from the sensor/firewall itself produces nothing | Suricata/Zeek can only inspect traffic passing *through* the box, not traffic *originating from* it | Test from a separate client device on the network |
 | Firmware/package update hangs on a Suricata-hosting firewall VM | IDS/IPS (and similar deep-inspection packages) can be memory-hungry; a VM sized for basic routing runs out of headroom during package installs | Check actual free RAM (not just what's allocated) before assuming a network/mirror problem; temporarily stopping the IDS service during updates can free enough memory to complete them |
-| Legitimate traffic gets blocked right after enabling IPS mode | Ruleset too aggressive for real-world traffic patterns, enabled before adequate observation | Revert to alert-only, review what specifically fired, exclude/tune that rule, re-enable IPS only after a clean observation window |
-| High CPU/dropped packets under load | Single-threaded config or undersized `ring-size` on a busy link | Enable CPU affinity and multi-threading (`af-packet` `threads: auto`), see the performance-tuning YAML in [Tradecraft/network-detection.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Tradecraft/network-detection.md) |
+| Legitimate traffic gets blocked right after enabling IPS mode | A rule or policy blocks a legitimate workflow, or promotion criteria were incomplete | Revert to alert-only, inspect the matching rule and affected flow, tune/disable narrowly, repeat representative validation, then use a reviewed change window and rollback plan |
+| High CPU or capture loss under load | Traffic exceeds available capture, CPU, memory, or storage capacity; capture-mode-specific tuning may also be needed | Check engine statistics and capture-loss indicators, then benchmark a representative load. Suricata is multi-threaded, but tuning depends on the OS, NIC/driver, and capture mode; see [Tradecraft/network-detection.md](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/blob/main/Tradecraft/network-detection.md) |
 
 ---
 
@@ -374,16 +321,16 @@ The [Suricata CLI reference](https://docs.suricata.io/en/latest/command-line-opt
   security control. A misfiring rule in inline mode can take
   down legitimate traffic — DNS, updates, VoIP, anything with an
   uncommon-but-valid pattern. Always validate in alert-only mode
-  first, for against representative traffic; use explicit acceptance checks and a rollback plan.
+  first against representative traffic; use explicit acceptance checks and a rollback plan.
 
 ► An IDS/IPS box on a network path is a high-value target. Keep
   it patched, restrict management access, and don't expose its
   web UI/SSH to anything but a trusted management network.
 
-► Free rulesets (ET Open, Abuse.ch) are a starting point, not a
-  complete solution. Review what's actually enabled rather than
-  assuming default rulesets match your environment's risk
-  profile.
+► COMMUNITY RULES ARE A STARTING POINT, NOT A COMPLETE
+  SOLUTION. Provider availability and licensing vary by platform.
+  Review what is enabled, validate matches against traffic, and
+  tune policies for your environment's risk profile.
 
 ═══════════════════════════════════════════════════════════════
 ```
@@ -399,7 +346,8 @@ The [Suricata CLI reference](https://docs.suricata.io/en/latest/command-line-opt
 - **Suricata docs:** [docs.suricata.io](https://docs.suricata.io)
 - **Zeek docs:** [docs.zeek.org](https://docs.zeek.org)
 - **Emerging Threats rules:** [rules.emergingthreats.net](https://rules.emergingthreats.net)
-- **OPNsense IDS/IPS documentation:** [docs.opnsense.org](https://docs.opnsense.org)
+- **OPNsense IDS/IPS:** [current manual](https://docs.opnsense.org/manual/ips.html)
+- **pfSense package setup:** [Package list](https://docs.netgate.com/pfsense/en/latest/packages/list.html) · [IDS/IPS packages](https://docs.netgate.com/pfsense/en/latest/packages/snort/index.html)
 - **Detection validation:** [offline capture replay](#-validation--testing) and the [lab verification matrix](../../Documentation/LAB-VERIFICATION-MATRIX.md).
 
 ---
