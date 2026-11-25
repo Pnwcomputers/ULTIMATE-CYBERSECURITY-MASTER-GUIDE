@@ -74,11 +74,12 @@ sudo apt update && sudo apt upgrade -y
 
 ### Step 1.2: Configure System Limits and Transparent Huge Pages
 
-For the systemd-managed `Splunkd` service created later in this guide, configure
-the limits on the service itself. PAM's `/etc/security/limits.conf` does not
-set limits for a systemd service.
+For the systemd-managed `Splunkd` service created in Step 2.5, configure
+limits on the service itself. PAM's `/etc/security/limits.conf` does not set
+limits for a systemd service. **Wait until Step 2.5 has created the service
+before applying this drop-in.**
 
-Run `sudo systemctl edit Splunkd` and add this drop-in:
+Run `sudo systemctl edit Splunkd` and add:
 
 ```ini
 [Service]
