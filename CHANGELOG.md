@@ -1,8 +1,8 @@
 # 🔄 Change Log - November 25, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 2157
-- **Files Modified**: 4227
+- **Commits Analyzed**: 2166
+- **Files Modified**: 4242
 - **New Files**: 1389
 - **Deleted Files**: 124
 
@@ -602,6 +602,9 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- fix: correct installer architecture and hardware guide commands (#760) (`c68b98e`)
+- docs: correct master guide OPSEC and setup guidance (#761) (`8daf852`)
+- docs: correct AD escalation and C2 checklist guidance (#753) (`3672e2f`)
 - Fix Splunk Linux resource limit and THP steps (#736) (`f732364`)
 - Correct Splunk audit trail configuration guidance (#735) (`baa4fbb`)
 - Fix Splunk index setup credential examples (#731) (`95b4dd3`)
@@ -887,6 +890,7 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- docs: remove placeholder ATT&CK links from checklists (#759) (`7c85646`)
 - Remove inline password from Splunk app install command (#733) (`0733214`)
 - Remove inline password from Linux forwarder example (#732) (`70c172f`)
 - Clarify structured output schema compatibility (#663) (`0e88e81`)
@@ -1562,6 +1566,11 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: diagram ESP32 honeypot trust boundaries (#758) (`7b598af`)
+- docs: map microcontroller wireless tool roles (#756) (`32e4317`)
+- docs: diagram Bluetooth adapter capture boundaries (#757) (`d655474`)
+- docs: qualify OPSEC authorization language (#755) (`31b9f53`)
+- docs: diagram Evil Crow RF V2 radio paths (#752) (`a1fd3cb`)
 - docs: pin OWASP testing guide references (#751) (`ae75098`)
 - docs: improve OSINT evidence guidance and tool selection (#750) (`bb77f60`)
 - docs: clarify Graylog TLS certificate requirements (#729) (`03337c6`)
@@ -2181,6 +2190,20 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `HardwareHacking/BitPirate.md`
+- `HardwareHacking/GreatFETone.md`
+- `installer.sh`
+- `ENHANCED_MASTER_GUIDE.md`
+- `ultimate_cybersecurity_master_guide.md`
+- `Checklists/Domain-Escalation.md`
+- `Checklists/Windows-Privilege-Escalation.md`
+- `IncidentResponse/HoneyPot/esp32-s3-honeypots.md`
+- `Documentation/microcontroller_wifi_testing.md`
+- `Documentation/bluetooth-radio-adapter-guide.md`
+- `OPSEC/anonymity-layering.md`
+- `Checklists/command-and-control.md`
+- `SDR/evil-crow-rf-v2.md`
+- `CHANGELOG.md`
 - `WebAppSecurity/methodology.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/README.md`
@@ -2245,7 +2268,6 @@
 - `AI/OpenClaw/README.md`
 - `AI/README.md`
 - `assets/diagrams/openclaw-gateway-trust-boundary.svg`
-- `HardwareHacking/GreatFETone.md`
 - `assets/diagrams/greatfet-authorized-i2c-workflow.svg`
 - `SDR/README.md`
 - `SDR/target_frequencies_protocols.md`
@@ -2307,7 +2329,6 @@
 - `Documentation/mitm-detection-prevention.md`
 - `assets/diagrams/mitm-path-and-tls-boundaries.svg`
 - `tools/build_wiki.py`
-- `CHANGELOG.md`
 - `Documentation/network-taps-and-packet-visibility.md`
 - `assets/diagrams/tap-observation-method-selection.svg`
 - `tools/search_docs.py`
@@ -2343,10 +2364,8 @@
 - `assets/diagrams/algorithms-dijkstra-astar-ospf-bgp.svg`
 - `assets/diagrams/algorithms-search-index-ranking.svg`
 - `assets/diagrams/algorithms-tls13-cryptographic-pipeline.svg`
-- `ultimate_cybersecurity_master_guide.md`
 - `.github/workflows/publish-wiki.yml`
 - `tools/tests/test_build_wiki.py`
-- `ENHANCED_MASTER_GUIDE.md`
 - `IncidentResponse/SIEM/README.md`
 - `OSINT/OSINT_GUIDE.md`
 - `Tradecraft/osint-threat-intel.md`
@@ -2365,7 +2384,6 @@
 - `Cyberdeck/README.md`
 - `Cyberdeck/docs/ARCHITECTURE.md`
 - `Cyberdeck/docs/HARDWARE_AND_STATUS.md`
-- `Documentation/bluetooth-radio-adapter-guide.md`
 - `Documentation/curated-technical-docs.md`
 - `Documentation/devhints-cli-field-reference.md`
 - `Documentation/security-public-api-catalog.md`
@@ -2401,7 +2419,6 @@
 - `SpaceSecurity/PartI.md`
 - `Documentation/blackarch.md`
 - `Documentation/references.md`
-- `HardwareHacking/BitPirate.md`
 - `OSINT/scripts/Domain_IP_Recon.md`
 - `OSINT/scripts/Email_OSINT.md`
 - `PlayBooks/cybersecurity_playbooks.md`
@@ -2699,7 +2716,6 @@
 - `Checklists/Defense-Evasion.md`
 - `Checklists/Environment-Breakout-Checklist.md`
 - `Checklists/Initial-Access.md`
-- `Checklists/command-and-control.md`
 - `Cyberdeck/tools/evidence_manifest.py`
 - `HardwareHacking/Chapter3.md`
 - `HardwareTesting/py/standalone_gpu_tester.py`
@@ -2739,7 +2755,6 @@
 - `Scripts/YAML/git_finder.yaml`
 - `Wardriving/esp32-marauder.md`
 - `Wardriving/sigroam-scout-lite.md`
-- `installer.sh`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
 - `Scripts/GO/shells/README.md`
 - `Scripts/GO/shells/bypass.c`
@@ -2772,9 +2787,7 @@
 - `CAD/OpenSCAD/04-tutorial-gps-cradle.md`
 - `CAD/OpenSCAD/images/fit-check-workflow.svg`
 - `CAD/OpenSCAD/images/gps-cradle-coordinate-section.svg`
-- `Checklists/Domain-Escalation.md`
 - `Checklists/Lateral-Movement.md`
-- `Checklists/Windows-Privilege-Escalation.md`
 - `assets/diagrams/local-llm-data-paths.svg`
 - `assets/diagrams/raspberry-pi-onboard-wifi-support.svg`
 - `Scripts/Bash/fake_sudo.sh`
@@ -2900,7 +2913,6 @@
 - `assets/diagrams/suricata-nfqueue-failure-modes.svg`
 - `assets/diagrams/agent-threat-modeling-evaluation-loop.svg`
 - `assets/diagrams/gnss-authentication-and-integrity-boundaries.svg`
-- `OPSEC/anonymity-layering.md`
 - `assets/diagrams/opsec-vps-tunnel-health-checks.svg`
 - `assets/diagrams/container-escape-evidence-paths.svg`
 - `assets/diagrams/privacy-breach-notification-decision-path.svg`
@@ -3114,7 +3126,6 @@
 - `Cyberdeck/templates/ENGAGEMENT_PLAN.example.md`
 - `Cyberdeck/templates/EVIDENCE_RECORD.example.json`
 - `Cyberdeck/tests/test_evidence_manifest.py`
-- `Documentation/microcontroller_wifi_testing.md`
 - `Wardriving/awok-dual-c5-biscuit.md`
 - `Wardriving/biscuit.md`
 - `firmware-hardware-compatibility.md`
@@ -3155,7 +3166,6 @@
 - `Documentation/esp-terminator.md`
 - `Documentation/firmware-catalog-verification.json`
 - `Documentation/ghostesp-revival.md`
-- `SDR/evil-crow-rf-v2.md`
 - `Wardriving/additional-survey-firmware.md`
 - `Documentation/nemo-firmware.md`
 - `HardwareHacking/esp32-security-firmware-catalog.md`
@@ -3218,7 +3228,6 @@
 - `tests/hardening/test_pins_file.py`
 - `.github/workflows/wids-lab-tests.yml`
 - `IncidentResponse/HoneyPot/REVIEW-2026-10-31.md`
-- `IncidentResponse/HoneyPot/esp32-s3-honeypots.md`
 - `IncidentResponse/HoneyPot/honeypi.md`
 - `IncidentResponse/HoneyPot/lab/diy_http_decoy.py`
 - `IncidentResponse/HoneyPot/lab/synthetic-events.jsonl`
