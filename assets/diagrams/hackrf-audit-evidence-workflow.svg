@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+<title id="title">HackRF audit workflow from scope to evidence</title>
+<desc id="desc">A receive-only field workflow moves from authorization and questions through receive-chain validation, baseline survey, focused IQ capture, format-aware analysis, corroboration, and protected evidence reporting. A separate gated bench lane shows that transmission requires explicit scope and an isolated setup; HackRF is half duplex, so a separate receiver or DUT logs are needed to observe response.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#315b7d"/></marker><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#183247}.title{font-size:30px;font-weight:700}.sub{font-size:18px;fill:#496274}.head{font-size:20px;font-weight:700}.body{font-size:16px}.small{font-size:14px;fill:#496274}.card{fill:#edf5fb;stroke:#527d9a;stroke-width:2}.evidence{fill:#f3f7fa;stroke:#7d93a4;stroke-width:2}.bench{fill:#fff5e6;stroke:#c38620;stroke-width:2}.arrow{stroke:#315b7d;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke-dasharray:8 7}</style></defs>
+<rect width="1280" height="760" fill="#fff"/>
+<text x="50" y="55" class="title">HackRF audit path: scoped receive work to defensible evidence</text>
+<text x="50" y="85" class="sub">Field survey and capture examples are receive-only; bench transmission is a separate authorized workflow.</text>
+<rect x="50" y="125" width="180" height="205" rx="14" class="card"/>
+<text x="140" y="163" text-anchor="middle" class="head">1. Scope</text>
+<text x="140" y="198" text-anchor="middle" class="body">Questions, sites,</text>
+<text x="140" y="224" text-anchor="middle" class="body">time, bands,</text>
+<text x="140" y="250" text-anchor="middle" class="body">authorization</text>
+<text x="140" y="293" text-anchor="middle" class="small">Define stop gates</text>
+<rect x="258" y="125" width="180" height="205" rx="14" class="card"/>
+<text x="348" y="163" text-anchor="middle" class="head">2. Validate RX</text>
+<text x="348" y="198" text-anchor="middle" class="body">Antenna, cable,</text>
+<text x="348" y="224" text-anchor="middle" class="body">gain, overload,</text>
+<text x="348" y="250" text-anchor="middle" class="body">known reference</text>
+<text x="348" y="293" text-anchor="middle" class="small">Record setup</text>
+<rect x="466" y="125" width="180" height="205" rx="14" class="card"/>
+<text x="556" y="163" text-anchor="middle" class="head">3. Baseline</text>
+<text x="556" y="198" text-anchor="middle" class="body">Repeat matched</text>
+<text x="556" y="224" text-anchor="middle" class="body">receive surveys;</text>
+<text x="556" y="250" text-anchor="middle" class="body">note coverage gaps</text>
+<text x="556" y="293" text-anchor="middle" class="small">Sweeps are not continuous</text>
+<rect x="674" y="125" width="180" height="205" rx="14" class="card"/>
+<text x="764" y="163" text-anchor="middle" class="head">4. Capture IQ</text>
+<text x="764" y="198" text-anchor="middle" class="body">Focus on an owned</text>
+<text x="764" y="224" text-anchor="middle" class="body">device or in-scope</text>
+<text x="764" y="250" text-anchor="middle" class="body">signal of interest</text>
+<text x="764" y="293" text-anchor="middle" class="small">Log frequency, rate, gain</text>
+<rect x="882" y="125" width="180" height="205" rx="14" class="card"/>
+<text x="972" y="163" text-anchor="middle" class="head">5. Analyze</text>
+<text x="972" y="198" text-anchor="middle" class="body">Use the correct IQ</text>
+<text x="972" y="224" text-anchor="middle" class="body">format, decoder,</text>
+<text x="972" y="250" text-anchor="middle" class="body">and validation</text>
+<text x="972" y="293" text-anchor="middle" class="small">Separate facts from hypotheses</text>
+<rect x="1090" y="125" width="180" height="205" rx="14" class="card"/>
+<text x="1180" y="163" text-anchor="middle" class="head">6. Corroborate</text>
+<text x="1180" y="198" text-anchor="middle" class="body">Compare controlled</text>
+<text x="1180" y="224" text-anchor="middle" class="body">device states, logs,</text>
+<text x="1180" y="250" text-anchor="middle" class="body">and asset records</text>
+<text x="1180" y="293" text-anchor="middle" class="small">Preserve and report</text>
+<path d="M230 225 L250 225" class="arrow"/><path d="M438 225 L458 225" class="arrow"/><path d="M646 225 L666 225" class="arrow"/><path d="M854 225 L874 225" class="arrow"/><path d="M1062 225 L1082 225" class="arrow"/>
+<rect x="50" y="380" width="555" height="170" rx="16" class="evidence"/>
+<text x="80" y="420" class="head">Evidence boundaries</text>
+<text x="80" y="456" class="body">• Detected energy is not a decoded frame or device attribution.</text>
+<text x="80" y="487" class="body">• IQ is waveform data, not PCAP or proof of decrypted content.</text>
+<text x="80" y="518" class="body">• Preserve originals; hash finalized evidence and analyze a copy.</text>
+<rect x="650" y="380" width="620" height="170" rx="16" class="bench"/>
+<text x="680" y="420" class="head">Separate lane: controlled bench transmission</text>
+<text x="680" y="456" class="body">Explicit authorization → isolated conducted/shielded setup → owned DUT</text>
+<text x="680" y="487" class="body">Observe response with a separate receiver or DUT logs; HackRF is half duplex.</text>
+<text x="680" y="518" class="small">Do not infer permission to transmit from permission to receive or survey.</text>
+<rect x="50" y="600" width="1220" height="92" rx="14" fill="#f8fafc" stroke="#c8d4dd" stroke-width="2"/>
+<text x="80" y="638" class="head">Reporting path</text>
+<text x="240" y="638" class="body">State the measurement, settings, time/location, limitations, confidence, corroboration, retention, and remediation.</text>
+<text x="80" y="669" class="small">Avoid conclusions about protocol, identity, range, or vulnerability that the recorded evidence does not support.</text>
+</svg>
