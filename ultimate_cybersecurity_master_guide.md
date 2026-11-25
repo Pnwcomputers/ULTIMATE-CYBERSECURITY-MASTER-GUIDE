@@ -1346,11 +1346,10 @@ Overall Risk: [Critical/High/Medium/Low]
 ## Legal & Ethical Considerations
 
 ### Legal Framework
-- **CFAA (USA)** - Unauthorized access is illegal
-- **GDPR (EU)** - Data protection requirements
-- **Always get written authorization**
-- **Stay within defined scope**
-- **Report findings responsibly**
+- **CFAA (United States):** 18 U.S.C. § 1030 defines specific computer-related offenses; whether conduct meets a provision depends on its elements and the facts. [Read the current statute](https://uscode.house.gov/us/usc/t18/s1030/).
+- **GDPR (EU):** Where it applies, the General Data Protection Regulation governs processing of personal data and sets duties for controllers and processors. [Read Regulation (EU) 2016/679](https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng).
+- **Authorization:** Obtain written authorization and document scope before a professional assessment. Treat this as a required engagement safeguard; specific legal requirements depend on the activity and jurisdiction.
+- **Scope and reporting:** Stay within the approved scope, protect collected data, and report findings through the agreed disclosure process.
 
 ### Responsible Disclosure
 1. Discover vulnerability
