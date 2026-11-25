@@ -601,6 +601,7 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [hackrf guide passband vs span](./diagrams/hackrf-guide-passband-vs-span.svg) | [Guide](../SDR/hackrf.md) |
 | [hackrf guide sweep coverage](./diagrams/hackrf-guide-sweep-coverage.svg) | [Guide](../SDR/hackrf.md) |
 | [hackrf guide evidence ladder](./diagrams/hackrf-guide-evidence-ladder.svg) | [Guide](../SDR/hackrf.md) |
+| [HackRF audit evidence workflow](./diagrams/hackrf-audit-evidence-workflow.svg) | [Audit playbook](../PlayBooks/HackRFAuditPlayBook.md) | Separates the scoped receive-only survey, IQ interpretation and evidence path from controlled bench transmission |
 | [hackrf guide bench observation](./diagrams/hackrf-guide-bench-observation.svg) | [Guide](../SDR/hackrf.md) |
 
 ## Endpoint Collection and PF Rule Evaluation
