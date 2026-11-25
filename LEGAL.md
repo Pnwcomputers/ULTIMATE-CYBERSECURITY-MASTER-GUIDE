@@ -37,7 +37,7 @@ finding about a particular situation.
 
 ### Computer access and damage
 
-In the United States, the [Computer Fraud and Abuse Act, 18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-118/t18/s1030/)
+In the United States, the [Computer Fraud and Abuse Act, 18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-134/t18/s1030/)
 contains several distinct offenses, each with its own elements and penalties. Whether
 the statute applies depends on the subsection and facts; there is no single penalty
 that applies to every unauthorized or out-of-policy computer activity. The Supreme

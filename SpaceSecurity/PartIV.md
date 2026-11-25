@@ -2,9 +2,11 @@
 
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. RF transmission
-> requires separate operator and regulatory authority. See [LEGAL.md](../LEGAL.md).
+> testing, education, and defensive research. Testing outside your authorization
+> may violate applicable law, contracts, or policy; legal requirements depend on
+> jurisdiction and circumstances. Obtain written authorization and stay within
+> scope. RF transmission in this context also requires the satellite operator's
+> approval and applicable spectrum/regulatory authority. See [LEGAL.md](../LEGAL.md).
 
 ## 🎯 Purpose
 User-segment security guide covering satellite terminal architecture, management-plane risks, firmware/update assurance, and GNSS integrity and resilience.

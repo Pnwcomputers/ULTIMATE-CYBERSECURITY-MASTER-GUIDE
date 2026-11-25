@@ -337,10 +337,11 @@ REM =============================================
 - ✗ Public computers
 - ✗ Any system without authorization
 
-**Unauthorized access to computer systems is illegal** under:
-- Computer Fraud and Abuse Act (CFAA) - USA
-- Computer Misuse Act - UK
-- Similar laws in virtually all countries
+**Unauthorized access can violate computer-crime laws and other applicable rules.**
+The specific requirements depend on the jurisdiction and conduct. Examples include:
+- The U.S. [Computer Fraud and Abuse Act, 18 U.S.C. § 1030](../../LEGAL.md#computer-access-and-damage), which contains distinct offenses with specific elements.
+- The UK [Computer Misuse Act 1990](https://www.legislation.gov.uk/ukpga/1990/18/contents), which defines separate computer-misuse offenses.
+Consult [LEGAL.md](../../LEGAL.md) for the repository's scope guidance.
 
 ### Professional Use
 For legitimate IT/security work:

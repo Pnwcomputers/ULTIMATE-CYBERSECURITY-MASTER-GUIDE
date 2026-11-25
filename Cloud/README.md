@@ -229,10 +229,10 @@ Trivy's [misconfiguration scanner documentation](https://trivy.dev/docs/latest/g
 
 > [!CAUTION]
 > **Authorized use only.** The techniques here are for authorized cloud assessment,
-> education, and defensive research. Testing cloud accounts or tenants you do not
-> own or lack **explicit written permission** to assess is illegal - and note that
-> cloud providers also have their own **penetration-testing policies** you must
-> follow. Always work within a signed scope. See [LEGAL.md](../LEGAL.md).
+> education, and defensive research. Testing outside your authority may violate
+> applicable law, contract, or policy; legal requirements depend on jurisdiction and
+> circumstances. Obtain written authorization, stay within the signed scope, and
+> review the provider's current penetration-testing policies. See [LEGAL.md](../LEGAL.md).
 
 ---
 
