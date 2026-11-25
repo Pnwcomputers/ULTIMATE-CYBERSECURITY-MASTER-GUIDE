@@ -47,6 +47,8 @@ The researchers stated that they **were not aware of confirmed real-world attack
 
 **Current vendor guidance (checked November 24, 2026):** dormakaba's [hospitality security support page](https://go.dormakaba.com/en/security-support/hospitality) says the vulnerability applies to Saflok deployments using System 6000, Ambiance, or Community that are **not** using the Enhanced Security encryptions available in Ambiance and Community. dormakaba recommends implementing Enhanced Security encryption; it notes that some hardware cannot support it and may need replacement. Property operators should use the vendor's self-assessment and coordinate with dormakaba or an authorized integrator. The public page does not establish which properties have completed mitigation.
 
+The vendor page also lists separate advisories dated January 2026 (NXP Semiconductor disclosure) and August 2026 (continued research into legacy Saflok systems). Those are outside this historical 2024 case's scope; consult the current vendor advisories and self-assessment before evaluating a specific property.
+
 ## Primary Sources & Boundaries
 
 - [Unsaflok — Researcher Disclosure, FAQ & Timeline](https://unsaflok.com/) — first-party findings, explicit limits and historical patch percentage.
