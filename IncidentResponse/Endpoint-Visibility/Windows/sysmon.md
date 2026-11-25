@@ -59,7 +59,11 @@ Windows provides several logging sources. Sysmon can add configurable endpoint e
 For the built-in feature, an elevated PowerShell session can enable the optional feature and install it with the default configuration:
 
 ```powershell
-Get-Service sysmon* -ErrorAction SilentlyContinue
+$existingSysmon = Get-Service sysmon* -ErrorAction SilentlyContinue
+if ($existingSysmon) {
+    $existingSysmon | Select-Object Name, Status
+    throw "Resolve the existing Sysmon installation before enabling the built-in feature."
+}
 Enable-WindowsOptionalFeature -Online -FeatureName Sysmon
 sysmon -i
 ```
