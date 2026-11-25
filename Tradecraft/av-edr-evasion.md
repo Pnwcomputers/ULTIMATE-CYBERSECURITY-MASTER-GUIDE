@@ -277,11 +277,11 @@ level: medium
 
 ### How It Works
 
-Windows API calls ultimately translate to syscalls - numbered kernel services invoked via the `syscall` CPU instruction. Normally, code calls a wrapper in `ntdll.dll` which sets the syscall number and executes `syscall`. EDR hooks intercept at the `ntdll.dll` layer.
+Many Win32 APIs eventually reach kernel services through Native API/syscall paths, but not every API call is itself a syscall. For some operations, the user-mode stub in `ntdll.dll` loads a service number and executes the `syscall` instruction. Some EDR products hook selected stubs at this layer; coverage and additional telemetry vary by product and operation.
 
 **Direct syscalls:** Some malware invokes system calls without using the usual `ntdll.dll` wrappers, which can avoid particular user-mode hooks. This does not bypass all EDR visibility; kernel telemetry, call-stack inspection, memory analysis, and behavior correlation may still detect it.
 
-**Indirect syscalls:** Rather than placing the `syscall` instruction in attacker code (which has an anomalous call stack origin), the attacker locates a legitimate `syscall` gadget inside `ntdll.dll` and jumps to it after setting up the syscall number. The call stack then appears to originate from `ntdll.dll` - harder to detect than direct syscalls.
+**Indirect syscalls:** Rather than executing the `syscall` instruction from their own code, an indirect syscall can execute an instruction located inside `ntdll.dll` after setting up a service number. This may evade a check that looks only at the syscall instruction's address, but it does not make the full call stack appear normal: return addresses can expose an anomalous jump from `ntdll.dll` to unrelated code. Stack-aware sensors may use that signal; visibility depends on the product and operation.
 
 ### What Makes This Detectable
 
@@ -293,7 +293,7 @@ Windows API calls ultimately translate to syscalls - numbered kernel services in
 
 ### Detection
 
-EDRs with **kernel-mode telemetry and call stack analysis** are required to reliably detect syscall abuse. User-mode-only EDRs are blind to direct syscalls by design.
+Detection depends on the sensor signals a product collects. A user-mode sensor limited to selected `ntdll.dll` hooks can miss an operation that bypasses those stubs, but that does not establish that the endpoint is blind to direct syscalls. Products may also collect ETW or other behavioral telemetry; coverage is operation- and product-specific, and ETW-Threat Intelligence does not cover every syscall. Evaluate claims against the exact operation and signals tested rather than treating kernel-mode stack analysis as universally required or universally available.
 
 **Defensive implication:** When evaluating EDR products, test specifically for direct/indirect syscall detection - ask vendors for documentation on how they handle this. It's a known gap in many user-mode-first products.
 
@@ -1042,6 +1042,8 @@ Memory forensics on acquired dump?
 ---
 
 ## References
+- [Bitdefender: What Is Native API Abuse?](https://techzone.bitdefender.com/en/tech-explainers/what-is-native-api-abuse.html) — syscall-address and call-stack detection signals and their limits.
+- [Elastic: A Taxonomy of Endpoint Security Detection Bypasses](https://www.elastic.co/blog/edr-bypass-taxonomy) — user-mode hooks, kernel callbacks and ETW coverage.
 
 - [MITRE ATT&CK: Defense Evasion (TA0005)](https://attack.mitre.org/tactics/TA0005/)
 - [PE-sieve - memory scanner](https://github.com/hasherezade/pe-sieve)
