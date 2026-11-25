@@ -594,27 +594,13 @@ This documentation is provided for:
    • Any activity violating the Wiretap Act (18 U.S.C. § 2511)
 ```
 
-### Wireless & Packet Capture Legal Requirements
+### Wireless & Packet Capture Legal Context
 
-```
-Federal Laws (United States):
-• Computer Fraud and Abuse Act (CFAA) - 18 U.S.C. § 1030
-  - Unauthorized access to protected computers/networks
-  - Penalties: Up to 10 years imprisonment and fines
+The legal treatment of packet capture depends on the communication, whether it is public or encrypted, the operator's role and consent, the purpose and scope of collection, and applicable federal and state law. Under [18 U.S.C. § 2511](https://uscode.house.gov/us/usc/t18/s2511/), intentional interception, disclosure, or use of communications can be prohibited, but the statute also contains consent, provider, publicly accessible communication, and specified radio-communication exceptions. The fact that a tool can capture a packet does not by itself establish whether capture is lawful.
 
-• Wiretap Act - 18 U.S.C. § 2511
-  - Intercepting electronic communications
-  - Penalties: Up to 5 years imprisonment and fines
+The Wiretap Act is part of the Electronic Communications Privacy Act (ECPA), not a separate additional penalty scheme. Certain offenses under § 2511(1) carry a maximum of five years; that is not a blanket penalty for every packet capture. The [Computer Fraud and Abuse Act](https://uscode.house.gov/us/usc/t18/s1030/) and state laws may also apply depending on access, conduct, and jurisdiction, with penalties varying by offense.
 
-• Electronic Communications Privacy Act (ECPA)
-  - Protecting electronic communications
-  - Civil and criminal penalties apply
-
-State Laws:
-• Most states have additional computer crime statutes
-• Unauthorized network access is often classified as a felony
-• Civil liability applies in addition to criminal charges
-```
+For assessments, use written authorization and a defined scope as professional safeguards. Confirm that the authorization covers the interfaces, networks, time window, data types, storage, and disclosure plan. Authorization from a network owner may not resolve every issue involving third-party communications or other applicable law.
 
 ### Risk Mitigation
 
@@ -768,11 +754,11 @@ Tips, caveats, hardware requirements
 
 ---
 
-⚠️ **WARNING: Unauthorized packet capture is illegal and prosecutable** ⚠️
+⚠️ **Capture only within a clearly authorized scope; interception laws and exceptions depend on the facts and jurisdiction.** ⚠️
 
-⚠️ **Wiretap Act violations carry up to 5 years imprisonment** ⚠️
+⚠️ **Some Wiretap Act offenses carry up to five years; this is not a blanket penalty for packet capture.** ⚠️
 
-⚠️ **Always obtain written authorization before capturing on any network you do not own** ⚠️
+⚠️ **For assessments, written authorization and a documented capture scope are strong professional safeguards.** ⚠️
 
 ⭐ **Star this repo if you find it useful!** ⭐
 
