@@ -379,12 +379,12 @@ Contributions should be reproducible, properly sourced, and suitable for educati
 | Item | Current inventory |
 |---|---|
 | Guide entries linked from this index | **7:** six companion documents plus the [NanoVNA guide collection](nanovna/README.md). |
-| Markdown files directly in `SDR/` | **7**, including this README; NanoVNA chapters are in the subdirectory. |
+| Markdown files directly in `SDR/` | **9**, including this README; NanoVNA chapters are in the subdirectory. |
 | NanoVNA collection | **12 chapters**, a section README, and a tools README in `SDR/nanovna/`. |
 | External companion playbook | `PlayBooks/HackRFAuditPlayBook.md`. |
 | Coverage | LF/HF RFID, Sub-GHz devices, wireless protocols, wideband SDR, and specialized higher-frequency topics; coverage depends on hardware. |
 | Review scope | README inventory, navigation, tool descriptions, selected hardware specifications, and legal wording. Companion guides remain separate technical documents. |
-| Last reviewed | September 15, 2026; NanoVNA navigation and inventory added September 18, 2026. |
+| Last reviewed | November 24, 2026 (index navigation, inventory, tool descriptions, selected hardware specifications, and legal wording). |
 | Maintainer | [Pacific Northwest Computers / Pnwcomputers](https://github.com/Pnwcomputers). |
 
 **Maintenance note:** Update counts when adding or removing files. Recheck upstream compatibility and service status before relying on older examples. A guide's presence in this index does not establish that every command or security claim in it has been independently validated.

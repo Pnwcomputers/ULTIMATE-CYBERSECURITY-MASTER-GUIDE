@@ -7,7 +7,7 @@
 
 Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../README.md) · [SDR section](README.md)
 
-**Version:** 1.0 · **Prepared:** September 15, 2026  
+**Version:** 1.1 · **Updated:** November 24, 2026  
 **Regional baseline:** United States, with explicitly labeled international examples.  
 **Scope:** Common signals, device families, and protocol identification starting points. This is a maintained reference, not an exhaustive worldwide allocation table or a list of confirmed local transmitters.
 
@@ -541,19 +541,7 @@ Use the [NOAA station listing](https://www.weather.gov/nwr/station_listing), rel
 | [RFID guide](rfid.md) | LF/HF reader and tag workflows |
 | [Advanced SDR guide](sdr_hacking.md) | Deeper waveform and protocol research in an authorized lab |
 
-**Suggested repository path:** `SDR/target_frequencies_protocols.md`
-
-Replace the planned entry in `SDR/README.md` with:
-
-```markdown
-- [Target Frequencies & Protocols MASTER LIST](target_frequencies_protocols.md)
-```
-
-Add this row to the existing guide table:
-
-```markdown
-| **[Target Frequencies & Protocols MASTER LIST](target_frequencies_protocols.md)** | 🟢 Reference / All Levels | Regional frequency tables, channel mappings, protocol identification, receiver limits, decoder selection, and survey logging |
-```
+The master list is already linked from the [SDR index](README.md#target-frequencies-and-protocols), which is the maintained navigation point for this guide. Update that index when the file is renamed or moved; do not duplicate its existing guide entry.
 
 ### Maintenance rules
 
@@ -568,6 +556,7 @@ Add this row to the existing guide table:
 | Version | Date | Changes |
 |---|---|---|
 | 1.0 | 2026-09-15 | Initial master reference; regional channel tables, receiver constraints, protocol distinctions, historical NOAA APT labeling, and companion-guide links. |
+| 1.1 | 2026-11-24 | Added the RF analysis workflow, clarified PN532 lifecycle/replacement links, and corrected the already-integrated index instructions. |
 
 ## 17. Primary references
 
