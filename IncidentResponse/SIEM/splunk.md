@@ -875,24 +875,31 @@ index=_internal source=*license_usage.log type=Usage
 
 ## 🛡️ Part 13: Security Hardening
 
-### Change Default Ports
+### Configure Splunk Web TLS
 
-Edit `/opt/splunk/etc/system/local/web.conf`:
+For an isolated lab, setting `enableSplunkWebSSL = true` enables HTTPS with
+Splunk's default certificate. Splunk warns that the default certificates do
+not meet security standards, so browsers and clients cannot use them to verify
+the server's identity. Do not use that default-certificate setup for a
+networked deployment.
+
+For a networked deployment, use a certificate issued by a CA trusted by the
+browsers that will connect. The certificate must identify the hostname used in
+the browser URL; protect the matching private key. Configure
+`/opt/splunk/etc/system/local/web.conf` with the certificate and key paths:
 
 ```ini
 [settings]
 httpport = 8443
 enableSplunkWebSSL = true
+privKeyPath = /opt/splunk/etc/auth/mycerts/splunkWebPrivateKey.pem
+serverCert = /opt/splunk/etc/auth/mycerts/splunkWebCertificate.pem
 ```
 
-### Enable SSL
-
-```bash
-# Generate self-signed certificate
-sudo -u splunk /opt/splunk/bin/splunk createssl server-cert -d /opt/splunk/etc/auth
-
-# Or use your own certificates
-```
+Use PEM-formatted X.509 certificates and a matching private key. Restart
+Splunk after changing the configuration. Follow Splunk's
+[Splunk Web TLS certificate guide](https://help.splunk.com/en/splunk-enterprise/administer/manage-users-and-security/10.6/secure-splunk-platform-communications-with-transport-layer-security-certificates/configure-splunk-web-to-use-tls-certificates)
+for the selected release.
 
 ### Configure Authentication
 
