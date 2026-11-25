@@ -21,7 +21,7 @@ Guide for deploying [Security Onion](https://securityonion.net/), a free and ope
 Covers representative node roles, hardware sizing, ISO installation, management and sniffing interface planning, and the data path from sensor capture to searchable events and analyst access. Role names and exact components vary by release.
 
 ## 🏆 Goal
-Give an informed sizing and architecture decision *before* burning a full ISO install cycle on hardware that turns out to be undersized — this is the single most common way people waste time with Security Onion.
+Give operators the sizing and architecture facts to check before installing Security Onion; its published minimums are resource-intensive and vary by node role.
 
 ## 📋 When to Use
 - You've already worked with standalone Suricata/Zeek and want the integrated dashboards, alerting, and case-management layer without building it yourself
@@ -53,7 +53,7 @@ Security Onion isn't a new detection engine — it's the same Suricata and Zeek 
 - **Strelka** for file analysis, including YARA-based detections
 - **Security Onion Console (SOC)** for alerts, hunt, cases, detections, and grid administration; the platform also provides analyst tools such as CyberChef
 - Separate detection types: NIDS rules load into Suricata, Sigma rules into ElastAlert, and YARA rules into Strelka
-- **IDH (Intrusion Detection Honeypot)** nodes, which use OpenCanary and must join a separate Security Onion deployment
+- **IDH (Intrusion Detection Honeypot)** nodes run honeypot services and join an existing Security Onion grid as a dedicated node
 
 Think of it as: everything you'd otherwise assemble by hand from this repo's Suricata/Zeek and SIEM guides, pre-wired together and given a management console.
 
@@ -63,17 +63,29 @@ Think of it as: everything you'd otherwise assemble by hand from this repo's Sur
 
 Security Onion supports everything from a single evaluation VM to a fully distributed enterprise deployment. Pick the smallest type that fits your actual need — sizing scales up dramatically with each step:
 
-| Type | What it is | Use case |
+| Deployment or role | What it is | Typical fit |
 |---|---|---|
-| **Import** | Minimal processes to import PCAP/EVTX files and review them | Forensic analysis of files you already have, not live monitoring |
-| **Eval** | Single machine sniffing live traffic, no Logstash/Redis (lower RAM) | Homelab, evaluation, temporary — **not for production** |
-| **Standalone** | Manager + sensor components on one box, production-capable | Small-to-medium single-sensor deployments |
-| **Distributed** (Manager + Sensor + Search nodes) | Roles split across multiple machines | Larger networks or need to scale monitoring and search independently |
+| **Import** | Minimal installation for importing PCAP/EVTX files | Analyze saved evidence; not live monitoring |
+| **Eval** | Single machine that sniffs live traffic with a reduced service set | Temporary evaluation or a homelab; **not for production** |
+| **Standalone** | Manager and sensor components on one machine | Labs, POCs, or very low-throughput deployments; less scalable than distributed |
+| **Distributed** (Manager, Sensor, Search) | Separates management, sensing, and search/storage across nodes | Recommended architecture for production and scaling |
+| **IDH node** | Dedicated honeypot node that joins a Security Onion grid | Add honeypot coverage to an existing deployment |
 
-Security Onion also documents additional roles such as ManagerSearch, Heavy, Fleet, Receiver, and Desktop. This summary is not an exhaustive role list; check the current [architecture documentation](https://docs.securityonion.net/en/3/main/architecture/) before sizing.
-| **IDH node** | Dedicated lightweight honeypot node | Very low resource requirement (1 GB RAM), complements the main grid |
+This is a compact role summary, not the complete list; current releases also document Desktop, ManagerSearch, Heavy, Fleet, and Receiver roles. Check the current [architecture documentation](https://docs.securityonion.net/en/3/main/architecture/) before designing a grid.
 
-**Start with Import for saved evidence, Eval for a temporary or homelab live sensor, or Standalone for a single-node deployment.** For distributed deployments, the manager should generally be configured first and sensor/search roles can be separated as needs grow. See upstream sizing and architecture guidance before choosing.
+```mermaid
+flowchart TD
+    A[Choose the deployment goal] --> B{Analyze saved PCAP or EVTX only?}
+    B -->|Yes| C[Import: evidence analysis]
+    B -->|No| D{Temporary live evaluation?}
+    D -->|Yes| E[Eval: temporary or homelab use]
+    D -->|No| F{Lab, POC, or very low throughput?}
+    F -->|Yes| G[Standalone: all-in-one, limited scale]
+    F -->|No| H[Distributed: recommended production architecture]
+    H -. optional .-> I[Add an IDH node to the grid]
+```
+
+For a distributed deployment, configure the manager first, then join sensor, search, and optional IDH nodes. Confirm the current node roles and release-specific sizing upstream before installation.
 
 ![Security Onion data path: TAP/SPAN traffic reaches a sensor with a dedicated sniffing interface; Suricata and Zeek produce alerts and logs that flow through Elastic Agent to Logstash, Redis, and Elasticsearch on manager/search roles. Packet capture remains on the sensor, while SOC provides analyst access.](../../assets/diagrams/security-onion-sensor-to-search-flow.svg)
 
@@ -83,19 +95,26 @@ Security Onion also documents additional roles such as ManagerSearch, Heavy, Fle
 
 ## 🖥️ Hardware Sizing
 
-This is where most first attempts go wrong — Security Onion is **not** lightweight, even at its smallest production-capable size:
+These are published minimums, not sizing recommendations. Actual needs increase with enabled services, traffic volume, and log sources:
 
 | Node Type | CPU cores | RAM | Storage | NICs |
-|---|---|---|---|---|
+|---|---:|---:|---:|---:|
+| Desktop | 2 | 4 GB | 50 GB | 1 |
 | Import | 2 | 4 GB | 100 GB | 1 |
 | Eval | 4 | 8 GB | 200 GB | 2 |
 | **Standalone** | **4** | **24 GB** | **200 GB** | **2** |
 | Manager | 4 | 16 GB | 200 GB | 1 |
+| ManagerSearch | 8 | 16 GB | 200 GB | 1 |
 | Search node | 4 | 16 GB | 200 GB | 1 |
 | Sensor | 4 | 12 GB | 200 GB | 2 |
-| IDH node | 2 | 1 GB | 12 GB | 1 |
+| Heavy node | 4 | 16 GB | 200 GB | 2 |
+| IDH node | 2 | 1 GB | 100 GB¹ | 1 |
+| Fleet node | 4 | 4 GB | 200 GB | 1 |
+| Receiver node | 2 | 8 GB | 200 GB | 1 |
 
-**Critical detail easy to miss:** even the "minimum" Standalone spec (24 GB RAM) explicitly may need swap space to avoid instability at that floor — the docs themselves recommend 32 GB+ if monitoring any real traffic volume. This is not a project to try to squeeze onto a Pi or a small VM the way OpenCanary or standalone Suricata can be.
+**Standalone sizing caveat:** the 24 GB minimum may need swap to avoid issues, and the official docs recommend 32 GB or more even for a small amount of monitored traffic. More RAM does not change Standalone's intended fit: labs, POCs, and very low throughput. For production scalability, the official docs recommend a distributed architecture.
+
+¹ The current hardware page conflicts on IDH storage: its minimum-spec table lists 12 GB while the detailed IDH section lists 100 GB. This guide uses the conservative 100 GB figure; confirm the exact release requirements before sizing.
 
 **NIC planning:** you need one interface with an IP for management, and a **separate** interface with no IP dedicated to sniffing (fed by a TAP or SPAN port). Security Onion automatically disables NIC offload features (`tso`, `gso`, `gro`) on sniffing interfaces so Suricata/Zeek see accurate traffic — don't try to "fix" this yourself.
 
@@ -160,7 +179,7 @@ This is the practical value proposition: if you understand Suricata, Zeek, and E
 | Can't change the hostname after a botched initial setup | Certificates were generated against the original hostname during install; this is explicitly unsupported to change later | Reinstall rather than fight it — this is a documented hard limitation, not a bug to work around |
 | Distributed sensor won't join the manager | Node approval step skipped | Check **Administration → Grid Members → Pending Members** on the Manager and explicitly Review/Accept the joining node |
 | Running out of disk far faster than expected | Packet capture retention wasn't sized against traffic and capture settings | Recalculate from representative traffic and configured capture behavior, then add a safety margin |
-| Tried it on a Raspberry Pi or other ARM hardware | Security Onion is x86-64 only | Use x86-64 hardware for the main grid; ARM isn't supported at all (the lightweight IDH honeypot role is the only ARM-friendly-adjacent piece, and even that assumes an x86-64 grid it joins) |
+| Tried it on a Raspberry Pi or other ARM hardware | Security Onion supports x86-64 only, including for IDH nodes | Use a supported x86-64 host; IDH's low resource minimum does not make it ARM-compatible, and an IDH node joins a Security Onion grid |
 
 ---
 
@@ -171,11 +190,11 @@ This is the practical value proposition: if you understand Suricata, Zeek, and E
                     ⚠️ CRITICAL WARNING ⚠️
 ═══════════════════════════════════════════════════════════════
 
-► THIS PLATFORM SEES EVERYTHING. A Security Onion deployment
-  with full packet capture retains complete network traffic
-  content, not just metadata. Treat its storage and access
-  controls accordingly — this is one of the most sensitive
-  systems you can run on a network.
+► FULL PACKET CAPTURE CAN STORE TRAFFIC CONTENT. When Suricata
+  PCAP is enabled and set to capture all traffic (the default),
+  it retains packet content, not just metadata. Conditional
+  capture and retention settings change what is stored and for
+  how long. Protect PCAP storage and analyst access accordingly.
 
 ► DEDICATED MANAGEMENT NETWORK RECOMMENDED. Keep the management
   interface off the general network where possible; SOC and
