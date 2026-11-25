@@ -78,10 +78,9 @@ This directory contains example configuration notes for AgentFlows used in autho
 **Use Cases:** Review of explicitly scoped scan results  
 
 #### [Threatintelcheck](flow-threat_intel.md)
-**Purpose:** Looks up IP/domain reputation through configured sources  
-**Outputs:** A draft analyst aid; reputation data does not establish attribution or justify automatic blocking  
-**Use Cases:** Scoped enrichment and incident investigation
-**Requirements:** VirusTotal API key (recommended)
+**Purpose:** Summarizes source-reported observations for an authorized IP or domain  
+**Outputs:** Time-bounded provider fields and analyst verification questions; no composite score or automatic action  
+**Use Cases:** Approved enrichment correlated with local evidence
 
 ---
 
