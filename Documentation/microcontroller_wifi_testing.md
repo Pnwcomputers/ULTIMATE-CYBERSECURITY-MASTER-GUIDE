@@ -17,10 +17,10 @@ management interface that transmits; none of these names guarantees passive oper
 | [Evil-M5](./evil_m5.md#evil-m5-firmware-qualification--authorized-deployment-labs) | Separate M5Stack firmware with board-specific SD and eight qualification labs; not JanOS. |
 
 ## 🎯 Purpose
-Provide a practical field and lab reference for using Pwnagotchi, ESP32 Marauder-compatible hardware, Flipper Zero, CC1101 radios, MikroTik RouterOS, and a Linux workstation together during authorized wireless-security assessments.
+Provide an authorized wireless assessment reference for portable Wi-Fi/BLE and Sub-GHz tools, including Pwnagotchi, ESP32 Marauder-compatible hardware, OUI-SPY/Unified Blue, LAB5 C5, and Flipper/CC1101 workflows, with MikroTik and Linux workstation evidence handling.
 
 ## ⚙️ Function
-Organize each device by its role in the assessment lifecycle: automated Wi-Fi discovery, active Wi-Fi testing, Sub-GHz exploration, network-side observation, PCAP export, packet analysis, evidence preservation, and reporting.
+Distinguish tool roles, mode-specific radio behavior, observation vantage points, capture outputs, platform compatibility, and evidence preservation. The named platforms do not share one firmware or guarantee passive operation.
 
 ## 🏆 Goal
 Create a repeatable wireless-testing workflow in which every action is scoped, every capture has a known observation point, and every conclusion is supported by evidence from the correct network or radio layer.
@@ -33,6 +33,36 @@ Create a repeatable wireless-testing workflow in which every action is scoped, e
 - Examining owned Sub-GHz sensors, remotes, and IoT devices
 - Correlating portable-tool activity with MikroTik, Wireshark, and client logs
 - Exporting and preserving Pwnagotchi PCAP files for analysis
+
+### Device Roles And Evidence Path
+
+```mermaid
+flowchart TD
+    scope["Define authorized assets, bands, time window, and transmit limits"] --> objective{"Choose observation layer"}
+    objective --> wifi["Wi-Fi discovery or controlled testing"]
+    objective --> ble["BLE observation"]
+    objective --> subghz["Sub-GHz device observation"]
+    wifi --> pwn["Pwnagotchi<br/>May inject frames unless disabled or restricted"]
+    wifi --> marauder["Marauder-compatible ESP32<br/>Active test capability; isolate the lab"]
+    wifi --> oui["OUI-SPY / Unified Blue<br/>Mode and board determine behavior"]
+    wifi --> lab5["LAB5 C5<br/>Firmware, controller, and mode are separate"]
+    ble --> oui
+    ble --> blekit["Dedicated BLE capture tool<br/>Check advertisement/data-channel limits"]
+    subghz --> flipper["Flipper / CC1101<br/>Band and transmit behavior are device-specific"]
+    objective --> net["Network-side evidence"]
+    net --> router["MikroTik logs and interface capture<br/>Not equivalent to over-the-air monitor mode"]
+    net --> monitor["Independent monitor-mode sensor<br/>Record channel and capture vantage"]
+    pwn --> workstation["Linux workstation: preserve originals, hash, analyze, correlate"]
+    marauder --> workstation
+    oui --> workstation
+    lab5 --> workstation
+    blekit --> workstation
+    flipper --> workstation
+    router --> workstation
+    monitor --> workstation
+```
+
+*Conceptual role map based on the workflows in this guide. Firmware, board revision, selected mode, and local radio rules affect capabilities. A selector or management interface may transmit even when a sensor mode is receive-oriented; verify each path before testing.*
 
 Portable devices can handle specialized collection and testing tasks in a compact, battery-powered form factor. The Linux workstation remains the primary system for long-term storage, packet analysis, reporting, and controlled password-strength auditing.
 
@@ -396,10 +426,10 @@ For PCAP and BLE Sniff, check the build's current Save PCAP/CSV pathway instead 
 3. Export the supported PCAP through the local dashboard or alternate documented path; verify an actual file was produced.
 4. Inspect its metadata on an evidence workstation using a read-only tool, e.g.:
 
-~~~bash
+```bash
 file /path/to/authorized-lab.pcap
 sha256sum /path/to/authorized-lab.pcap
-~~~
+```
 
 5. Compare the known AP's BSSID/channel to capture output. Preserve the original, redact other identifiers and record capture filter/limits.
 6. If using a Flock-You signature feature, treat results as candidate detections requiring independent physical/controller confirmation, not conclusive identification.
@@ -513,11 +543,11 @@ The [projectZero wiki](https://github.com/C5Lab/projectZero/wiki) documents, for
 2. Confirm **whether the chosen JanOS build actually saves PCAP** and the exact file destination. Do not assume every UI has continuous PCAP storage or that Tab5 and Flipper save to the same device.
 3. Stop capture and preserve the unchanged source file. On a trusted Linux evidence workstation, verify actual file type and hash:
 
-~~~bash
+```bash
 file /path/to/approved-test-capture.pcap
 sha256sum /path/to/approved-test-capture.pcap
 tshark -r /path/to/approved-test-capture.pcap -c 10
-~~~
+```
 
 4. If frames are present, filter for **beacon frames** using `tshark -r /path/to/approved-test-capture.pcap -Y 'wlan.fc.type_subtype == 8'`; a file containing no 802.11 dissector fields may use a different link type or capture format.
 5. Compare observed BSSID/channel/times with the AP controller. Do not collect credentials, force reconnection, or crack captures for routine coverage acceptance.
