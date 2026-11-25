@@ -15,7 +15,7 @@ Configure Sysmon to emit selected endpoint events for collection and investigati
 - Tuning Sysmon configuration to reduce noise while preserving detection coverage
 - Building SIEM detection rules that reference Sysmon event IDs
 
-**System Monitor (Sysmon)** is a Windows system service and device driver from Microsoft's Sysinternals suite that logs detailed system activity to the Windows Event Log. It provides visibility into process creation, network connections, file changes, registry modifications, and more-critical telemetry for threat detection and incident response.
+**System Monitor (Sysmon)** records selected Windows activity in the Windows Event Log. Sysmon supplies telemetry; it does not analyze events, generate alerts, or block activity. On supported systems, choose either the built-in Windows optional feature or the standalone Sysinternals package. Their coexistence is not supported.
 
 This guide covers installing, configuring, and maintaining Sysmon across your environment. Supported Windows versions and command-line options change; consult the current [Microsoft Sysmon documentation](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon) and the schema printed by the installed binary before deployment.
 
@@ -46,19 +46,38 @@ Windows provides several logging sources. Sysmon can add configurable endpoint e
 
 | Component | Requirement |
 |-----------|-------------|
-| OS | Current Microsoft documentation lists Windows 11+ clients and Windows Server 2019+ |
+| OS | Standalone Sysinternals package: Windows 11+ client and Windows Server 2019+ per current download page. Built-in optional feature: Windows 11 and Windows Server 2025; confirm exact OS build/support in Microsoft documentation. |
 | Architecture | x86 or x64 (use appropriate binary) |
 | Privileges | Local Administrator |
 | Disk Space | ~5 MB (plus log storage) |
 
-### Required Downloads
+### Choose a deployment type
+
+- **Built-in Windows feature:** Available on supported Windows 11 and Windows Server 2025 systems. It does not coexist with standalone Sysmon. Follow Microsoft's [enable and configure guide](https://learn.microsoft.com/en-us/windows/security/operating-system-security/sysmon/how-to-enable-sysmon), including checking for and removing a standalone installation first. The built-in feature uses the same Sysmon event channel, but its event payload behavior and update lifecycle can differ; validate your collector against the platform you deploy.
+- **Standalone Sysinternals package:** Use the download and installation steps below for supported client and server versions. Do not install this on a device already using built-in Sysmon.
+
+For the built-in feature, an elevated PowerShell session can enable the optional feature and install it with the default configuration:
+
+```powershell
+$existingSysmon = Get-Service sysmon* -ErrorAction SilentlyContinue
+if ($existingSysmon) {
+    $existingSysmon | Select-Object Name, Status
+    throw "Resolve the existing Sysmon installation before enabling the built-in feature."
+}
+Enable-WindowsOptionalFeature -Online -FeatureName Sysmon
+sysmon -i
+```
+
+If `Get-Service` returns an existing Sysmon service, identify which implementation is installed before proceeding. Do not enable the optional feature beside standalone Sysmon.
+
+### Required Downloads (standalone package)
 
 1. **Sysmon Binary:** [Microsoft Sysinternals](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
 2. **Configuration File:** Choose based on your needs (see Configuration Options below)
 
 ---
 
-## 📥 Part 1: Downloading Sysmon
+## 📥 Part 1: Downloading Standalone Sysmon
 
 ### Method 1: Direct Download
 
@@ -78,12 +97,6 @@ Invoke-WebRequest -Uri "https://download.sysinternals.com/files/Sysmon.zip" -Out
 
 # Extract the archive
 Expand-Archive -Path "C:\Tools\Sysmon\Sysmon.zip" -DestinationPath "C:\Tools\Sysmon" -Force
-```
-
-### Method 3: Windows Package Manager (winget)
-
-```powershell
-winget install Microsoft.Sysinternals.Sysmon
 ```
 
 ### Verify the Download
@@ -106,49 +119,25 @@ The signer should be `CN=Microsoft Corporation`.
 
 Sysmon's power comes from its XML configuration file. Choose a configuration based on your environment and expertise.
 
-### Option 1: SwiftOnSecurity Config (Recommended for Most Users)
+### Option 1: SwiftOnSecurity Config
 
-A well-tuned, community-maintained configuration that balances visibility with noise reduction.
+A community configuration that can be a useful starting point. Review its filters and event coverage against your own collection, retention, and detection requirements before deployment.
 
-```powershell
-# Download SwiftOnSecurity config
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml" -OutFile "C:\Tools\Sysmon\sysmonconfig.xml"
-```
-
-**Pros:**
-- Battle-tested in production environments
-- Good noise filtering out of the box
-- Well-documented exclusions
-- Regular community updates
-
-**Best for:** General-purpose deployment, SOC environments, beginners
+- Repository: <https://github.com/SwiftOnSecurity/sysmon-config>
+- Review the repository's current release and change history. Prefer a reviewed, versioned copy over downloading a moving branch directly.
+- Validate the selected revision in a pilot before broad rollout and retain the exact configuration used for change review and rollback.
 
 ### Option 2: Olaf Hartong's Sysmon Modular
 
-A modular approach allowing granular control over what gets logged.
+A modular project for building a tailored configuration. Review the modules and generated config at a pinned commit before deployment.
 
-```powershell
-# Clone the repository
-git clone https://github.com/olafhartong/sysmon-modular.git C:\Tools\sysmon-modular
-
-# Or download the merged config directly
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/olafhartong/sysmon-modular/master/sysmonconfig.xml" -OutFile "C:\Tools\Sysmon\sysmonconfig.xml"
-```
-
-**Pros:**
-- Highly customizable
-- Modular structure for easy editing
-- Maps to MITRE ATT&CK framework
-- Includes attack-specific detection rules
-
-**Best for:** Advanced users, threat hunters, red team detection
+- Repository: <https://github.com/olafhartong/sysmon-modular>
+- Build and review a merged configuration from the modules at a pinned commit. Avoid using a moving branch as an unattended production source.
+- Validate the selected revision in a pilot and retain the configuration used for rollout and rollback.
 
 ### Option 3: Microsoft MSTIC-Sysmon (Reference)
 
-Microsoft's Threat Intelligence Center publishes Sysmon **schemas and reference
-material** (ATT&CK-aligned). Note: this repo no longer ships a single ready-to-use
-`sysmonconfig.xml` - use Option 1 or 2 for a deployable config and consult
-MSTIC-Sysmon for schema reference:
+Microsoft publishes Sysmon schemas and reference material. Consult the repository for current contents and use a separately reviewed configuration for deployment:
 
 - Repository: <https://github.com/microsoft/MSTIC-Sysmon>
 
@@ -157,6 +146,7 @@ MSTIC-Sysmon for schema reference:
 Start with a minimal config and build from there:
 
 ```xml
+<!-- Replace this schema version with one reported by your target Sysmon binary (`sysmon64.exe -s`). -->
 <Sysmon schemaversion="4.90">
     <HashAlgorithms>md5,sha256,IMPHASH</HashAlgorithms>
     <EventFiltering>
@@ -210,7 +200,7 @@ sysmon.exe -accepteula -i sysmonconfig.xml
 | `-s` | Print the configuration schema |
 | `-u [force]` | Uninstall the service and driver |
 
-Use the installed binary's `-?` help and `-? config` for the exact version. Configure event types and hashes in XML; do not assume a switch enables every event.
+Use the selected implementation's own documentation and schema output to validate configuration. The schema version is independent of the binary version, and older compatible schemas may be accepted; use the target binary's output rather than assuming a fixed value. Configure event types and hashes in XML; do not assume a switch enables every event.
 
 ### Verify Installation
 
@@ -344,7 +334,7 @@ Event IDs identify telemetry types; they are not enabled uniformly and are not f
 
 ### Event ID 1: Process Creation (Most Important)
 
-This event captures every process execution with full context:
+This event records process creation when enabled by the active configuration. Available fields and values depend on the host and Sysmon version:
 
 ```
 Event ID: 1
@@ -614,6 +604,8 @@ sysmon64.exe -c
 
 ### High CPU or Memory Usage
 
+Do not apply blanket exclusions for common Windows processes as a generic performance fix; they can remove security-relevant telemetry. Measure event volume and resource use, identify the specific noisy rule, then tune it while documenting the coverage you give up.
+
 **Identify problematic rules:**
 1. Start with a minimal config
 2. Add rules incrementally
@@ -622,15 +614,9 @@ sysmon64.exe -c
 **Common culprits:**
 - Overly broad `FileCreate` rules
 - Logging all `ImageLoad` events
-- No exclusions for noisy system processes
+- Filters that are too broad, stale, or unreviewed against current host behavior
 
-**Add performance exclusions:**
-```xml
-<ProcessCreate onmatch="exclude">
-    <Image condition="is">C:\Windows\System32\svchost.exe</Image>
-    <Image condition="is">C:\Windows\System32\RuntimeBroker.exe</Image>
-</ProcessCreate>
-```
+Use a narrowly scoped, tested exclusion only when you can explain why the activity is safe in your environment and what detection coverage the exclusion removes.
 
 ### Events Missing
 
@@ -674,7 +660,7 @@ Sysmon does not hide itself from attackers, and renaming its driver is not a sub
 
 ### Monitor Sysmon Service
 
-Create an alert for Sysmon service stops (Event ID 4):
+Monitor Event ID 4 for service state changes and Event ID 16 for Sysmon configuration changes. These events are not filterable; confirm both are retained and forwarded:
 
 ```powershell
 Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" | 
@@ -691,6 +677,8 @@ Manage write permissions through endpoint-management and application-control pol
 ## 📚 Additional Resources
 
 - [Sysmon Documentation (Microsoft)](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)
+- [Enable built-in Sysmon in Windows](https://learn.microsoft.com/en-us/windows/security/operating-system-security/sysmon/how-to-enable-sysmon)
+- [Sysmon functionality and built-in feature lifecycle](https://learn.microsoft.com/en-us/windows/security/operating-system-security/sysmon/overview)
 - [SwiftOnSecurity Sysmon Config](https://github.com/SwiftOnSecurity/sysmon-config)
 - [Sysmon Modular (Olaf Hartong)](https://github.com/olafhartong/sysmon-modular)
 - [TrustedSec Sysmon Community Guide](https://github.com/trustedsec/SysmonCommunityGuide)
@@ -715,8 +703,8 @@ Manage write permissions through endpoint-management and application-control pol
 |------|------|
 | Event Log | `Microsoft-Windows-Sysmon/Operational` |
 | Event Viewer Path | `Applications and Services Logs → Microsoft → Windows → Sysmon → Operational` |
-| Binary Location | `C:\Windows\Sysmon64.exe` (default) |
-| Driver | `C:\Windows\SysmonDrv.sys` |
+| Standalone binary | `Sysmon64.exe` (path depends on installation) |
+| Driver | `SysmonDrv.sys` (name/path can vary) |
 
 ### PowerShell Quick Queries
 
