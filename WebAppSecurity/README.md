@@ -18,6 +18,9 @@
 
 **Related application security references:** [OWASP Cheat Sheet Series](https://github.com/OWASP/CheatSheetSeries), [awesome-appsec](https://github.com/paragonie/awesome-appsec) and [the PNWC source map](../Documentation/awesome-hacking-collections-integration.md).
 
+
+**Byte-level foundations:** [Hexadecimal & Binary Data Analysis](../Algorithms/hexadecimal-and-binary-analysis.md) · [ASCII, Unicode & Character Encoding](../Algorithms/ascii-and-character-encoding.md) · [Hex & ASCII Field Reference & Offline Labs](../Algorithms/hex-ascii-field-reference.md).
+
 **Historical testing examples:** [Cypherpunk toolkit curation](../Documentation/cypherpunk-pentesting-toolkit-review.md) links archived SQLi, browser, and HTTP exercises for context; use current OWASP testing standards for assessments.
 
 **Owned API labs:** [Developer documentation index](../Documentation/curated-technical-docs.md) links to [FastAPI](https://fastapi.tiangolo.com/) and [Django](https://docs.djangoproject.com/) docs. Pair framework-specific implementation details with [OWASP API Security](https://owasp.org/API-Security/).
