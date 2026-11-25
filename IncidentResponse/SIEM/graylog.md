@@ -438,7 +438,7 @@ rule "Extract Windows EventID"
 when
     has_field("winlog.event_id")
 then
-    let event_id = to_string($message["winlog.event_id"]);
+    let event_id = to_string(get_field("winlog.event_id"));
     set_field("event_id_string", event_id);
 end
 ```
@@ -733,7 +733,7 @@ winlog.event_id:1 AND (winlog.event_data.Image:*cmd.exe OR winlog.event_data.Ima
 2. Configure:
    - Search Query: `winlog.event_id:(4624 OR 4625)`
    - Visualization: **Pie Chart**
-   - Rows: **EventID** (Terms)
+   - Rows: **winlog.event_id** (Terms)
    - Metrics: **count()**
 
 #### Widget 4: Failed Login Map
