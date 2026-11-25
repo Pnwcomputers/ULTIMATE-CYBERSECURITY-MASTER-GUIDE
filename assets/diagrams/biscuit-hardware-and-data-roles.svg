@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Biscuit wardriving hardware and data roles</title>
+<desc id="desc">Compares single-C5 Crumb and DIY devices, Pro and Ultra multi-MCU devices, and optional satellite Nodes. A phone provides app control and location for phone-managed sessions; only Pro or Ultra can manage Nodes. One C5 scans across Wi-Fi bands over time, while BLE phone control can reduce observation time.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#315b7d"/></marker><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#183247}.title{font-size:30px;font-weight:700}.sub{font-size:18px;fill:#496274}.head{font-size:22px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#496274}.card{fill:#f3f7fa;stroke:#7b98ac;stroke-width:2}.phone{fill:#e8f4ff;stroke:#2774a8;stroke-width:2}.node{fill:#fff6e5;stroke:#c58b24;stroke-width:2}.arrow{stroke:#315b7d;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke-dasharray:8 7}.rule{stroke:#cad6df;stroke-width:2}</style></defs>
+<rect width="1200" height="760" fill="#fff"/>
+<text x="50" y="55" class="title">Biscuit hardware roles, control, and location</text>
+<text x="50" y="85" class="sub">Use the exact model and firmware documentation; session and storage behavior vary by device.</text>
+<rect x="390" y="115" width="420" height="115" rx="16" class="phone"/>
+<text x="600" y="150" text-anchor="middle" class="head">Biscuit Manager phone</text>
+<text x="600" y="180" text-anchor="middle" class="body">Bluetooth control • app session/export</text>
+<text x="600" y="207" text-anchor="middle" class="body">Phone GPS locates phone-managed sessions</text>
+<path d="M480 230 L210 285" class="arrow"/><path d="M600 230 L600 285" class="arrow"/>
+<text x="320" y="255" class="small">app link</text><text x="630" y="255" class="small">app link</text>
+<rect x="45" y="285" width="500" height="230" rx="16" class="card"/>
+<text x="75" y="325" class="head">Crumb / DIY • one ESP32-C5</text>
+<text x="75" y="365" class="body">• One Wi-Fi radio scans supported channels over time</text>
+<text x="95" y="392" class="body">2.4 GHz and 5 GHz are not simultaneous captures</text>
+<text x="75" y="428" class="body">• BLE phone control can reduce Wi-Fi observation time</text>
+<text x="75" y="464" class="body">• Phone session/export is the usual record path</text>
+<text x="95" y="491" class="body">SD logging depends on the exact supported board/build</text>
+<rect x="590" y="285" width="565" height="230" rx="16" class="card"/>
+<text x="620" y="325" class="head">Pro / Ultra • multi-MCU platform</text>
+<text x="620" y="365" class="body">• Pro: C5 scanner + WROOM controller; Ultra: two-chip platform</text>
+<text x="640" y="392" class="body">Check each SKU's model documentation for exact MCU roles</text>
+<text x="620" y="428" class="body">• Phone manages sessions and supplies their location</text>
+<text x="620" y="464" class="body">• Eligible Pro/Ultra Manager can enroll supported Nodes</text>
+<text x="640" y="491" class="body">SD and other features vary by exact SKU/firmware</text>
+<path d="M840 515 L840 555" class="arrow"/>
+<text x="870" y="542" class="small">Manager connection</text>
+<rect x="590" y="565" width="565" height="150" rx="16" class="node"/>
+<text x="620" y="605" class="head">Optional satellite Biscuit Node • separate firmware</text>
+<text x="620" y="643" class="body">Assigned Wi-Fi or BLE role; no direct phone pairing or GPS</text>
+<text x="620" y="678" class="body">Observations report to the Manager; location comes from its phone</text>
+<line x1="45" y1="545" x2="545" y2="545" class="rule"/>
+<text x="50" y="585" class="small">Basic phone-managed survey needs no Node. Keep the phone beside the scanner;</text>
+<text x="50" y="610" class="small">a remote scanner inherits phone location and can produce misleading coordinates.</text>
+</svg>

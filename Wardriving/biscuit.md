@@ -37,6 +37,10 @@ catalog does not replace vendor-specific multi-MCU instructions.
 
 A C5 can cover 2.4 and 5 GHz, but its **single Wi-Fi radio cannot scan both bands simultaneously**. With DIY, sharing BLE control and scanning can affect observation completeness. See [Biscuit DIY documentation](https://codehedge.github.io/Biscuit-Wiki/devices/diy.html).
 
+![Conceptual map of Biscuit single-C5, Pro/Ultra, phone GPS, and optional Node roles](../assets/diagrams/biscuit-hardware-and-data-roles.svg)
+
+*Conceptual role map; verify the exact model, firmware, and SD support before setup.*
+
 ## Obtain and set up hardware
 
 1. Choose the *exact* supported model. For DIY ESP32-C5, verify adequate flash and use the [supported boards list](https://codehedge.github.io/Biscuit-Wiki/devices/diy.html).

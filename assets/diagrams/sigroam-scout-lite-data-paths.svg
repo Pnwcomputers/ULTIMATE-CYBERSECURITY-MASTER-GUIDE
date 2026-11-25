@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+<title id="title">SigRoam and Marauder capture and upload paths</title>
+<desc id="desc">Shows two separate Scout Lite firmware workflows. In Mode A, the Flipper SigRoam app controls a dedicated SigRoam scanner; Scout Lite GPS tags a CSV written to its microSD, and after stopping a survey an optional authorized Wi-Fi path uploads to WiGLE. In Mode B, Marauder firmware writes its own CSV to the Scout Lite microSD and uses Marauder's direct upload or manual transfer. SigRoam automatic upload is not shown for Mode B.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#315b7d"/></marker><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#183247}.title{font-size:30px;font-weight:700}.sub{font-size:18px;fill:#496274}.head{font-size:22px;font-weight:700}.body{font-size:17px}.small{font-size:15px;fill:#496274}.a{fill:#edf6ff;stroke:#2774a8;stroke-width:2}.b{fill:#fff6e5;stroke:#c58b24;stroke-width:2}.storage{fill:#eff8f1;stroke:#4d8a61;stroke-width:2}.remote{fill:#f5f1fa;stroke:#77579a;stroke-width:2}.arrow{stroke:#315b7d;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke-dasharray:8 7}</style></defs>
+<rect width="1200" height="820" fill="#fff"/>
+<text x="50" y="55" class="title">Scout Lite: keep firmware modes and data paths separate</text>
+<text x="50" y="85" class="sub">Both modes use the Scout Lite microSD for survey CSV; Flipper microSD stores the app, not those CSV logs.</text>
+<rect x="45" y="115" width="1110" height="330" rx="18" class="a"/>
+<text x="75" y="155" class="head">Mode A — dedicated SigRoam firmware</text>
+<rect x="75" y="190" width="250" height="120" rx="14" class="a"/>
+<text x="200" y="228" text-anchor="middle" class="head">Flipper Zero</text>
+<text x="200" y="260" text-anchor="middle" class="body">SigRoam .fap UI</text>
+<text x="200" y="287" text-anchor="middle" class="small">App stored on Flipper card</text>
+<rect x="455" y="180" width="365" height="145" rx="14" class="a"/>
+<text x="637" y="218" text-anchor="middle" class="head">PINGEQUA Scout Lite</text>
+<text x="637" y="251" text-anchor="middle" class="body">SigRoam scanner firmware</text>
+<text x="637" y="280" text-anchor="middle" class="body">Wi-Fi / BLE survey • onboard GPS</text>
+<text x="637" y="307" text-anchor="middle" class="small">GPS tags records; one Wi-Fi radio scans over time</text>
+<path d="M325 248 L455 248" class="arrow"/>
+<text x="390" y="232" text-anchor="middle" class="small">GPIO serial control</text>
+<rect x="900" y="190" width="220" height="120" rx="14" class="storage"/>
+<text x="1010" y="228" text-anchor="middle" class="head">Scout Lite microSD</text>
+<text x="1010" y="260" text-anchor="middle" class="body">Local CSV survey logs</text>
+<text x="1010" y="287" text-anchor="middle" class="small">Local evidence copy</text>
+<path d="M820 248 L900 248" class="arrow"/>
+<text x="858" y="230" text-anchor="middle" class="small">write</text>
+<rect x="365" y="350" width="570" height="72" rx="14" class="remote"/>
+<text x="650" y="380" text-anchor="middle" class="body">After STOP only: optional upload over authorized Wi-Fi to WiGLE</text>
+<text x="650" y="406" text-anchor="middle" class="small">Review scope and privacy first; credentials and GPS records are sensitive</text>
+<path d="M1010 310 C1010 360 935 385 935 385" class="arrow dash"/>
+<text x="45" y="490" class="head">Mode B — factory Marauder firmware</text>
+<rect x="45" y="520" width="1110" height="250" rx="18" class="b"/>
+<rect x="75" y="565" width="250" height="115" rx="14" class="b"/>
+<text x="200" y="605" text-anchor="middle" class="head">Flipper Zero</text>
+<text x="200" y="637" text-anchor="middle" class="body">Marauder app / compatible UI</text>
+<rect x="455" y="550" width="365" height="145" rx="14" class="b"/>
+<text x="637" y="588" text-anchor="middle" class="head">Scout Lite</text>
+<text x="637" y="621" text-anchor="middle" class="body">Marauder firmware scans</text>
+<text x="637" y="651" text-anchor="middle" class="body">Marauder owns its CSV/upload flow</text>
+<path d="M325 622 L455 622" class="arrow"/>
+<rect x="900" y="565" width="220" height="115" rx="14" class="storage"/>
+<text x="1010" y="605" text-anchor="middle" class="head">Scout Lite microSD</text>
+<text x="1010" y="637" text-anchor="middle" class="body">Marauder CSV logs</text>
+<path d="M820 622 L900 622" class="arrow"/>
+<text x="600" y="730" text-anchor="middle" class="body">Use Marauder direct upload or manual transfer; SigRoam after-stop auto-upload does not apply.</text>
+</svg>

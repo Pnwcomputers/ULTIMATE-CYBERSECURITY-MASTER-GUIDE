@@ -51,6 +51,10 @@ The ESP32-C5 has one Wi-Fi radio; 2.4 GHz and 5 GHz observations are not simulta
 - Marauder saves its own WiGLE CSV on Scout Lite microSD.
 - Use Marauder's own direct-upload workflow or manually transfer the CSV. **Do not expect SigRoam's after-stop auto-upload to work with Marauder firmware.**
 
+![Conceptual comparison of SigRoam and Marauder Scout Lite capture, storage, and upload paths](../assets/diagrams/sigroam-scout-lite-data-paths.svg)
+
+*Conceptual flow; use only the upload and credential handling supported by the installed firmware release.*
+
 ## 4. Prepare the hardware
 
 1. Power off the Flipper Zero.

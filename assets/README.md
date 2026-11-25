@@ -1,7 +1,7 @@
 <a id="diagram-and-image-asset-index"></a>
 # Diagram & Image Asset Index
 
-_Visual placements updated 2026-11-24. Figures show conceptual examples unless their captions identify live evidence._
+_Visual placements updated 2026-11-25. Figures show conceptual examples unless their captions identify live evidence._
 
 Return to [the main guide](../README.md) or [the visual reference notes](./imageplacement.md).
 
@@ -55,6 +55,13 @@ These six original SVG diagrams use descriptive alternative text, avoid external
 | [Passive and active wireless scope](./diagrams/wireless-passive-active-boundary.svg) | [Network audit playbook](../PlayBooks/NetworkAuditPlayBook.md) | Separates passive observations from actions requiring approval |
 | [Wireless capture mode boundaries](./diagrams/wifi-capture-mode-boundaries.svg) | [Aircrack-ng commands](../Documentation/Aircrack-ng_Commands.md) | Separates receive-only observation, active radio interactions and offline analysis |
 | [MITM path and TLS trust boundaries](./diagrams/mitm-path-and-tls-boundaries.svg) | [MITM detection playbook](../Documentation/mitm-detection-prevention.md#data-integrity--encryption-boundaries) | Shows what an on-path intermediary can observe and the trust failures that expose payloads |
+
+## Wardriving Device Roles and Data Paths
+
+| Diagram | Embedded guide & teaching goal |
+|---|---|
+| [Biscuit hardware and data roles](./diagrams/biscuit-hardware-and-data-roles.svg) | [Biscuit](../Wardriving/biscuit.md): distinguishes single-C5 models, Pro/Ultra multi-MCU hardware, phone-provided location, and optional Node roles |
+| [Scout Lite capture and upload modes](./diagrams/sigroam-scout-lite-data-paths.svg) | [SigRoam + Scout Lite](../Wardriving/sigroam-scout-lite.md): separates dedicated SigRoam and Marauder firmware, their local CSV storage, and optional upload paths |
 
 ## Evidence Collection and Release Verification
 
