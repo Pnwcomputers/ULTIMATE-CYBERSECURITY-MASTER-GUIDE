@@ -1,14 +1,32 @@
-# 🔄 Change Log - November 24, 2026
+# 🔄 Change Log - November 25, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 2036
-- **Files Modified**: 4059
-- **New Files**: 1372
+- **Commits Analyzed**: 2157
+- **Files Modified**: 4227
+- **New Files**: 1389
 - **Deleted Files**: 124
 
 ## 📝 Detailed Changes
 
 ### ✨ New Content
+- docs: add WinPE recovery decision diagram (#749) (`7668abe`)
+- Add Cyberdeck implementation roadmap diagram (`29e2ba4`)
+- Add Data Engineering Phase 3 operations loop (`1b9a7d2`)
+- Fix Data Engineering index and add lifecycle diagram (`1c77ada`)
+- Add Unicode byte and code point diagram (`cd3457f`)
+- Reject non-finite values in token-bucket lab (`7284312`)
+- Add hex offset and endianness diagram (`e2e1f23`)
+- Add algorithm selection flow diagram (`351e990`)
+- docs: add hexadecimal, ASCII & byte-level cybersecurity foundations (#740) (`0b3c183`)
+- Add isolated SQLMap lab diagram (#738) (`c2293a9`)
+- Flag newer dormakaba hotel lock advisories (#737) (`85e0c50`)
+- Add RF analysis workflow and PN532 status (#701) (`b888f20`)
+- Add SDR instrument selection diagram (`f5a7a93`)
+- Add Pico-Ducky safe validation flow (#690) (`8eb61ec`)
+- Add Wi-Fi adapter qualification flow (#688) (`76b8d30`)
+- Add OWASP Agent Control Standard review guidance (#654) (`6b89029`)
+- docs: add current Unsaflok vendor mitigation guidance (#650) (`335b818`)
+- Add GitHub search navigation (`3dc7b05`)
 - docs: compare LAN TAP options and add selection diagram (#629) (`8e8449a`)
 - feat: add local repository documentation search (#628) (`867aaef`)
 - docs(bash-bunny): add defensive policy review visual (#622) (`3bdd0ea`)
@@ -584,6 +602,31 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Fix Splunk Linux resource limit and THP steps (#736) (`f732364`)
+- Correct Splunk audit trail configuration guidance (#735) (`baa4fbb`)
+- Fix Splunk index setup credential examples (#731) (`95b4dd3`)
+- docs: fix Windows forwarder download and installation steps (#730) (`8c5ecaa`)
+- Correct Graylog Winlogbeat stream and field examples (#728) (`f5e3a12`)
+- docs: fix log reception verification command flow (#726) (`eb97ef8`)
+- Fix Linux auditd and log forwarding guidance (`70a822a`)
+- Correct Suricata platform and rules guidance (#721) (`fc0c939`)
+- Correct Security Onion deployment and sizing guidance (#720) (`0171cda`)
+- Fix nzyme-to-Wazuh event log access (#715) (`00f98b3`)
+- Fix unified visibility guide formatting (#714) (`93977b7`)
+- Correct GreatFET One I2C pin mapping (`44fd829`)
+- Correct SDR index inventory and frequency guide instructions (#702) (`d4e2f12`)
+- Correct Ghidra release, JDK and installer pins (`7ef2c9a`)
+- Correct Bjorn legal claims and scope wording (#685) (`07793b3`)
+- Correct Marauder Evil Portal capabilities (#683) (`72fa218`)
+- Correct wireless platform comparison (#681) (`178a705`)
+- docs(wifi): correct capture analysis guidance (#680) (`ef323a7`)
+- Fix stale and misleading osquery guide examples (#679) (`9ef55ca`)
+- Fix Ollama runtime flags and model sizing examples (#678) (`120d203`)
+- Correct local LLM FAQ licensing and cost claims (#676) (`44bfc9a`)
+- Correct local model hardware sizing guidance (#672) (`f730471`)
+- Correct AI provider availability and privacy claims (#670) (`84926ed`)
+- Correct NetHunter root and legal scope guidance (`487d8f8`)
+- Correct Wireshark capture visibility guidance (`6e798f2`)
 - Fix formatting and improve README navigation instructions (`028a780`)
 - Resolve publisher references and retired services from link backlog (#613) (`cf51785`)
 - Resolve tracked public-HTTP review candidates (#606) (`161ab20`)
@@ -844,6 +887,9 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- Remove inline password from Splunk app install command (#733) (`0733214`)
+- Remove inline password from Linux forwarder example (#732) (`70c172f`)
+- Clarify structured output schema compatibility (#663) (`0e88e81`)
 - Diagram structured event parsing and quarantine (#567) (`bd0cb85`)
 - Update Tradecraft index usage guidance (#532) (`a1a188a`)
 - Update framework assurance terminology and ISO amendment (#466) (`989a687`)
@@ -1516,6 +1562,18 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: pin OWASP testing guide references (#751) (`ae75098`)
+- docs: improve OSINT evidence guidance and tool selection (#750) (`bb77f60`)
+- docs: clarify Graylog TLS certificate requirements (#729) (`03337c6`)
+- docs: clarify KQL baseline exclusion syntax (#727) (`958382f`)
+- docs(case-studies): qualify current Saflok mitigation guidance (#703) (`3b20967`)
+- Document external radio module distinctions (`7bf0ddd`)
+- Refresh multi-agent guide review date (#664) (`d9d9119`)
+- docs: clarify Onity remediation history (#651) (`adc807c`)
+- docs: clarify EUCLEAK credential prerequisites (#649) (`5a39795`)
+- Refresh README claims and explain search routes (#647) (`03ddbef`)
+- docs: replace invalid Sigma beacon example (#645) (`b7f952b`)
+- docs: distinguish 5 GHz DFS and 6 GHz rules (#644) (`6acbffd`)
 - docs: link upstream Awesome-Hacking and h4cker collections (#627) (`a31d7ed`)
 - docs: embed charging, Mac reset, PC maintenance and CC1101 reference sheets (#625) (`e919c66`)
 - Improve formatting and clarity in README.md (`138376d`)
@@ -1737,6 +1795,69 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Clarify Unicode confusable skeleton handling (`b8ff608`)
+- Make the classical testing warning jurisdiction-aware (`25208ae`)
+- Clarify Splunk Web TLS certificate requirements (#734) (`a003622`)
+- Complete osquery Fleet TLS endpoint guidance (`7ebd30c`)
+- Clarify Sysmon deployment and configuration guidance (`f0b98ad`)
+- Align IDS index with acceptance and access guidance (#722) (`1181873`)
+- Make Fail2Ban examples portable across distributions (#719) (`b0716c1`)
+- Clarify Nzyme tap TLS trust and config (#718) (`2b391d8`)
+- Qualify IDS engine and deployment guidance (#717) (`c6631f8`)
+- Make Kismet Wazuh event logs readable (#716) (`d48eb4b`)
+- Clarify VLAN enforcement and monitoring paths (#713) (`8c80dda`)
+- Clarify Wireshark capture and filter evidence (#712) (`b0646ae`)
+- Clarify NetAlertX discovery boundaries (#711) (`aa5026b`)
+- Clarify network discovery evidence limits (#710) (`ab31b82`)
+- Keep Nmap flow context minimized and consistent (#709) (`7d8dd5e`)
+- Make threat intelligence triage evidence-led (#708) (`ee31eed`)
+- Clarify AnythingLLM flow scope and data handoffs (#707) (`f50ff41`)
+- Improve CVE lookup flow evidence and remediation guidance (#706) (`92f8078`)
+- Clarify local AI data paths and OpenClaw trust boundaries (#705) (`6e226a6`)
+- Clarify RFID reader component roles (`4b56d38`)
+- Link LoRa hardware compatibility (`f0a7caa`)
+- Clarify CC1101 versus HackRF capabilities (`149be34`)
+- Clarify ESP32 Bluetooth chip capabilities (`35226ef`)
+- Clarify ESP32 USB HID compatibility (`7321f78`)
+- Clarify ESP32 Wi-Fi band compatibility (`4ec88bd`)
+- Clarify firmware images and controller apps (`7495977`)
+- Record November 24 review follow-up (#689) (`fcd4538`)
+- Clarify historical AirTag monitor limits (#687) (`34860af`)
+- Refresh Marauder release snapshot (#686) (`fd5e9f4`)
+- Clarify Marauder beacon and probe behavior (#684) (`a62df3d`)
+- Clarify Marauder capture modes and formats (#682) (`395fdd5`)
+- Qualify local and hosted AI comparison (#677) (`bcc5b7e`)
+- Reframe model refusal behavior as a safety property (#675) (`84f5d9f`)
+- Refresh Dolphin model examples and tags (#674) (`d3aa0ba`)
+- Replace unsupported local inference benchmarks (#673) (`954ea0a`)
+- Refresh OpenClaw provider and recovery guidance (#671) (`2cfcf9f`)
+- Refresh AI workspace GPT policy reference (#669) (`bbd0ce5`)
+- Refresh AI usage source review (#668) (`b4e5dd7`)
+- Improve hook verification guidance (#667) (`6279f6a`)
+- Clarify GitHub milestone progress limits (#666) (`387bbb5`)
+- Refresh project workflow review date (#665) (`dbd5ae9`)
+- Refresh RAG source review (#662) (`4a65b1e`)
+- Refresh context engineering source review (#661) (`a136784`)
+- Clarify cached token cost accounting (#660) (`8e18225`)
+- Refresh AI operations source review (#659) (`6b23cd2`)
+- Clarify AI trace privacy controls (#658) (`effdd53`)
+- Refresh AI evaluation guidance source review (#657) (`591b3a2`)
+- Prevent replay of ambiguous agent operations (#656) (`67788ef`)
+- Clarify MCP protocol lifecycle eras (#655) (`7f4fca9`)
+- Refresh DirecTV case evidence review date (#653) (`9d71fe8`)
+- Clarify Tesla Model S fob remediation history (#652) (`b7655a2`)
+- Clarify current case-study review scope (#648) (`608b96a`)
+- Fail closed on malformed installer pins (#646) (`7726a8a`)
+- Clarify Wi-Fi capture modes and PMKID behavior (#643) (`6ee05df`)
+- Clarify OSINT catalog scope and review dates (#642) (`0d6bc04`)
+- Clarify software supply-chain attestations (#640) (`c4db693`)
+- Improve SIEM detection validation guidance (#641) (`5770788`)
+- Refresh visual asset index description (`cf2b98a`)
+- Clarify service-specific PCI provider scope (`b8b8e20`)
+- Improve Stuxnet and NotPetya case references (`ad01e04`)
+- Map DNS resolution trust boundaries (`deeb8ce`)
+- Clarify MITM Wi-Fi and TLS trust boundaries (`5949b62`)
+- Clarify Sysmon event interpretation (`4d02719`)
 - Protect manually maintained wiki pages from publication (#619) (`a0852f5`)
 - Replace unavailable references with verified project sources (#618) (`f5e151a`)
 - Preserve wireless evidence and validate serial records (#617) (`d900f26`)
@@ -2060,24 +2181,143 @@
 <details>
 <summary>Click to view full file list</summary>
 
-- `Documentation/network-taps-and-packet-visibility.md`
-- `assets/README.md`
-- `assets/diagrams/tap-observation-method-selection.svg`
+- `WebAppSecurity/methodology.md`
+- `OSINT/OSINT_TOOLS_CATALOG.md`
+- `OSINT/README.md`
+- `IncidentResponse/Digital-Forensics/pnwc-winpe-recovery-triage.md`
+- `Cyberdeck/docs/IMPLEMENTATION_ROADMAP.md`
+- `Data-Engineering/Phase3/README.md`
+- `Data-Engineering/README.md`
+- `Algorithms/ascii-and-character-encoding.md`
+- `Algorithms/labs/algorithm_lab.py`
+- `Algorithms/hexadecimal-and-binary-analysis.md`
+- `Algorithms/foundations-and-complexity.md`
+- `Cryptography/Classical/alphabets.md`
+- `Algorithms/README.md`
+- `Algorithms/hex-ascii-field-reference.md`
+- `Cryptography/README.md`
+- `DOCUMENTATION_INDEX.md`
+- `Documentation/README.md`
+- `Documentation/wireshark-master-filters.md`
+- `HardwareHacking/README.md`
+- `IncidentResponse/Digital-Forensics/README.md`
 - `README.md`
+- `ReverseEngineering/README.md`
 - `START_HERE.md`
+- `WebAppSecurity/README.md`
+- `Cryptography/Classical/security.md`
+- `WebAppSecurity/sqlmap-guide.md`
+- `CaseStudies/hardware/unsaflok-3m-hotel-locks.md`
+- `IncidentResponse/SIEM/splunk.md`
+- `IncidentResponse/SIEM/graylog.md`
+- `IncidentResponse/network_intrusion.md`
+- `IncidentResponse/log_agg.md`
+- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
+- `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
+- `IncidentResponse/Endpoint-Visibility/Windows/sysmon.md`
+- `IncidentResponse/IDS&IPS/readme.md`
+- `IncidentResponse/IDS&IPS/suricata+zeek.md`
+- `IncidentResponse/IDS&IPS/security-onion.md`
+- `IncidentResponse/IDS&IPS/fail2ban.md`
+- `IncidentResponse/IDS&IPS/nzyme_wids.md`
+- `IncidentResponse/IDS&IPS/snort.md`
+- `IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md`
+- `IncidentResponse/IDS&IPS/kismet-wazuh/kismet-wazuh-bridge.service`
+- `IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md`
+- `IncidentResponse/IDS&IPS/nzyme-wazuh/nzyme-wazuh-bridge.service`
+- `IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md`
+- `Documentation/network-segmentation-dmz-acl-vlan.md`
+- `assets/README.md`
+- `assets/diagrams/network-segmentation-enforcement-and-visibility.svg`
+- `Documentation/netalertx-device-discovery-monitoring.md`
+- `Documentation/network-device-discovery-comparison.md`
+- `Documentation/wireshark-defensive-investigations.md`
+- `assets/diagrams/wireshark-capture-to-conclusion.svg`
+- `assets/diagrams/netalertx-discovery-visibility-boundaries.svg`
+- `assets/diagrams/network-discovery-evidence-layers.svg`
+- `AI/AnythingLLM/flow-nmap_analyzer.md`
+- `AI/AnythingLLM/README.md`
+- `AI/AnythingLLM/flow-threat_intel.md`
+- `assets/diagrams/threat-intelligence-evidence-review.svg`
+- `AI/AnythingLLM/anything_llm_agentflows.md`
+- `assets/diagrams/anythingllm-analyst-gated-handoffs.svg`
+- `AI/AnythingLLM/flow-cve_lookup.md`
+- `AI/OpenClaw/README.md`
+- `AI/README.md`
+- `assets/diagrams/openclaw-gateway-trust-boundary.svg`
+- `HardwareHacking/GreatFETone.md`
+- `assets/diagrams/greatfet-authorized-i2c-workflow.svg`
+- `SDR/README.md`
+- `SDR/target_frequencies_protocols.md`
+- `SDR/rfid.md`
+- `Documentation/device-firmware-list.md`
+- `Documentation/esp32-security-firmware-catalog.md`
+- `Documentation/firmware-web-flashers.md`
+- `REVIEW_2026-11-19.md`
+- `Documentation/ArchLinux_CheatSheet.md`
+- `Documentation/LinuxCheatSheet.md`
+- `ReverseEngineering/ghidra-guide-index.md`
+- `Scripts/pnwc_install_tools.sh`
+- `Scripts/tool_pins.conf`
+- `HardwareHacking/pico-ducky-lab.md`
+- `Documentation/wifi-adapter-selection-guide.md`
+- `Documentation/WiFiMarauder_Guide.md`
+- `Documentation/bjorn_pi.md`
+- `Documentation/hcxtoolshashcat.md`
+- `AI/offline-llm.md`
+- `AI/ai-workspaces-notebooks-and-assistants.md`
+- `AI/ai-usage-interaction-guide.md`
+- `AI/notes-hooks-and-automation.md`
+- `AI/milestones-and-acceptance-criteria.md`
+- `AI/agent-project-workflows.md`
+- `AI/multi-agent-orchestration.md`
+- `AI/structured-outputs-and-data-contracts.md`
+- `AI/rag-and-knowledge-engineering.md`
+- `AI/context-engineering-and-memory.md`
+- `AI/model-routing-and-cost-management.md`
+- `AI/ai-security-operations-workflows.md`
+- `AI/ai-observability-and-auditing.md`
+- `AI/ai-evaluation-and-regression-testing.md`
+- `AI/agent-reliability-and-recovery.md`
+- `AI/mcp-tooling-and-permissions.md`
+- `assets/diagrams/mcp-protocol-lifecycle-eras.svg`
+- `AI/agent-threat-modeling-and-security.md`
+- `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md`
+- `CaseStudies/hardware/tesla-model-s-key-fob-2018.md`
+- `CaseStudies/hardware/onity-locks-2012.md`
+- `CaseStudies/hardware/eucleak-yubikey-2024.md`
+- `CaseStudies/README.md`
+- `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
+- `assets/diagrams/repository-search-paths.svg`
+- `Scripts/PINNING.md`
+- `Scripts/lib/safe_install.sh`
+- `assets/diagrams/script-pin-validation-flow.svg`
+- `Tradecraft/c2-frameworks.md`
+- `Documentation/Aircrack-ng_Commands.md`
+- `assets/diagrams/wifi-capture-mode-boundaries.svg`
+- `ContainerSecurity/software-supply-chain-assessment.md`
+- `assets/diagrams/supply-chain-attestation-layers.svg`
+- `IncidentResponse/SIEM/detection-content-validation.md`
+- `assets/diagrams/detection-evidence-verification-gates.svg`
+- `Mobile/mobile_pentest_sop.md`
+- `Compliance/pci-dss-scoping.md`
+- `Documentation/wireshark.md`
+- `Documentation/dns-hijacking-secure-dns.md`
+- `assets/diagrams/dns-resolution-trust-path.svg`
+- `Documentation/mitm-detection-prevention.md`
+- `assets/diagrams/mitm-path-and-tls-boundaries.svg`
+- `tools/build_wiki.py`
+- `CHANGELOG.md`
+- `Documentation/network-taps-and-packet-visibility.md`
+- `assets/diagrams/tap-observation-method-selection.svg`
 - `tools/search_docs.py`
 - `Documentation/awesome-hacking-collections-integration.md`
-- `REVIEW_2026-11-19.md`
 - `Documentation/sbc-radio-addon-compatibility.md`
 - `HardwareTesting/README.md`
 - `assets/cc1101-reference-cheatsheet.jpg`
 - `assets/charging-diagnostics-power-reference.jpg`
 - `assets/mac-startup-reset-cheatsheet.png`
 - `assets/pc-mac-maintenance-guide.jpg`
-- `CHANGELOG.md`
-- `DOCUMENTATION_INDEX.md`
-- `IncidentResponse/Digital-Forensics/README.md`
-- `IncidentResponse/Digital-Forensics/pnwc-winpe-recovery-triage.md`
 - `IncidentResponse/README.md`
 - `PDF/README.md`
 - `assets/diagrams/pdf-safe-reference-use-flow.svg`
@@ -2088,26 +2328,15 @@
 - `CAD/OpenSCAD/01-fundamentals.md`
 - `CAD/OpenSCAD/images/openscad-modeling-recipe.svg`
 - `.github/workflows/guide-tests.yml`
-- `AI/README.md`
-- `Algorithms/README.md`
 - `Algorithms/compression-hashing-and-crypto.md`
 - `Algorithms/cryptography-parallels.md`
 - `Algorithms/detection-and-recommendations.md`
-- `Algorithms/foundations-and-complexity.md`
 - `Algorithms/graphs-and-routing.md`
 - `Algorithms/labs.md`
-- `Algorithms/labs/algorithm_lab.py`
 - `Algorithms/search-sorting-and-indexing.md`
-- `ContainerSecurity/software-supply-chain-assessment.md`
-- `Cryptography/README.md`
 - `Cryptography/algorithms.md`
 - `Cryptography/applied-crypto.md`
-- `Data-Engineering/README.md`
-- `Documentation/wireshark-defensive-investigations.md`
-- `IncidentResponse/IDS&IPS/readme.md`
-- `IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md`
 - `Makefile`
-- `OSINT/README.md`
 - `assets/diagrams/algorithm-families-cybersecurity-map.svg`
 - `assets/diagrams/algorithms-compression-hashing-encryption.svg`
 - `assets/diagrams/algorithms-detection-evaluation-pipeline.svg`
@@ -2116,31 +2345,22 @@
 - `assets/diagrams/algorithms-tls13-cryptographic-pipeline.svg`
 - `ultimate_cybersecurity_master_guide.md`
 - `.github/workflows/publish-wiki.yml`
-- `tools/build_wiki.py`
 - `tools/tests/test_build_wiki.py`
 - `ENHANCED_MASTER_GUIDE.md`
-- `IncidentResponse/Endpoint-Visibility/Linux/auditd_syslog.md`
 - `IncidentResponse/SIEM/README.md`
-- `IncidentResponse/SIEM/splunk.md`
 - `OSINT/OSINT_GUIDE.md`
-- `SDR/target_frequencies_protocols.md`
 - `Tradecraft/osint-threat-intel.md`
 - `IncidentResponse/HoneyPot/esp32-diy-honeypots.md`
 - `IncidentResponse/HoneyPot/lab/esp32_serial_bridge.py`
 - `IncidentResponse/HoneyPot/lab/test_honeypot.py`
-- `IncidentResponse/IDS&IPS/kismet-wazuh-wireless-lab.md`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/correlate_offline.py`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/test_detection.py`
 - `Documentation/virtualmachines.md`
-- `Documentation/wireshark.md`
 - `OSINT/OSINT_CHEATSHEET.md`
-- `OSINT/OSINT_TOOLS_CATALOG.md`
-- `SDR/README.md`
 - `SDR/subghz.md`
 - `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
 - `tools/tests/test_review_fixes.py`
-- `AI/OpenClaw/README.md`
 - `Cloud/README.md`
 - `Cyberdeck/README.md`
 - `Cyberdeck/docs/ARCHITECTURE.md`
@@ -2149,7 +2369,6 @@
 - `Documentation/curated-technical-docs.md`
 - `Documentation/devhints-cli-field-reference.md`
 - `Documentation/security-public-api-catalog.md`
-- `IncidentResponse/Endpoint-Visibility/Linux/osquery.md`
 - `OSINT/OSINT_socialmedia.md`
 - `PlayBooks/README.md`
 - `SDR/sdr.md`
@@ -2164,10 +2383,8 @@
 - `uConsole/README.md`
 - `uConsole/scripts/uconsole-cm5-setup.sh`
 - `uConsole/tests/test_cm5_setup.py`
-- `Documentation/network-device-discovery-comparison.md`
 - `Documentation/wireless-toolkit-reference.md`
 - `OSINT/Playbook/tools_api.md`
-- `SDR/rfid.md`
 - `CAD/OpenSCAD/06-keyboard-shortcuts.md`
 - `SDR/nanovna/11-worksheet-and-exercises.md`
 - `Scripts/README.md`
@@ -2193,22 +2410,15 @@
 - `Tradecraft/network-detection.md`
 - `Data-Engineering/Phase1/data_engineering_fundamentals.md`
 - `Data-Engineering/Phase1/data_quality_schema_contracts.md`
-- `AI/offline-llm.md`
 - `Homelab/HomeLab_Setup.md`
 - `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `IncidentResponse/HoneyPot/cowrie.md`
 - `IncidentResponse/HoneyPot/opencanary.md`
 - `IncidentResponse/HoneyPot/tpot.md`
-- `IncidentResponse/IDS&IPS/fail2ban.md`
-- `IncidentResponse/IDS&IPS/nzyme_wids.md`
 - `cybersecurity_cliff_notes.md`
-- `Documentation/ArchLinux_CheatSheet.md`
-- `Documentation/LinuxCheatSheet.md`
 - `IncidentResponse/SIEM/elk_stack.md`
-- `IncidentResponse/SIEM/graylog.md`
 - `Scripts/Bash/bash_scripting_cheat-sheet.md`
-- `IncidentResponse/IDS&IPS/suricata+zeek.md`
 - `SDR/nanovna/03-calibration.md`
 - `SDR/nanovna/05-antenna-tuning.md`
 - `tools/run_data_labs.py`
@@ -2235,8 +2445,6 @@
 - `assets/diagrams/bento-live-response-media-boundaries.svg`
 - `assets/diagrams/data-pipeline-ci-trust-and-promotion.svg`
 - `assets/diagrams/unified-visibility-evidence-sources.svg`
-- `Documentation/dns-hijacking-secure-dns.md`
-- `Documentation/network-segmentation-dmz-acl-vlan.md`
 - `assets/diagrams/dns-encryption-and-validation-boundaries.svg`
 - `assets/diagrams/tap-full-duplex-monitor-capacity.svg`
 - `assets/diagrams/vlan-forwarding-policy-boundaries.svg`
@@ -2245,8 +2453,6 @@
 - `assets/diagrams/openclaw-gateway-access-checks.svg`
 - `assets/diagrams/uconsole-parrot-cm5-plan-and-readback.svg`
 - `uConsole/PARROT-CM5.md`
-- `AI/AnythingLLM/README.md`
-- `AI/ai-observability-and-auditing.md`
 - `assets/diagrams/ai-telemetry-audit-retention-paths.svg`
 - `assets/diagrams/anythingllm-flow-readiness.svg`
 - `Cyberdeck/docs/PUBLISHING_AND_RELEASE.md`
@@ -2255,7 +2461,6 @@
 - `assets/diagrams/hardware-storage-benchmark-target-evidence.svg`
 - `assets/diagrams/hardware-thermal-soak-evidence.svg`
 - `Compliance/frameworks.md`
-- `Compliance/pci-dss-scoping.md`
 - `assets/diagrams/csf-profiles-gap-and-action-plan.svg`
 - `assets/diagrams/pci-dss-provider-evidence-decision.svg`
 - `SDR/nanovna/06-cables-filters-other-uses.md`
@@ -2270,31 +2475,20 @@
 - `SDR/nanovna/09-worked-examples-by-band.md`
 - `assets/diagrams/nanovna-feedline-return-loss.svg`
 - `Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md`
-- `Documentation/Aircrack-ng_Commands.md`
-- `Documentation/README.md`
-- `Documentation/bjorn_pi.md`
 - `Documentation/counter-surveillance-wireless-threats.md`
-- `Documentation/device-firmware-list.md`
 - `Documentation/evil_m5.md`
 - `Documentation/fancygotchi-pwnagotchi.md`
 - `Documentation/fern-wifi-cracker-guide.md`
 - `Documentation/hashcat-guide.md`
-- `Documentation/hcxtoolshashcat.md`
-- `Documentation/mitm-detection-prevention.md`
-- `Documentation/netalertx-device-discovery-monitoring.md`
 - `Documentation/nmap-guide.md`
 - `Documentation/pixiewps-guide.md`
 - `Documentation/pwnagotchi_cheatsheet.md`
-- `Documentation/wifi-adapter-selection-guide.md`
 - `Documentation/wifi-deauthentication-detection.md`
 - `Documentation/wifite-guide.md`
 - `Documentation/wireshark-cheatsheet.md`
-- `Documentation/wireshark-master-filters.md`
 - `Documentation/wordlists-password-auditing.md`
-- `HardwareHacking/README.md`
 - `Homelab/README.md`
 - `Homelab/proxmox-security-monitoring-visibility.md`
-- `IncidentResponse/IDS&IPS/snort.md`
 - `OSINT/sherlock-guide.md`
 - `Tradecraft/README.md`
 - `Tradecraft/hydra-guide.md`
@@ -2305,8 +2499,6 @@
 - `Wardriving/README.md`
 - `Wardriving/kismet.md`
 - `Wardriving/piglet.md`
-- `WebAppSecurity/README.md`
-- `WebAppSecurity/sqlmap-guide.md`
 - `Mobile/UserLAnd/readme.md`
 - `assets/diagrams/userland-independent-file-export.svg`
 - `assets/diagrams/wireshark-tcp-reply-two-capture-points.svg`
@@ -2321,9 +2513,7 @@
 - `assets/diagrams/uconsole-cm4-preserve-working-image.svg`
 - `assets/diagrams/opencanary-alert-validation.svg`
 - `Documentation/TOR.md`
-- `Documentation/firmware-web-flashers.md`
 - `SpaceSecurity/PartIV.md`
-- `WebAppSecurity/methodology.md`
 - `assets/diagrams/tor-browser-download-verification.svg`
 - `Scripts/Python/dump_recyclebin.py`
 - `tools/audit_visual_coverage.py`
@@ -2338,17 +2528,10 @@
 - `Cloud/aws.md`
 - `Checklists/README.md`
 - `Tradecraft/active-directory.md`
-- `CaseStudies/hardware/xerox-docucolor-machine-identification-code.md`
-- `CaseStudies/hardware/tesla-model-s-key-fob-2018.md`
-- `CaseStudies/hardware/onity-locks-2012.md`
-- `CaseStudies/hardware/eucleak-yubikey-2024.md`
-- `CaseStudies/hardware/unsaflok-3m-hotel-locks.md`
 - `Cryptography/Classical/README.md`
 - `Cryptography/Classical/build-your-own.md`
 - `Cryptography/Classical/cipher_toolkit.py`
 - `Cryptography/Classical/leetspeak.md`
-- `Cryptography/Classical/alphabets.md`
-- `Cryptography/Classical/security.md`
 - `Cryptography/Classical/ciphers.md`
 - `Cryptography/Classical/deciphering-workbook.md`
 - `Cryptography/Classical/mary-queen-of-scots.md`
@@ -2375,12 +2558,9 @@
 - `assets/diagrams/offensive-ai-authorized-engagement-gates.svg`
 - `AI/llm-security-evaluation-promptfoo.md`
 - `assets/diagrams/promptfoo-redteam-provider-data-paths.svg`
-- `AI/context-engineering-and-memory.md`
 - `assets/diagrams/ai-context-authority-evidence-freshness.svg`
 - `AI/ai_prompts.md`
-- `AI/ai-workspaces-notebooks-and-assistants.md`
 - `assets/diagrams/ai-project-workspace-trust-boundaries.svg`
-- `AI/ai-usage-interaction-guide.md`
 - `assets/diagrams/ai-five-layer-prompt-to-evidence-handoff.svg`
 - `AI/OpenClaw/use_cases.md`
 - `assets/diagrams/openclaw-use-case-safety-workflow.svg`
@@ -2395,7 +2575,6 @@
 - `AI/AnythingLLM/flow-email_osint.md`
 - `AI/AnythingLLM/flow-breacher_check.md`
 - `assets/diagrams/hibp-breach-metadata-privacy-workflow.svg`
-- `AI/AnythingLLM/flow-nmap_analyzer.md`
 - `assets/diagrams/nmap-agentflow-evidence-gates.svg`
 - `assets/diagrams/spacecraft-bus-payload-architecture.svg`
 - `assets/diagrams/uconsole-cm5-aio-nvme-validation.svg`
@@ -2420,12 +2599,10 @@
 - `assets/diagrams/volatility-evidence-triage.svg`
 - `Cryptography/Classical/cryptanalysis.md`
 - `assets/diagrams/vigenere-candidate-periods.svg`
-- `AI/model-routing-and-cost-management.md`
 - `CAD/OpenSCAD/03-mockups-and-fit-checks.md`
 - `assets/diagrams/ai-model-routing-policy.svg`
 - `assets/diagrams/openscad-preset-to-export.svg`
 - `AI/verification-and-ai-audits.md`
-- `Documentation/esp32-security-firmware-catalog.md`
 - `PlayBooks/BlueTeam_IncResp_Enhanced.md`
 - `PlayBooks/BlueTeam_IncResp_Simple.md`
 - `assets/diagrams/ai-audit-claims-tools-and-outcomes.svg`
@@ -2433,7 +2610,6 @@
 - `assets/diagrams/classical-cipher-frequency-vigenere-ic-analysis.svg`
 - `assets/diagrams/esp32-firmware-board-build-flash-acceptance.svg`
 - `assets/diagrams/incident-response-nist-800-61r3-csf2-operations.svg`
-- `ReverseEngineering/ghidra-guide-index.md`
 - `ReverseEngineering/remnux-malware-analysis-guide.md`
 - `assets/diagrams/cyberdeck-zone-policy-logical-architecture.svg`
 - `assets/diagrams/ghidra-analysis-hypothesis-validation.svg`
@@ -2461,9 +2637,6 @@
 - `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/lolbins-lolbas.md`
 - `.gitignore`
-- `AI/AnythingLLM/anything_llm_agentflows.md`
-- `AI/AnythingLLM/flow-cve_lookup.md`
-- `AI/AnythingLLM/flow-threat_intel.md`
 - `AUDIT_FINDINGS.md`
 - `AUDIT_REPORT.md`
 - `OSINT/Playbook/scripts/crypto_audit.sh`
@@ -2564,13 +2737,10 @@
 - `Scripts/Python/web_shell_inj.py`
 - `Scripts/SQL/add_wordpress_admin.sql`
 - `Scripts/YAML/git_finder.yaml`
-- `Scripts/lib/safe_install.sh`
-- `Tradecraft/c2-frameworks.md`
 - `Wardriving/esp32-marauder.md`
 - `Wardriving/sigroam-scout-lite.md`
 - `installer.sh`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
-- `Mobile/mobile_pentest_sop.md`
 - `Scripts/GO/shells/README.md`
 - `Scripts/GO/shells/bypass.c`
 - `Scripts/GO/shells/insert_encoder.go`
@@ -2590,7 +2760,6 @@
 - `Checklists/Domain-Persistence.md`
 - `Scripts/GO/scan/do_proxy_chains.py`
 - `LEGAL.md`
-- `Scripts/pnwc_install_tools.sh`
 - `Scripts/Bash/hulkscanner.sh`
 - `Scripts/Bash/nuclei_web_scanner.sh`
 - `Scripts/Bash/ssh_brute.sh`
@@ -2613,7 +2782,6 @@
 - `assets/diagrams/t48-supported-chip-read-workflow.svg`
 - `assets/diagrams/usb-uart-safe-observation.svg`
 - `assets/diagrams/opnsense-rules-and-span-visibility.svg`
-- `Documentation/WiFiMarauder_Guide.md`
 - `assets/diagrams/marauder-firmware-selection.svg`
 - `assets/diagrams/aur-package-review-build-install.svg`
 - `assets/diagrams/pci-dss-scope-and-validation.svg`
@@ -2640,8 +2808,6 @@
 - `assets/diagrams/social-osint-account-provenance-verification.svg`
 - `assets/diagrams/uconsole-cm5-display-diagnostic-recovery.svg`
 - `assets/diagrams/wifi-deauth-disassoc-pmf-corroboration.svg`
-- `AI/agent-project-workflows.md`
-- `AI/multi-agent-orchestration.md`
 - `Data-Engineering/Phase2/api_file_ingestion.md`
 - `Data-Engineering/Phase2/workflow_orchestration.md`
 - `assets/diagrams/ai-multi-agent-fanout-review-integration.svg`
@@ -2662,9 +2828,6 @@
 - `assets/diagrams/nanovna-s11-resonance-vs-match.svg`
 - `assets/diagrams/tpot-hive-sensor-management-boundaries.svg`
 - `assets/diagrams/tsurugi-osint-image-provenance-case-flow.svg`
-- `AI/agent-reliability-and-recovery.md`
-- `AI/rag-and-knowledge-engineering.md`
-- `AI/structured-outputs-and-data-contracts.md`
 - `assets/diagrams/ai-agent-ambiguous-write-reconciliation.svg`
 - `assets/diagrams/ai-structured-output-authorized-action-gates.svg`
 - `assets/diagrams/pipeline-observability-reconciliation-slo.svg`
@@ -2683,8 +2846,6 @@
 - `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `assets/diagrams/graylog-data-node-ingest-architecture.svg`
 - `assets/diagrams/live-response-volatility-evidence-gates.svg`
-- `AI/milestones-and-acceptance-criteria.md`
-- `AI/notes-hooks-and-automation.md`
 - `Wardriving/field-workflow.md`
 - `assets/diagrams/ai-milestone-independent-acceptance-gate.svg`
 - `assets/diagrams/ai-notes-hooks-evidence-boundaries.svg`
@@ -2694,8 +2855,6 @@
 - `assets/diagrams/device-firmware-compatibility-selection.svg`
 - `assets/diagrams/firmware-flashing-verification-gates.svg`
 - `assets/diagrams/homelab-virtual-network-isolation-paths.svg`
-- `AI/ai-evaluation-and-regression-testing.md`
-- `AI/mcp-tooling-and-permissions.md`
 - `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md`
 - `Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md`
 - `Wardriving/data-handling.md`
@@ -2714,7 +2873,6 @@
 - `.github/workflows/visual-coverage.yml`
 - `CAD/OpenSCAD/README.md`
 - `CAD/OpenSCAD/images/openscad-shortcuts-cheatsheet.svg`
-- `CaseStudies/README.md`
 - `Documentation/REPOSITORY-VERIFICATION-PROTOCOL.md`
 - `assets/diagrams/repository-evidence-gates.svg`
 - `assets/diagrams/tradecraft-scope-to-detection-loop.svg`
@@ -2724,28 +2882,22 @@
 - `PlayBooks/PurpleTeam_Detailed.md`
 - `assets/diagrams/cti-to-approved-emulation-gates.svg`
 - `tools/tests/test_purple_playbook_mapping.py`
-- `AI/ai-security-operations-workflows.md`
 - `assets/diagrams/ai-soc-trust-and-approval-boundaries.svg`
 - `assets/diagrams/pci-dss-scoping-boundaries.svg`
 - `tools/tests/test_pci_scoping_docs.py`
-- `IncidentResponse/SIEM/detection-content-validation.md`
 - `PlayBooks/purple-team-detection-validation.md`
 - `assets/diagrams/cyberdeck-policy-zones.svg`
-- `assets/diagrams/detection-evidence-verification-gates.svg`
 - `assets/diagrams/purple-team-emulation-detection-loop.svg`
 - `assets/diagrams/wireshark-capture-display-boundaries.svg`
 - `Checklists/Persistence.md`
 - `assets/diagrams/authorized-persistence-validation.svg`
 - `assets/diagrams/space-rf-transmission-authorization-flow.svg`
 - `assets/diagrams/wireless-passive-active-boundary.svg`
-- `HardwareHacking/GreatFETone.md`
-- `assets/diagrams/greatfet-authorized-i2c-workflow.svg`
 - `assets/diagrams/osint-opsec-scope-decision.svg`
 - `assets/diagrams/unicode-idn-risk-assessment.svg`
 - `assets/diagrams/owasp-top10-2021-to-2025-changes.svg`
 - `assets/diagrams/osint-evidence-publication-decision.svg`
 - `assets/diagrams/suricata-nfqueue-failure-modes.svg`
-- `AI/agent-threat-modeling-and-security.md`
 - `assets/diagrams/agent-threat-modeling-evaluation-loop.svg`
 - `assets/diagrams/gnss-authentication-and-integrity-boundaries.svg`
 - `OPSEC/anonymity-layering.md`
@@ -2795,9 +2947,7 @@
 - `assets/diagrams/vpn-trust-boundaries.svg`
 - `assets/diagrams/nzyme-band-split-tap-architecture.svg`
 - `assets/diagrams/nzyme-wazuh-event-ingestion.svg`
-- `IncidentResponse/IDS&IPS/nzyme-wazuh-integration.md`
 - `assets/diagrams/kismet-wazuh-live-and-offline-flow.svg`
-- `IncidentResponse/IDS&IPS/security-onion.md`
 - `assets/diagrams/security-onion-sensor-to-search-flow.svg`
 - `assets/diagrams/snort-generation-and-traffic-modes.svg`
 - `assets/diagrams/fail2ban-log-to-action-flow.svg`
@@ -2809,7 +2959,6 @@
 - `IncidentResponse/Digital-Forensics/velociraptor-artifact-triage.md`
 - `assets/diagrams/velociraptor-triage-flow.svg`
 - `assets/diagrams/sysmon-telemetry-coverage-flow.svg`
-- `IncidentResponse/Endpoint-Visibility/Windows/sysmon.md`
 - `assets/diagrams/suricata-zeek-visibility-and-blocking.svg`
 - `Checklists/Windows-Build-Review-Checklist.md`
 - `assets/diagrams/windows-build-review-evidence.svg`
@@ -2829,7 +2978,6 @@
 - `assets/diagrams/applied-crypto-envelope-rotation.svg`
 - `assets/diagrams/applied-crypto-presence-verification.svg`
 - `assets/diagrams/applied-crypto-tls-boundaries.svg`
-- `IncidentResponse/log_agg.md`
 - `assets/diagrams/log-aggregation-end-to-end-validation.svg`
 - `assets/diagrams/log-aggregation-pipeline-contracts.svg`
 - `assets/diagrams/log-aggregation-time-provenance.svg`
@@ -2849,7 +2997,6 @@
 - `assets/diagrams/phishing-response-triage.svg`
 - `assets/diagrams/supply-chain-complementary-evidence.svg`
 - `assets/diagrams/supply-chain-subject-binding.svg`
-- `IncidentResponse/network_intrusion.md`
 - `assets/diagrams/network-intrusion-containment-recovery.svg`
 - `assets/diagrams/network-intrusion-evidence-correlation.svg`
 - `assets/diagrams/network-intrusion-filter-vs-aggregation.svg`
@@ -2912,7 +3059,6 @@
 - `assets/diagrams/rfid-band-and-reader-map.svg`
 - `assets/diagrams/rfid-identification-authentication-authorization.svg`
 - `assets/diagrams/rfid-read-troubleshooting-evidence.svg`
-- `CaseStudies/hardware/directv-dss-smart-card-black-sunday.md`
 - `assets/diagrams/carbanak-intrusion-to-financial-fraud.svg`
 - `assets/diagrams/directv-dss-authorization-boundary.svg`
 - `assets/diagrams/eternalblue-vulnerability-exploit-payload.svg`
@@ -2954,7 +3100,6 @@
 - `CAD/OpenSCAD/images/test-coupons.png`
 - `GLOSSARY.md`
 - `assets/cyberdeckandgear.png`
-- `Cyberdeck/docs/IMPLEMENTATION_ROADMAP.md`
 - `Documentation/flipper_zero_guide.md`
 - `Cyberdeck/templates/ASSESSMENT_REPORT.example.md`
 - `Cyberdeck/templates/QUALIFICATION_RECORD.example.md`
@@ -3010,7 +3155,6 @@
 - `Documentation/esp-terminator.md`
 - `Documentation/firmware-catalog-verification.json`
 - `Documentation/ghostesp-revival.md`
-- `HardwareHacking/pico-ducky-lab.md`
 - `SDR/evil-crow-rf-v2.md`
 - `Wardriving/additional-survey-firmware.md`
 - `Documentation/nemo-firmware.md`
@@ -3018,11 +3162,9 @@
 - `HardwareHacking/firmware-catalog-verification.json`
 - `HardwareHacking/firmware-web-flashers.md`
 - `Data-Engineering/Phase1/README.md`
-- `Data-Engineering/Phase3/README.md`
 - `IncidentResponse/HoneyPot/readme.md`
 - `OPSEC/README.md`
 - `OPSEC/press-freedom/README.md`
-- `ReverseEngineering/README.md`
 - `SDR/nanovna/README.md`
 - `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
 - `Documentation/cypherpunk-pentesting-toolkit-review.md`
@@ -3073,8 +3215,6 @@
 - `.github/workflows/wireshark-filters.yml`
 - `Documentation/wireshark-filter-catalog.tsv`
 - `tools/check_wireshark_filters.py`
-- `Scripts/PINNING.md`
-- `Scripts/tool_pins.conf`
 - `tests/hardening/test_pins_file.py`
 - `.github/workflows/wids-lab-tests.yml`
 - `IncidentResponse/HoneyPot/REVIEW-2026-10-31.md`
@@ -3083,11 +3223,9 @@
 - `IncidentResponse/HoneyPot/lab/diy_http_decoy.py`
 - `IncidentResponse/HoneyPot/lab/synthetic-events.jsonl`
 - `IncidentResponse/HoneyPot/raspberry-pi-honeypot-lab.md`
-- `IncidentResponse/IDS&IPS/kismet-wazuh/kismet-wazuh-bridge.service`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet_alert_bridge.py`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/pcap_burst_detector.py`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/synthetic-events.jsonl`
-- `IncidentResponse/IDS&IPS/nzyme-wazuh/nzyme-wazuh-bridge.service`
 - `IncidentResponse/IDS&IPS/nzyme-wazuh/nzyme_webhook_bridge.py`
 - `IncidentResponse/IDS&IPS/nzyme-wazuh/nzyme_wids_rules.xml`
 - `IncidentResponse/IDS&IPS/nzyme-wazuh/synthetic-events.jsonl`
