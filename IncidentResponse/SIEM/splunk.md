@@ -596,9 +596,12 @@ sudo systemctl status SplunkForwarder
 
 ### Install via CLI
 
+Download the app package from Splunkbase first. When the CLI requires
+authentication, omit `-auth` and enter credentials at the prompt; do not put a
+password in the command, a script, or shell history.
+
 ```bash
-# Download app from Splunkbase, then:
-sudo -u splunk /opt/splunk/bin/splunk install app /path/to/app.tgz -auth admin:YourPassword
+sudo -u splunk /opt/splunk/bin/splunk install app /path/to/app.tgz
 sudo systemctl restart Splunkd
 ```
 
