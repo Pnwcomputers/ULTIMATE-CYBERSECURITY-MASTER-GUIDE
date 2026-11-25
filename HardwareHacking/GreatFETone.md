@@ -35,9 +35,9 @@ The GreatFET One is the next-generation GoodFET, designed by Great Scott Gadgets
    ```bash
    pip3 install --upgrade greatfet
    ```
-* **Firmware Update:** Plug in the GreatFET One and flash the latest firmware:
+* **Firmware Update:** After upgrading the host tools, plug in the GreatFET One and use the documented firmware command:
    ```bash
-   greatfet_update
+   greatfet_firmware --autoflash
    ```
 
 ### 2. Connect

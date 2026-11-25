@@ -113,7 +113,11 @@ install_ollama_engine() (
         warning "zstd is required for the optional engine; existing engine preserved."
         exit 1
     }
-    case "$arch" in arm64|aarch64) archive=linux-arm64.tar.zst ;; *) archive=linux-amd64.tar.zst ;; esac
+    case "${package_arch:-$arch}" in
+        arm64|aarch64) archive=linux-arm64.tar.zst ;;
+        x86_64|amd64) archive=linux-amd64.tar.zst ;;
+        *) warning "Unsupported Linux architecture: ${package_arch:-$arch}; engine download skipped."; exit 1 ;;
+    esac
     parent=$(dirname "$OLLAMA_ENGINE_DIR")
     mkdir -p "$parent" || exit 1
     stage=$(mktemp -d "$parent/.ollama-stage.XXXXXXXX") || exit 1
@@ -158,6 +162,11 @@ install_ollama_engine() (
 main() {
 arch=$(uname -m)
 [ "$(uname -s)" = "Linux" ] || error 'This script is intended to run on Linux only.'
+case "$arch" in
+    arm64|aarch64) package_arch=arm64 ;;
+    x86_64|amd64) package_arch=amd64 ;;
+    *) error "Unsupported Linux architecture: $arch. Supported architectures are x86_64 and arm64." ;;
+esac
 if [ "$(id -u)" -eq 0 ]; then
     status "This script should not be run as root. Please run it as a regular user."
     exit 1
@@ -174,7 +183,7 @@ status " Architecture: $arch"
 status " Install Directory: $INSTALL_DIR"
 status "#########################################################"
 
-if [ "$arch" = "arm64" ] || [ "$arch" = "aarch64" ]; then
+if [ "$package_arch" = "arm64" ]; then
     APPIMAGE_URL="https://cdn.anythingllm.com/latest/AnythingLLMDesktop-Arm64.AppImage"
 else
     APPIMAGE_URL="https://cdn.anythingllm.com/latest/AnythingLLMDesktop.AppImage"
