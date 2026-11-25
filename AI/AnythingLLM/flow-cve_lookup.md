@@ -301,14 +301,14 @@ Format as actionable remediation plan suitable for change management request.
 
 The API block can be unavailable, rate-limited, or return no matching record. Use the documented NVD **2.0** JSON API as a machine-readable reference and independently compare CNA/vendor information. This command is an **example**, not a previously observed live result. It requires Bash, `curl`, and `jq`, and still depends on provider availability and rate limits.
 
-~~~bash
+```bash
 set -euo pipefail
 CVE_ID='CVE-2021-44228'  # Example identifier; replace with the CVE under review
 curl --fail --silent --show-error --retry 2 --max-time 30 --get \
   --data-urlencode "cveId=${CVE_ID}" \
   'https://services.nvd.nist.gov/rest/json/cves/2.0' \
   | jq --arg cve_id "$CVE_ID" '.vulnerabilities[]? | select(.cve.id == $cve_id) | .cve | {id, published, lastModified, vulnStatus, metrics, references}'
-~~~
+```
 
 Do not treat a missing result as "no vulnerability"; NVD can have processing or availability delays. The command enables Bash pipeline failure checking and emits a record only if its ID matches the requested CVE. No output means no matching record was returned; investigate the HTTP response and source state rather than inferring that the vulnerability does not exist.
 
