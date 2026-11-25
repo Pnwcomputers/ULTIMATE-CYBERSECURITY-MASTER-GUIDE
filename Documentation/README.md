@@ -14,6 +14,9 @@
 
 ---
 
+
+**Byte-level foundations:** [Hexadecimal & Binary Data Analysis](../Algorithms/hexadecimal-and-binary-analysis.md) · [ASCII, Unicode & Character Encoding](../Algorithms/ascii-and-character-encoding.md) · [Hex & ASCII Field Reference & Offline Labs](../Algorithms/hex-ascii-field-reference.md).
+
 **Security API reference:** [Public APIs security catalog and read-only cookbook](./security-public-api-catalog.md) lists relevant providers, authentication caveats, privacy controls and integration status.
 
 
