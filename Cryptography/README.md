@@ -16,6 +16,9 @@
 
 **Broader algorithm context:** [Algorithms & Computational Foundations](../Algorithms/README.md) explains how compression, hashing, encryption and TLS differ, with [worked examples](../Algorithms/compression-hashing-and-crypto.md), [cryptographic parallels & trust graphs](../Algorithms/cryptography-parallels.md), and [original algorithm diagrams](../assets/README.md#algorithms--cryptography-visual-guides). Continue here for cryptographic parameters, approvals and implementation review.
 
+
+**Byte-level foundations:** [Hexadecimal & Binary Data Analysis](../Algorithms/hexadecimal-and-binary-analysis.md) · [ASCII, Unicode & Character Encoding](../Algorithms/ascii-and-character-encoding.md) · [Hex & ASCII Field Reference & Offline Labs](../Algorithms/hex-ascii-field-reference.md).
+
 **Cryptography learning:** [Cryptopals](https://cryptopals.com/) and [curated challenge pathways](../PlayBooks/security-training-lab-pathways.md) cover exercises; distinguish classical puzzles from production-grade encryption.
 
 
