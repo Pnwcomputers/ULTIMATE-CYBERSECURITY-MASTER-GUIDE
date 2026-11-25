@@ -25,6 +25,22 @@ Compare these building blocks:
 4. **Threat model:** Can an adversary choose inputs, induce worst-case behavior, poison labels, or observe timings?
 5. **Validation:** What test case, performance measurement, and monitoring would reveal a failure?
 
+### Algorithm selection and validation flow
+
+```mermaid
+flowchart TD
+    A["Define the result and input contract"] --> B["Model scale, memory, time and updates"]
+    B --> C["Choose an algorithm and data structure"]
+    C --> D["State preconditions, invariants and failure cases"]
+    D --> E["Test normal, boundary and adversarial inputs"]
+    E --> F["Measure runtime, memory and monitoring signals"]
+    F --> G{"Do assumptions hold under the target workload?"}
+    G -->|No| C
+    G -->|Yes| H["Document guarantees, limits and recovery steps"]
+```
+
+*Conceptual decision aid based on the five questions and test guidance below. It does not select an algorithm automatically or replace a workload-specific review.*
+
 ## Understanding Big-O Without Confusing It With Benchmarks
 
 Big-O describes an **asymptotic upper bound** (often used to discuss worst-case growth), not a guaranteed wall-clock time. Average-case and amortized analysis are separate concepts. Constants, allocation, cache locality, I/O, network delay, and adversarial inputs often dominate real outcomes.
