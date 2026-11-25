@@ -1,6 +1,6 @@
 # Network Device Discovery, Asset Tracking & Visibility Platform Comparison
 
-_Last source review: 2026-11-21. Feature descriptions follow official project material; specific releases, licenses and integrations must be validated before deployment._
+_Last source review: 2026-11-24. Feature descriptions follow official project material; specific releases, licenses and integrations must be validated before deployment._
 
 > [!CAUTION]
 > **Privacy & authorization.** Device presence, IP/MAC association, wireless client sightings and traffic history can reveal sensitive behavior. Inventory systems should monitor **authorized assets and network segments**, not track people. Require read-only credentials where feasible and apply access controls/retention. See [Legal Notice](../LEGAL.md).
@@ -11,11 +11,19 @@ _Last source review: 2026-11-21. Feature descriptions follow official project ma
 |---|---|---|
 | What appeared or disappeared on my local network? | [NetAlertX](./netalertx-device-discovery-monitoring.md) | DHCP/switch/controller inventories |
 | Is a router/switch/interface healthy? | [LibreNMS](https://www.librenms.org/) or [Zabbix](https://www.zabbix.com/) | SNMPv3, interface alerting, logs |
-| Who exchanged traffic or consumed bandwidth? | [ntopng](https://github.com/ntop/ntopng) or Zeek | NetFlow/sFlow/IPFIX or TAP/SPAN data |
+| Which network flows or traffic volume were visible at a sensor? | [ntopng](https://github.com/ntop/ntopng) or Zeek | NetFlow/sFlow/IPFIX or TAP/SPAN data |
 | What assets, racks, ports and VLANs are **supposed** to exist? | [NetBox](https://netbox.dev/) | Change controls and actual discovery imports |
 | Which Wi-Fi radio devices/SSIDs exist in range? | [Kismet](../Wardriving/kismet.md) or [nzyme](../IncidentResponse/IDS%26IPS/nzyme_wids.md) | Fixed-channel monitor adapter |
 | Did a host produce a security incident? | [Wazuh](../IncidentResponse/SIEM/wazuh.md) or EDR | Endpoint event collection |
 | Does a packet pattern match a threat signature? | [Snort 3](../IncidentResponse/IDS%26IPS/snort.md) / Suricata | Proper capture feed, tuning & corroboration |
+
+## Reading Discovery Evidence
+
+This conceptual map separates planned inventory, control-plane records, packet observations, radio sightings and endpoint events. Correlate them only within an authorized scope, and record source, time, location/segment and confidence. A blank source is a visibility gap, not proof that an asset is absent.
+
+![Conceptual evidence layers for network discovery: planned inventory, control-plane records, packet and flow sensors, radio observations, and endpoint telemetry have different visibility limits and require scoped correlation.](../assets/diagrams/network-discovery-evidence-layers.svg)
+
+*Conceptual diagram: each source reports a different slice of activity. Sensor placement, retention, permissions and device privacy features affect what can be concluded.*
 
 ## Device & Network Tool Comparison
 
@@ -70,7 +78,7 @@ Use small subnets and a known scan window, measure load and stop for fragile IoT
 
 ## Wazuh Event Normalization & Change Response
 
-Recommended minimal event fields: \`source\`, \`timestamp_utc\`, \`site\`, \`vlan\`, \`observed_asset_key\`, \`device_state\`, \`ip\`, \`source_confidence\` and \`corroboration\`. Never send real client serials, identifying MACs or user names to a public example. Webhook/agent integration must be designed per tool's supported plugin/API version and tested as a separate workflow.
+Recommended minimal event fields: `source`, `timestamp_utc`, `site`, `vlan`, `observed_asset_key`, `device_state`, `ip`, `source_confidence` and `corroboration`. Never send real client serials, identifying MACs or user names to a public example. Webhook/agent integration must be designed per tool's supported plugin/API version and tested as a separate workflow.
 
 | Signal | Required Corroboration Before Remediation |
 |---|---|
@@ -84,12 +92,12 @@ Recommended minimal event fields: \`source\`, \`timestamp_utc\`, \`site\`, \`vla
 
 | Question | Display Filter | Caveat |
 |---|---|---|
-| Local ARP changes | \`arp\` | Only traffic delivered to capture NIC |
-| DHCP client/server | \`dhcp || bootp\` | Lease alone does not prove presence |
-| VLAN 30 | \`vlan.id == 30\` | Tags may be stripped/offloaded |
-| DNS source | \`dns\` | DoH/DoT encrypt questions |
-| Unusual management-frame burst | \`wlan.fc.type_subtype == 0x0c\` | Requires monitor-mode 802.11 RF capture |
-| TCP service inventory | \`tcp.flags.syn == 1 && tcp.flags.ack == 0\` | Ordinary connections also match |
+| Local ARP changes | `arp` | Only traffic delivered to capture NIC |
+| DHCP client/server | `dhcp || bootp` | Lease alone does not prove presence |
+| VLAN 30 | `vlan.id == 30` | Tags may be stripped/offloaded |
+| DNS source | `dns` | DoH/DoT encrypt questions |
+| Unusual management-frame burst | `wlan.fc.type_subtype == 0x0c` | Requires monitor-mode 802.11 RF capture |
+| TCP service inventory | `tcp.flags.syn == 1 && tcp.flags.ack == 0` | Ordinary connections also match |
 
 See [Wireshark Defensive Investigations](./wireshark-defensive-investigations.md), [LAN TAPs & SPAN](./network-taps-and-packet-visibility.md), and [VLAN/DMZ/ACL Segmentation](./network-segmentation-dmz-acl-vlan.md).
 
@@ -110,6 +118,8 @@ See [Wireshark Defensive Investigations](./wireshark-defensive-investigations.md
 - [ntopng Guides](https://www.ntop.org/guides/ntopng/) & [NetBox Documentation](https://netboxlabs.com/docs/netbox/en/stable/)
 - [Zabbix Documentation](https://www.zabbix.com/documentation/current/en/manual)
 - [Official Nmap Reference](https://nmap.org/book/man.html)
+- [Zeek connection log reference](https://docs.zeek.org/en/current/reference/logs/conn.html) — connection metadata, not a complete record of every application action.
+- [Kismet randomized MAC documentation](https://www.kismetwireless.net/docs/readme/configuring/randomized_macs/) — randomized addresses affect long-term device correlation.
 
 ---
 

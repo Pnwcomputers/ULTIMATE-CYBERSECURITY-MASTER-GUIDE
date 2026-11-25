@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" role="img" aria-labelledby="title desc">
+<title id="title">Network discovery evidence layers</title>
+<desc id="desc">Five evidence sources provide different partial views: planned inventory, control-plane records, packet and flow sensors, radio observations, and endpoint telemetry. Their observations are correlated only with authorized scope and context; each has limits and gaps.</desc>
+<defs>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#172b3a}
+    .head{font-size:26px;font-weight:700}.body{font-size:18px}.small{font-size:16px}
+    .box{stroke:#36566d;stroke-width:2;rx:16}.arrow{stroke:#36566d;stroke-width:3;fill:none;marker-end:url(#arr)}
+  </style>
+  <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#36566d"/></marker>
+</defs>
+<rect width="1200" height="650" fill="#f4f7fa"/>
+<text x="600" y="48" text-anchor="middle" font-size="32" font-weight="700">Network discovery is evidence correlation</text>
+<text x="600" y="78" text-anchor="middle" class="small">Each source answers a different question; none is a complete inventory by itself.</text>
+<g>
+<rect class="box" x="40" y="120" width="345" height="135" fill="#e7eef6"/>
+<text class="head" x="62" y="158">1. Planned inventory</text>
+<text class="body" x="62" y="190">CMDB / NetBox</text>
+<text class="small" x="62" y="222">Documents what should exist;</text><text class="small" x="62" y="244">does not prove it is online.</text>
+<rect class="box" x="427" y="120" width="345" height="135" fill="#e6f4f1"/>
+<text class="head" x="449" y="158">2. Control plane</text>
+<text class="body" x="449" y="190">DHCP, ARP, SNMP, controllers</text>
+<text class="small" x="449" y="222">Leases and managed state;</text><text class="small" x="449" y="244">can be stale or incomplete.</text>
+<rect class="box" x="815" y="120" width="345" height="135" fill="#fff2d8"/>
+<text class="head" x="837" y="158">3. Packet / flow sensors</text>
+<text class="body" x="837" y="190">TAP, SPAN, Zeek, ntopng</text>
+<text class="small" x="837" y="222">Sees traffic delivered there;</text><text class="small" x="837" y="244">encrypted payload stays limited.</text>
+<rect class="box" x="230" y="305" width="345" height="135" fill="#efe9fb"/>
+<text class="head" x="252" y="343">4. Radio observations</text>
+<text class="body" x="252" y="375">Kismet / nzyme</text>
+<text class="small" x="252" y="407">Channel and receiver coverage</text><text class="small" x="252" y="429">matter; MACs may be randomized.</text>
+<rect class="box" x="620" y="305" width="345" height="135" fill="#e8f1e4"/>
+<text class="head" x="642" y="343">5. Endpoint telemetry</text>
+<text class="body" x="642" y="375">EDR / Wazuh agents</text>
+<text class="small" x="642" y="407">Reports enrolled hosts and events;</text><text class="small" x="642" y="429">unmanaged devices may be absent.</text>
+</g>
+<path class="arrow" d="M210 260L400 470"/><path class="arrow" d="M600 260L600 470"/><path class="arrow" d="M990 260L790 470"/><path class="arrow" d="M400 445L500 470"/><path class="arrow" d="M790 445L700 470"/>
+<rect class="box" x="220" y="480" width="760" height="115" fill="#dceaf3"/>
+<text class="head" x="600" y="519" text-anchor="middle">Scoped correlation + human review</text>
+<text class="body" x="600" y="550" text-anchor="middle">Compare time, site/VLAN, asset records and source freshness</text>
+<text class="small" x="600" y="578" text-anchor="middle">Record what is known, uncertain, and outside the sensor’s view.</text>
+<text x="600" y="628" text-anchor="middle" font-size="15" fill="#4d6473">Conceptual teaching aid — not a deployed network topology</text>
+</svg>

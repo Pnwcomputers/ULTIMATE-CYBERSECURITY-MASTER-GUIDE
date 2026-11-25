@@ -32,6 +32,10 @@ These six original SVG diagrams use descriptive alternative text, avoid external
 
 | Diagram | Where embedded | Why it belongs |
 |---|---|---|
+| [Network discovery evidence layers](./diagrams/network-discovery-evidence-layers.svg) | [Network discovery comparison](../Documentation/network-device-discovery-comparison.md#reading-discovery-evidence) | Shows why planned inventory, control-plane records, packet sensors, radio observations and endpoint telemetry have different limits |
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
 | [AUR package review](./diagrams/aur-package-review-build-install.svg) | [Arch Linux cheat sheet](../Documentation/ArchLinux_CheatSheet.md) | Source and build review before installation |
 | [Persistence validation safety](./diagrams/authorized-persistence-validation.svg) | [Domain persistence checklist](../Checklists/Domain-Persistence.md), [persistence checklist](../Checklists/Persistence.md) | Authorization, cleanup, and verifying restored state |
 | [GreatFET I2C observation](./diagrams/greatfet-authorized-i2c-workflow.svg) | [GreatFET One](../HardwareHacking/GreatFETone.md) | Bus ownership, voltage, and observation gates |
