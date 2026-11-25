@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+<title id="title">Segmentation enforcement and monitoring visibility</title>
+<desc id="desc">Conceptual network map. DMZ, staff, guest, server and management zones communicate through a configured router, firewall or routed ACL only where a policy allows. Traffic between peers on one VLAN may be switched locally and bypass that enforcement point, so peer isolation may need switch or access-point controls. A separate packet copy from a selected link or switch mirror goes to a passive sensor; it observes but does not enforce the policy.</desc>
+<defs><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#193247}.head{font-size:23px;font-weight:700}.body{font-size:17px}.small{font-size:15px}
+.box{stroke:#48657c;stroke-width:2;rx:14}.route{stroke:#315c7a;stroke-width:3;fill:none;marker-end:url(#arrow)}.mirror{stroke:#7555a5;stroke-width:3;fill:none;stroke-dasharray:9 6;marker-end:url(#purple)}
+</style>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#315c7a"/></marker>
+<marker id="purple" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#7555a5"/></marker></defs>
+<rect width="1200" height="700" fill="#f5f8fb"/>
+<text x="600" y="45" text-anchor="middle" font-size="30" font-weight="700">Enforcement follows the traffic path; monitoring copies observe it</text>
+<rect class="box" x="465" y="95" width="270" height="140" fill="#dfeaf2"/>
+<text class="head" x="600" y="134" text-anchor="middle">Router / firewall / L3 ACL</text>
+<text class="body" x="600" y="167" text-anchor="middle">policy applies to routed paths</text>
+<text class="small" x="600" y="198" text-anchor="middle">allow only explicitly required flows</text>
+<rect class="box" x="55" y="305" width="200" height="105" fill="#fbe8e3"/>
+<text class="head" x="155" y="342" text-anchor="middle">DMZ · VLAN 40</text><text class="body" x="155" y="374" text-anchor="middle">public proxy</text>
+<rect class="box" x="290" y="305" width="200" height="105" fill="#e7eef8"/>
+<text class="head" x="390" y="342" text-anchor="middle">Staff · VLAN 10</text><text class="body" x="390" y="374" text-anchor="middle">managed clients</text>
+<rect class="box" x="710" y="305" width="200" height="105" fill="#e9f4e6"/>
+<text class="head" x="810" y="342" text-anchor="middle">Servers · VLAN 20</text><text class="body" x="810" y="374" text-anchor="middle">restricted services</text>
+<rect class="box" x="945" y="305" width="200" height="105" fill="#fff2d8"/>
+<text class="head" x="1045" y="342" text-anchor="middle">Guest / IoT · VLAN 30</text><text class="body" x="1045" y="374" text-anchor="middle">untrusted clients</text>
+<path class="route" d="M520 240L190 295"/><path class="route" d="M555 240L420 295"/><path class="route" d="M645 240L780 295"/><path class="route" d="M680 240L1010 295"/>
+<rect class="box" x="410" y="480" width="380" height="100" fill="#f0eaf8"/>
+<text class="head" x="600" y="517" text-anchor="middle">Same-VLAN peer traffic</text>
+<text class="body" x="600" y="548" text-anchor="middle">may stay on the switch/AP</text>
+<path d="M945 395C850 440 830 490 800 520" stroke="#a64738" stroke-width="3" stroke-dasharray="8 6" fill="none"/>
+<text class="small" x="895" y="470" text-anchor="middle" fill="#8c3329">firewall may not see it</text>
+<path class="route" d="M790 530L845 555"/>
+<rect class="box" x="855" y="505" width="285" height="105" fill="#e9e3f4"/>
+<text class="head" x="997" y="542" text-anchor="middle">AP / switch isolation</text>
+<text class="body" x="997" y="574" text-anchor="middle">where peer isolation is needed</text>
+<path class="mirror" d="M375 410C350 500 380 585 450 620"/>
+<rect class="box" x="455" y="610" width="335" height="65" fill="#e4f1ee"/>
+<text class="head" x="622" y="638" text-anchor="middle">SPAN/TAP copy → passive sensor</text>
+<text class="small" x="622" y="660" text-anchor="middle">observation only; not an enforcement control</text>
+<text x="600" y="685" text-anchor="middle" font-size="14" fill="#526a7c">Conceptual example. Actual routing, policy and mirror behavior depend on device configuration.</text>
+</svg>
