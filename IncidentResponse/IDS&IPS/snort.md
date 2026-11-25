@@ -276,9 +276,10 @@ This isn't a blanket "always use Suricata instead" — if you have an organizati
 
 ► VALIDATE BEFORE BLOCKING. IPS (-Q, inline/NFQUEUE) mode is an
   availability risk, not just a security control — a misfiring
-  rule can drop legitimate traffic. Run alert-only for at least
-  1-2 weeks before enabling inline blocking, same as every other
-  IDS/IPS in this repo.
+  rule can drop legitimate traffic. Keep the sensor alert-only
+  until it has covered representative traffic and maintenance,
+  false positives are understood, and rollback has been tested.
+  There is no universal observation period for every environment.
 
 ► VERIFY THIRD-PARTY DOWNLOADS. When fetching a Snort 3 release
   or a source tarball, confirm the URL is the official
