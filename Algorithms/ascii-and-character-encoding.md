@@ -39,6 +39,18 @@ Unicode assigns code points; encodings describe how those values are represented
 | e + combining acute | U+0065 U+0301 | 65 CC 81 | 65 00 01 03 |
 | 🙂 | U+1F642 | F0 9F 99 82 | 3D D8 42 DE |
 
+```mermaid
+flowchart LR
+    B["UTF-8 bytes: 65 CC 81"] --> D["Decode UTF-8"]
+    D --> S["Code points: U+0065 + U+0301"]
+    S --> R["Rendered grapheme: e + combining acute"]
+    S -->|"NFC, when policy requires"| C["Code point: U+00E9"]
+    C --> O["UTF-8 bytes: C3 A9"]
+```
+
+*Conceptual example: visually equivalent text can have different code-point and byte sequences. Normalization changes representation; preserve original bytes when evidence or signatures depend on them.*
+
+
 A byte-order mark (BOM) may occur at the start of text: UTF-8 EF BB BF, UTF-16LE FF FE, UTF-16BE FE FF. Its absence does not prove the encoding. The visually similar é forms in the table differ in raw bytes. Unicode normalization (e.g. NFC) can make them comparable under a defined text policy; never silently normalize raw evidence or signed content.
 
 ## Encoding, Escaping, Compression & Encryption
