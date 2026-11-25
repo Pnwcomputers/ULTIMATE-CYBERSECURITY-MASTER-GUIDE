@@ -228,6 +228,7 @@ echo "[*] Installing essential tools..."
 apt install -y \
     git curl wget \
     python3-pip \
+    python3-venv \
     golang \
     docker.io \
     virtualenv \
