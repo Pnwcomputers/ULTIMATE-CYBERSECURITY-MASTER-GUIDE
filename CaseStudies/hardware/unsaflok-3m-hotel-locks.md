@@ -45,7 +45,7 @@ The researchers stated that they **were not aware of confirmed real-world attack
 | Are system logs reliable for attribution? | Management audit configuration, clock integrity, access-log limitations | Corroborate with independently collected evidence |
 | Are guests adequately protected? | Physical secondary-door protection and operator procedures | Communicate mitigation without promising that an electronic deadbolt alone prevents bypass |
 
-**Current vendor guidance:** dormakaba's [Security Support Center](https://go.dormakaba.com/bg/security-support) says a mitigation solution is available for affected Saflok systems using System 6000, Ambiance, or Community. Property operators should coordinate with dormakaba or their authorized integrator and confirm remediation from deployment records; the public notice does not show which properties have completed upgrades.
+**Current vendor guidance (checked November 24, 2026):** dormakaba's [hospitality security support page](https://go.dormakaba.com/en/security-support/hospitality) says the vulnerability applies to Saflok deployments using System 6000, Ambiance, or Community that are **not** using the Enhanced Security encryptions available in Ambiance and Community. dormakaba recommends implementing Enhanced Security encryption; it notes that some hardware cannot support it and may need replacement. Property operators should use the vendor's self-assessment and coordinate with dormakaba or an authorized integrator. The public page does not establish which properties have completed mitigation.
 
 ## Primary Sources & Boundaries
 
