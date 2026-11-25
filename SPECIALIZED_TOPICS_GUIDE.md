@@ -170,7 +170,7 @@ MITRE ATLAS (Adversarial Threat Landscape for AI Systems) maps AI attack techniq
 
 ## 2. Self-Hosted LLM Deployment - Ollama + Dolphin
 
-Running LLMs locally provides privacy, air-gap capability, and freedom from cloud API restrictions. The PNWC-recommended stack: **Ollama** (runtime) + **Dolphin** models (uncensored, instruction-tuned) + **AnythingLLM** (interface/RAG).
+Running inference locally can keep prompts and model processing on a system you control, but it does not by itself guarantee privacy or create an air gap. Model downloads, host networking, runtime/UI telemetry, plugins, and RAG connectors can still introduce external data paths. Claim offline or air-gapped operation only after reviewing dependencies and integrations, restricting network egress, and verifying that the deployed system has no unintended external connections. The PNWC-recommended stack is **Ollama** (runtime) + **Dolphin** models (instruction-tuned) + **AnythingLLM** (interface/RAG).
 
 ### System Requirements
 
