@@ -31,6 +31,25 @@ production deployment or new execution of the existing Phase 1 labs._
 
 **Security telemetry contracts:** [Sigma/Elastic/Wazuh detection content validation](../IncidentResponse/SIEM/detection-content-validation.md) provides expected event-field and timestamp checks; [rtl_433 passive lab](../SDR/rtl433-passive-telemetry-lab.md) provides an illustrative synthetic radio telemetry schema. Ingest each event source separately with provenance.
 
+## 🔄 Data Pipeline Lifecycle
+
+```mermaid
+flowchart LR
+    S[Source data] --> I[Ingest]
+    I --> T[Transform]
+    T --> Q{Quality checks}
+    Q -->|Pass| D[Store or publish]
+    Q -->|Reject| R[Quarantine and investigate]
+    D --> C[Consumers]
+    C --> O[Observe outcomes and freshness]
+    O -. feedback .-> I
+    G[Security and governance] -. apply across stages .-> I
+    G -.-> T
+    G -.-> D
+```
+
+*Conceptual lifecycle: quality checks may run at multiple stages; security, governance and observability apply across the pipeline. This is a learning map, not a required product architecture.*
+
 ## 🎯 Purpose
 
 Provide a central learning and reference section for building systems that collect, move, transform, store, and deliver useful data. The scope includes application records, API responses, database extracts, operational metrics, and security logs.
@@ -291,7 +310,7 @@ applied guide.
 **Placement convention:** All phase documents live in their corresponding `Phase1/`, `Phase2/`, or `Phase3/`
 folder. This general README and `data_pipelines.md` remain directly under `Data-Engineering/`.
 Inside a phase, use `./` for siblings, `../PhaseN/` for another phase, and `../../` for repository-level resources.
-Keep the existing index capitalization: Phase 1 uses `README.md`; Phases 2 and 3 use `readme.md`.
+Keep the existing index capitalization: Phase 1 uses `README.md`; Phases 2 and 3 use `README.md`.
 
 Future additions should fill a demonstrated gap, include observable success and failure cases,
 and state exactly what was verified. The original three-phase document list is now covered.
