@@ -38,8 +38,7 @@
   <text x="168" y="424" text-anchor="middle" class="label">Adversarial users</text>
   <text x="168" y="459" text-anchor="middle" class="body">Do not share the</text>
   <text x="168" y="485" text-anchor="middle" class="body">same Gateway</text>
-  <path d="M288 457 H320 Q333 457 333 440 V410 Q333 395 346 395" stroke="#b94b45" stroke-width="3" stroke-dasharray="8 7" fill="none"/>
-  <path d="M312 441 l18 18 M330 441 l-18 18" stroke="#b94b45" stroke-width="4"/>
+  <path d="M288 457 H875 Q887 457 887 445 V415 Q887 400 894 400" stroke="#b94b45" stroke-width="3" stroke-dasharray="8 7" fill="none" marker-end="url(#arrow)"/>
 
   <rect x="894" y="150" width="258" height="250" class="box" fill="#e7f5ec" stroke="#62a878"/>
   <text x="1023" y="193" text-anchor="middle" class="label">Separate boundary</text>
