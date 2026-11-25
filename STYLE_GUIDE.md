@@ -56,9 +56,10 @@ badge/image block), before the Purpose block. Use the existing alert convention:
 ```markdown
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. See
-> [LEGAL.md](LEGAL.md).
+> testing, education, and defensive research. Testing outside your authorization
+> may violate applicable law, contracts, or policy; legal requirements depend on
+> jurisdiction and circumstances. Obtain written authorization and stay within
+> scope. See [LEGAL.md](LEGAL.md).
 ```
 
 This is a **document-level** complement to the per-script disclaimer in §3 — a
