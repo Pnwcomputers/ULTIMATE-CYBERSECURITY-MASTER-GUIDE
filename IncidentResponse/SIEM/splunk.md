@@ -505,12 +505,17 @@ sudo rpm -i /tmp/splunkforwarder.rpm
 
 ### Step 7.2: Configure Forwarder
 
+On first start, follow the prompt to create the forwarder's local administrator
+credentials. For CLI commands that require authentication, omit `-auth` and
+enter the credentials when Splunk prompts; avoid putting passwords in commands,
+scripts, or shell history.
+
 ```bash
-# Accept license and set credentials
+# Accept license and complete first-start setup
 sudo /opt/splunkforwarder/bin/splunk start --accept-license
 
 # Add forward server
-sudo /opt/splunkforwarder/bin/splunk add forward-server <SPLUNK-SERVER-IP>:9997 -auth admin:YourPassword
+sudo /opt/splunkforwarder/bin/splunk add forward-server <SPLUNK-SERVER-IP>:9997
 
 # Add monitored files
 sudo /opt/splunkforwarder/bin/splunk add monitor /var/log/syslog -index linux -sourcetype syslog
