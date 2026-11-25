@@ -71,7 +71,7 @@ Security Onion supports everything from a single evaluation VM to a fully distri
 | **Distributed** (Manager, Sensor, Search) | Separates management, sensing, and search/storage across nodes | Recommended architecture for production and scaling |
 | **IDH node** | Dedicated honeypot node that joins a Security Onion grid | Add honeypot coverage to an existing deployment |
 
-This is a compact role summary, not the complete list; current releases also document Desktop, ManagerSearch, Heavy, Fleet, and Receiver roles. Check the current [architecture documentation](https://docs.securityonion.net/en/3/main/architecture/) before designing a grid.
+This is a compact role summary, not the complete list; current releases also document ManagerSearch, Heavy, Fleet, and Receiver node roles. Security Onion Desktop is a separate analyst workstation option. Check the current [architecture documentation](https://docs.securityonion.net/en/3/main/architecture/) before designing a grid.
 
 ```mermaid
 flowchart TD
@@ -217,7 +217,7 @@ This is the practical value proposition: if you understand Suricata, Zeek, and E
 ## 📚 Resources
 
 - **Security Onion docs:** [docs.securityonion.net](https://docs.securityonion.net/en/3/main/)
-- **Architecture and event flow:** [Architecture](https://docs.securityonion.net/en/3/main/architecture/) and [Ingest](https://docs.securityonion.net/en/3/main/ingest/)
+- **Architecture and event flow:** [Architecture](https://docs.securityonion.net/en/3/main/architecture/), [Ingest](https://docs.securityonion.net/en/3/main/ingest/), and [Full Packet Capture](https://docs.securityonion.net/en/3/main/full-packet-capture/)
 - **Current minimum hardware:** [Hardware requirements](https://docs.securityonion.net/en/3/main/hardware/)
 - **Detection engine mapping:** [Rules overview](https://docs.securityonion.net/en/3/main/rules/)
 - **Sysmon collection:** [Sysmon](https://docs.securityonion.net/en/3/main/sysmon/)
