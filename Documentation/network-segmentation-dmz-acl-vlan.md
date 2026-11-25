@@ -1,6 +1,6 @@
 # Network DMZs, VLANs, ACLs, 802.1Q Tagging, Port Mirroring & Segmentation
 
-_Reviewed: 2026-11-21. The configurations below are vendor-neutral illustrations, **not** production-ready switch/firewall commands._
+_Reviewed: 2026-11-24. The configurations below are vendor-neutral illustrations, **not** production-ready switch/firewall commands._
 
 > [!CAUTION]
 > **Configuration-change safety.** Switching an access port to a trunk, changing a native VLAN or firewall rule, or enabling a SPAN session can interrupt service and expose traffic. Use configuration backups, an out-of-band management path, change control, staged tests and an explicit rollback plan. See [Legal Notice](../LEGAL.md).
@@ -9,25 +9,9 @@ _Reviewed: 2026-11-21. The configurations below are vendor-neutral illustrations
 
 **Segmentation is the separation of assets into security zones with explicit allowed paths.** A VLAN creates a Layer-2 broadcast-domain boundary; a routed interface, firewall or ACL determines **who may communicate between VLANs**. Simply tagging devices does **not** guarantee that users or malware cannot reach another subnet.
 
-```text
-                        INTERNET
-                           │
-                   Firewall / Router
-              ┌────────────┼─────────────┐
-              │            │             │
-      [DMZ VLAN 40]   [Trusted VLAN 10] [Guest VLAN 30]
-       public proxy     staff devices     untrusted/IoT
-              │            │             │
-              │         [Server VLAN 20] │
-              │            │             │
-              └────────[Mgmt VLAN 99]────┘
-                        restricted
-                   ┌───────────────┐
-                   │ SPAN / LAN TAP │
-                   └──────┬────────┘
-                    Zeek/Suricata
-                    Wireshark/SIEM
-```
+![Conceptual network segmentation map: inter-zone paths traverse the configured routing and policy point, same-VLAN peer traffic may bypass it, and a separate SPAN/TAP copy feeds a passive sensor without enforcing policy.](../assets/diagrams/network-segmentation-enforcement-and-visibility.svg)
+
+*Conceptual diagram: the enforcement point applies only to routed paths that actually cross it. A mirrored packet feed is observational and does not block traffic.*
 
 This is a **logical diagram**, not a suggestion to directly connect all zones to each other. Policy must restrict each allowed route.
 
@@ -71,12 +55,12 @@ Avoid routing a VLAN directly between customer and internal services without exp
 |---|---|---|---|---|---|---|
 | Staff (10) | Same VLAN policy | Specific approved app ports | Deny | HTTPS where needed | Deny | Controlled outbound |
 | Servers (20) | Deny unsolicited | Role-specific | Deny | Specific backend routes | Deny | Updates/backup only |
-| Guest (30) | Deny | Deny | Client isolation | Deny | Deny | DNS/NTP/web only |
+| Guest (30) | Deny | Deny | AP/switch peer isolation (not routed policy) | Deny | Deny | DNS/NTP/web only |
 | DMZ (40) | Deny | Strictly scoped reverse-proxy backend | Deny | Deny by default | Deny | Updates/services only |
 | Monitoring (50) | Passive feed or authorized management only | Collector destinations | None | Packet copies where authorized | Restricted collector mgmt | Approved update endpoints |
 | Mgmt (99) | Explicitly authorized admin protocols | Explicitly authorized admin protocols | Deny | Admin only | Restricted | Approved admin tools only |
 
-The matrix is a **policy sketch**, not a complete firewall ruleset. Stateful rules, return traffic, IPv6, DHCP relays, multicast, mDNS, printers, VoIP, backups, VPN, monitoring, DNS and emergency access all require explicit design. Management VLAN 99 is not inherently more secure because of its numeric ID.
+The matrix is a **policy sketch**, not a complete firewall ruleset. Same-VLAN peer isolation usually needs AP/switch controls because local switching may not traverse the routed firewall. Stateful rules, return traffic, IPv6, DHCP relays, multicast, mDNS, printers, VoIP, backups, VPN, monitoring, DNS and emergency access all require explicit design. Management VLAN 99 is not inherently more secure because of its numeric ID.
 
 ## 802.1Q Tagging: Switch, AP, Router & Hypervisor
 
@@ -180,7 +164,7 @@ The following are **display filters** only. Offload, mirroring or a capture NIC 
 |---|---|---|
 | Any VLAN tags | `vlan` | Shows decoded 802.1Q tags that reached capture |
 | VLAN 20 tagged traffic | `vlan.id == 20` | Not guaranteed with NIC offload or stripped mirror tags |
-| DHCP | `dhcp || bootp` | Compare authorized server/option with approved VLAN |
+| DHCP | `dhcp` | Compare authorized server/option with approved VLAN |
 | ARP | `arp` | L2-local broadcast; absence depends on capture source |
 | IPv6 router advert | `icmpv6.type == 134` | RA Guard and legitimate routers matter |
 | DNS | `dns` | Approved resolver policy, not a sole isolation test |
@@ -190,7 +174,7 @@ The following are **display filters** only. Offload, mirroring or a capture NIC 
 ### Safe Offline Review
 
 ```bash
-tshark -r ./lab-vlan-capture.pcapng -Y 'vlan || arp || dhcp || bootp'
+tshark -r ./lab-vlan-capture.pcapng -Y 'vlan || arp || dhcp'
 tshark -r ./lab-vlan-capture.pcapng -Y 'vlan.id == 20' \
   -T fields -e frame.time -e vlan.id -e eth.src -e eth.dst
 ```
@@ -227,7 +211,8 @@ The example capture is not included. Use benign test flows between **two owned e
 - [LAN TAPs, SPAN & Visibility](./network-taps-and-packet-visibility.md)
 - [Proxmox Security Monitoring Visibility](../Homelab/proxmox-security-monitoring-visibility.md)
 - [Cisco 802.1Q & VLAN Overview](https://www.cisco.com/c/en/us/solutions/small-business/resource-center/networking/how-to-set-up-vlan.html)
-- [Wireshark VLAN Field Reference](https://www.wireshark.org/docs/dfref/v/vlan.html)
+- [Wireshark VLAN Field Reference](https://www.wireshark.org/docs/dfref/v/vlan.html) and [DHCP display-filter fields](https://www.wireshark.org/docs/dfref/d/dhcp.html)
+- [Cisco SPAN behavior and limits](https://www.cisco.com/c/en/us/td/docs/switches/lan/c9000/mgmt/management-configuration-guide/span.html)
 - [CISA Segmentation & Hardening Guide](https://www.cisa.gov/sites/default/files/2025-01/joint-guidance-enhanced-visibility-hardening-guide-for-comms-infrastructure-508c_0.pdf)
 
 ---

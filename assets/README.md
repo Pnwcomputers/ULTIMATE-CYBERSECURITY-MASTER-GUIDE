@@ -32,6 +32,7 @@ These six original SVG diagrams use descriptive alternative text, avoid external
 
 | Diagram | Where embedded | Why it belongs |
 |---|---|---|
+| [Segmentation enforcement and visibility](./diagrams/network-segmentation-enforcement-and-visibility.svg) | [Network segmentation guide](../Documentation/network-segmentation-dmz-acl-vlan.md#purpose--architecture) | Separates routed policy enforcement, same-VLAN controls and passive SPAN/TAP copies |
 | [Wireshark capture-to-conclusion workflow](./diagrams/wireshark-capture-to-conclusion.svg) | [Wireshark defensive investigations](../Documentation/wireshark-defensive-investigations.md#choose-the-correct-packet-source-first) | Separates capture visibility, capture filters, display filters, and evidence review |
 | [NetAlertX discovery visibility boundaries](./diagrams/netalertx-discovery-visibility-boundaries.svg) | [NetAlertX discovery guide](../Documentation/netalertx-device-discovery-monitoring.md#architecture-one-vlan-vs-many) | Separates local ARP, remote imports, RF observations, packet capture and alert review |
 | [Network discovery evidence layers](./diagrams/network-discovery-evidence-layers.svg) | [Network discovery comparison](../Documentation/network-device-discovery-comparison.md#reading-discovery-evidence) | Shows why planned inventory, control-plane records, packet sensors, radio observations and endpoint telemetry have different limits |
