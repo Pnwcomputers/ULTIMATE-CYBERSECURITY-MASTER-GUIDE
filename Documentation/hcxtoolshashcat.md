@@ -119,7 +119,10 @@ Do not treat an unfiltered `hcxhashtool -i input -o output` invocation as a dedu
 
 ## Security and Ethical Considerations ⚠️
 
-**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
+**IMPORTANT**: Use these tools only for authorized security testing. Activity outside
+your authorization may violate applicable law, contracts, or policy; requirements
+depend on jurisdiction and circumstances. Obtain written authorization, confirm
+scope, and see [LEGAL.md](../LEGAL.md).
 
 - Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
 - All cracking attempts must be done in an **isolated lab environment** against hashes you are authorized to possess.
