@@ -610,7 +610,7 @@ Do not apply blanket exclusions for common Windows processes as a generic perfor
 **Common culprits:**
 - Overly broad `FileCreate` rules
 - Logging all `ImageLoad` events
-- No exclusions for noisy system processes
+- Filters that are too broad, stale, or unreviewed against current host behavior
 
 Use a narrowly scoped, tested exclusion only when you can explain why the activity is safe in your environment and what detection coverage the exclusion removes.
 
