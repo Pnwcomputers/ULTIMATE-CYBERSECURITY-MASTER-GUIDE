@@ -1,13 +1,31 @@
 # Domain Escalation
 _Active Directory domain escalation techniques (coerced authentication, delegation abuse, ACL abuse) for red team engagements. Source: Pentest Laboratories (note: some newer posts have moved to pentestlaboratories.com under the same team)._
 
-**Purpose:** Covers the path from "domain user with no special rights" to "Domain Admin" - the specific vulnerability classes and misconfigurations that let an attacker climb the privilege ladder within AD rather than techniques for maintaining access once at the top (that's [Domain Persistence](./Domain-Persistence.md)). Several items here (PrintNightmare, PetitPotam) are coerced-authentication techniques: they force a privileged machine account to authenticate to an attacker-controlled listener, which is then relayed for escalation.
+**Purpose:** Covers the path from "domain user with no special rights" to "Domain Admin" - the specific vulnerability classes and misconfigurations that let an attacker climb the privilege ladder within AD rather than techniques for maintaining access once at the top (that's [Domain Persistence](./Domain-Persistence.md)). This checklist groups distinct escalation-related classes. PrintNightmare is a Windows Print Spooler vulnerability (CVE-2021-34527), not an authentication-coercion technique. PetitPotam and related coercion families can induce authentication, but escalation through relay depends on the target services and protections in the environment. NoPac (CVE-2021-42278 and CVE-2021-42287) is a separate, patched Kerberos/KDC account-name vulnerability chain. [Microsoft MSRC](https://www.microsoft.com/en-us/msrc/blog/2021/07/clarified-guidance-for-cve-2021-34527-windows-print-spooler-vulnerability) · [Microsoft Defender for Identity: PetitPotam and relay context](https://learn.microsoft.com/en-us/defender-for-identity/alerts-xdr) · [Microsoft Defender for Identity: NoPac](https://learn.microsoft.com/en-us/defender-for-identity/alerts-mdi-classic)
  
-**Function:** The list splits into two mechanisms: coerced authentication (PrintNightmare, PetitPotam, RemotePotato - force privileged accounts to authenticate where the attacker can capture/relay it) and delegation/ACL abuse (unconstrained delegation, sAMAccountName spoofing, backup operator abuse - exploit legitimate AD permission structures that were configured too broadly). Both mechanisms end at the same place: NTLM relay to a domain controller or direct impersonation of a privileged account.
+**Function:** The entries cover four broad classes: software vulnerabilities (PrintNightmare and NoPac), authentication coercion/relay (PetitPotam, RemotePotato, ShadowCoerce), delegation or directory-permission exposure (unconstrained delegation and ACLs), and credential reuse or privileged-group exposure (machine-account pass-the-hash and Backup Operators). These paths have different prerequisites and impacts; none automatically implies NTLM relay or Domain Admin.
  
-**Goal:** Determine whether a standard, unprivileged domain account can reach Domain Admin without any credential theft at all - purely through protocol coercion and permission misconfiguration. This is often the highest-impact finding in an internal AD assessment because these misconfigurations are common (unconstrained delegation in particular is frequently left over from legacy application setups) and the fix is usually a permissions change, not a patch.
+**Goal:** Assess whether the authorized starting identity and environment-specific prerequisites expose an escalation path. Some entries require credentials, vulnerable unpatched systems, a relayable service, or a specific delegation/ACL configuration. Verify the actual conditions instead of assuming a standard domain user can always reach Domain Admin. This is often the highest-impact finding in an internal AD assessment because these misconfigurations are common (unconstrained delegation in particular is frequently left over from legacy application setups) and the fix is usually a permissions change, not a patch.
  
-**When & how to use this:** Run this after basic domain enumeration (BloodHound is the standard tool for finding candidate ACL/delegation paths) - check for accounts with unconstrained delegation or dangerous ACLs first, since those are often the fastest path and don't require coercion at all. The coercion-based items (PetitPotam, PrintNightmare) become relevant when the ACL graph doesn't offer a direct path and you need to manufacture a privileged authentication event instead.
+**When & how to use this:** Use this after basic domain inventory to classify candidate paths by mechanism and prerequisites. Review patch state for software and KDC vulnerabilities, service configuration for coercion/relay paths, and directory rights for delegation/group/ACL exposures. Tools can identify candidates; validate each path against the specific domain and rules of engagement. - check for accounts with unconstrained delegation or dangerous ACLs first, since those are often the fastest path and don't require coercion at all. The coercion-based items (PetitPotam, PrintNightmare) become relevant when the ACL graph doesn't offer a direct path and you need to manufacture a privileged authentication event instead.
+
+```mermaid
+flowchart TD
+    start["Classify the candidate finding"] --> vuln{"Software or KDC vulnerability?"}
+    vuln -->|PrintNightmare| spool["Review Print Spooler exposure, patch state, and Point-and-Print configuration"]
+    vuln -->|NoPac| nopac["Review CVE-2021-42278/42287 exposure and domain-controller patch state"]
+    vuln -->|No| mechanism{"What other mechanism applies?"}
+    mechanism -->|Authentication coercion| relay["Verify coercion prerequisites, relay target, and NTLM protections"]
+    mechanism -->|Delegation or ACL| rights["Review delegation settings, object ACLs, and privileged group membership"]
+    mechanism -->|Credential reuse| creds["Validate credential exposure and effective account rights"]
+    spool --> impact["Document only verified prerequisites and resulting impact"]
+    nopac --> impact
+    relay --> impact
+    rights --> impact
+    creds --> impact
+```
+
+*Classification aid: these mechanisms are distinct. The diagram does not imply that any one finding automatically results in domain compromise; impact depends on patch state, privileges, configuration, and other prerequisites.*
 
 #### 📖 Full deep-dive with detection/defense guidance: [Tradecraft/active-directory.md](../Tradecraft/active-directory.md)
 #### 📄 PDF references: [AD_Attacks_.pdf](../PDF/AD_Attacks_.pdf) · [AD_Post_Exploitation.pdf](../PDF/AD_Post_Exploitation.pdf)
