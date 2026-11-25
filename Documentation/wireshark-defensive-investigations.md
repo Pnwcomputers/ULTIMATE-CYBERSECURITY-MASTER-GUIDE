@@ -1,6 +1,6 @@
 # Wireshark Defensive Investigations: Wireless, MITM, DNS, VLANs & TAPs
 
-_Reviewed: 2026-11-21. This is a case-oriented companion to the repository's existing Wireshark master filters, not a second competing filter catalog._
+_Reviewed: 2026-11-24. This is a case-oriented companion to the repository's existing Wireshark master filters, not a second competing filter catalog._
 
 > [!CAUTION]
 > **Authorized captures only.** Packet captures may contain authentication material, client identifiers and DNS histories. Obtain consent, minimize content, restrict storage and verify legal scope. These workflows examine already collected synthetic PCAP/PCAPNG files or traffic from owned lab endpoints; they do **not** instruct interception or disruptive RF actions. See [Legal Notice](../LEGAL.md).
@@ -11,6 +11,10 @@ _Reviewed: 2026-11-21. This is a case-oriented companion to the repository's exi
 
 The most important Wireshark troubleshooting mistake is treating **packet filtering** as a substitute for **packet visibility**.
 
+![Conceptual packet-analysis path: traffic must reach a correctly placed endpoint, TAP/SPAN, or monitor-mode capture device; capture filters can omit packets before saving, display filters inspect saved packets, and analyst conclusions need corroboration.](../assets/diagrams/wireshark-capture-to-conclusion.svg)
+
+*Conceptual workflow: a filter can only inspect frames that reached the capture source and were retained in the capture file. Encryption and missing visibility remain limits.*
+
 | Security Question | Physical Capture Source | What Wireshark Can Show | Source Limitation |
 |---|---|---|---|
 | Deauthentication or rogue Wi-Fi AP | 802.11 monitor-capable NIC on the appropriate channel | Beacons, probes, deauth/disassoc and RSN fields | Ordinary Ethernet capture does **not** contain off-air management frames |
@@ -20,23 +24,23 @@ The most important Wireshark troubleshooting mistake is treating **packet filter
 | ARP/DHCP MITM | Endpoint capture or switch SPAN/TAP | ARP replies, DHCP offers, IPv6 RA | Requires correct VLAN/port and both-direction visibility |
 | DNS hijacking | Client or resolver/gateway capture + configuration | DNS questions/answers, transport endpoints, DHCP options | DoH/DoT encrypt query contents in transit |
 | VLAN/DMZ/ACL validation | Tagged trunk capture, firewall logs, test endpoints | 802.1Q headers when retained, permitted/denied test flows | NIC offload/mirror configuration may remove tags |
-| Proxmox Snort/Zeek/Suricata | Physical TAP/SPAN, supported vSwitch mirror or intentional gateway capture | Flows reaching the sensor | Normal virtual \`eth0\` cannot see an unrelated physical switch |
+| Proxmox Snort/Zeek/Suricata | Physical TAP/SPAN, supported vSwitch mirror or intentional gateway capture | Flows reaching the sensor | Normal virtual `eth0` cannot see an unrelated physical switch |
 | LAN TAP health | Breakout ports or aggregation output with statistics | In-scope bidirectional frames | Tap can downshift speed/drop frames; SPAN oversubscription possible |
 
 Relevant hardware: [Wi-Fi Adapter Matrix](./wifi-adapter-selection-guide.md), [BLE Sniffing](./bluetooth-passive-scanning-sniffing.md), [LAN TAPs, SPAN & Throwing Star](./network-taps-and-packet-visibility.md) and [SBC Add-On Compatibility](./sbc-radio-addon-compatibility.md).
 
 ## Filter Languages: Never Confuse Them
 
-| Goal | Wireshark Display / TShark \`-Y\` | PCAP Capture / TShark \`-f\` |
+| Goal | Wireshark Display / TShark `-Y` | PCAP Capture / TShark `-f` |
 |---|---|---|
-| DNS on port 53 | \`dns\` | \`port 53\` |
-| HTTPS transport | \`tcp.port == 443 || udp.port == 443\` | \`port 443\` |
-| Single IPv4 test host | \`ip.addr == 192.0.2.10\` | \`host 192.0.2.10\` |
-| VLAN 20 | \`vlan.id == 20\` | \`vlan 20\` (capture-link and syntax dependent) |
-| ARP | \`arp\` | \`arp\` |
-| Deauth | \`wlan.fc.type_subtype == 0x0c\` | Prefer a broad scoped 802.11 capture; \`wlan\` is **not** a portable BPF capture expression |
+| DNS on port 53 | `dns` | `port 53` |
+| HTTPS transport | `tcp.port == 443 || udp.port == 443` | `port 443` |
+| Single IPv4 test host | `ip.addr == 192.0.2.10` | `host 192.0.2.10` |
+| VLAN 20 | `vlan.id == 20` | `vlan 20` (capture-link and syntax dependent) |
+| ARP | `arp` | `arp` |
+| Deauth | `wlan.fc.type_subtype == 0x0c` | Prefer a broad scoped 802.11 capture; `wlan` is **not** a portable BPF capture expression |
 
-Wireshark display filters select already captured frames; capture filters constrain stored frames and can irreversibly exclude evidence. Consult the existing [master filter list](./wireshark-master-filters.md) and [Wireshark field reference](https://www.wireshark.org/docs/dfref/).
+Wireshark display filters select already captured frames; capture filters constrain stored frames and can irreversibly exclude evidence. On Wireshark 3.0 and newer, BOOTP display-filter fields were renamed to `dhcp`; verify filter syntax against the version in use. Consult the existing [master filter list](./wireshark-master-filters.md), [Wireshark field reference](https://www.wireshark.org/docs/dfref/) and [official DHCP display-filter fields](https://www.wireshark.org/docs/dfref/d/dhcp.html).
 
 ## Scenario 1: Wi-Fi Deauthentication & Disassociation
 
@@ -71,7 +75,7 @@ These isolate beacon, probe-request and probe-response frame subtypes **if prese
 ```text
 arp
 arp.opcode == 2
-dhcp || bootp
+dhcp
 icmpv6.type == 134
 ```
 
@@ -102,11 +106,11 @@ Verify 802.1Q offload, mirror VLAN retention and RSPAN/ERSPAN encapsulation befo
 
 ## Scenario 6: Bluetooth LE, BlueZ HCI & Sniffer PCAPs
 
-A standard BlueZ controller may show HCI discovery reports in \`btmon\` while a Nordic nRF52840 sniffer exposes actual BLE link-layer packets to Wireshark through the appropriate integration. **HCI and RF captures use different encapsulation/dissectors**; do not apply arbitrary BLE RF filters to HCI logs and declare no traffic.
+A standard BlueZ controller may show HCI discovery reports in `btmon` while a Nordic nRF52840 sniffer exposes actual BLE link-layer packets to Wireshark through the appropriate integration. **HCI and RF captures use different encapsulation/dissectors**; do not apply arbitrary BLE RF filters to HCI logs and declare no traffic.
 
 | Input | Expected Data | Caution |
 |---|---|---|
-| BlueZ \`btmon\` trace | Local controller commands/events and host traffic | Scan mode may be active; this is not all nearby over-air traffic |
+| BlueZ `btmon` trace | Local controller commands/events and host traffic | Scan mode may be active; this is not all nearby over-air traffic |
 | Nordic nRF Sniffer PCAPNG | Raw BLE advertising frames and selected connection traffic | Frequency hopping, packet loss, PHY/firmware and encryption limitations |
 | Kismet BLE source output | Inventory/sightings | May not contain the same per-packet data as a dedicated sniffer |
 
@@ -119,7 +123,7 @@ Use [Bluetooth Passive & Active Scanning](./bluetooth-passive-scanning-sniffing.
 tshark --version
 tshark -r ./lab-wifi.pcapng -Y 'wlan.fc.type_subtype == 0x0c' \
   -T fields -e frame.time -e wlan.bssid -e wlan.sa -e wlan.da
-tshark -r ./lab-wired.pcapng -Y 'arp || dns || dhcp || bootp'
+tshark -r ./lab-wired.pcapng -Y 'arp || dns || dhcp'
 tshark -r ./lab-wired.pcapng -Y 'vlan.id == 20'
 sha256sum ./lab-wifi.pcapng ./lab-wired.pcapng
 ```
@@ -144,7 +148,7 @@ If a capture is missing or its link-layer type is incompatible, stop and inspect
 ## Troubleshooting & Sources
 
 - [Wireshark Advanced Capture](./wireshark.md), [Master Filter List](./wireshark-master-filters.md), [Cheat Sheet](./wireshark-cheatsheet.md)
-- [Official WLAN Filter Fields](https://www.wireshark.org/docs/dfref/w/wlan.html), [ARP Fields](https://www.wireshark.org/docs/dfref/a/arp.html), [DNS Fields](https://www.wireshark.org/docs/dfref/d/dns.html), [VLAN Fields](https://www.wireshark.org/docs/dfref/v/vlan.html)
+- [Official WLAN Filter Fields](https://www.wireshark.org/docs/dfref/w/wlan.html), [DHCP Fields](https://www.wireshark.org/docs/dfref/d/dhcp.html), [ARP Fields](https://www.wireshark.org/docs/dfref/a/arp.html), [DNS Fields](https://www.wireshark.org/docs/dfref/d/dns.html), [VLAN Fields](https://www.wireshark.org/docs/dfref/v/vlan.html)
 - [Wireshark Wireless Capture](https://wiki.wireshark.org/CaptureSetup/WLAN) & [Capture Filter Reference](https://www.wireshark.org/docs/man-pages/pcap-filter.html)
 
 ---
