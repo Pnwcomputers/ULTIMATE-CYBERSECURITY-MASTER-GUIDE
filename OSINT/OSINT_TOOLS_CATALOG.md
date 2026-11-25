@@ -19,6 +19,24 @@ Serve as a starting point for manual tool selection and verification. Listing in
 - Looking up the purpose and usage of a specific OSINT tool
 - Deciding which tool to use for a specific data type during an investigation
 
+### Select A Tool And Preserve The Result
+
+```mermaid
+flowchart LR
+    question["Define the research question and lawful scope"] --> data{"What public data is relevant?"}
+    data -->|Domains and infrastructure| infra["Choose DNS, certificate, or exposure-data sources"]
+    data -->|People or accounts| identity["Choose public-profile or username-search sources"]
+    data -->|Images, video, or locations| media["Choose media metadata or geolocation sources"]
+    data -->|Historical records| archive["Choose public records or web-archive sources"]
+    infra --> verify["Corroborate important claims with independent sources"]
+    identity --> verify
+    media --> verify
+    archive --> verify
+    verify --> evidence["Record URL, collection time, tool/version, limits, and artifact hash"]
+```
+
+*This is a selection aid, not an automated workflow or assurance that a listed source is complete, current, or authoritative. Use only sources and collection methods allowed by the case scope.*
+
 The catalog lists the following tools for manual selection and review. Their presence here does not mean the Playbook invokes or integrates them:
 
 | Tool | Category | Primary Function |

@@ -235,7 +235,7 @@ STRICTLY PROHIBITED:
 🚫 Any illegal activities
 
 ALWAYS:
-- Obtain proper authorization before investigations
+- Confirm lawful scope and obtain authorization where applicable, especially for access, testing, private data, or work performed under a client or employer mandate
 - Respect all applicable laws and regulations
 - Follow website terms of service
 - Consider privacy and ethical implications
@@ -683,7 +683,7 @@ Choose controls from the investigation's threat model, approved scope and organi
 
 #### Chain Of Custody
 - Maintain unbroken documentation of evidence handling
-- Use write-blockers for forensic data
+- For physical storage-media acquisition, use a validated write blocker where appropriate. For online evidence, preserve the original capture, record the URL, time, tool and version, and hash the saved artifact.
 - Store multiple copies in different locations
 - Follow proper legal procedures for evidence preservation
 
