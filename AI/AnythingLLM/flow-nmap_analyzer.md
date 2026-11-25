@@ -38,7 +38,7 @@ Define these variables in the "Flow Variables" section:
 | Variable Name | Initial Value | Description |
 |---------------|---------------|-------------|
 | `scan_results` | (empty) | Minimized Nmap output; remove secrets, personal data, and unrelated hosts |
-| `target_info` | (empty) | Neutral asset role/context only; omit credentials, sensitive identifiers, and authorization records |
+| `target_info` | (empty) | Minimal neutral asset role/context only; omit credentials, sensitive identifiers, and authorization records |
 | `parsed_findings` | (empty) | Structured observations and unverified leads |
 | `recommendations` | (empty) | Next steps and tool suggestions |
 
@@ -115,7 +115,7 @@ Do not provide exploit steps, payloads, credential-guessing guidance, or command
 ```
 @agent use NmapAnalyzer flow
 scan_results: [paste minimized Nmap output from an approved assessment]
-target_info: Authorized staging host; exact approved scope; no secrets or unnecessary identifiers
+target_info: Staging web service; owner-described role only; no scope records, client identifiers, secrets, or unnecessary details
 ```
 
 ### With Existing File Output
@@ -185,10 +185,10 @@ This sends active probes. Replace the placeholder only with the exact approved h
 
 | Issue | Solution |
 |-------|----------|
-| Generic analysis | Provide more detailed target_info |
+| Generic analysis | Add only a neutral asset role or relevant, minimized version context; keep scope records and identifiers out of the prompt |
 | No vulnerability conclusion | Treat scan output as a lead; separately scope and review any active NSE checks |
-| Unclear priorities | Include business context in target_info |
-| Token limit exceeded | Scan smaller IP ranges or summarize results |
+| Unclear priorities | Add only approved, minimized impact context needed for triage; keep client and scope records out of the prompt |
+| Token limit exceeded | Submit a smaller sanitized excerpt from already authorized output and preserve evidence references; do not rescan or broaden scope |
 | No service versions | Check whether approved output includes service detection; do not rerun or broaden a scan without scope review |
 | Incomplete scan | Confirm whether additional ports were in the written scope before requesting or conducting another scan |
 
@@ -235,13 +235,13 @@ If the approved assessment already produced multiple result files, submit only t
 
 - **v1.0** - Initial flow with parsing and recommendations
 - Purpose: Review supplied Nmap output for defensive triage; the flow does not run Nmap.
-- Last Updated: November 2025
+- Reviewed: 2026-11-24
 
 ---
 
 ## Related Flows
 
-- **ThreatIntelCheck** - Verify discovered IPs
+- **ThreatIntelCheck** - Review already scoped indicators using approved sources
 - **CVELookup** - Research candidate CVEs against authoritative sources
 - **VulnReportGenerator** - Document findings
 - **DomainRecon** - Separate reconnaissance workflow; use only under its own written scope
