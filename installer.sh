@@ -113,7 +113,11 @@ install_ollama_engine() (
         warning "zstd is required for the optional engine; existing engine preserved."
         exit 1
     }
-    case "$package_arch" in arm64) archive=linux-arm64.tar.zst ;; amd64) archive=linux-amd64.tar.zst ;; esac
+    case "${package_arch:-$arch}" in
+        arm64|aarch64) archive=linux-arm64.tar.zst ;;
+        x86_64|amd64) archive=linux-amd64.tar.zst ;;
+        *) warning "Unsupported Linux architecture: ${package_arch:-$arch}; engine download skipped."; exit 1 ;;
+    esac
     parent=$(dirname "$OLLAMA_ENGINE_DIR")
     mkdir -p "$parent" || exit 1
     stage=$(mktemp -d "$parent/.ollama-stage.XXXXXXXX") || exit 1
