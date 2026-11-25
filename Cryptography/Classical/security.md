@@ -4,9 +4,10 @@ _Last reviewed: 2026-11-20_
 
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. See
-> [LEGAL.md](../../LEGAL.md).
+> testing, education, and defensive research. Test only systems you own or where
+> you have documented, explicit authorization within scope. Unauthorized testing
+> may violate computer-crime laws, contracts, or acceptable-use policies; laws
+> vary by jurisdiction. See [LEGAL.md](../../LEGAL.md).
 
 > [!IMPORTANT]
 > **Historical and educational content.** Nothing in this section is secure for real
