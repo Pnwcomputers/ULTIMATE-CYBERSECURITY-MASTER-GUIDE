@@ -18,6 +18,26 @@ _Reference research: 2026-11-21. This is a sourced **capability and platform com
 | Small microcontroller family | **ATtiny** | **No inherent Bluetooth radio** | Requires a **separate** BLE module/transceiver; no generic sniffing claims |
 | Wi-Fi interface | ALFA 802.11 adapters | 2.4/5/6 GHz **Wi-Fi** | 2.4 GHz overlap does **not** mean Bluetooth capability |
 
+### Select By Capture Boundary
+
+```mermaid
+flowchart TD
+    start["Define the owned test device, protocol, and evidence needed"] --> objective{"What do you need to observe?"}
+    objective -->|Local adapter commands or own-device discovery| hci["Regular Bluetooth HCI adapter + host tools"]
+    hci --> hciLimit["bluetoothctl may actively scan; btmon shows local HCI, not general RF traffic"]
+    objective -->|BLE packets over the air| ble["Dedicated supported BLE sniffer + host analyzer"]
+    ble --> bleLimit["BLE-only scope; channel/PHY and packet-loss limits apply"]
+    objective -->|Classic / legacy research| classic["Ubertooth One and supported tools"]
+    classic --> classicLimit["Legacy research capability; partial, not turnkey full Classic decoding"]
+    objective -->|Wideband RF exploration| sdr["SDR + separate protocol decoding workflow"]
+    sdr --> sdrLimit["IQ capture alone does not decode Bluetooth"]
+    objective -->|Sub-GHz protocols| subghz["YARD Stick One / RfCat"]
+    subghz --> subLimit["Adjacent RF family, not Bluetooth"]
+    dev["ATtiny or other MCU"] -. requires a separate radio module .-> hci
+```
+
+*Selection aid: HCI monitoring, BLE over-the-air sniffing, specialist 2.4 GHz research, generic SDR capture, and Sub-GHz reception are different evidence paths. Verify the exact adapter, firmware, host support, and capture limits before interpreting data.*
+
 ## Bluetooth Classic vs BLE
 
 Bluetooth Classic (BR/EDR) and Bluetooth Low Energy (BLE) differ in channel structures, connection procedures, hopping behavior, PHY and application layers. Capturing advertising packets is **not the same as decoding all connection data**. Encryption and the capture start time can prevent payload interpretation.
