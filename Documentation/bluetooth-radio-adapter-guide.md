@@ -33,7 +33,7 @@ flowchart TD
     sdr --> sdrLimit["IQ capture alone does not decode Bluetooth"]
     objective -->|Sub-GHz protocols| subghz["YARD Stick One / RfCat"]
     subghz --> subLimit["Adjacent RF family, not Bluetooth"]
-    dev["ATtiny or other MCU"] -. requires a separate radio module .-> hci
+    dev["ATtiny or other MCU without integrated Bluetooth"] --> module["Add a compatible BLE radio module"] --> moduleLimit["Validate module firmware, connection design, and host tooling"]
 ```
 
 *Selection aid: HCI monitoring, BLE over-the-air sniffing, specialist 2.4 GHz research, generic SDR capture, and Sub-GHz reception are different evidence paths. Verify the exact adapter, firmware, host support, and capture limits before interpreting data.*
