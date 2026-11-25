@@ -108,7 +108,6 @@ sudo systemctl enable --now kismet-wazuh-bridge
 sudo systemctl status kismet-wazuh-bridge --no-pager
 sudo journalctl -u kismet-wazuh-bridge -n 30 --no-pager
 sudo tail -n 5 /var/log/kismet-wazuh/events.jsonl
-sudo -u wazuh test -r /var/log/kismet-wazuh/events.jsonl && echo 'Wazuh can read the event file'
 ~~~
 
 No output yet may simply mean there were no recent Kismet alerts. The bridge polls every three seconds, keeps a persisted cursor and event hashes, and retries after transient errors. A crash between appending logs and cursor checkpointing may create a duplicate event; the **wids.event_id** field helps downstream deduplication.
@@ -134,7 +133,13 @@ On the **sensor's Wazuh agent**, insert these blocks within its existing ossec_c
 </localfile>
 ~~~
 
-The last two files are optional for case work. Run offline tools with a controlled `umask 027` as the `kismet` service account so new files inherit the `wazuh` group and use mode `0640`. After creating each optional file, verify `sudo -u wazuh test -r /var/log/kismet-wazuh/<file>` before enabling its `<localfile>` block. Restart:
+The last two files are optional for case work. Run offline tools with a controlled `umask 027` as the `kismet` service account so new files inherit the `wazuh` group and use mode `0640`. After each file exists, verify it is readable by the agent before enabling its `<localfile>` block:
+
+~~~bash
+sudo -u wazuh test -r /var/log/kismet-wazuh/events.jsonl && echo 'Wazuh can read the live event file'
+~~~
+
+For optional PCAP/case files, substitute their filenames in the same check. Restart:
 
 ~~~bash
 sudo systemctl restart wazuh-agent
@@ -153,7 +158,7 @@ sudo systemctl restart wazuh-manager
 
 Paste a single JSON line from [synthetic-events.jsonl](./kismet-wazuh/synthetic-events.jsonl) into logtest and confirm the decoder, rule ID and level. For a **Docker Wazuh manager**, install into its **persistent configuration mount**, test and restart using your container deployment procedure; do not edit an ephemeral container filesystem.
 
-Official references: [Wazuh JSON localfile](https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/localfile.html), [custom rules](https://documentation.wazuh.com/current/user-manual/ruleset/ruleset-xml-syntax/rules.html).
+Official references: [Wazuh JSON localfile](https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/localfile.html), [monitored log files](https://documentation.wazuh.com/current/user-manual/capabilities/log-data-collection/monitoring-log-files.html), and [custom rules](https://documentation.wazuh.com/current/user-manual/ruleset/ruleset-xml-syntax/rules.html).
 
 ## 5. Severity classifications
 
