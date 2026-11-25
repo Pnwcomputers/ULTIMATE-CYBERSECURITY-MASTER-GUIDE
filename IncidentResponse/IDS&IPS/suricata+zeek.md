@@ -190,7 +190,7 @@ OPNsense includes Suricata through its IDS/IPS interface; you do not install the
 
 | OPNsense capture mode | Use | Important constraint |
 |---|---|---|
-| **PCAP live mode (IDS)** | Alert-only/passive inspection | Select the interface where traffic is visible; promiscuous mode may be needed for a mirrored feed |
+| **PCAP live move (IDS)** | Alert-only/passive inspection | Select the interface where traffic is visible; promiscuous mode may be needed for a mirrored feed |
 | **Netmap (IPS)** | Inline inspection and packet drops | Requires supported real interfaces; disable hardware offloading and check NIC/driver support |
 | **Divert (IPS)** | Firewall-rule-directed inspection and drops | Requires firewall rules using Divert-to; follow the platform manual |
 
@@ -198,7 +198,7 @@ OPNsense includes Suricata through its IDS/IPS interface; you do not install the
 flowchart LR
     A[Linux host] --> B[IDS: passive AF_PACKET]
     A --> C[IPS: NFQUEUE or AF_PACKET bridge]
-    D[OPNsense] --> E[IDS: PCAP live mode]
+    D[OPNsense] --> E[IDS: PCAP live move]
     D --> F[IPS: Netmap or Divert]
     G[pfSense] --> H[Install Suricata add-on; use package-supported capture mode]
 ```
