@@ -7,6 +7,9 @@
 > [!IMPORTANT]
 > A **display filter** changes which *captured* packets you see; a **capture filter** decides what is retained. They are **different languages**. Filters are investigative selectors, not attack verdicts. This index uses example-only RFC 5737/3849 IP addresses and dummy MACs; replace with authorized targets. A switched Ethernet NIC or ordinary VM interface cannot see all LAN traffic or over-the-air 802.11 management frames merely because Wireshark is in promiscuous mode.
 
+
+**Byte-level foundations:** [Hexadecimal & Binary Data Analysis](../Algorithms/hexadecimal-and-binary-analysis.md) · [ASCII, Unicode & Character Encoding](../Algorithms/ascii-and-character-encoding.md) · [Hex & ASCII Field Reference & Offline Labs](../Algorithms/hex-ascii-field-reference.md).
+
 ## Find the right tool
 
 | Need | Go here | How |
