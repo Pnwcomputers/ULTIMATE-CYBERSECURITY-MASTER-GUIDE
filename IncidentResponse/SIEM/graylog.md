@@ -1,6 +1,6 @@
 # 🟢 Graylog SIEM Deployment Guide
 
-> **Historical lab configuration — not a current production deployment recipe (reviewed November 11, 2026).** The Docker example below uses Graylog 5.2 and OpenSearch 2.12.0. Compatibility, vendor support status, images, credentials, and plugin configuration have **not** been revalidated for current releases. Consult the [official Graylog documentation](https://go2docs.graylog.org/) and vendor release/support matrix before adopting or upgrading. The example exposes port 9000 over plaintext HTTP; only use this on an isolated, trusted test network. For a real deployment, terminate HTTPS with a trusted reverse proxy (or supported native TLS), tightly restrict management access, and never forward port 9000 to the public internet. Internal HTTP service-to-service URLs in the isolated Docker network are not public external links.
+> **Historical lab configuration — not a current production deployment recipe (Winlogbeat field and TLS guidance reviewed November 24, 2026; the Compose deployment remains unvalidated).** The Docker example below uses Graylog 5.2 and OpenSearch 2.12.0. Compatibility, vendor support status, images, credentials, and plugin configuration have **not** been revalidated for current releases. Consult the [official Graylog documentation](https://go2docs.graylog.org/) and vendor release/support matrix before adopting or upgrading. The example exposes port 9000 over plaintext HTTP; only use this on an isolated, trusted test network. For a real deployment, terminate HTTPS with a trusted reverse proxy (or supported native TLS), tightly restrict management access, and never forward port 9000 to the public internet. Internal HTTP service-to-service URLs in the isolated Docker network are not public external links.
 
 ## 🎯 Purpose
 Graylog SIEM deployment guide - covering installation, input configuration, stream processing, alerting, dashboards, and log management for a self-hosted open-source SIEM alternative.
@@ -857,40 +857,36 @@ Add fields to include in the alert.
 
 ### Enable HTTPS
 
-#### Generate Certificates
+The Compose example above exposes port 9000 over HTTP and is for an isolated
+historical lab. For a real deployment, terminate TLS with a trusted reverse proxy
+or use Graylog's supported native TLS settings for the deployed release. Follow
+the [official Graylog TLS guide](https://go2docs.graylog.org/current/setting_up_graylog/secure_graylog_interface_with_tls.htm).
 
-```bash
-# Create certificate directory
-mkdir -p ~/graylog/certs
+For direct Graylog TLS, provision a certificate chain in PEM format and a PKCS#8
+private key in PEM format. The certificate must have a subject alternative name
+(SAN) matching the hostname or IP clients use, and clients must trust its issuing
+CA. Do not use the former self-signed `CN=graylog.local` sample with an IP-based
+external URL: it has no matching SAN or trusted chain. Its generated PKCS#12 file
+was also unused by the shown Graylog settings. Do not bypass certificate
+validation to make a mismatch appear to work.
 
-# Generate self-signed certificate
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-  -keyout ~/graylog/certs/graylog.key \
-  -out ~/graylog/certs/graylog.crt \
-  -subj "/CN=graylog.local"
-
-# Create PKCS12 keystore (the export password is read from the environment so
-# it does not appear in the process list or shell history)
-read -rsp "Keystore export password: " P12_PASSWORD; echo; export P12_PASSWORD
-openssl pkcs12 -export -in ~/graylog/certs/graylog.crt \
-  -inkey ~/graylog/certs/graylog.key \
-  -out ~/graylog/certs/graylog.p12 \
-  -name graylog -passout env:P12_PASSWORD
-unset P12_PASSWORD
-```
-
-#### Update Docker Compose
+If using a trusted certificate and key already provisioned at these paths, a
+direct-TLS Compose configuration can use:
 
 ```yaml
 graylog:
   volumes:
-    - ~/graylog/certs:/usr/share/graylog/data/certs:ro
+    - ./certs:/usr/share/graylog/data/certs:ro
   environment:
     - GRAYLOG_HTTP_ENABLE_TLS=true
-    - GRAYLOG_HTTP_TLS_CERT_FILE=/usr/share/graylog/data/certs/graylog.crt
-    - GRAYLOG_HTTP_TLS_KEY_FILE=/usr/share/graylog/data/certs/graylog.key
-    - GRAYLOG_HTTP_EXTERNAL_URI=https://<YOUR_SERVER_IP>:9000/
+    - GRAYLOG_HTTP_TLS_CERT_FILE=/usr/share/graylog/data/certs/fullchain.pem
+    - GRAYLOG_HTTP_TLS_KEY_FILE=/usr/share/graylog/data/certs/private-key.pkcs8.pem
+    - GRAYLOG_HTTP_EXTERNAL_URI=https://graylog.example.org:9000/
 ```
+
+Replace the hostname and file paths with the provisioned values. Ensure the
+Graylog process can read the key, keep it private, and configure clients to verify
+the certificate chain and hostname.
 
 ### Configure LDAP/AD Authentication
 
