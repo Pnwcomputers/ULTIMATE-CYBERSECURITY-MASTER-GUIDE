@@ -4,6 +4,21 @@
 
 Use this public section as a design and qualification contract for the private setup. Public documentation can describe interfaces, expected behavior and synthetic examples without publishing private application code, live configurations or customer material. This roadmap does not assert access to or inspection of the private repository.
 
+
+```mermaid
+flowchart TB
+    M0[M0: Reproducible baseline] --> M1[M1: Reliable evidence]
+    M1 --> M2[M2: Manual case workflow]
+    M2 --> M3[M3: Proven network boundary]
+    M3 --> CORE[Useful manual platform]
+    CORE --> M5[M5: Qualify power and enclosure for field use]
+    CORE -. optional .-> M4[M4: Supervised tool execution]
+    CORE -. optional .-> M6[M6: Device integrations]
+    CORE -. optional .-> M7[M7: External origin]
+```
+
+*Conceptual dependency map. M0–M3 establish the manual baseline; M5 qualifies physical field use. M4, M6, and M7 are separate optional extensions with their own acceptance gates.*
+
 ## Milestones in Dependency Order
 
 | Milestone | Public deliverable | Work in the private setup | Definition of done |
