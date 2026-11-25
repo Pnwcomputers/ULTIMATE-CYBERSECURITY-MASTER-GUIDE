@@ -18,6 +18,20 @@
 
 _Last reviewed: 2026-09-11. Four local labs executed on Python 3.12.14 and SQLite 3.53.1 where used. See each guide's Verification Record for limits._
 
+
+## 🔁 Operational Feedback Loop
+
+```mermaid
+flowchart LR
+    O[Observe freshness, lag, and errors] --> T[Test changes before release]
+    T --> G[Govern access, lineage, and retention]
+    G --> R[Restore, replay, or rebuild]
+    R --> O
+    R -. lessons learned .-> T
+```
+
+*This is a learning model for the four guides in this phase. Real recovery and release procedures must be adapted to each system and verified in the target environment.*
+
 ## 🎯 Purpose
 
 Complete the learning path with the operational practices needed to keep data useful after the first successful run:
