@@ -3,13 +3,25 @@ _C2 channel techniques and covert communication methods for red team infrastruct
 
 **Purpose:** A survey of covert communication channels an implant can use to phone home once execution is achieved, organized by carrier protocol/service rather than by C2 framework. Where [Tradecraft/c2-frameworks.md](../Tradecraft/c2-frameworks.md) covers *which tool* to run (Cobalt Strike, Sliver, Havoc), this checklist covers *which channel* the traffic rides on - DNS, HTTPS, WebDAV, cloud storage APIs, social media, even images and JavaScript as a transport.
  
-**Function:** Each item represents a different way to blend outbound C2 traffic into normal network noise: DNS and ICMP exploit protocols that are rarely fully inspected; Gmail/DropBox/GitHub/Twitter exploit the fact that traffic to major SaaS platforms is almost never blocked at a corporate firewall; WebSocket, images, and JavaScript exploit the fact that web traffic inspection tools often don't parse payloads embedded in those formats.
+**Function:** These channels may be used to carry C2 traffic and can resemble legitimate activity, but visibility and blocking vary by environment. Coverage depends on resolver and egress policy, sensor placement, TLS inspection, SaaS controls, endpoint telemetry, and the specific implementation. Do not assume a protocol is uninspected, a SaaS service is allowed, or encrypted traffic is invisible.
  
-**Goal:** Determine which covert channels a target's network defenses (firewall egress rules, DNS filtering, TLS inspection, DLP) actually catch versus which ones pass through undetected - this is a detection-evasion assessment as much as an offensive one. For blue teams, this same list doubles as a coverage map: for each channel, "do we have a detection for this" is a fair question to ask.
+**Goal:** Use the list to identify which channels are in scope for a defensive coverage review, then document the telemetry and controls the environment actually has. A missing network-content view does not establish that other detection sources are absent.
  
-**When & how to use this:** Use during red team engagements after initial access, when establishing a resilient C2 channel is the next objective - test the most "boring"/high-blend-in channels first (HTTPS, DNS) before escalating to more unusual ones (Instagram, images) that are more likely to be a research curiosity than a production-viable channel. For blue/purple teams, use this as a checklist of channels to validate detection coverage against, ideally paired with the Sigma/detection content in [Tradecraft/c2-frameworks.md](../Tradecraft/c2-frameworks.md).
+**When & how to use this:** For authorized red or purple team work, validate one in-scope channel at a time with an approved benign emulation or vendor-supported test. Coordinate expected telemetry and stop conditions in advance. Blue teams can compare intended controls with observed events and record coverage gaps. Do not infer detection from assumed firewall or SaaS behavior.
 
 #### 📖 Full Deep-dives (Cobalt Strike, etc; Architecture, Detection, etc): [Tradecraft/c2-frameworks.md](../Tradecraft/c2-frameworks.md)
+
+```mermaid
+flowchart LR
+    scope["Set authorization, channel, and stop conditions"] --> simulate["Select an approved benign emulation"]
+    simulate --> observe["Record expected network, endpoint, DNS, and proxy telemetry"]
+    observe --> compare["Compare observed events with control and detection expectations"]
+    compare --> result{"Was the event visible and handled as intended?"}
+    result -->|Yes| record["Record evidence and validated coverage"]
+    result -->|No or unclear| gap["Document the gap, sensor limits, and follow-up owner"]
+```
+
+*Defensive validation flow: test only the approved channel using a harmless simulation or vendor test, and distinguish a missing network view from a total absence of telemetry.*
 
 ---
 
