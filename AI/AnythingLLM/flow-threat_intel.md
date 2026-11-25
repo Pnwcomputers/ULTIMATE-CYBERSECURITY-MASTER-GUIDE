@@ -56,7 +56,7 @@ Use the official API rather than scraping the public web page:
 - Endpoint: `GET https://api.abuseipdb.com/api/v2/check`
 - Query: `ipAddress=<validated_public_ip>` and, if needed, `maxAgeInDays=<1 to 365>`
 - Headers: `Key: <secret from the approved secret store>` and `Accept: application/json`
-- Do not set the `verbose` option unless individual report data is necessary and approved; it expands the returned personal and incident detail.
+- Do not set the `verbose` option unless individual report data is necessary and approved; it adds report entries and expands the response.
 - Useful minimal fields, when present: `data.abuseConfidenceScore`, `totalReports`, and `lastReportedAt`; record `maxAgeInDays` and retrieval time.
 
 The AbuseIPDB confidence score summarizes reports in the selected time window. It is not the probability that the IP is malicious and does not establish that your organization was targeted. A shared or reassigned IP may represent unrelated activity. Check the provider's [CHECK endpoint, parameters, rate limits, and error handling](https://docs.abuseipdb.com/).
