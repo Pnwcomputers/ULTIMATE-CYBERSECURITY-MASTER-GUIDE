@@ -355,48 +355,42 @@ sudo -u splunk /opt/splunk/bin/splunk add index sysmon -auth admin:YourPassword
 
 The Splunk Universal Forwarder (UF) is a lightweight agent that ships logs to Splunk.
 
-### Step 6.1: Download Universal Forwarder
+### Step 6.1: Download and Verify the Universal Forwarder
 
-Download from [splunk.com/download/universal-forwarder](https://www.splunk.com/en_us/download/universal-forwarder.html)
-
-Or via PowerShell - again, get the current URL from the download page rather than hardcoding a version (this exact 9.2.0 URL is already dead):
-
-```powershell
-# Download (check website for current version)
-$url = "https://www.splunk.com/en_us/download/universal-forwarder.html"
-Invoke-WebRequest -Uri $url -OutFile "$env:TEMP\splunkforwarder.msi"
-```
-
-### Step 6.2: Install with Configuration
-
-**Interactive Installation:**
+Download the current Windows MSI from Splunk's
+[Universal Forwarder download page](https://www.splunk.com/en_us/download/universal-forwarder.html).
+Use the page's **direct MSI URL**, not the page URL itself (which returns HTML),
+and compare the downloaded package's SHA-512 hash with the value published by
+Splunk before installing.
 
 ```powershell
-Start-Process msiexec.exe -ArgumentList "/i $env:TEMP\splunkforwarder.msi AGREETOLICENSE=Yes /quiet" -Wait
+$ufMsi = Join-Path $env:TEMP 'splunkforwarder.msi'
+$ufMsiUrl = '<PASTE-CURRENT-WINDOWS-MSI-DIRECT-URL-FROM-SPLUNK>'
+Invoke-WebRequest -Uri $ufMsiUrl -OutFile $ufMsi
+Get-FileHash -LiteralPath $ufMsi -Algorithm SHA512
 ```
 
-**Silent Installation with Pre-configuration:**
+Stop if the hash does not match Splunk's published value for that exact package.
+
+### Step 6.2: Install and Configure
+
+For an interactive install, run the verified MSI and follow the setup wizard.
+Create a unique forwarder administrator credential and configure the approved
+receiving indexer and event-log inputs.
 
 ```powershell
-# Prompt for the forwarder admin password (not echoed, not stored in the script)
-$env:SPLUNK_FWD_PASSWORD = [System.Net.NetworkCredential]::new('', (Read-Host -AsSecureString 'Forwarder admin password')).Password
-# Install with deployment server or direct indexer configuration
-$msiArgs = @(
-    "/i"
-    "$env:TEMP\splunkforwarder.msi"
-    "AGREETOLICENSE=Yes"
-    "RECEIVING_INDEXER=<SPLUNK-SERVER-IP>:9997"
-    "SPLUNKUSERNAME=admin"
-    "SPLUNKPASSWORD=$env:SPLUNK_FWD_PASSWORD"   # set just before running; never hard-code
-    "WINEVENTLOG_SEC_ENABLE=1"
-    "WINEVENTLOG_SYS_ENABLE=1"
-    "WINEVENTLOG_APP_ENABLE=1"
-    "/quiet"
-)
-Start-Process msiexec.exe -ArgumentList $msiArgs -Wait
-Remove-Item Env:SPLUNK_FWD_PASSWORD
+$install = Start-Process -FilePath $ufMsi -Wait -PassThru
+if ($install.ExitCode -ne 0) {
+    throw "Universal Forwarder installer exited with code $($install.ExitCode)"
+}
 ```
 
+For unattended deployment, follow Splunk's
+[Windows Universal Forwarder installation reference](https://help.splunk.com/en/data-management/forward-data/universal-forwarder-manual/10.6/install-the-universal-forwarder/install-a-windows-universal-forwarder)
+for the selected release. MSI password properties are passed on the installer
+command line and can be exposed to local process inspection; use an approved
+deployment system and protect the credential rather than pasting it into an
+interactive shell or storing it in a script.
 ### Step 6.3: Configure Inputs
 
 Create `C:\Program Files\SplunkUniversalForwarder\etc\system\local\inputs.conf`:
