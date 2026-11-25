@@ -1,6 +1,6 @@
 # nzyme + Wazuh: Wireless Detection and Alert Integration
 
-_Last reviewed: 2026-10-31 · Companion to the [Kismet + Wazuh lab](./kismet-wazuh-wireless-lab.md)_
+_Last reviewed: 2026-11-24 · Companion to the [Kismet + Wazuh lab](./kismet-wazuh-wireless-lab.md)_
 
 > [!CAUTION]
 > Authorized, receive-only wireless monitoring only. Do not generate deauthentication traffic, collect credentials, or automatically retaliate. The following is a reproducible **lab template**, not a deployed service.
@@ -57,7 +57,7 @@ Example documented detection payload:
 
 ## 3. Install a localhost-only webhook receiver
 
-This example assumes **nzyme-node, the receiver and a Wazuh agent run on the same Linux host**. The included Python code uses only the standard library, listens on **127.0.0.1:8787/nzyme**, verifies a 32+ character Bearer token, limits JSON to 16 KiB and appends normalized events to **/var/log/nzyme-wazuh/events.jsonl** before replying with HTTP 204.
+This example requires a Linux Wazuh agent on the same host, with its standard `wazuh` system account and group. **nzyme-node, the receiver and the agent must also share the host network namespace**; the example does not work unchanged if nzyme-node runs in a bridged container, because that container's `127.0.0.1` is not the host loopback. The included Python code uses only the standard library, listens on **127.0.0.1:8787/nzyme**, verifies a 32+ character Bearer token, limits JSON to 16 KiB and appends normalized events to **/var/log/nzyme-wazuh/events.jsonl** before replying with HTTP 204. Its systemd unit runs as `wazuh:wazuh`; the JSONL file is created mode `0640` in a `0750` directory so the local agent can read it without making the event log world-readable.
 
 From a clone of the repository on the nzyme-node host:
 
@@ -102,7 +102,7 @@ Allow Insecure: OFF
 Subscriptions: chosen Wi-Fi/network detection events
 ~~~
 
-**Loopback only:** This URL works **only on the same nzyme-node host**. For cross-host deployments use a trusted, authenticated HTTPS proxy and scoped firewall rules; never expose this plaintext receiver directly or disable certificate verification.
+**Loopback only:** This URL works only when nzyme and the receiver share the same network namespace on the same host. With a bridged container, container loopback is separate; design a private authenticated path for that deployment rather than copying this URL. For cross-host deployments use a trusted, authenticated HTTPS proxy and scoped firewall rules; never expose this plaintext receiver directly or disable certificate verification.
 
 ## 4. Configure the Wazuh agent and manager
 
@@ -115,9 +115,10 @@ On the **nzyme-node host's Wazuh agent**, add inside the existing ossec_config r
 </localfile>
 ~~~
 
-Check file permissions, then restart the agent:
+After the receiver has appended a test event, verify that the Wazuh account can read the file, then restart the agent:
 
 ~~~bash
+sudo -u wazuh test -r /var/log/nzyme-wazuh/events.jsonl && echo 'Wazuh can read the event file'
 sudo systemctl restart wazuh-agent
 sudo systemctl status wazuh-agent --no-pager
 ~~~
@@ -195,7 +196,8 @@ Response sequence: nzyme alert → nzyme Disconnection Activity and network-moni
 - [nzyme supported webhook and syslog action payloads](https://docs.nzyme.org/configuration/alerting/action_types/)
 - [nzyme subscriptions](https://docs.nzyme.org/configuration/alerting/subscriptions_actions/)
 - [nzyme grouped alerts / re-triggering](https://docs.nzyme.org/configuration/alerting/)
-- [Wazuh JSON log input](https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/localfile.html)
+- [Wazuh JSON log input](https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/localfile.html) and [file monitoring](https://documentation.wazuh.com/current/user-manual/capabilities/log-data-collection/monitoring-log-files.html)
+- [Systemd log-directory and DynamicUser behavior](https://www.freedesktop.org/software/systemd/man/latest/systemd.exec.html)
 
 [nzyme deployment guide](./nzyme_wids.md) · [Kismet + Wazuh lab](./kismet-wazuh-wireless-lab.md) · [Deauthentication analysis](../../Documentation/wifi-deauthentication-detection.md) · [Wazuh deployment](../SIEM/wazuh.md) · [Wireless intrusion playbook](../network_intrusion.md)
 
