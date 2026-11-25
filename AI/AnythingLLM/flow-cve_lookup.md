@@ -12,7 +12,7 @@ The flow below requests NVD CVE API 2.0 JSON, then asks an LLM to draft analysis
 Rapidly contextualize a CVE during engagement scoping, vulnerability scanning triage, or threat intelligence research without manually navigating multiple databases.
 
 ## 📋 When to Use
-Triaging scanner output during a vulnerability assessment; researching a CVE found in a target's environment; building remediation priority recommendations. **Do not use an LLM-only flow as evidence of an affected product, available patch, or active exploitation.**
+Triaging scanner output during a vulnerability assessment; researching a CVE found in a target's environment; building remediation priority recommendations. **Do not use an LLM-only flow as evidence of an affected product, available patch, or active exploitation.** The flow sends `system_context` and retrieved CVE data to the configured LLM. Minimize context; omit hostnames, IP addresses, customer identifiers, credentials, and sensitive log excerpts unless the chosen model/provider is approved for that data classification.
 
 ## Evidence & Verification Gate
 
@@ -370,7 +370,7 @@ NmapAnalyzer observes: Apache reports 2.4.49
     ↓
 CVELookup: CVE-2021-41773 is a candidate; confirm exact vendor build
     ↓
-Analysis: NVD reports CVSS 3.1 9.8 and known exploitation; RCE depends on affected alias/CGI/access-control conditions
+Analysis: [NVD reports CVSS 3.1 9.8 and known exploitation](https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-41773); [Apache documents RCE only when affected alias and CGI/access-control conditions are met](https://httpd.apache.org/security/vulnerabilities_24.html)
     ↓
 Analyst verifies vendor build, configuration, exposure, and patch advisory
     ↓
@@ -392,10 +392,10 @@ processes customer orders, PCI-DSS environment
 
 **Output Highlights:**
 ```
-CVSS Score: 10.0 CRITICAL
-Attack Vector: Network, no authentication required
-Exploitability: CRITICAL - Widespread active exploitation
-Public Exploits: Yes (Metasploit, multiple PoCs)
+CVSS v3.1 (NVD): 10.0 CRITICAL
+Reported vector: Network, low complexity, no privileges or user interaction
+Exploitation: Confirm the current CISA KEV/vendor evidence and timestamp
+Do not infer system applicability or patch version from the score alone.
 
 Immediate Actions:
 1. Verify the deployed `log4j-core` artifact, Java runtime, vendor build, and affected configuration.
@@ -616,17 +616,20 @@ Ubuntu: https://ubuntu.com/security/${cve_id}
 
 ## Evidence Path at a Glance
 
-The documented flow retrieves an NVD page and asks the model to draft an analysis. The model output is a research aid; confirm each consequential claim against authoritative advisories before using it.
+The documented flow retrieves NVD API 2.0 JSON and asks the model to draft an analysis. Choose a model approved for the context's data classification, minimize identifying context, and treat API text as untrusted input. The model output is a research aid; confirm each consequential claim against authoritative advisories before using it.
 
 ```mermaid
 flowchart LR
     A[Analyst enters CVE and minimum necessary system context] --> B{CVE ID valid?}
     B -- no --> C[Request correction]
     B -- yes --> D[Fetch NVD API 2.0 JSON]
-    D --> E[LLM drafts summary from untrusted source data]
-    D -- unavailable, throttled, or empty --> F[Mark NVD evidence unavailable]
-    E --> G[Analyst verifies NVD, CISA KEV, and vendor advisory]
-    F --> G
+    D --> E{Model approved for context classification?}
+    E -- no --> F[Redact context or choose an approved model]
+    F --> E
+    E -- yes --> J[LLM drafts from untrusted source data]
+    D -- unavailable, throttled, or empty --> K[Mark NVD evidence unavailable]
+    J --> G[Analyst verifies NVD, CISA KEV, and vendor advisory]
+    K --> G
     G --> H[Record sources, retrieval time, and verified findings]
     H --> I[Set priority and deadline under local policy]
 ```
