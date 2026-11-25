@@ -329,6 +329,11 @@ Organize your data with dedicated indexes.
    - Retention: `30 days`
 4. Click **Save**
 
+For an indexer cluster, distribute index configuration through the cluster manager by
+editing the cluster's index configuration; Splunk does not let you create a cluster
+index from Splunk Web or the CLI. See
+[Splunk's indexer-cluster index instructions](https://help.splunk.com/en/splunk-enterprise/administer/manage-indexers-and-indexer-clusters/10.6/manage-indexes/create-custom-indexes).
+
 Create these recommended indexes:
 
 | Index Name | Purpose |
@@ -342,12 +347,19 @@ Create these recommended indexes:
 
 ### Via CLI
 
+On a standalone indexer, run each command as the Splunk service account. When
+authentication is required, omit `-auth` so Splunk prompts for credentials.
+Avoid putting passwords in command arguments, scripts, or shell history.
+
 ```bash
-sudo -u splunk /opt/splunk/bin/splunk add index windows -maxDataSize auto_high_volume -auth admin:YourPassword
-sudo -u splunk /opt/splunk/bin/splunk add index linux -auth admin:YourPassword
-sudo -u splunk /opt/splunk/bin/splunk add index network -auth admin:YourPassword
-sudo -u splunk /opt/splunk/bin/splunk add index sysmon -auth admin:YourPassword
+sudo -u splunk /opt/splunk/bin/splunk add index windows -maxDataSize auto_high_volume
+sudo -u splunk /opt/splunk/bin/splunk add index linux
+sudo -u splunk /opt/splunk/bin/splunk add index network
+sudo -u splunk /opt/splunk/bin/splunk add index sysmon
 ```
+
+For details, see Splunk's [index creation guide](https://help.splunk.com/en/data-management/manage-splunk-enterprise-indexers/10.6/manage-indexes/create-custom-indexes)
+and [CLI authentication reference](https://help.splunk.com/en/splunk-enterprise/administer/admin-manual/10.2/administer-splunk-enterprise-with-the-command-line-interface-cli/get-help-with-the-cli).
 
 ---
 
