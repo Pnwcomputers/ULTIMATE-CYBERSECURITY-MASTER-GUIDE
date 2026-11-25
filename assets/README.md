@@ -32,6 +32,10 @@ These six original SVG diagrams use descriptive alternative text, avoid external
 
 | Diagram | Where embedded | Why it belongs |
 |---|---|---|
+| [NetAlertX discovery visibility boundaries](./diagrams/netalertx-discovery-visibility-boundaries.svg) | [NetAlertX discovery guide](../Documentation/netalertx-device-discovery-monitoring.md#architecture-one-vlan-vs-many) | Separates local ARP, remote imports, RF observations, packet capture and alert review |
+
+| Diagram | Where embedded | Why it belongs |
+|---|---|---|
 | [Network discovery evidence layers](./diagrams/network-discovery-evidence-layers.svg) | [Network discovery comparison](../Documentation/network-device-discovery-comparison.md#reading-discovery-evidence) | Shows why planned inventory, control-plane records, packet sensors, radio observations and endpoint telemetry have different limits |
 
 | Diagram | Where embedded | Why it belongs |
