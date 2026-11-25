@@ -18,7 +18,6 @@
 
 _Last reviewed: 2026-09-11. Four local labs executed on Python 3.12.14 and SQLite 3.53.1 where used. See each guide's Verification Record for limits._
 
-
 ## 🔁 Operational Feedback Loop
 
 ```mermaid
