@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">NetAlertX discovery visibility boundaries</title>
+<desc id="desc">An authorized network has separate VLANs. NetAlertX ARP discovery sees its attached Layer 2 segment. Remote VLAN observations arrive through approved DHCP, controller, SNMP imports or scoped collectors. Separate radio and packet sensors provide their own evidence. NetAlertX alerts go to an internal review workflow. The diagram emphasizes that ARP does not cross routers and NetAlertX is not itself a packet capture sensor.</desc>
+<defs><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#183044}.title{font-size:30px;font-weight:bold}.head{font-size:22px;font-weight:bold}.body{font-size:17px}.small{font-size:15px}
+.box{stroke:#43627a;stroke-width:2;rx:14}.path{stroke:#42637a;stroke-width:3;fill:none;marker-end:url(#arrow)}.dashed{stroke-dasharray:8 6}
+</style><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#42637a"/></marker></defs>
+<rect width="1200" height="720" fill="#f5f8fb"/>
+<text class="title" x="600" y="46" text-anchor="middle">Network discovery: know what each sensor can see</text>
+<text class="small" x="600" y="74" text-anchor="middle">Conceptual, authorized deployment; actual visibility depends on placement, configuration and permissions.</text>
+<rect class="box" x="35" y="110" width="495" height="270" fill="#eaf2fa"/>
+<text class="head" x="58" y="145">Authorized network segments</text>
+<rect class="box" x="60" y="170" width="200" height="150" fill="#ffffff"/>
+<text class="head" x="160" y="205" text-anchor="middle">VLAN 10</text>
+<text class="body" x="160" y="236" text-anchor="middle">local hosts</text>
+<text class="body" x="160" y="264" text-anchor="middle">ARP-visible segment</text>
+<rect class="box" x="300" y="170" width="200" height="150" fill="#ffffff"/>
+<text class="head" x="400" y="205" text-anchor="middle">VLAN 30</text>
+<text class="body" x="400" y="236" text-anchor="middle">remote clients</text>
+<text class="body" x="400" y="264" text-anchor="middle">separate L2 segment</text>
+<path d="M265 245L295 245" stroke="#b64737" stroke-width="3" stroke-dasharray="6 5"/>
+<text class="small" x="280" y="300" text-anchor="middle" fill="#8a3027">router blocks ARP</text>
+<rect class="box" x="60" y="335" width="440" height="30" fill="#f9e4df"/>
+<text class="small" x="280" y="356" text-anchor="middle">Local ARP scan cannot reveal VLAN 30 MACs from VLAN 10</text>
+<rect class="box" x="590" y="115" width="265" height="125" fill="#e4f3ea"/>
+<text class="head" x="722" y="150" text-anchor="middle">NetAlertX inventory</text>
+<text class="body" x="722" y="182" text-anchor="middle">records + change alerts</text>
+<text class="small" x="722" y="211" text-anchor="middle">not an IDS or packet recorder</text>
+<path class="path" d="M260 220C390 120 485 150 580 170"/>
+<text class="small" x="415" y="137" text-anchor="middle">same-segment ARP</text>
+<rect class="box" x="590" y="270" width="265" height="120" fill="#fff3d9"/>
+<text class="head" x="722" y="305" text-anchor="middle">Approved remote inputs</text>
+<text class="body" x="722" y="337" text-anchor="middle">DHCP · controller · SNMP</text>
+<text class="small" x="722" y="365" text-anchor="middle">or scoped collectors / scans</text>
+<path class="path" d="M500 270C530 310 550 320 580 325"/>
+<text class="small" x="540" y="295" text-anchor="middle">read-only evidence</text>
+<rect class="box" x="930" y="125" width="230" height="105" fill="#efe9fb"/>
+<text class="head" x="1045" y="160" text-anchor="middle">RF sensor</text>
+<text class="body" x="1045" y="190" text-anchor="middle">Kismet / nzyme</text>
+<text class="small" x="1045" y="215" text-anchor="middle">radio coverage only</text>
+<rect class="box" x="930" y="270" width="230" height="105" fill="#e8f2f2"/>
+<text class="head" x="1045" y="305" text-anchor="middle">Packet sensor</text>
+<text class="body" x="1045" y="335" text-anchor="middle">TAP / SPAN → Zeek</text>
+<text class="small" x="1045" y="360" text-anchor="middle">separate capture feed</text>
+<rect class="box" x="600" y="465" width="260" height="110" fill="#e4f3ea"/>
+<text class="head" x="730" y="500" text-anchor="middle">Internal alert route</text>
+<text class="body" x="730" y="530" text-anchor="middle">webhook / event bridge</text>
+<text class="small" x="730" y="555" text-anchor="middle">authenticated + logged</text>
+<rect class="box" x="930" y="465" width="230" height="110" fill="#eaf2fa"/>
+<text class="head" x="1045" y="500" text-anchor="middle">Analyst review</text>
+<text class="body" x="1045" y="530" text-anchor="middle">correlate time + VLAN</text>
+<text class="small" x="1045" y="555" text-anchor="middle">preserve uncertainty</text>
+<path class="path" d="M722 242L722 455"/>
+<path class="path" d="M1045 230C1030 360 900 420 850 495"/>
+<path class="path" d="M1045 375L1045 455"/>
+<path class="path" d="M860 520L920 520"/>
+<text class="small" x="600" y="635" text-anchor="middle">Inventory, radio sightings and packet capture are different evidence sources; correlate only within approved scope.</text>
+<text class="small" x="600" y="665" text-anchor="middle">A missing observation indicates a coverage gap or unknown, not proof the device is absent.</text>
+</svg>

@@ -1,6 +1,6 @@
 # NetAlertX: Network Device Discovery, Inventory & Change Monitoring
 
-_Last source review: 2026-11-21. Official NetAlertX documentation was consulted; no container was installed, subnet scanned, or alert delivered._
+_Last source review: 2026-11-24. Official NetAlertX documentation was consulted; no container was installed, subnet scanned, or alert delivered._
 
 > [!CAUTION]
 > **Authorized networks only.** Device monitoring can reveal device ownership, routines and presence. Obtain permission, keep discovery scoped to assigned interfaces and VLANs, protect the dashboard and limit retention. "Device present" does **not** establish a person's location or identity. See [Legal Notice](../LEGAL.md).
@@ -21,21 +21,9 @@ _Last source review: 2026-11-21. Official NetAlertX documentation was consulted;
 
 ## Architecture: One VLAN vs Many
 
-```text
-          Router / Firewall / VLAN Interfaces
-                 ├── VLAN 10 staff ───── DHCP/AP/controller
-                 ├── VLAN 20 servers ─── SNMP/host data
-                 └── VLAN 30 guest/IoT ─ other clients
-                         │
-            Layer-3 routing / approved read-only APIs
-                         │
-              NetAlertX Inventory Server
-                Device DB + Web UI + Alerts
-                         │
-         Wazuh normalizer / webhook / ticketing
-                         │
-             Analyst review and response
-```
+![Conceptual NetAlertX visibility architecture showing local ARP discovery within an attached VLAN, read-only DHCP/controller/SNMP data for remote networks, separate RF and packet sensors, and reviewed alerts.](../assets/diagrams/netalertx-discovery-visibility-boundaries.svg)
+
+*Conceptual diagram: NetAlertX inventory inputs and packet/RF sensors are separate. ARP discovery is limited to the local broadcast domain; routed imports provide different evidence.*
 
 **ARP is local broadcast-domain discovery.** A single container on VLAN 10 will not learn a remote VLAN 30's real MAC addresses just by ARP-scanning from VLAN 10. For remote segments use authorized DHCP/controller/SNMP imports, deployed collectors/sync instances where supported, or carefully scoped routed scans. Routed Nmap results may give IP/host/service information **without the actual remote MAC**. Never present a fabricated MAC as verified identity.
 
@@ -72,7 +60,7 @@ NetAlertX is **not a packet TAP** and installing it on a Proxmox host does not a
 
 ## Install & Harden With Official Docker Compose
 
-The upstream project maintains its [official Docker Compose example](https://github.com/netalertx/NetAlertX/blob/main/docker-compose.yml) and [Docker installation instructions](https://docs.netalertx.com/DOCKER_INSTALLATION/). Prefer that pinned/reviewed release configuration rather than copying an unreviewed privileged one-liner.
+The upstream project maintains its [official Docker Compose example](https://github.com/netalertx/NetAlertX/blob/main/docker-compose.yml) and [Docker installation instructions](https://docs.netalertx.com/DOCKER_INSTALLATION/). Use the upstream Compose file as a reference, then review the exact release and its security notes before deployment. The commands below clone the moving default branch for inspection only; select a reviewed release tag and pin the container image by digest before deploying. Do not treat a `latest` tag as a version pin.
 
 ```bash
 # On an authorized non-production Linux lab host with Docker Compose installed:
@@ -85,7 +73,7 @@ docker compose config
 grep -E 'image:|network_mode:|cap_add:|ports:|volumes:' docker-compose.yml
 ```
 
-Review the exact release's compose file, security documentation and scanner scope before starting. The official host-network container supports L2/ARP discovery but shares the host network namespace; it commonly needs narrowly scoped raw/network capabilities such as \`NET_RAW\` and \`NET_ADMIN\`. **Avoid \`privileged: true\` as a casual shortcut**. Do not publish the dashboard directly to the Internet.
+Review the exact release's compose file, security documentation and scanner scope before starting. The official host-network configuration supports L2/ARP discovery but shares the host network namespace. Depending on enabled features, current upstream guidance lists `NET_RAW` and `NET_ADMIN` for raw/ARP discovery and `NET_BIND_SERVICE` for functions that bind privileged ports; verify the minimum needed for the selected release. **Avoid `privileged: true` as a casual shortcut**. Do not publish the dashboard directly to the Internet.
 
 After configuring **only owned subnets** and confirming credentials, persistence and least-privilege network access, start and inspect with:
 
@@ -95,12 +83,12 @@ docker compose ps
 docker compose logs --tail=100
 ```
 
-The upstream application commonly uses HTTP port \`20211\` for the UI and \`20212\` for its GraphQL/API interface; **confirm current defaults in your pinned Compose release** and bind/filter access at the host firewall or management reverse proxy. Secure authentication, TLS termination where appropriate, backups, container update cadence and administrative MFA/SSO where supported should be in the deployment plan. Restrict exposed APIs and webhook receivers to management networks.
+The upstream application commonly uses HTTP port `20211` for the UI and `20212` for its GraphQL/API interface; **confirm current defaults in your pinned Compose release** and bind/filter access at the host firewall or management reverse proxy. Secure authentication, TLS termination where appropriate, backups, container update cadence and administrative MFA/SSO where supported should be in the deployment plan. Restrict exposed APIs and webhook receivers to management networks.
 
 ## First-Run Checklist
 
 1. Verify platform/CPU architecture, container image provenance, volume mapping and admin account.
-2. Define authorized \`SCAN_SUBNETS\` / plugin scope using current upstream settings; exclude customer/neighbor networks and dangerous embedded targets.
+2. Define authorized `SCAN_SUBNETS` / plugin scope using current upstream settings; exclude customer/neighbor networks and dangerous embedded targets.
 3. Start with **one** lab VLAN and a small scan frequency. Active network probing is not automatically harmless.
 4. Classify owned known devices by stable inventory asset ID, not only current randomized MAC address.
 5. Identify trusted data sources: gateway DHCP, switch LLDP/SNMPv3, AP/controller APIs, Pi-hole.
@@ -138,10 +126,10 @@ Use [NetAlertX's official webhook notification plugin](https://docs.netalertx.co
 ### Synthetic Event Contract (No Webhook Server)
 
 ```json
-{"integration":"netalertx","event_type":"device_seen","timestamp":"2026-11-21T12:00:00Z","device_id":"synthetic-lab-device-01","vlan":"30","site":"lab","confidence":"observed","source":"approved-dhcp-import"}
+{"integration":"netalertx","event_type":"device_seen","timestamp":"2026-11-24T12:00:00Z","device_id":"synthetic-lab-device-01","vlan":"30","site":"lab","confidence":"observed","source":"approved-dhcp-import"}
 ```
 
-For **Wazuh 4.x compatible agent configurations**, a local monitored file may be declared in the agent's \`ossec.conf\`; validate actual version-specific syntax:
+For **Wazuh 4.x compatible agent configurations**, a local monitored file may be declared in the agent's `ossec.conf`; validate actual version-specific syntax:
 
 ```xml
 <localfile>
@@ -150,18 +138,18 @@ For **Wazuh 4.x compatible agent configurations**, a local monitored file may be
 </localfile>
 ```
 
-Restrict file ownership, ensure a newline per event, enforce rotation and validate ingestion with \`wazuh-logtest\` **on a test manager**. Do not silently invent Wazuh rule IDs or assume a JSON event automatically generates a high-severity alert. Wazuh 5 prerelease agent/manager behavior should be reviewed independently from this 4.x example.
+Restrict file ownership, ensure a newline per event, enforce rotation and validate ingestion with `wazuh-logtest` **on a test manager**. Do not silently invent Wazuh rule IDs or assume a JSON event automatically generates a high-severity alert. Wazuh 5 prerelease agent/manager behavior should be reviewed independently from this 4.x example.
 
 ## Wireshark & Network-Evidence Correlation
 
 | Question | Display Filter | Additional Evidence |
 |---|---|---|
-| Device's ARP traffic | \`arp\` | MAC/IP/port mapping, DHCP lease and VLAN |
-| DHCP request/offer | \`dhcp || bootp\` | Approved DHCP server + snooping table |
-| DNS traffic | \`dns\` | DNS resolver logs, device process |
-| IPv6 RA | \`icmpv6.type == 134\` | Router config / RA Guard |
-| VLAN 30 | \`vlan.id == 30\` | Switch and NIC tag retention |
-| Endpoint TLS | \`tls\` | Certificate validation and endpoint identity |
+| Device's ARP traffic | `arp` | MAC/IP/port mapping, DHCP lease and VLAN |
+| DHCP request/offer | `dhcp || bootp` | Approved DHCP server + snooping table |
+| DNS traffic | `dns` | DNS resolver logs, device process |
+| IPv6 RA | `icmpv6.type == 134` | Router config / RA Guard |
+| VLAN 30 | `vlan.id == 30` | Switch and NIC tag retention |
+| Endpoint TLS | `tls` | Certificate validation and endpoint identity |
 
 **The packet must first reach the capture interface.** NetAlertX's ARP scan is not a promiscuous packet recorder; mirror/TAP traffic is separate. Match observations to [Wireshark Defensive Investigations](./wireshark-defensive-investigations.md) and [Network Segmentation](./network-segmentation-dmz-acl-vlan.md).
 
@@ -185,7 +173,8 @@ Restrict file ownership, ensure a newline per event, enforce rotation and valida
 - [DMZ, VLAN, ACL & SPAN Design](./network-segmentation-dmz-acl-vlan.md)
 - [Wazuh Deployment](../IncidentResponse/SIEM/wazuh.md), [Snort IDS/IPS](../IncidentResponse/IDS%26IPS/snort.md), [nzyme WIDS](../IncidentResponse/IDS%26IPS/nzyme_wids.md)
 - [Official NetAlertX Site](https://netalertx.com/), [Documentation](https://docs.netalertx.com/), [GitHub](https://github.com/netalertx/NetAlertX)
-- [NetAlertX Docker Guide](https://docs.netalertx.com/DOCKER_INSTALLATION/) & [Remote Networks](https://docs.netalertx.com/REMOTE_NETWORKS/)
+- [NetAlertX Docker Guide](https://docs.netalertx.com/DOCKER_INSTALLATION/), [Docker Compose security guidance](https://github.com/netalertx/NetAlertX/blob/main/docs/DOCKER_COMPOSE.md), and [missing-capabilities guidance](https://github.com/netalertx/NetAlertX/blob/main/docs/docker-troubleshooting/missing-capabilities.md)
+- [Remote Networks](https://docs.netalertx.com/REMOTE_NETWORKS/), [subnet configuration](https://docs.netalertx.com/SUBNETS/), and [web UI/API ports](https://docs.netalertx.com/WEB_UI_PORT_DEBUG/)
 
 ---
 
