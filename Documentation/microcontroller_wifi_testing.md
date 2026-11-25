@@ -426,10 +426,10 @@ For PCAP and BLE Sniff, check the build's current Save PCAP/CSV pathway instead 
 3. Export the supported PCAP through the local dashboard or alternate documented path; verify an actual file was produced.
 4. Inspect its metadata on an evidence workstation using a read-only tool, e.g.:
 
-~~~bash
+```bash
 file /path/to/authorized-lab.pcap
 sha256sum /path/to/authorized-lab.pcap
-~~~
+```
 
 5. Compare the known AP's BSSID/channel to capture output. Preserve the original, redact other identifiers and record capture filter/limits.
 6. If using a Flock-You signature feature, treat results as candidate detections requiring independent physical/controller confirmation, not conclusive identification.
@@ -543,11 +543,11 @@ The [projectZero wiki](https://github.com/C5Lab/projectZero/wiki) documents, for
 2. Confirm **whether the chosen JanOS build actually saves PCAP** and the exact file destination. Do not assume every UI has continuous PCAP storage or that Tab5 and Flipper save to the same device.
 3. Stop capture and preserve the unchanged source file. On a trusted Linux evidence workstation, verify actual file type and hash:
 
-~~~bash
+```bash
 file /path/to/approved-test-capture.pcap
 sha256sum /path/to/approved-test-capture.pcap
 tshark -r /path/to/approved-test-capture.pcap -c 10
-~~~
+```
 
 4. If frames are present, filter for **beacon frames** using `tshark -r /path/to/approved-test-capture.pcap -Y 'wlan.fc.type_subtype == 8'`; a file containing no 802.11 dissector fields may use a different link type or capture format.
 5. Compare observed BSSID/channel/times with the AP controller. Do not collect credentials, force reconnection, or crack captures for routine coverage acceptance.
