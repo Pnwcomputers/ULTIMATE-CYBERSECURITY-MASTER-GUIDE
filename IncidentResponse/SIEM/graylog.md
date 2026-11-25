@@ -370,6 +370,8 @@ For Winlogbeat/Filebeat:
    - Port: `5044`
 4. Click **Save**
 
+For the Winlogbeat examples below, enable Graylog Beats input's **Do not add Beats type as prefix** option so the fields retain their Winlogbeat names. The examples assume fields such as `agent.type`, `winlog.channel`, `winlog.event_id` and `winlog.event_data.*`. If prefixing or a processing pipeline changes the names, inspect a received message and adapt the searches. See Graylog's [Beats input reference](https://go2docs.graylog.org/current/getting_in_log_data/beats_input.html) and Elastic's [Winlogbeat fields](https://www.elastic.co/docs/reference/beats/winlogbeat/exported-fields-winlog).
+
 ### Step 4.4: Create GELF Input
 
 GELF (Graylog Extended Log Format) supports structured logging:
@@ -400,14 +402,14 @@ Streams route messages based on rules. Think of them as filters that categorize 
 2. Click **Create Stream**
 3. Configure:
    - Title: `Windows Events`
-   - Description: `All Windows Event Log messages`
+   - Description: `Winlogbeat Windows Event Log messages`
    - Index Set: Default
 4. Click **Save**
 5. Click **Manage Rules** for the new stream
 6. Add Rule:
-   - Field: `source`
-   - Type: `match regular expression`
-   - Value: `.*` (or specific hostname pattern)
+   - Field: `agent.type`
+   - Type: `match exactly`
+   - Value: `winlogbeat`
    - Inverted: No
 7. Click **Save**
 8. Click **Start Stream** (on the Streams page)
@@ -418,8 +420,8 @@ Streams route messages based on rules. Think of them as filters that categorize 
 |-------------|------------|-----------|------------|
 | Linux Syslog | `facility` | `match exactly` | `local0` through `local7` |
 | Network Devices | `source` | `match regular expression` | `^(switch\|router\|fw).*` |
-| Sysmon Events | `winlog_channel` | `match exactly` | `Microsoft-Windows-Sysmon/Operational` |
-| Authentication | `EventID` | `match exactly` | `4624` or `4625` |
+| Sysmon Events | `winlog.channel` | `match exactly` | `Microsoft-Windows-Sysmon/Operational` |
+| Authentication | `winlog.event_id` | `match exactly` | `4624` or `4625` |
 
 ### Processing Pipelines
 
@@ -434,9 +436,9 @@ Pipelines process and enrich messages.
 ```
 rule "Extract Windows EventID"
 when
-    has_field("EventID")
+    has_field("winlog.event_id")
 then
-    let event_id = to_string($message.EventID);
+    let event_id = to_string(get_field("winlog.event_id"));
     set_field("event_id_string", event_id);
 end
 ```
@@ -650,37 +652,37 @@ _exists_:user_id
 #### Failed Logins (Windows)
 
 ```
-EventID:4625
+winlog.event_id:4625
 ```
 
 #### Successful Logins (Windows)
 
 ```
-EventID:4624
+winlog.event_id:4624
 ```
 
 #### Sysmon Process Creation
 
 ```
-EventID:1 AND winlog_channel:"Microsoft-Windows-Sysmon/Operational"
+winlog.event_id:1 AND winlog.channel:"Microsoft-Windows-Sysmon/Operational"
 ```
 
 #### PowerShell Execution
 
 ```
-EventID:4104 OR (EventID:1 AND Image:*powershell*)
+winlog.event_id:4104 OR (winlog.event_id:1 AND winlog.event_data.Image:*powershell*)
 ```
 
 #### Network Connections (Sysmon)
 
 ```
-EventID:3 AND NOT DestinationIp:10.* AND NOT DestinationIp:192.168.*
+winlog.event_id:3 AND NOT winlog.event_data.DestinationIp:10.* AND NOT winlog.event_data.DestinationIp:192.168.*
 ```
 
 #### Suspicious Processes
 
 ```
-EventID:1 AND (Image:*cmd.exe OR Image:*powershell.exe) AND ParentImage:*WINWORD.EXE
+winlog.event_id:1 AND (winlog.event_data.Image:*cmd.exe OR winlog.event_data.Image:*powershell.exe) AND winlog.event_data.ParentImage:*WINWORD.EXE
 ```
 
 ### Saved Searches
@@ -729,16 +731,16 @@ EventID:1 AND (Image:*cmd.exe OR Image:*powershell.exe) AND ParentImage:*WINWORD
 
 1. Click **Create**
 2. Configure:
-   - Search Query: `EventID:(4624 OR 4625)`
+   - Search Query: `winlog.event_id:(4624 OR 4625)`
    - Visualization: **Pie Chart**
-   - Rows: **EventID** (Terms)
+   - Rows: **winlog.event_id** (Terms)
    - Metrics: **count()**
 
 #### Widget 4: Failed Login Map
 
 1. Click **Create**
 2. Configure:
-   - Search Query: `EventID:4625 AND _exists_:src_geo_country`
+   - Search Query: `winlog.event_id:4625 AND _exists_:src_geo_country`
    - Visualization: **World Map**
    - Rows: **src_geo_country**
    - Metrics: **count()**
@@ -765,9 +767,9 @@ Graylog Content Packs can provide pre-built dashboards. Check **System → Conte
 
 **Step 2: Condition**
 - Condition Type: **Aggregation**
-- Search Query: `EventID:4625`
+- Search Query: `winlog.event_id:4625`
 - Streams: (Select your Windows stream)
-- Group by: `source` OR `IpAddress`
+- Group by: `winlog.event_data.IpAddress`
 - Search within: `5 minutes`
 - Execute every: `1 minute`
 - Create alert when: **count() >= 5**
@@ -781,7 +783,7 @@ Add fields to include in the alert.
 ### Example: Suspicious PowerShell
 
 **Condition:**
-- Search Query: `EventID:1 AND Image:*powershell* AND (CommandLine:*-enc* OR CommandLine:*downloadstring* OR CommandLine:*bypass*)`
+- Search Query: `winlog.event_id:1 AND winlog.event_data.Image:*powershell* AND (winlog.event_data.CommandLine:*-enc* OR winlog.event_data.CommandLine:*downloadstring* OR winlog.event_data.CommandLine:*bypass*)`
 - Create alert when: **count() > 0**
 
 ### Notification Channels
