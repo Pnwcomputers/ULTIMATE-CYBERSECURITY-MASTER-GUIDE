@@ -93,7 +93,7 @@ Recommended minimal event fields: `source`, `timestamp_utc`, `site`, `vlan`, `ob
 | Question | Display Filter | Caveat |
 |---|---|---|
 | Local ARP changes | `arp` | Only traffic delivered to capture NIC |
-| DHCP client/server | `dhcp || bootp` | Lease alone does not prove presence |
+| DHCP client/server | `dhcp` | Lease alone does not prove presence |
 | VLAN 30 | `vlan.id == 30` | Tags may be stripped/offloaded |
 | DNS source | `dns` | DoH/DoT encrypt questions |
 | Unusual management-frame burst | `wlan.fc.type_subtype == 0x0c` | Requires monitor-mode 802.11 RF capture |
