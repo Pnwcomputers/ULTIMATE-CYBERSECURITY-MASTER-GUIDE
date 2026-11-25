@@ -119,32 +119,17 @@ Sysmon's power comes from its XML configuration file. Choose a configuration bas
 
 A community configuration that can be a useful starting point. Review its filters and event coverage against your own collection, retention, and detection requirements before deployment.
 
-```powershell
-Review the repository's current release and change history, then place the reviewed configuration at `C:\Tools\Sysmon\sysmonconfig.xml`. Prefer a reviewed, versioned copy over downloading a moving branch directly.
-
-``````
-
-Validate the selected revision in a pilot before broad rollout and retain the exact configuration used for change review and rollback.
+- Repository: <https://github.com/SwiftOnSecurity/sysmon-config>
+- Review the repository's current release and change history. Prefer a reviewed, versioned copy over downloading a moving branch directly.
+- Validate the selected revision in a pilot before broad rollout and retain the exact configuration used for change review and rollback.
 
 ### Option 2: Olaf Hartong's Sysmon Modular
 
-A modular approach allowing granular control over what gets logged.
+A modular project for building a tailored configuration. Review the modules and generated config at a pinned commit before deployment.
 
-```powershell
-# Clone the repository
-git clone https://github.com/olafhartong/sysmon-modular.git C:\Tools\sysmon-modular
-
-Build and review a merged configuration from the modules at a pinned commit. Avoid using a moving branch as an unattended production source.
-
-``````
-
-**Pros:**
-- Highly customizable
-- Modular structure for easy editing
-- Maps to MITRE ATT&CK framework
-- Includes attack-specific detection rules
-
-**Best for:** Advanced users, threat hunters, red team detection
+- Repository: <https://github.com/olafhartong/sysmon-modular>
+- Build and review a merged configuration from the modules at a pinned commit. Avoid using a moving branch as an unattended production source.
+- Validate the selected revision in a pilot and retain the configuration used for rollout and rollback.
 
 ### Option 3: Microsoft MSTIC-Sysmon (Reference)
 
