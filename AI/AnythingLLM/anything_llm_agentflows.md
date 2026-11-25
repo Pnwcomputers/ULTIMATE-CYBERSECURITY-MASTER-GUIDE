@@ -79,7 +79,7 @@ The following custom AgentFlows are referenced in these workflows:
 
 5. **Compile Final Report** - Aggregate all findings into deliverable
 
-**Output:** Professional penetration test report ready for client delivery
+**Output:** Draft report for analyst verification, scope review, and approved release
 
 ---
 
