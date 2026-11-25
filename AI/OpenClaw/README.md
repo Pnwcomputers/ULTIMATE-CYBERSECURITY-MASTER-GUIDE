@@ -333,15 +333,15 @@ proxy_send_timeout 3600s;
 proxy_connect_timeout 60s;
 ```
 
-> ⚠️ The `proxy_http_version 1.1` line is critical. WebSockets require HTTP/1.1 and will fail silently with HTTP/2 or HTTP/3.
+> The config explicitly uses HTTP/1.1 for the upstream's classic WebSocket `Upgrade` handshake and forwards the hop-by-hop `Upgrade` and `Connection` headers. The browser-facing HTTP/2 or HTTP/3 connection is a separate leg; WebSockets can use standardized extended CONNECT mechanisms over those protocols when both ends support them. Do not disable browser-facing HTTP/2 or HTTP/3 solely because the upstream uses WebSockets. Test the exact NPMplus/OpenClaw combination and consult the [Nginx WebSocket proxy guidance](https://nginx.org/en/docs/http/websocket.html), [RFC 8441](https://www.rfc-editor.org/rfc/rfc8441), and [RFC 9220](https://www.rfc-editor.org/rfc/rfc9220).
 
 **TLS tab:**
 | Field | Value |
 |-------|-------|
 | TLS Certificate | Request a new Certificate |
 | Force HTTPS | ✅ Enabled |
-| HTTP/2 Support | ❌ Disabled |
-| HTTP/3 Support | ❌ Disabled |
+| HTTP/2 Support | Optional on the browser-to-proxy connection; test the Gateway WebSocket if enabled |
+| HTTP/3 Support | Optional on the browser-to-proxy connection; test the Gateway WebSocket if enabled |
 | Use DNS Challenge | ✅ Enabled (required for DuckDNS) |
 
 Enable **Use DNS Challenge** and enter your DuckDNS token from `https://www.duckdns.org`.
