@@ -163,9 +163,11 @@ Building complete coverage from scratch?
    └─> Read the visibility primer in ../log_agg.md.
 
 2. Stand up detection (IDS mode)
-   └─> Follow one guide end-to-end — install, configure, validate.
-   └─> Run alert-only / detection-only first. Do not enable Suricata's
-       IPS/blocking mode until this phase has been observed clean.
+   └─> Follow one guide end-to-end — install, configure, and validate.
+   └─> Before blocking, confirm sensor placement and capture coverage,
+       expected and benign workflows, false-positive handling, throughput,
+       maintenance/update behavior, and a rehearsed rollback. No fixed
+       waiting period replaces these acceptance checks.
 
 3. Tune alerts
    └─> Observe enough representative traffic to include normal peaks,
@@ -206,8 +208,10 @@ Building complete coverage from scratch?
      source, and has no place on a security monitoring appliance.
 
 3. EXPOSURE
-   ► IDS/IPS management interfaces (node UIs, firewall web UIs)
-     must never be exposed to the internet unauthenticated.
+   ► Keep management interfaces (node and firewall UIs/APIs) on a
+     trusted management network or VPN and restrict access to
+     authorized administrators. Do not expose them directly to the
+     public Internet.
 
 4. AUTHORIZATION
    ► Only deploy sensors/taps on networks you own or are
