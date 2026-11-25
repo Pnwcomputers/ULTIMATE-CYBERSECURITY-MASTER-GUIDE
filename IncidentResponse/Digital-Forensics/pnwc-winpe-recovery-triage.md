@@ -29,6 +29,24 @@ that a third-party application works in WinPE.
 
 ## Choose The Right Workflow
 
+Use the evidence and operational goal to choose the path before booting another environment:
+
+```mermaid
+flowchart TD
+    start["Define the authorized objective"] --> volatile{"Need RAM or running-system evidence?"}
+    volatile -->|Yes| live["Collect and verify live data before shutdown"]
+    live --> route{"What is the next objective?"}
+    volatile -->|No| route
+    route -->|Recover Windows| recovery["Use a lab-tested WinPE image and approved recovery plan"]
+    route -->|Forensic acquisition| protect["Validate write protection and identify source and destination"]
+    protect --> acquire["Acquire source, hash it, and document custody"]
+    acquire --> analyze["Analyze a verified copy"]
+    route -->|Analyze copied artifacts| copies["Verify copies, tool dependencies, and rule-set versions"]
+    route -->|Qualify hardware| fullos["Boot a supported full OS for hardware validation"]
+```
+
+*Decision aid: WinPE is one recovery route, not a substitute for volatile collection, validated forensic acquisition, or full-OS hardware qualification. Follow the case authorization and preserve evidence before any destructive recovery step.*
+
 | Goal | Recommended Route |
 | --- | --- |
 | Capture RAM, active connections or running processes | Use [live-data collection](./LiveData/live_data_collection.md) before shutdown; WinPE cannot recreate the previous running state. |
