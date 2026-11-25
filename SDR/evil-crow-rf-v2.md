@@ -28,13 +28,13 @@ flowchart LR
     esp --> nrf["NRF24L01"]
     testSub["Owned test signal<br/>supported Sub-GHz band"] -->|receive path| ccA
     testSub -->|receive path| ccB
-    test24["Separate 2.4 GHz test context"] -->|separate radio path| nrf
+    nrf -. other firmware-specific functions .-> functionNote["2.4 GHz behavior depends on selected firmware"]
     ccA -. captured representation .-> esp
     ccB -. captured representation .-> esp
     nrf -. device-specific data .-> esp
 ```
 
-*Conceptual component map based on the linked upstream project. It distinguishes the two CC1101 Sub-GHz radios from the separate NRF24L01 and shows only a high-level receive workflow; it is not a wiring diagram, a feature-completeness claim, or a protocol decoder.*
+*Conceptual component map based on the linked upstream project. It distinguishes the two CC1101 Sub-GHz radios from the separate NRF24L01. Only CC1101 receive paths are shown in the bench exercise; NRF24L01 behavior depends on selected firmware. This is not a wiring diagram, feature-completeness claim, or protocol decoder.*
 
 ## Firmware & Hardware Choices
 
