@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**The original open-source IDS, that is still relevant! It's just a bit harder to install cleanly than its modern alternative**
+**Version-aware guide to Snort 2/3 installation, configuration, alerting and traffic modes**
 
 *Part of the [ULTIMATE CYBERSECURITY MASTER GUIDE](../../README.md) · [Incident Response](../README.md) · [IDS & IPS](readme.md) section*
 
@@ -15,6 +15,9 @@
 ---
 
 ## 🎯 Purpose
+
+_Reviewed: 2026-11-24. Installation guidance was checked against current official Snort and Suricata documentation; package versions remain distribution-specific._
+
 Guide for deploying [Snort](https://www.snort.org/), the original open-source signature-based IDS/IPS, now maintained by Cisco. Covers every install path people actually try, honestly documents where the official packaging currently falls short, and gives the informed choice between sticking with Snort and moving to [Suricata](./suricata+zeek.md) instead.
 
 ## ⚙️ Function
@@ -54,10 +57,10 @@ Get a working decision, not just a working install: know which install path is w
 | Packet processing | Snort 2 uses one packet thread per process; Snort 3 supports multiple packet threads per process | Multi-threaded engine |
 | Rule language | Its own, large community rule ecosystem (Talos/Snort rules) | Compatible with Snort-style rules, plus its own extensions (`http.uri`, `dns.query`, etc.) |
 | Official package availability | Inconsistent across distros/versions — see gotchas below | Available in standard Debian/Ubuntu repos, actively maintained |
-| Protocol-aware inspection | Present but less extensive | Deeper protocol decoders (TLS, HTTP/2, DNS) |
+| Protocol-aware inspection | Inspectors and logging vary by release and configuration | Inspectors and logging vary by release and configuration |
 | Maintainer | Cisco (via Talos) | Open Information Security Foundation (OISF) |
 
-Both are legitimate, capable engines. The practical difference this repo's own experience surfaced is **packaging friction**, not detection capability — see [Common Gotchas](#-common-gotchas).
+Both are capable engines. This repository records a past Snort package/repository installation difficulty; that experience is not a measured comparison of detection quality or performance. See [Common Gotchas](#-common-gotchas).
 
 ![Snort 2 and Snort 3 use different configuration formats; after validating the version-matched setup, traffic can be inspected passively or, with a supported inline DAQ and network placement, handled inline.](../../assets/diagrams/snort-generation-and-traffic-modes.svg)
 
@@ -75,8 +78,8 @@ Both are legitimate, capable engines. The practical difference this repo's own e
 
 2. If not available or too old, try the official repo:
    └─> Add Snort's apt repository and key.
-   └─> KNOWN ISSUE: the key URL has been unreliable — see gotchas
-       before spending much time here.
+   └─> A past attempt failed at key retrieval — see Common Gotchas and
+       confirm current official instructions before using this path.
 
 3. If the official repo fails, choose:
    └─> Build from source (Snort 2.9.x — dependency-heavy, slow).
@@ -256,8 +259,8 @@ Do not add `-Q` to a one-interface monitoring command and assume that traffic wi
 
 If the current official instructions do not support your platform, or the install is not a good fit for the deployment, compare the options and consider Suricata. A prior attempt recorded in this guide moved to Suricata after package/repository friction on one setup; that report is specific to its date and environment, not proof that Snort's current download path is broken. Suricata:
 
-- Installs cleanly from standard Debian/Ubuntu repos with a single `apt install suricata`
-- Is natively multi-threaded, which matters more than it sounds on constrained hardware like a Raspberry Pi
+- Has distribution packages, but versions and repository paths vary. Debian stable packages can lag; Ubuntu instructions use the official OISF package source for current stable releases.
+- Supports multi-threaded processing; measure the target hardware, ruleset and capture path instead of assuming one engine is faster on a small device.
 - Has its own full deployment guide in this repo: **[IDS & IPS: Suricata & Zeek](./suricata+zeek.md)**
 
 This isn't a blanket "always use Suricata instead" — if you have an organizational reason to standardize on Snort specifically (existing Talos rule licensing, existing infrastructure, team familiarity), the paths above will get you there. But if you're choosing an engine freely and just hit the packaging wall, that's a legitimate signal, not a reason to keep fighting the installer.
@@ -300,6 +303,7 @@ This isn't a blanket "always use Suricata instead" — if you have an organizati
 - **Snort 3 command line:** [Command line basics](https://docs.snort.org/start/help)
 - **Snort 3 configuration:** [Configuration guide](https://docs.snort.org/start/configuration)
 - **Snort 3 traffic modes:** [Reading traffic](https://docs.snort.org/start/inspection)
+- **Suricata package guidance:** [Official installation documentation](https://docs.suricata.io/en/latest/install.html), [Ubuntu packages](https://docs.suricata.io/en/latest/install/ubuntu.html), [Debian packages](https://docs.suricata.io/en/latest/install/debian.html)
 
 ---
 
