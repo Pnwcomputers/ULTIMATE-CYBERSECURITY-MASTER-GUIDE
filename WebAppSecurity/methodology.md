@@ -107,7 +107,7 @@ flowchart LR
   authentication state, role, method, data sensitivity, and scope status. Record
   untested routes and uncertainty; use the inventory to plan later phases, not
   as proof that every discovered route is authorized or vulnerable.
-- **Reference:** [OWASP WSTG v4.2 — Identify Application Entry Points](https://wstg.owasp.org/stable/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points/)
+- **Reference:** [OWASP WSTG v4.2 — Identify Application Entry Points](https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/01-Information_Gathering/06-Identify_Application_Entry_Points/)
   and the [Domain/IP Recon guide](../OSINT/scripts/Domain_IP_Recon.md).
 
 ---
@@ -190,8 +190,8 @@ flowchart LR
   signed scope or retrieve sensitive files merely to prove exposure.
 - **Evidence:** record the environment, request/response or configuration
   observation, applicable baseline, demonstrated impact, and remediation. See
-  the [OWASP WSTG browser security controls](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/02-Configuration_and_Deployment_Management/14-Additional_Browser_Security_Controls/)
-  and [CORS testing guidance](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/11-Client-side/07-Cross_Origin_Resource_Sharing/).
+  the [OWASP Secure Headers Project](https://owasp.org/www-project-secure-headers/)
+  and [CORS testing guidance](https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/11-Client-side_Testing/07-Testing_Cross_Origin_Resource_Sharing/).
 
 ---
 
@@ -332,7 +332,7 @@ them.
   state and downstream effects, including cleanup or rollback. Record the
   synthetic identity, test case, expected and observed transition, external
   effects, and residual risk. See the [OWASP WSTG business-logic testing
-  guidance](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/10-Business_Logic/01-Business_Logic_Data_Validation/).
+  guidance](https://wstg.owasp.org/v4.2/4-Web_Application_Security_Testing/10-Business_Logic_Testing/01-Test_Business_Logic_Data_Validation/).
 
 ---
 
