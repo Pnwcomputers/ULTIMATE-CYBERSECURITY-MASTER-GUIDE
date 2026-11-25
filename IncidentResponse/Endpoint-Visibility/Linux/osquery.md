@@ -1005,19 +1005,26 @@ sudo chmod 700 /var/osquery/
 
 ### Enable TLS for Fleet
 
-If using Fleet for central management:
+This example is for a standalone `osqueryd` client using Fleet's osquery TLS endpoints. It includes the enrollment, configuration, and logging endpoint paths required by the TLS plugins. Fleet-managed `fleetd` deployments should use Fleet's current package and agent configuration; do not duplicate these connection flags in a second local setup.
+
+Store the enrollment secret in a root-readable file and provide the CA certificate or full trusted certificate chain required by your Fleet TLS setup. Confirm that the TLS certificate matches the hostname.
 
 ```json
 {
   "options": {
     "tls_hostname": "fleet.company.com",
-    "tls_server_certs": "/etc/osquery/fleet.crt",
+    "tls_server_certs": "/etc/osquery/fleet-ca.pem",
     "enroll_secret_path": "/etc/osquery/enroll_secret",
+    "enroll_tls_endpoint": "/api/osquery/enroll",
     "config_plugin": "tls",
-    "logger_plugin": "tls"
+    "config_tls_endpoint": "/api/osquery/config",
+    "logger_plugin": "tls",
+    "logger_tls_endpoint": "/api/osquery/log"
   }
 }
 ```
+
+Fleet endpoint paths and certificate handling depend on the server/proxy deployment. Follow the current [osquery remote settings guide](https://osquery.readthedocs.io/en/stable/deployment/remote/) and [Fleet agent deployment documentation](https://fleetdm.com/docs/configuration/agent-configuration) for the selected management mode.
 
 ### Audit Osquery Access
 
