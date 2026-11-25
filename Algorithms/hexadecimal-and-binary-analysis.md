@@ -34,6 +34,21 @@ Offset    Bytes (hex)                                       ASCII
           | magic   | |flags/len| | payload  | | trailer |
 ```
 
+
+
+```mermaid
+flowchart LR
+    subgraph Same_Bytes["Same bytes, three views"]
+        O["Offset 0x08–0x0B"] --> H["Hex: 54 45 53 54"] --> A["ASCII: T E S T"]
+    end
+    subgraph Field_Interpretation["Field meaning depends on byte order"]
+        L["Bytes 0x06–0x07: 04 00"] --> LE["Little endian: 4"]
+        L --> BE["Big endian: 1024"]
+    end
+```
+
+*Conceptual mapping for the synthetic dump above. The same bytes can have different numeric interpretations depending on the format's specified field width and byte order.*
+
 The offset is the zero-based byte position (not necessarily a memory address). Each pair is one byte. The right column is a printable representation of those same bytes, not extra file content. Dots usually represent nonprintable or non-ASCII bytes; a literal dot (2E) also looks like a dot. A row of 16 bytes advances the offset by 0x10. The sample's bytes at offset 0x08 through 0x0B spell TEST.
 
 In a typical editor, selecting a byte highlights its position in both views. Use a data inspector to interpret a selection as a signed/unsigned integer, float or text; correct interpretation depends on width, byte order and the actual format specification.
