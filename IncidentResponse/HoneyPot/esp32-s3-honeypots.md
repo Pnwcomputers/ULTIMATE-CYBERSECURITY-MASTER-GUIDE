@@ -14,13 +14,36 @@ _Last reviewed: 2026-10-31 · Based on upstream repositories; not hardware valid
 
 Neither project replaces Kismet/nzyme's fixed-channel 802.11 visibility or Wazuh's SIEM functions. Choose **ShadowSentry** for experiments mixing wireless indicators and fake services; choose **HoneyMire** for command/session deception and documented structured hub reporting. Both are independently maintained community projects, not security appliances vetted by PNWC.
 
+### Trust Boundaries And Reporting Paths
+
+```mermaid
+flowchart LR
+    subgraph isolated["Isolated decoy network"]
+        shadow["ShadowSentry S3<br/>Fake services + limited Wi-Fi indicators"]
+        honey["HoneyMire sensor<br/>SSH/Telnet decoy sessions"]
+        local["Local dashboard / logs<br/>Restrict management access"]
+        hub["Optional HoneyMire Hub<br/>Versioned protocol"]
+        shadow --> local
+        honey --> local
+        honey -->|optional structured events| hub
+    end
+    mgmt["Trusted management workstation"] -->|restricted admin path| local
+    shadow -. optional external reporting<br/>review before enabling .-> external["Telegram / GeoIP services"]
+    hub -->|authenticated transport| bridge["Trusted relay<br/>validate schema + redact sensitive fields"]
+    bridge -->|normalized JSONL| agent["Wazuh agent"]
+    agent --> manager["Wazuh manager / index"]
+    prod["Production and lab management plane"] -. no decoy access .- isolated
+```
+
+*Conceptual integration map based on the upstream project documentation. The HoneyMire-to-Wazuh route is a proposed bridge, not a built-in sensor integration. Keep dashboards isolated: ShadowSentry's plain-HTTP admin path is not encrypted, and HoneyMire documents a LAN authentication-bypass behavior.*
+
 ## 1. ShadowSentry S3: installation on isolated test hardware
 
 Source: [Rdx1S/ShadowSentryS3](https://github.com/Rdx1S/ShadowSentryS3); [ESP-IDF for S3](https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/).
 
 Requirements: ESP32-S3 board with supported flash and a USB data cable; 2.4 GHz Wi-Fi in a dedicated decoy VLAN; maintained ESP-IDF v5.x toolchain. Confirm current upstream README for the specific release before flashing.
 
-~~~bash
+```bash
 git clone https://github.com/Rdx1S/ShadowSentryS3.git
 cd ShadowSentryS3
 
@@ -32,7 +55,7 @@ cp main/config.h.example main/config.h
 idf.py set-target esp32s3
 idf.py build
 idf.py -p /dev/ttyACM0 flash monitor
-~~~
+```
 
 Replace /dev/ttyACM0 with your device's real serial port. Inspect and pin an upstream release/commit for repeatable builds. Do **not** blindly flash a random binary or store personal credentials in the firmware.
 
@@ -61,14 +84,14 @@ Upstream [HoneyMire sensor README](https://github.com/HoneyMire/HoneyMire-Sensor
 
 The upstream project supplies a browser flasher and PlatformIO builds. Review the project's source, releases and hardware compatibility; **browser flashing is not a source audit**.
 
-~~~bash
+```bash
 git clone https://github.com/HoneyMire/HoneyMire-Sensor-ESP32.git
 cd HoneyMire-Sensor-ESP32
 pio run -e esp32-s3-generic
 # Replace with esp32-s3-n16r8 or lilygo-t-qt-pro for matching actual board.
 pio run -e esp32-s3-generic -t upload
 pio device monitor
-~~~
+```
 
 HoneyMire's documentation lists an initial setup access point and **default dashboard credentials** and notes that dashboard authentication may be bypassed for LAN clients. Treat those as serious deployment risks: change defaults, **segment the device completely**, restrict the HTTP dashboard to a trusted management workstation, and review all outgoing threat-intelligence/HoneyMire Hub reporting before enabling. Do not put this firmware on a customer or ordinary home LAN and assume the dashboard is private.
 
