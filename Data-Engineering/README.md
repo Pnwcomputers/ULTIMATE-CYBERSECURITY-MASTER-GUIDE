@@ -31,7 +31,6 @@ production deployment or new execution of the existing Phase 1 labs._
 
 **Security telemetry contracts:** [Sigma/Elastic/Wazuh detection content validation](../IncidentResponse/SIEM/detection-content-validation.md) provides expected event-field and timestamp checks; [rtl_433 passive lab](../SDR/rtl433-passive-telemetry-lab.md) provides an illustrative synthetic radio telemetry schema. Ingest each event source separately with provenance.
 
-
 ## 🔄 Data Pipeline Lifecycle
 
 ```mermaid
