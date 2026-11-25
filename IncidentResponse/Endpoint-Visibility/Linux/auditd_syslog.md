@@ -346,13 +346,10 @@ For pre-built security-focused rules, consider:
 
 **STIG (Security Technical Implementation Guide) Rules:**
 
-Review the upstream file and pin a known revision before deployment; do not apply a downloaded ruleset without checking compatibility with the host baseline.
+The upstream rules are a multi-file bundle, not a standalone file: `30-stig.rules` depends on `10-base-config.rules` and `99-finalize.rules`. The base file contains `-D`, which deletes the loaded audit rules and watches. Review and pin the complete bundle, treat its use as an intentional replacement of the host ruleset, and test it against the target distribution's security baseline before deployment.
 
-```bash
-# Download STIG rules
-sudo wget -O /etc/audit/rules.d/90-stig.rules \
-  https://raw.githubusercontent.com/linux-audit/audit-userspace/master/rules/30-stig.rules
-```
+- [Upstream audit-userspace rules](https://github.com/linux-audit/audit-userspace/tree/master/rules)
+- [STIG rules and their dependencies](https://github.com/linux-audit/audit-userspace/blob/master/rules/30-stig.rules)
 
 **Laurel (MITRE ATT&CK Focused):**
 
@@ -367,7 +364,7 @@ sudo wget -O /etc/audit/rules.d/90-stig.rules \
 
 ### Step 3.1: Configure auditd.conf
 
-Edit `/etc/audit/auditd.conf`:
+Edit `/etc/audit/auditd.conf`. Choose `log_group` from a group that exists and matches the distribution policy; `adm` is common on Debian/Ubuntu but may not exist on RHEL-family systems.
 
 ```ini
 #
