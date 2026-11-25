@@ -13,6 +13,26 @@ _Upstream manual reviewed: 2026-11-21. No live target was tested._
 
 Use a deliberately vulnerable local training environment with synthetic records, a disposable database, no real users, no outbound access and reversible VM/container state. Turn on HTTP access logs, application exception logs and database statement/audit logs where available. Confirm a signed testing scope, even within organizational networks.
 
+The diagram shows the intended test boundary and the evidence sources to compare:
+
+```mermaid
+flowchart LR
+  subgraph lab["Disposable isolated lab — no outbound route"]
+    tester["Tester / sqlmap<br/>bounded local probe"]
+    app["Intentionally vulnerable<br/>training app"]
+    db["Disposable database<br/>synthetic records"]
+    httpLogs["HTTP and application logs"]
+    dbLogs["Database audit logs"]
+    evidence["Evidence review"]
+    tester -->|"loopback only"| app
+    app <--> db
+    app --> httpLogs
+    db --> dbLogs
+    httpLogs --> evidence
+    dbLogs --> evidence
+  end
+```
+
 Install via the [official GitHub repository](https://github.com/sqlmapproject/sqlmap) or trusted platform package. If using the upstream checkout, inspect dependencies and run:
 
 ```bash
