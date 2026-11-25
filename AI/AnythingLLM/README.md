@@ -18,13 +18,13 @@
 **Agent acceptance tests:** [Promptfoo security evaluation workflow](../llm-security-evaluation-promptfoo.md) covers synthetic data, tool permissions and instruction boundaries before connecting customer data.
 
 ## 🎯 Purpose
-Index and full technical documentation for 9 custom AnythingLLM AgentFlows covering OSINT/recon, scanning analysis, and vulnerability reporting. Complements [anything_llm_agentflows.md](anything_llm_agentflows.md), which shows how to chain these flows together into multi-step workflows rather than documenting each flow's internal block configuration.
+Index and configuration notes for nine documented AnythingLLM AgentFlows covering OSINT/recon, scan analysis, and vulnerability triage. [anything_llm_agentflows.md](anything_llm_agentflows.md) presents analyst-run sequences; it does not imply that one flow automatically invokes another.
 
 ## ⚙️ Function
-A categorized flow catalog (OSINT/Recon, Scanning/Analysis, Vulnerability Management) with quick-reference tables by use case, complexity, and required API keys, followed by each flow's dedicated `flow-*.md` file containing exact block-by-block configuration for recreating it in AnythingLLM.
+A categorized catalog with purpose, provider-access notes, and links to the individual flow configuration guides. Block availability, syntax, provider access, and pricing can change; check your installed AnythingLLM version and current provider documentation before implementation.
 
 ## 🏆 Goal
-Recreate any of the 9 documented AgentFlows in your own AnythingLLM instance from the block-level configuration, and know which flow to use for a given engagement phase (pre-engagement, active testing, reporting).
+Use the flow notes to build a synthetic-data lab, then decide which analyst-reviewed flow fits an authorized task.
 
 ## 📋 When To Use
 - Setting up AnythingLLM AgentFlows for the first time (start here, then open the specific `flow-*.md`)
@@ -33,7 +33,7 @@ Recreate any of the 9 documented AgentFlows in your own AnythingLLM instance fro
 
 ## Overview
 
-This directory contains complete technical documentation for creating custom AgentFlows used in cybersecurity assessments and penetration testing. Each flow is documented with full configuration details, block specifications, and usage instructions.
+This directory contains example configuration notes for AgentFlows used in authorized security work. They are not proof that a flow was run successfully against a live service; validate available blocks, provider settings, and data handling in your installed release.
 
 ---
 
@@ -45,32 +45,27 @@ This directory contains complete technical documentation for creating custom Age
 **Purpose:** Gathers public information about target companies  
 **Outputs:** Email formats, employees, tech stack, social media presence  
 **Use Cases:** Pre-engagement intelligence, company profiling  
-**Blocks:** 6 (3 web scraping, 3 LLM)
 
 #### [Domainrecon](flow-domain_recon.md)
 **Purpose:** Performs comprehensive domain reconnaissance  
 **Outputs:** Subdomains, DNS records, certificates, security posture  
 **Use Cases:** Attack surface mapping, asset discovery  
-**Blocks:** 6 (4 web scraping, 1 LLM, 1 complete)
 
 #### [Emailosint](flow-email_osint.md)
 **Purpose:** Investigates email addresses and usernames across platforms  
 **Outputs:** Breach history, social media accounts, security awareness assessment  
 **Use Cases:** Social engineering prep, breach verification  
-**Blocks:** 6 (1 API call, 1 web scraping, 3 LLM, 1 complete)  
 **Requirements:** HaveIBeenPwned API key
 
 #### [Githubsecrets](flow-github_secrets.md)
 **Purpose:** Searches GitHub for exposed credentials and sensitive data  
 **Outputs:** Exposed secrets, API keys, risk assessment  
 **Use Cases:** Credential exposure detection, pre-engagement OSINT  
-**Blocks:** 5 (2 web scraping, 2 LLM, 1 complete)
 
 #### [Breachchecker](flow-breacher_check.md)
 **Purpose:** Checks domains/emails against known data breaches  
 **Outputs:** Breach history, exposed data types, risk analysis  
 **Use Cases:** Domain-wide breach assessment, credential exposure  
-**Blocks:** 4 (2 API calls, 1 LLM, 1 complete)  
 **Requirements:** HaveIBeenPwned API key
 
 ---
@@ -81,30 +76,26 @@ This directory contains complete technical documentation for creating custom Age
 **Purpose:** Analyzes Nmap scan results and provides recommendations  
 **Outputs:** Parsed findings table, prioritized risks, next steps  
 **Use Cases:** Port scan analysis, vulnerability prioritization  
-**Blocks:** 3 (2 LLM, 1 complete)
 
 #### [Threatintelcheck](flow-threat_intel.md)
-**Purpose:** Checks IP/domain reputation against threat intelligence  
-**Outputs:** Threat score, BLOCK/MONITOR/ALLOW recommendation  
-**Use Cases:** IP reputation checking, incident response  
-**Blocks:** 5 (1 API call, 1 web scraping, 2 LLM, 1 complete)  
+**Purpose:** Looks up IP/domain reputation through configured sources  
+**Outputs:** A draft analyst aid; reputation data does not establish attribution or justify automatic blocking  
+**Use Cases:** Scoped enrichment and incident investigation
 **Requirements:** VirusTotal API key (recommended)
 
 ---
 
 ### 🔐 Vulnerability Management Flows
 
-#### [Cvelookup](flow-cve_lookup.md)
-**Purpose:** Retrieves CVE details and exploitability information  
-**Outputs:** CVSS analysis, exploitability assessment, remediation plan  
-**Use Cases:** CVE research, vulnerability analysis  
-**Blocks:** 4 (1 web scraping, 2 LLM, 1 complete)
+#### [CVELookup](flow-cve_lookup.md)
+**Purpose:** Retrieves a matching NVD CVE API 2.0 record for analyst-led triage  
+**Outputs:** Draft evidence-linked context and remediation questions; product applicability and fix status require vendor verification  
+**Use Cases:** CVE research and vulnerability triage  
 
 #### [Vulnreportgenerator](flow-vulnreport_gen.md)
 **Purpose:** Creates professional vulnerability reports  
 **Outputs:** Executive summary, technical findings, remediation steps  
 **Use Cases:** Report writing, client deliverables  
-**Blocks:** 5 (4 LLM, 1 complete)
 
 ---
 
@@ -144,28 +135,13 @@ This directory contains complete technical documentation for creating custom Age
 **Complex (6+ blocks):**
 - CompanyOSINT
 
-### API Keys Required
+### Provider Access, Quotas, and Data Handling
 
-**Essential:**
-- **HaveIBeenPwned API Key** - Required for EmailOSINT and BreachChecker
-  - Get at: https://haveibeenpwned.com/API/Key
-  - Cost: $3.50/month (as of 2025)
+Provider requirements depend on the specific endpoint and subscription:
 
-**Recommended:**
-- **VirusTotal API Key** - Required for ThreatIntelCheck
-  - Get at: https://www.virustotal.com/gui/join-us
-  - Free tier: 4 req/min, 500/day
-
-**Optional:**
-- **AbuseIPDB API Key** - Improves ThreatIntelCheck
-  - Get at: https://www.abuseipdb.com/register
-  - Free tier: 1,000 checks/day
-
-- **WhoisXML API Key** - Improves DomainRecon
-- **SecurityTrails API Key** - Improves DomainRecon
-
----
-
+- **Have I Been Pwned:** Authenticated account, paste, and domain-search operations require the documented headers; operation access varies by subscription. Domain search requires a verified domain. Check current [HIBP API documentation](https://haveibeenpwned.com/scalar/) before configuring a flow. Never put API keys in URLs, prompts, or exported flow definitions.
+- **VirusTotal:** The Public API is limited to non-commercial use and is not permitted for business workflows that do not contribute new files. Its current public quota is 4 requests/minute and 500/day, but quotas and licensed capabilities can change. Do not use a public key for a business assessment; check [VirusTotal's current API terms and limits](https://docs.virustotal.com/reference/public-vs-premium-api) and obtain approved access for the intended use.
+- **Other providers:** Review the provider's current terms, rate limits, retention, and permitted use. Before sending real data, confirm the destination is approved for that data class and minimize inputs.
 ## File Structure
 
 ```
@@ -185,6 +161,15 @@ This directory contains complete technical documentation for creating custom Age
 
 ---
 
+## Repository Layout
+
+- README.md — this flow catalog and setup notes
+- anything_llm_agentflows.md — analyst-run sequence examples and handoff gates
+- flow-*.md — individual flow configurations, assumptions, and source checks
+
+The flow guides are stored beside this index in AI/AnythingLLM/; use the relative links above rather than copying files from an export or temporary directory.
+
+---
 ## How To Use This Documentation
 
 ![Flow setup moves from checking enabled blocks and destinations through a synthetic execution in an isolated workspace to reviewing observed requests before using approved data.](../../assets/diagrams/anythingllm-flow-readiness.svg)
@@ -219,16 +204,16 @@ Self-hosting places the application under your control. Model providers, embeddi
 ## Common Issues & Solutions
 
 ### Variable Substitution
-**Problem:** Variables show as `{{variable}}` instead of values  
-**Solution:** Use `${variable}` syntax in URLs and prompts
+**Problem:** A flow block does not resolve an input  
+**Solution:** Check the syntax documented for that block and your installed release; do not assume one variable format works in every field. Test using synthetic data and inspect the rendered request before using approved real data.
 
 ### API Authentication
 **Problem:** 401/403 errors from APIs  
 **Solution:** Verify API keys are correct and active
 
 ### Rate Limiting
-**Problem:** "Quota exceeded" or "Too many requests"  
-**Solution:** Wait between requests, upgrade to paid tiers
+**Problem:** A provider returns a quota or throttling response  
+**Solution:** Check the current provider plan, limit, and permitted-use terms. Apply documented backoff; a throttled or empty response is not a negative finding.
 
 ### Web Scraping Failures
 **Problem:** Scraping returns errors or empty data  
@@ -244,7 +229,7 @@ Self-hosting places the application under your control. Model providers, embeddi
 
 ### Flow Creation
 
-1. **Start Simple** - Create basic flow, test, then enhance
+1. **Start Simple** - Create a minimal flow and test it with synthetic data and approved or mocked destinations before expanding it
 2. **Test Each Block** - Verify each block works before adding next
 3. **Use Meaningful Names** - Clear variable and block names
 4. **Document As You Go** - Note any customizations made
@@ -262,7 +247,7 @@ Self-hosting places the application under your control. Model providers, embeddi
 
 1. **Chain Flows Logically** - Follow reconnaissance → analysis → reporting
 2. **Save Intermediate Outputs** - Useful for troubleshooting
-3. **Batch Processing** - Run similar flows together
+3. **Batch Processing** - Batch only when scope, provider terms, data minimization, rate limits, and retention have been reviewed
 4. **Automate Common Tasks** - Script repetitive flow usage
 
 ---
@@ -307,7 +292,7 @@ Self-hosting places the application under your control. Model providers, embeddi
 ## Version Information
 
 **Documentation Version:** 1.0  
-**Last Updated:** November 2025  
+**Reviewed:** 2026-11-24  
 **Created By:** Pacific Northwest Computers  
 **Purpose:** Complete AgentFlow recreation guide
 
