@@ -47,20 +47,20 @@ This directory contains example configuration notes for AgentFlows used in autho
 **Use Cases:** Pre-engagement intelligence, company profiling  
 
 #### [Domainrecon](flow-domain_recon.md)
-**Purpose:** Performs comprehensive domain reconnaissance  
-**Outputs:** Subdomains, DNS records, certificates, security posture  
-**Use Cases:** Attack surface mapping, asset discovery  
+**Purpose:** Collects domain and certificate data for approved domains  
+**Outputs:** Candidate assets and records that require ownership, scope, and source verification  
+**Use Cases:** Authorized asset inventory and attack-surface review  
 
 #### [Emailosint](flow-email_osint.md)
-**Purpose:** Investigates email addresses and usernames across platforms  
-**Outputs:** Breach history, social media accounts, security awareness assessment  
-**Use Cases:** Social engineering prep, breach verification  
+**Purpose:** Checks an account owner's email for exposure and public account-security signals using authorized sources  
+**Outputs:** Provider metadata and possible public-profile leads; verify matches and minimize personal data  
+**Use Cases:** Owner-directed exposure review and authorized assessments  
 **Requirements:** HaveIBeenPwned API key
 
 #### [Githubsecrets](flow-github_secrets.md)
-**Purpose:** Searches GitHub for exposed credentials and sensitive data  
-**Outputs:** Exposed secrets, API keys, risk assessment  
-**Use Cases:** Credential exposure detection, pre-engagement OSINT  
+**Purpose:** Reviews in-scope public repositories for accidentally committed secrets  
+**Outputs:** Candidate findings for private verification; do not reproduce secret values in model prompts or reports  
+**Use Cases:** Authorized repository-owner review and scoped assessment  
 
 #### [Breachchecker](flow-breacher_check.md)
 **Purpose:** Checks domains/emails against known data breaches  
@@ -73,9 +73,9 @@ This directory contains example configuration notes for AgentFlows used in autho
 ### 🎯 Scanning & Analysis Flows
 
 #### [Nmapanalyzer](flow-nmap_analyzer.md)
-**Purpose:** Analyzes Nmap scan results and provides recommendations  
-**Outputs:** Parsed findings table, prioritized risks, next steps  
-**Use Cases:** Port scan analysis, vulnerability prioritization  
+**Purpose:** Summarizes authorized Nmap output for analyst review  
+**Outputs:** Parsed observations and draft follow-up questions; service/version banners do not confirm a vulnerability  
+**Use Cases:** Review of explicitly scoped scan results  
 
 #### [Threatintelcheck](flow-threat_intel.md)
 **Purpose:** Looks up IP/domain reputation through configured sources  
@@ -93,9 +93,9 @@ This directory contains example configuration notes for AgentFlows used in autho
 **Use Cases:** CVE research and vulnerability triage  
 
 #### [Vulnreportgenerator](flow-vulnreport_gen.md)
-**Purpose:** Creates professional vulnerability reports  
-**Outputs:** Executive summary, technical findings, remediation steps  
-**Use Cases:** Report writing, client deliverables  
+**Purpose:** Drafts vulnerability report sections from supplied evidence  
+**Outputs:** Candidate summaries and remediation text that require evidence, confidentiality, and release review  
+**Use Cases:** Analyst-assisted reporting  
 
 ---
 
@@ -142,6 +142,7 @@ Provider requirements depend on the specific endpoint and subscription:
 - **Have I Been Pwned:** Authenticated account, paste, and domain-search operations require the documented headers; operation access varies by subscription. Domain search requires a verified domain. Check current [HIBP API documentation](https://haveibeenpwned.com/scalar/) before configuring a flow. Never put API keys in URLs, prompts, or exported flow definitions.
 - **VirusTotal:** The Public API is limited to non-commercial use and is not permitted for business workflows that do not contribute new files. Its current public quota is 4 requests/minute and 500/day, but quotas and licensed capabilities can change. Do not use a public key for a business assessment; check [VirusTotal's current API terms and limits](https://docs.virustotal.com/reference/public-vs-premium-api) and obtain approved access for the intended use.
 - **Other providers:** Review the provider's current terms, rate limits, retention, and permitted use. Before sending real data, confirm the destination is approved for that data class and minimize inputs.
+
 ## Repository Layout
 
 - README.md — this flow catalog and setup notes
@@ -189,20 +190,20 @@ Self-hosting places the application under your control. Model providers, embeddi
 **Solution:** Check the syntax documented for that block and your installed release; do not assume one variable format works in every field. Test using synthetic data and inspect the rendered request before using approved real data.
 
 ### API Authentication
-**Problem:** 401/403 errors from APIs  
-**Solution:** Verify API keys are correct and active
+**Problem:** An API returns an authentication or access error  
+**Solution:** Check the endpoint's current subscription, required headers, domain verification, account permissions, and provider terms; a valid key alone may not grant access.
 
 ### Rate Limiting
 **Problem:** A provider returns a quota or throttling response  
 **Solution:** Check the current provider plan, limit, and permitted-use terms. Apply documented backoff; a throttled or empty response is not a negative finding.
 
 ### Web Scraping Failures
-**Problem:** Scraping returns errors or empty data  
-**Solution:** Check if site blocks bots, consider API alternatives
+**Problem:** A source returns an error or no content  
+**Solution:** Do not evade access controls or anti-bot measures. Use an official API or another source whose terms permit the intended use.
 
 ### Large Output Truncation
-**Problem:** "Result too long, truncated"  
-**Solution:** Enable content summarization, break into smaller queries
+**Problem:** A result exceeds the flow or model context limit  
+**Solution:** Query a narrower authorized subset, preserve source identifiers and retrieval metadata, and verify summaries against the original response.
 
 ---
 
