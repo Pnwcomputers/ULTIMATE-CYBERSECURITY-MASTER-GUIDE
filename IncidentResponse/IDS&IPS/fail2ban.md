@@ -62,9 +62,9 @@ Fail2Ban is not a replacement for [Suricata/Snort](./suricata+zeek.md) or [Secur
 1. Install:
    └─> apt install fail2ban (or your distro's equivalent).
 
-2. Copy the default config to your override file:
-   └─> jail.conf -> jail.local. Never edit jail.conf directly —
-       package updates will overwrite it.
+2. Create a small override file:
+   └─> Add only your settings to jail.local or a focused jail.d/*.local.
+       Do not copy the whole jail.conf; never edit the package file.
 
 3. Set your baseline [DEFAULT] policy:
    └─> ignoreip (your own management IPs — don't lock yourself out),
@@ -271,8 +271,9 @@ sudo fail2ban-regex /var/log/auth.log /etc/fail2ban/filter.d/sshd.conf
 
 ## 📚 Resources
 
-- **Fail2Ban GitHub:** [github.com/fail2ban/fail2ban](https://github.com/fail2ban/fail2ban)
-- **Bundled filter/jail reference:** `/etc/fail2ban/jail.conf` and `/etc/fail2ban/filter.d/` on any installed system — the shipped comments are thorough and version-accurate for your install
+- **Fail2Ban upstream:** [github.com/fail2ban/fail2ban](https://github.com/fail2ban/fail2ban)
+- **Installed configuration:** `/etc/fail2ban/jail.conf`, `/etc/fail2ban/fail2ban.conf`, `/etc/fail2ban/filter.d/` and `/etc/fail2ban/action.d/` — use the versions shipped with your package as the operational source of truth.
+- **Upstream defaults:** [jail.conf](https://github.com/fail2ban/fail2ban/blob/master/config/jail.conf) and [fail2ban.conf](https://github.com/fail2ban/fail2ban/blob/master/config/fail2ban.conf) document current defaults; distribution packages can differ.
 
 ---
 
