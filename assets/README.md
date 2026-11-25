@@ -1199,6 +1199,7 @@ Original conceptual flow separating extraction and transactional checkpoints fro
 |---|---|
 | [AI model routing and fallback](./diagrams/ai-model-routing-policy.svg) | [Model routing and cost management](../AI/model-routing-and-cost-management.md#3-routing-policy--safe-fallback) |
 | [Analyst-gated AgentFlow handoffs](./diagrams/anythingllm-analyst-gated-handoffs.svg) | [AnythingLLM workflow examples](../AI/AnythingLLM/anything_llm_agentflows.md#analyst-gated-workflow-map) | Shows scope, provider disclosure, untrusted outputs, analyst review and stop conditions |
+| [Threat intelligence evidence review](./diagrams/threat-intelligence-evidence-review.svg) | [ThreatIntelCheck](../AI/AnythingLLM/flow-threat_intel.md#analyst-review) | Separates provider observations, unknown results, local corroboration, and human action |
 | [OpenSCAD slicer and fit checks](./diagrams/openscad-slicer-fit-verification.svg) | [OpenSCAD design for printing](../CAD/OpenSCAD/05-design-for-printing.md#after-importing-into-the-slicer) |
 | [OpenSCAD preset to print file](./diagrams/openscad-preset-to-export.svg) | [OpenSCAD project structure](../CAD/OpenSCAD/02-project-structure.md#command-line-export--automation) |
 | [CAD design to verified fit loop](./diagrams/cad-design-to-fit-verification-loop.svg) | [CAD & 3D Printing](../CAD/README.md#cad-design-to-fit-loop) |

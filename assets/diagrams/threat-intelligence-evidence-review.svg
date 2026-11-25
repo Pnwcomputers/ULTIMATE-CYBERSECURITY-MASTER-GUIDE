@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="600" viewBox="0 0 1120 600" role="img" aria-labelledby="title desc">
+  <title id="title">Threat intelligence evidence review</title>
+  <desc id="desc">An authorized indicator is classified and minimized before provider lookup. Each provider has separate access and disclosure rules. The analyst receives source-attributed, time-bounded observations rather than a composite threat score, then correlates them with local telemetry and policy before deciding whether to act. Errors and missing results remain unknown.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L0 6 L9 3z" fill="#36536b"/></marker>
+    <style>
+      .title{font:700 30px system-ui,sans-serif;fill:#102a43}
+      .head{font:700 19px system-ui,sans-serif;fill:#102a43}
+      .body{font:16px system-ui,sans-serif;fill:#243b53}
+      .small{font:14px system-ui,sans-serif;fill:#334e68}
+      .box{rx:16;stroke-width:2}
+      .arrow{stroke:#36536b;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1120" height="600" rx="24" fill="#f5f8fb"/>
+  <text x="52" y="58" class="title">Threat intelligence is evidence for review</text>
+
+  <rect x="45" y="120" width="220" height="170" class="box" fill="#e6f0fa" stroke="#7aa7d3"/>
+  <text x="155" y="160" class="head" text-anchor="middle">1 · Authorized IoC</text>
+  <text x="155" y="198" class="body" text-anchor="middle">Validate type and scope</text>
+  <text x="155" y="227" class="body" text-anchor="middle">Minimize before lookup</text>
+  <text x="155" y="264" class="small" text-anchor="middle">External query discloses it</text>
+
+  <rect x="325" y="100" width="300" height="210" class="box" fill="#e9f5ee" stroke="#62a878"/>
+  <text x="475" y="140" class="head" text-anchor="middle">2 · Provider-specific query</text>
+  <text x="475" y="180" class="body" text-anchor="middle">VirusTotal: IP or domain</text>
+  <text x="475" y="209" class="small" text-anchor="middle">Public API has restricted business use</text>
+  <text x="475" y="247" class="body" text-anchor="middle">AbuseIPDB: public IP only</text>
+  <text x="475" y="276" class="small" text-anchor="middle">Keep API keys in secret storage</text>
+
+  <rect x="685" y="100" width="390" height="210" class="box" fill="#fff3cd" stroke="#d6a638"/>
+  <text x="880" y="140" class="head" text-anchor="middle">3 · Preserve observed evidence</text>
+  <text x="880" y="180" class="body" text-anchor="middle">Source · retrieval time · response status</text>
+  <text x="880" y="210" class="body" text-anchor="middle">Fields and analysis age · missing data</text>
+  <text x="880" y="250" class="small" text-anchor="middle">No invented score, attribution, or clean verdict</text>
+  <text x="880" y="277" class="small" text-anchor="middle">Provider reputation is not an action by itself</text>
+
+  <path d="M265 205 H315" class="arrow"/>
+  <path d="M625 205 H675" class="arrow"/>
+
+  <rect x="270" y="375" width="610" height="125" class="box" fill="#ffffff" stroke="#8ca8bd"/>
+  <text x="575" y="415" class="head" text-anchor="middle">4 · Analyst correlates with local evidence</text>
+  <text x="575" y="450" class="body" text-anchor="middle">Check actual traffic, asset role, exposure, timing, and policy.</text>
+  <text x="575" y="478" class="small" text-anchor="middle">A match may be stale, shared, misclassified, or false positive.</text>
+
+  <path d="M880 310 V350 H780 V365" class="arrow"/>
+  <rect x="920" y="378" width="155" height="112" rx="16" fill="#fde8e7" stroke="#d66b63" stroke-width="2"/>
+  <text x="997" y="418" class="head" text-anchor="middle">Unknown</text>
+  <text x="997" y="451" class="small" text-anchor="middle">Error, limit,</text>
+  <text x="997" y="474" class="small" text-anchor="middle">or no record</text>
+  <path d="M880 290 V330 H998 V368" stroke="#b94b45" stroke-width="3" stroke-dasharray="8 7" fill="none" marker-end="url(#arrow)"/>
+
+  <rect x="158" y="535" width="804" height="42" rx="12" fill="#fff" stroke="#aab8c5" stroke-width="2"/>
+  <text x="560" y="563" class="body" text-anchor="middle">A human applies approved policy; this flow does not block, allow, or attribute an indicator.</text>
+</svg>
