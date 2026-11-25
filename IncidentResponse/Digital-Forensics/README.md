@@ -20,6 +20,9 @@
 
 **Targeted forensic collection:** [Velociraptor + ForensicArtifacts triage](velociraptor-artifact-triage.md) covers consent, collection selection, UTC evidence hashes and custody; it complements existing [KAPE/Autopsy](Disks/autopsy_kape.md) and [Volatility](Memory/volatility_cheatsheet.md) workflows.
 
+
+**Byte-level foundations:** [Hexadecimal & Binary Data Analysis](../../Algorithms/hexadecimal-and-binary-analysis.md) · [ASCII, Unicode & Character Encoding](../../Algorithms/ascii-and-character-encoding.md) · [Hex & ASCII Field Reference & Offline Labs](../../Algorithms/hex-ascii-field-reference.md).
+
 ## 🎯 Purpose
 **Legacy forensic teaching material:** [Cypherpunk toolkit curation](../../Documentation/cypherpunk-pentesting-toolkit-review.md) maps historical memory/IOC resources to modern Volatility 3 and evidence-handling practices.
 
