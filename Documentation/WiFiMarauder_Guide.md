@@ -640,7 +640,10 @@ Every delivered finding must include test ID, written scope, exact board/firmwar
 
 ## Security and Ethical Considerations ⚠️
 
-**IMPORTANT**: These tools are for **authorized security testing only**. Unauthorized use is illegal.
+**IMPORTANT**: Use these tools only for authorized security testing. Activity outside
+your authorization may violate applicable law, contracts, or policy; requirements
+depend on jurisdiction and circumstances. Obtain written authorization, confirm
+scope, and see [LEGAL.md](../LEGAL.md).
 
 * **Marauder Use:** Get **written permission** before testing any network. Only test networks you own or have explicit authorization to test.
 * **Cracking Use:** All cracking attempts (Hashcat) must be done in an **isolated lab environment** against hashes you are authorized to possess.
