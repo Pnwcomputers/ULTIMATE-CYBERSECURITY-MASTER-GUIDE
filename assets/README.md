@@ -32,14 +32,9 @@ These six original SVG diagrams use descriptive alternative text, avoid external
 
 | Diagram | Where embedded | Why it belongs |
 |---|---|---|
+| [Wireshark capture-to-conclusion workflow](./diagrams/wireshark-capture-to-conclusion.svg) | [Wireshark defensive investigations](../Documentation/wireshark-defensive-investigations.md#choose-the-correct-packet-source-first) | Separates capture visibility, capture filters, display filters, and evidence review |
 | [NetAlertX discovery visibility boundaries](./diagrams/netalertx-discovery-visibility-boundaries.svg) | [NetAlertX discovery guide](../Documentation/netalertx-device-discovery-monitoring.md#architecture-one-vlan-vs-many) | Separates local ARP, remote imports, RF observations, packet capture and alert review |
-
-| Diagram | Where embedded | Why it belongs |
-|---|---|---|
 | [Network discovery evidence layers](./diagrams/network-discovery-evidence-layers.svg) | [Network discovery comparison](../Documentation/network-device-discovery-comparison.md#reading-discovery-evidence) | Shows why planned inventory, control-plane records, packet sensors, radio observations and endpoint telemetry have different limits |
-
-| Diagram | Where embedded | Why it belongs |
-|---|---|---|
 | [AUR package review](./diagrams/aur-package-review-build-install.svg) | [Arch Linux cheat sheet](../Documentation/ArchLinux_CheatSheet.md) | Source and build review before installation |
 | [Persistence validation safety](./diagrams/authorized-persistence-validation.svg) | [Domain persistence checklist](../Checklists/Domain-Persistence.md), [persistence checklist](../Checklists/Persistence.md) | Authorization, cleanup, and verifying restored state |
 | [GreatFET I2C observation](./diagrams/greatfet-authorized-i2c-workflow.svg) | [GreatFET One](../HardwareHacking/GreatFETone.md) | Bus ownership, voltage, and observation gates |

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" role="img" aria-labelledby="title desc">
+<title id="title">Wireshark capture to conclusion</title>
+<desc id="desc">Packets must first reach an endpoint, TAP or SPAN, or monitor-mode radio capture source. Capture filters can exclude frames before storage. Display filters inspect saved capture data. Analysts correlate packet evidence with logs and configuration before distinguishing observation, hypothesis, and confirmed finding.</desc>
+<defs><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#193247}.head{font-size:23px;font-weight:700}.body{font-size:17px}.small{font-size:15px}
+.box{stroke:#45647b;stroke-width:2;rx:15}.arrow{stroke:#45647b;stroke-width:3;fill:none;marker-end:url(#arr)}
+</style><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#45647b"/></marker></defs>
+<rect width="1200" height="540" fill="#f5f8fb"/>
+<text x="600" y="46" text-anchor="middle" font-size="30" font-weight="700">Packet visibility comes before packet filtering</text>
+<rect class="box" x="35" y="110" width="205" height="150" fill="#e7eef8"/>
+<text class="head" x="137" y="150" text-anchor="middle">1. Source</text>
+<text class="body" x="137" y="184" text-anchor="middle">endpoint · TAP/SPAN</text>
+<text class="body" x="137" y="211" text-anchor="middle">monitor-mode radio</text>
+<text class="small" x="137" y="240" text-anchor="middle">only visible path/channels</text>
+<path class="arrow" d="M245 185L280 185"/>
+<rect class="box" x="290" y="110" width="205" height="150" fill="#fff0d7"/>
+<text class="head" x="392" y="150" text-anchor="middle">2. Capture filter</text>
+<text class="body" x="392" y="184" text-anchor="middle">optional BPF</text>
+<text class="body" x="392" y="211" text-anchor="middle">limits what is saved</text>
+<text class="small" x="392" y="240" text-anchor="middle">omitted frames are lost</text>
+<path class="arrow" d="M500 185L535 185"/>
+<rect class="box" x="545" y="110" width="170" height="150" fill="#e7f4ed"/>
+<text class="head" x="630" y="150" text-anchor="middle">3. Capture file</text>
+<text class="body" x="630" y="184" text-anchor="middle">PCAP / PCAPNG</text>
+<text class="body" x="630" y="211" text-anchor="middle">preserve original</text>
+<text class="small" x="630" y="240" text-anchor="middle">record hash + context</text>
+<path class="arrow" d="M720 185L755 185"/>
+<rect class="box" x="765" y="110" width="190" height="150" fill="#efe9fb"/>
+<text class="head" x="860" y="150" text-anchor="middle">4. Display filter</text>
+<text class="body" x="860" y="184" text-anchor="middle">Wireshark / TShark</text>
+<text class="body" x="860" y="211" text-anchor="middle">searches saved frames</text>
+<text class="small" x="860" y="240" text-anchor="middle">does not add visibility</text>
+<path class="arrow" d="M960 185L995 185"/>
+<rect class="box" x="1005" y="110" width="165" height="150" fill="#f4e7e5"/>
+<text class="head" x="1087" y="150" text-anchor="middle">5. Review</text>
+<text class="body" x="1087" y="184" text-anchor="middle">logs + config</text>
+<text class="body" x="1087" y="211" text-anchor="middle">corroboration</text>
+<text class="small" x="1087" y="240" text-anchor="middle">state uncertainty</text>
+<rect class="box" x="145" y="335" width="910" height="115" fill="#e8f0f5"/>
+<text class="head" x="600" y="374" text-anchor="middle">Separate evidence from interpretation</text>
+<text class="body" x="600" y="406" text-anchor="middle">Observed packet → supported hypothesis → confirmed finding only with independent evidence</text>
+<text class="small" x="600" y="432" text-anchor="middle">TLS, DoH/DoT, packet loss, VLAN/offload settings, and sensor placement limit conclusions.</text>
+<text x="600" y="500" text-anchor="middle" font-size="15" fill="#526b7d">Conceptual teaching aid — no live traffic or capture result is shown</text>
+</svg>
