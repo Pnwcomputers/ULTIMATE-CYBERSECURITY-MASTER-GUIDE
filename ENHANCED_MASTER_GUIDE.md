@@ -2,9 +2,10 @@
 
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. See
-> [LEGAL.md](LEGAL.md).
+> testing, education, and defensive research. Access or testing outside your
+> authorization may violate applicable law, contracts, or policy; legal rules
+> depend on jurisdiction and circumstances. Obtain written authorization and
+> stay within the documented scope. See [LEGAL.md](LEGAL.md).
 
 ## Incorporating PNWC Internal Knowledge Base & Guides + 70+ Professional Books
 
@@ -130,84 +131,51 @@ For sensitive sources and seized or lost devices, use the [journalist/source-pro
 
 ## OPSEC Fundamentals
 
-### Critical OPSEC Rules (From Your Notion)
+### OPSEC: Choose Controls From the Threat Model
 
-**ALWAYS USE:**
-- ✅ 3rd Party Network for Operations
-- ✅ No-Logging VPN or Proxy
-- ✅ Virtual Machine (NEVER bare metal!)
-- ✅ Compartmentalized environments
-- ✅ Clean snapshots between engagements
+Security controls depend on the assessment scope, information sensitivity, operational
+constraints, and the threats being addressed. Authorization and scope come first;
+network routing or identity separation never creates permission.
 
-**NEVER:**
-- ❌ Use personal/corporate networks for OPs
-- ❌ Run security tools on bare metal
-- ❌ Mix personal and operational identities
-- ❌ Reuse infrastructure across engagements
-- ❌ Leave traces on physical systems
-
-### OPSEC Layers
-
-```
-Layer 1: Physical Security
-├── Secure location
-├── No surveillance cameras
-├── Faraday cage (if needed)
-└── Secure hardware disposal
-
-Layer 2: Network Security
-├── VPN (Mullvad, ProtonVPN)
-├── Tor for additional anonymity
-├── Third-party networks (coffee shops, public WiFi)
-└── MAC address randomization
-
-Layer 3: Virtual Security
-├── Dedicated VM per operation
-├── Snapshot before and after
-├── No clipboard sharing with host
-└── Network isolation
-
-Layer 4: Identity Security
-├── Separate personas
-├── Burner accounts
-├── Anonymous payment methods
-└── No PII linkage
-
-Layer 5: Data Security
-├── Encrypted storage (VeraCrypt)
-├── Secure deletion (shred, srm)
-├── No cloud sync
-└── Air-gapped backups
+```mermaid
+flowchart TD
+    A[Define purpose and written authorization] --> B{Is the target and activity in scope?}
+    B -->|No or unclear| C[Stop and clarify scope]
+    B -->|Yes| D[Identify sensitive data, evidence, and retention duties]
+    D --> E[Assess threats, policy, and jurisdiction]
+    E --> F[Choose proportionate host, VM, network, and account controls]
+    F --> G[Verify isolation, routing, access, and logging]
+    G --> H[Conduct the scoped work and preserve required records]
+    H --> I[Review results and clean up temporary data under retention rules]
 ```
 
-### OPSEC Checklist
+**Control selection**
 
-**Before Every Operation:**
-- [ ] VM snapshot created
-- [ ] VPN connected and verified
-- [ ] No personal accounts logged in
-- [ ] Tor configured (if needed)
-- [ ] MAC address randomized
-- [ ] GPS disabled on devices
-- [ ] Metadata stripping tools ready
-- [ ] Communication channels secured
-- [ ] Emergency wipe procedures ready
+- Use a dedicated VM or device when it supports isolation, repeatability, or recovery.
+  Bare-metal work may be appropriate for hardware testing or when virtualization changes
+  the behavior under test; document the reason and safeguards.
+- Use a VPN, Tor, proxy, or third-party network only when permitted and appropriate to
+  the scope. A VPN provider's no-logging claim is not independently guaranteed; public
+  networks can expose users to additional risks and may violate organizational policy.
+- Tor protects traffic from applications configured to use it; it does not route all
+  host traffic or guarantee anonymity. Keep identity and account separation tied to a
+  defined threat model.
+- Snapshots, encrypted storage, and restricted accounts can reduce some risks, but
+  they do not erase host, network, provider, or target-side records.
 
-**During Operation:**
-- [ ] Minimize digital footprint
-- [ ] Use throwaway accounts only
-- [ ] No identifying information shared
-- [ ] Document everything in secured notes
-- [ ] Maintain cover story
-- [ ] Monitor for detection
+**Before work**
 
-**After Operation:**
-- [ ] Wipe VM or restore snapshot
-- [ ] Delete temporary files
-- [ ] Clear browser history/cookies
-- [ ] Verify no traces left
-- [ ] Archive findings securely
-- [ ] Burn accounts if compromised
+- [ ] Confirm written authorization, targets, allowed methods, timing, and contacts.
+- [ ] Identify evidence handling, privacy, and retention requirements.
+- [ ] Select the environment and network controls required by the threat model.
+- [ ] Verify isolation, routing, account separation, and logging before use.
+
+**After work**
+
+- [ ] Preserve required evidence and engagement records.
+- [ ] Remove temporary data only when permitted by retention and preservation duties.
+- [ ] Record cleanup performed and any remaining data or access.
+- [ ] Revoke temporary credentials or access that are no longer required.
 
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
@@ -230,10 +198,12 @@ Layer 5: Data Security
 
 #### For OSINT Investigations:
 
-- **IntelTechniques OSINT VM** (formerly "Buscador")
-  Custom Debian/Ubuntu build with pre-configured OSINT tools, maintained by Michael Bazzell/David Westcott.
-  Official page: https://www.kali.org/get-kali/
-  Follow the setup instructions on that page directly - don't hardcode credentials into install URLs; they end up in shell history and logs.
+- **Buscador (IntelTechniques OSINT VM)** — archived, not a current maintained OSINT platform.
+  IntelTechniques states that its VM guide was discontinued in 2024. Do not treat an
+  old image as a secure current workstation; verify its provenance and update or
+  replace the operating system and tools before any use. Prefer a currently supported
+  OS and install only the tools needed for the investigation.
+  Current publisher information: [IntelTechniques books and resources](https://inteltechniques.com/books).
 
 - **Trace Labs OSINT VM**
   Official GitHub Releases (OVA downloads + SHA256 checksums): https://github.com/tracelabs/tlosint-vm/releases
@@ -258,6 +228,7 @@ echo "[*] Installing essential tools..."
 apt install -y \
     git curl wget \
     python3-pip \
+    python3-venv \
     golang \
     docker.io \
     virtualenv \
@@ -292,7 +263,12 @@ apt install -y \
     ligolo-ng
 
 echo "[*] Installing Python tools..."
-pip3 install \
+# Kali marks the system Python as externally managed. Keep these
+# independently installed Python tools in an isolated virtual environment.
+python3 -m venv "$HOME/.venvs/kali-tools"
+. "$HOME/.venvs/kali-tools/bin/activate"
+python -m pip install --upgrade pip
+python -m pip install \
     impacket \
     ldap3 \
     pwntools \
@@ -304,6 +280,7 @@ pip3 install \
     requests \
     beautifulsoup4 \
     selenium
+deactivate
 
 echo "[*] Installing Go tools..."
 go install github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
