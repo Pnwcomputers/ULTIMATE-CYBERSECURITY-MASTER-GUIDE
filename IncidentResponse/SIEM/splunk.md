@@ -917,15 +917,26 @@ for the selected release.
 3. Upload IdP metadata
 4. Configure attribute mapping
 
-### Audit Logging
+### Review the Audit Trail
 
-Enable audit logging in `/opt/splunk/etc/system/local/audit.conf`:
+Splunk Enterprise records audit events in the `_audit` index and in
+`$SPLUNK_HOME/var/log/splunk/audit.log`. The `privateKey` and `publicKey`
+settings shown in older versions of this guide are not valid `audit.conf`
+settings; keep the default audit behavior unless a specific, documented audit
+configuration is needed.
 
-```ini
-[auditTrail]
-privateKey = $SPLUNK_HOME/etc/auth/audit/private.pem
-publicKey = $SPLUNK_HOME/etc/auth/audit/public.pem
+Review recent event volume with:
+
+```spl
+index=_audit earliest=-24h
+| stats count by sourcetype
+| sort -count
 ```
+
+Restrict access to the audit index and retain or forward these records according
+to your organization's logging policy. See Splunk's
+[auditing activities guide](https://help.splunk.com/en/splunk-enterprise/administer/manage-users-and-security/10.6/audit-activity-in-splunk-enterprise/auditing-activities-in-a-splunk-platform-instance)
+and [audit.conf reference](https://help.splunk.com/en/splunk-enterprise/administer/admin-manual/10.6/configuration-file-reference/10.6.0-configuration-file-reference/audit.conf).
 
 ---
 
