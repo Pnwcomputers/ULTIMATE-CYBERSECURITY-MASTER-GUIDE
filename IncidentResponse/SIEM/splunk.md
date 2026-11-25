@@ -72,32 +72,80 @@ Create a free Splunk account at [splunk.com](https://www.splunk.com/) to downloa
 sudo apt update && sudo apt upgrade -y
 ```
 
-### Step 1.2: Configure System Limits
+### Step 1.2: Configure System Limits and Transparent Huge Pages
 
-Splunk requires increased file descriptor limits:
+For the systemd-managed `Splunkd` service created later in this guide, configure
+the limits on the service itself. PAM's `/etc/security/limits.conf` does not
+set limits for a systemd service.
+
+Run `sudo systemctl edit Splunkd` and add this drop-in:
+
+```ini
+[Service]
+LimitNOFILE=64000
+LimitNPROC=16000
+```
+
+Then reload systemd and restart Splunk:
 
 ```bash
-# Add limits for splunk user
-cat << 'EOF' | sudo tee -a /etc/security/limits.conf
-splunk soft nofile 65535
-splunk hard nofile 65535
-splunk soft nproc 20480
-splunk hard nproc 20480
-EOF
-
-# Disable THP (Transparent Huge Pages)
-echo 'never' | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
-echo 'never' | sudo tee /sys/kernel/mm/transparent_hugepage/defrag
-
-# Make THP change persistent
-cat << 'EOF' | sudo tee /etc/rc.local
-#!/bin/bash
-echo 'never' > /sys/kernel/mm/transparent_hugepage/enabled
-echo 'never' > /sys/kernel/mm/transparent_hugepage/defrag
-exit 0
-EOF
-sudo chmod +x /etc/rc.local
+sudo systemctl daemon-reload
+sudo systemctl restart Splunkd
 ```
+
+Splunk recommends disabling Transparent Huge Pages (THP) on hosts that run
+Splunk, unless another application on the same host requires it. To disable
+THP immediately when the kernel exposes these controls:
+
+```bash
+sudo sh -c 'for f in /sys/kernel/mm/transparent_hugepage/enabled /sys/kernel/mm/transparent_hugepage/defrag; do
+  [ ! -w "$f" ] || echo never > "$f"
+done'
+```
+
+For persistence across reboots, use a systemd unit rather than assuming
+`/etc/rc.local` is enabled. Create
+`/usr/local/sbin/disable-thp-for-splunk`:
+
+```sh
+#!/bin/sh
+for path in /sys/kernel/mm/transparent_hugepage/enabled /sys/kernel/mm/transparent_hugepage/defrag; do
+    if [ -w "$path" ]; then
+        printf '%s' never > "$path"
+    fi
+done
+```
+
+Make the script executable, then create
+`/etc/systemd/system/disable-thp-for-splunk.service`:
+
+```ini
+[Unit]
+Description=Disable Transparent Huge Pages for Splunk
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/disable-thp-for-splunk
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable it and verify both THP controls after reboot:
+
+```bash
+sudo chmod 0755 /usr/local/sbin/disable-thp-for-splunk
+sudo systemctl daemon-reload
+sudo systemctl enable --now disable-thp-for-splunk.service
+cat /sys/kernel/mm/transparent_hugepage/enabled
+cat /sys/kernel/mm/transparent_hugepage/defrag
+```
+
+Review Splunk's [system requirements](https://help.splunk.com/en?resourceId=Splunk_Installation_Systemrequirements)
+for systemd resource limits and its [THP performance guidance](https://help.splunk.com/en/splunk-enterprise/release-notes-and-updates/release-notes/10.0/known-issues-for-this-release/transparent-huge-memory-pages-and-splunk-performance).
+
 
 ### Step 1.3: Create Splunk User
 
