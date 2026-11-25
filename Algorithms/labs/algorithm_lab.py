@@ -142,14 +142,21 @@ class TokenBucket:
     """Deterministic toy rate limiter driven by provided times, not wall clock."""
 
     def __init__(self, rate_per_second: float, capacity: float):
-        if not (rate_per_second > 0 and capacity > 0):
-            raise ValueError("Rate and capacity must be positive")
+        if not (
+            math.isfinite(rate_per_second)
+            and rate_per_second > 0
+            and math.isfinite(capacity)
+            and capacity > 0
+        ):
+            raise ValueError("Rate and capacity must be finite and positive")
         self.rate = rate_per_second
         self.capacity = capacity
         self.tokens = capacity
         self.last_time = 0.0
 
     def allow(self, now: float, cost: float = 1.0):
+        if not math.isfinite(now) or not math.isfinite(cost):
+            raise ValueError("Time and request cost must be finite")
         if now < self.last_time or cost <= 0:
             raise ValueError("Nonmonotonic time or nonpositive cost")
         self.tokens = min(self.capacity, self.tokens + (now - self.last_time) * self.rate)
