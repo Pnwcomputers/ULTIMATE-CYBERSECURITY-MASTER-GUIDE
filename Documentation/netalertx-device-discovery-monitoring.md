@@ -145,7 +145,7 @@ Restrict file ownership, ensure a newline per event, enforce rotation and valida
 | Question | Display Filter | Additional Evidence |
 |---|---|---|
 | Device's ARP traffic | `arp` | MAC/IP/port mapping, DHCP lease and VLAN |
-| DHCP request/offer | `dhcp || bootp` | Approved DHCP server + snooping table |
+| DHCP request/offer | `dhcp` | Approved DHCP server + snooping table |
 | DNS traffic | `dns` | DNS resolver logs, device process |
 | IPv6 RA | `icmpv6.type == 134` | Router config / RA Guard |
 | VLAN 30 | `vlan.id == 30` | Switch and NIC tag retention |
