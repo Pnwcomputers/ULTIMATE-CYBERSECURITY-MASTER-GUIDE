@@ -1,6 +1,6 @@
 # Unified Network Visibility: Wazuh, Snort 3, nzyme, NetAlertX, Kismet & Wireshark
 
-_Reviewed: 2026-11-21. Reference architecture and synthetic test plan only. No deployment or live alarm delivery has been verified._
+_Reviewed: 2026-11-24. Reference architecture and synthetic test plan only. No deployment or live alarm delivery has been verified._
 
 > [!CAUTION]
 > **Authorized monitoring only.** Use explicitly permitted networks, separate capture and management interfaces, restrict packet/event retention and disable automatic retaliatory transmissions. Validate actual packet and event paths before using these controls for production incident response. See [Legal Notice](../../LEGAL.md).
@@ -50,7 +50,7 @@ The diagram shows **logical data flow**, not a claim that any native integration
 Use a single **synthetic** event schema for integration tests, and preserve the raw upstream event separately.
 
 ```json
-{"source":"nzyme","event_family":"wireless_disconnection","timestamp_utc":"2026-11-21T12:01:00Z","site":"lab","sensor_id":"wifi-monitor-01","observed_vlan":null,"asset_key":null,"confidence":"candidate","evidence_ref":"synthetic-event-01"}
+{"source":"nzyme","event_family":"wireless_disconnection","timestamp_utc":"2026-11-24T12:01:00Z","site":"lab","sensor_id":"wifi-monitor-01","observed_vlan":null,"asset_key":null,"confidence":"candidate","evidence_ref":"synthetic-event-01"}
 ```
 
 Do not join an nzyme BSSID to a NetAlertX client MAC and announce "same device" without independent proof. Match on site and time first, then corroborate MAC/BSSID/SSID, AP logs, switchport, DHCP, controller and identity under privacy rules.
@@ -69,7 +69,7 @@ Do not join an nzyme BSSID to a NetAlertX client MAC and announce "same device" 
 2. **Confirm actual visibility:** Send benign owned ICMP/DNS/HTTPS flows; verify the TAP/SPAN/endpoint capture sees appropriate directions. For wireless, receive owned beacons with correct channel and antenna.
 3. **Validate standalone detection:** Use an offline lab PCAP and benign local rule for Snort; verify nzyme/Kismet alert subscription/format using synthetic notifications where supported. Avoid live deauth generation.
 4. **Test normalization:** Capture an example of each *real installed-version schema*, redact it, map stable fields and write newline-delimited JSON to a protected log.
-5. **Test Wazuh:** Use installed \`wazuh-logtest\` and the repository's [Synthetic Rule Validation](../../Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md). A parser test is not evidence of successful dashboard delivery.
+5. **Test Wazuh:** Use installed `wazuh-logtest` and the repository's [Synthetic Rule Validation](../../Documentation/WAZUH-SYNTHETIC-RULE-VALIDATION.md). A parser test is not evidence of successful dashboard delivery.
 6. **Test dashboard end-to-end:** Compare event counts, timestamps, duplicates, severity, data retention and drop counters.
 7. **Create harmless incident exercise:** A controlled new lab device appears while its endpoint performs a benign SSH login and DNS query. Analysts should see corresponding inventory/endpoint/network events **without** auto-blocking or misattributing radio traffic.
 8. **Restore:** Stop any temporary capture, remove synthetic data under retention policy and document cleanup.
@@ -99,6 +99,7 @@ Do not join an nzyme BSSID to a NetAlertX client MAC and announce "same device" 
 - [nzyme WIDS](./nzyme_wids.md) & [nzyme→Wazuh](./nzyme-wazuh-integration.md)
 - [Kismet→Wazuh](./kismet-wazuh-wireless-lab.md)
 - [Snort 3](./snort.md) & [Wazuh](../SIEM/wazuh.md)
+- [Official Wazuh logtest guide](https://documentation.wazuh.com/current/user-manual/ruleset/testing.html) — validates decoder/rule matches for sample logs, not end-to-end dashboard delivery
 - [Wireshark Defensive Investigations](../../Documentation/wireshark-defensive-investigations.md)
 - [VLAN, ACL, DMZ & SPAN](../../Documentation/network-segmentation-dmz-acl-vlan.md) & [LAN TAPs](../../Documentation/network-taps-and-packet-visibility.md)
 - [Counter-Surveillance](../../Documentation/counter-surveillance-wireless-threats.md) & [DNS Security](../../Documentation/dns-hijacking-secure-dns.md)
