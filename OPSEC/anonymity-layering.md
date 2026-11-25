@@ -6,9 +6,12 @@ _Last reviewed: 2026-10-09_
 
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. See
-> [LEGAL.md](../LEGAL.md).
+> testing, education, and defensive research. Unauthorized access or testing may
+> violate applicable law, contract, or policy; requirements depend on the conduct
+> and jurisdiction. Confirm authority and scope before active testing, and obtain
+> written authorization where required. See [LEGAL.md](../LEGAL.md),
+> [18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-124/t18/s1030/), and the
+> [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud).
 
 **Prerequisites:** A working baseline VPN and VM compartmentalization. See the
 [General OPSEC Guide](./OPSEC_guide.md), [VPN setup](../Documentation/VPN.md), and
