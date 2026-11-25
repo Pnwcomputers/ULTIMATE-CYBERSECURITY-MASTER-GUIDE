@@ -31,6 +31,10 @@ Produce a defensible RF inventory, reproducible measurements, confirmed findings
 
 **Scope note:** This is a broad practical playbook, not a claim that one SDR can decode every protocol. All field command examples are receive-only. Frequencies are measurement examples, not permission to transmit or declarations of local spectrum allocation. Command syntax was checked against upstream documentation/source; no HackRF hardware was available to execute these procedures during authoring.
 
+![Conceptual receive-only survey and evidence workflow, with controlled bench transmission shown separately](../assets/diagrams/hackrf-audit-evidence-workflow.svg)
+
+*Conceptual workflow; actual capability depends on the receiver chain, software, target protocol, and assessment scope.*
+
 ---
 
 ## TABLE OF CONTENTS
