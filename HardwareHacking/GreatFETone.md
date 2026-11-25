@@ -44,8 +44,10 @@ The GreatFET One is the next-generation GoodFET, designed by Great Scott Gadgets
 * **USB:** Plug the GreatFET One into your PC.
 * **Wiring to Target:** Confirm target ownership/authorization, board pinout, target I/O voltage, pull-up arrangement and whether the target can safely share the GreatFET's bus before connecting. Consult the board documentation and target datasheet. Then connect:
   * GreatFET `GND` ➡️ Target `GND`
-  * GreatFET `I2C SDA` (Pin J2_P11) ➡️ Target `SDA`
-  * GreatFET `I2C SCL` (Pin J2_P13) ➡️ Target `SCL`
+  * GreatFET One `I2C0_SDA` (J2_P39) ➡️ Target `SDA`
+  * GreatFET One `I2C0_SCL` (J2_P40) ➡️ Target `SCL`
+
+  These are the GreatFET One header positions shown in the [GreatFET One pinout](https://gf-pinout.greatscottgadgets.com/). Verify the board revision and header orientation before connecting; pin labels on a diagram do not replace the board documentation.
 
 ### 3. Use
 * Power on your target IoT device.

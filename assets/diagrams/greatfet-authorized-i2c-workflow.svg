@@ -18,5 +18,6 @@
   <rect x="230" y="340" width="780" height="98" rx="15" fill="#fde8e7" stroke="#d66b63" stroke-width="2"/>
   <text x="620" y="380" text-anchor="middle" class="label">Important limits</text>
   <text x="620" y="412" text-anchor="middle" class="body">A scan is active bus traffic; it lists responders, not hidden device names or safe commands.</text>
-  <text x="620" y="490" text-anchor="middle" class="small">Record board, host-tool version, address, documented operation, output format and any errors.</text>
+  <text x="620" y="467" text-anchor="middle" class="small">GreatFET One: I2C0 SDA = J2_P39 · SCL = J2_P40 (confirm revision/orientation)</text>
+  <text x="620" y="503" text-anchor="middle" class="small">Record board, host-tool version, address, operation, output format and errors.</text>
 </svg>
