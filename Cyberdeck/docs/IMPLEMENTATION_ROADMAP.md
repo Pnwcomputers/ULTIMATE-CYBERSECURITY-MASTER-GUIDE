@@ -4,6 +4,11 @@
 
 Use this public section as a design and qualification contract for the private setup. Public documentation can describe interfaces, expected behavior and synthetic examples without publishing private application code, live configurations or customer material. This roadmap does not assert access to or inspection of the private repository.
 
+
+![Roadmap showing the M0–M3 manual foundation, field-readiness qualification, and separately gated optional tool, device, and external-origin extensions](./images/implementation-roadmap-gates.svg)
+
+*Conceptual dependency map. M0–M3 establish the manual baseline; M5 qualifies physical field use. M4, M6, and M7 are separate optional extensions with their own acceptance gates.*
+
 ## Milestones in Dependency Order
 
 | Milestone | Public deliverable | Work in the private setup | Definition of done |
