@@ -30,16 +30,17 @@ flowchart TD
 #### 📖 Full deep-dive with detection/defense guidance: [Tradecraft/active-directory.md](../Tradecraft/active-directory.md)
 #### 📄 PDF references: [AD_Attacks_.pdf](../PDF/AD_Attacks_.pdf) · [AD_Post_Exploitation.pdf](../PDF/AD_Post_Exploitation.pdf)
 ---
-|Code     |Technique               |Mitre     |
-|---------|------------------------|----------|
-|DA-01   |[PrintNightmare](https://pentestlab.blog/2021/08/17/domain-escalation-printnightmare/)|[NA](https://attack.mitre.org/)|
-|DA-02   |[PetitPotam](https://pentestlab.blog/2021/09/14/petitpotam-ntlm-relay-to-ad-cs/)|[NA](https://attack.mitre.org/)|
-|DA-03   |[RemotePotato](https://pentestlab.blog/2021/05/04/remote-potato-from-domain-user-to-enterprise-admin/)|[NA](https://attack.mitre.org/)|
-|DA-04   |[Unconstrained Delegation](https://pentestlab.blog/2022/03/21/unconstrained-delegation/)|[NA](https://attack.mitre.org/)|
-|DA-05   |[sAMAccountName Spoofing](https://pentestlab.blog/2022/01/10/domain-escalation-samaccountname-spoofing/)|[NA](https://attack.mitre.org/)|
-|DA-06   |[ShadowCoerce](https://pentestlaboratories.com/2022/01/11/shadowcoerce/)|[NA](https://attack.mitre.org/)|
-|DA-07   |[Pass the hash - Machine Accounts](https://pentestlab.blog/2022/02/01/machine-accounts/)|[NA](https://attack.mitre.org/)|
-|DA-08   |[Backup Operator](https://pentestlab.blog/2024/01/22/domain-escalation-backup-operator/)|[NA](https://attack.mitre.org/)|
+*Linked articles are source references; this table does not assert ATT&CK mappings.*
+| Code | Technique |
+|---|---|
+| DA-01 | [PrintNightmare](https://pentestlab.blog/2021/08/17/domain-escalation-printnightmare/) |
+| DA-02 | [PetitPotam](https://pentestlab.blog/2021/09/14/petitpotam-ntlm-relay-to-ad-cs/) |
+| DA-03 | [RemotePotato](https://pentestlab.blog/2021/05/04/remote-potato-from-domain-user-to-enterprise-admin/) |
+| DA-04 | [Unconstrained Delegation](https://pentestlab.blog/2022/03/21/unconstrained-delegation/) |
+| DA-05 | [sAMAccountName Spoofing](https://pentestlab.blog/2022/01/10/domain-escalation-samaccountname-spoofing/) |
+| DA-06 | [ShadowCoerce](https://pentestlaboratories.com/2022/01/11/shadowcoerce/) |
+| DA-07 | [Pass the hash - Machine Accounts](https://pentestlab.blog/2022/02/01/machine-accounts/) |
+| DA-08 | [Backup Operator](https://pentestlab.blog/2024/01/22/domain-escalation-backup-operator/) |
 
 ---
 
