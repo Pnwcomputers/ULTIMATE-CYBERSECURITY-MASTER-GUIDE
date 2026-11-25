@@ -2,9 +2,10 @@
 
 > [!CAUTION]
 > **Authorized use only.** The techniques below are for authorized security
-> testing, education, and defensive research. Using them against systems you do
-> not own or lack explicit written permission to test is illegal. See
-> [LEGAL.md](../LEGAL.md).
+> testing, education, and defensive research. Testing outside your authorization
+> may violate applicable law, contracts, or policy; legal requirements depend on
+> jurisdiction and circumstances. Obtain written authorization and stay within
+> scope. See [LEGAL.md](../LEGAL.md).
 
 ## 🎯 Purpose
 Space segment attack and defense guide - covering onboard computer (OBC) architecture, flight software (FSW) vulnerabilities, RTOS security (VxWorks, RTEMS, FreeRTOS), memory corruption in space-grade processors, and supply chain risks in COTS satellite components.
