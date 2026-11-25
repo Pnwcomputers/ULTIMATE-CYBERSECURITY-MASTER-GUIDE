@@ -149,12 +149,15 @@ Expected: the first emits PNWC_Lab_Record and the second has no match. A tool er
 
 ## Lab 4 — Packet Bytes Without Live Network Traffic
 
-1. In Wireshark, open a trusted authorized training capture already available locally, or use File → Import from Hex Dump with the following invented Ethernet frame in a text file. Select the Ethernet encapsulation type and no dummy headers; offsets are hexadecimal.
+Save this invented Ethernet frame to a plain text file; offsets are hexadecimal.
+
 ```text
 000000 02 00 00 00 00 02 02 00 00 00 00 01 08 00 45 00
 000010 00 20 00 01 00 00 40 11 f6 c8 c0 00 02 01 c0 00
 000020 02 02 27 10 27 11 00 0c 00 00 54 45 53 54
 ```
+
+1. In Wireshark, open a trusted authorized training capture already available locally, or use File → Import from Hex Dump with the invented frame above. Select the Ethernet encapsulation type and no dummy headers.
 2. Select the imported packet. Expand Ethernet, IPv4 and UDP in Packet Details. Inspect the highlighted bytes. The documentation-only IPs are 192.0.2.1 and 192.0.2.2, UDP ports 10000 and 10001, and payload TEST. The IPv4 header declares 32 bytes; UDP length is 12; zero UDP checksum is permitted for IPv4. The synthetic capture omits Ethernet padding and FCS.
 3. Compare raw and interpreted data. Locate TEST at frame offset 42 (0x2A). Try display filter `udp.dstport == 10001`; do not confuse display filters with capture filters.
 4. Save the synthetic capture separately if needed. Do not transmit it. See [Wireshark User Guide](https://www.wireshark.org/docs/wsug_html/) and [master filters](../Documentation/wireshark-master-filters.md).
