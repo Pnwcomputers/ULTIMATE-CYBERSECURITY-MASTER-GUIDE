@@ -21,8 +21,8 @@ text{font-family:Arial,Helvetica,sans-serif;fill:#183247}.title{font-size:30px;f
 <text x="95" y="491" class="body">SD logging depends on the exact supported board/build</text>
 <rect x="590" y="285" width="565" height="230" rx="16" class="card"/>
 <text x="620" y="325" class="head">Pro / Ultra • multi-MCU platform</text>
-<text x="620" y="365" class="body">• C5 scanner plus a separate controller/gateway MCU</text>
-<text x="640" y="392" class="body">Pro uses WROOM; check Ultra's exact model documentation</text>
+<text x="620" y="365" class="body">• Pro: C5 scanner + WROOM controller; Ultra: two-chip platform</text>
+<text x="640" y="392" class="body">Check each SKU's model documentation for exact MCU roles</text>
 <text x="620" y="428" class="body">• Phone manages sessions and supplies their location</text>
 <text x="620" y="464" class="body">• Eligible Pro/Ultra Manager can enroll supported Nodes</text>
 <text x="640" y="491" class="body">SD and other features vary by exact SKU/firmware</text>
