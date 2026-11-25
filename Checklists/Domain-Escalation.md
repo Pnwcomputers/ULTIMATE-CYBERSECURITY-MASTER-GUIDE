@@ -7,7 +7,7 @@ _Active Directory domain escalation techniques (coerced authentication, delegati
  
 **Goal:** Assess whether the authorized starting identity and environment-specific prerequisites expose an escalation path. Some entries require credentials, unpatched systems, a relayable service, or a specific delegation/ACL configuration. Verify the conditions in the actual environment instead of assuming any candidate path reaches Domain Admin.
  
-**When & how to use this:** Use this after basic domain inventory to classify candidate paths by mechanism and prerequisites. Review patch state for software and KDC vulnerabilities, service configuration for coercion/relay paths, and directory rights for delegation/group/ACL exposures. Tools can identify candidates; validate each path against the specific domain and rules of engagement. - check for accounts with unconstrained delegation or dangerous ACLs first, since those are often the fastest path and don't require coercion at all. The coercion-based items (PetitPotam, PrintNightmare) become relevant when the ACL graph doesn't offer a direct path and you need to manufacture a privileged authentication event instead.
+**When & how to use this:** Use this after basic domain inventory to classify candidate paths by mechanism and prerequisites. Review patch state for software and KDC vulnerabilities, service configuration for coercion/relay paths, and directory rights for delegation/group/ACL exposures. Tools can identify candidates; validate each path against the specific domain and rules of engagement.
 
 ```mermaid
 flowchart TD
