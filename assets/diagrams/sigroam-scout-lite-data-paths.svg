@@ -15,7 +15,7 @@ text{font-family:Arial,Helvetica,sans-serif;fill:#183247}.title{font-size:30px;f
 <rect x="455" y="180" width="365" height="145" rx="14" class="a"/>
 <text x="637" y="218" text-anchor="middle" class="head">PINGEQUA Scout Lite</text>
 <text x="637" y="251" text-anchor="middle" class="body">SigRoam scanner firmware</text>
-<text x="637" y="280" text-anchor="middle" class="body">C5 Wi-Fi scan • onboard GPS</text>
+<text x="637" y="280" text-anchor="middle" class="body">Wi-Fi / BLE survey • onboard GPS</text>
 <text x="637" y="307" text-anchor="middle" class="small">GPS tags records; one Wi-Fi radio scans over time</text>
 <path d="M325 248 L455 248" class="arrow"/>
 <text x="390" y="232" text-anchor="middle" class="small">GPIO serial control</text>
