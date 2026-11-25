@@ -114,7 +114,7 @@ Audit rules define what activities to monitor. There are three types:
 | Type | Flag | Purpose | Example |
 |------|------|---------|---------|
 | Control | `-D`, `-b`, `-f` | Configure audit system | `-b 8192` (buffer size) |
-| File Watch | `-w` | Monitor file/directory access | `-w /etc/passwd` |
+| Legacy file watch | `-w` | Monitor file/directory access | `-w /etc/passwd` (deprecated; prefer syscall rules with `-F path=` or `-F dir=`) |
 | System Call | `-a` | Monitor specific syscalls | `-a always,exit -S execve` |
 
 ### Step 2.1: Create Security-Focused Rules
@@ -122,6 +122,8 @@ Audit rules define what activities to monitor. There are three types:
 Create `/etc/audit/rules.d/99-security.rules`:
 
 > **Review the existing ruleset before loading this example.** The `-D` auditctl option deletes all loaded rules and watches. This sample omits it so a routine example load does not silently clear the host's current policy. If a controlled replacement is intended, plan it explicitly, preserve required rules, and test the result on the target distribution first.
+>
+> The sample is illustrative, not a universal drop-in ruleset. Many rules use legacy `-w` watches, which remain accepted for compatibility but are deprecated due to performance costs. Convert high-volume watches to the appropriate syscall rules where supported, remove paths absent on the target distribution, and validate against its approved baseline before loading.
 
 ```bash
 ## ============================================
@@ -134,7 +136,7 @@ Create `/etc/audit/rules.d/99-security.rules`:
 ## Set buffer size (increase for busy systems)
 -b 8192
 
-## Set failure mode (1=printk, 2=panic)
+## Set failure mode (0=silent, 1=printk, 2=panic; choose based on availability policy)
 -f 1
 
 ## ============================================
@@ -198,8 +200,6 @@ Create `/etc/audit/rules.d/99-security.rules`:
 ## Record selected process-execution syscalls (partial overlap with endpoint telemetry)
 -a always,exit -F arch=b64 -S execve -k process_execution
 -a always,exit -F arch=b32 -S execve -k process_execution
-
-These rules record configured `execve` syscall events; they do not reproduce every field or event in Sysmon Event ID 1. Confirm syscall names and architecture support on the target host, and test the loaded rule set before relying on it.
 
 ## Monitor specific suspicious binaries
 -w /usr/bin/wget -p x -k suspicious_download
@@ -322,6 +322,8 @@ These rules record configured `execve` syscall events; they do not reproduce eve
 # -e 2
 ```
 
+These rules capture configured `execve` syscall events; they do not reproduce every field or event in Sysmon Event ID 1. Confirm syscall names and architecture support on the target host. The ruleset includes distribution-dependent paths and legacy watches, so run `augenrules --check`, review any warnings, and verify the loaded rules before relying on it.
+
 ### Step 2.2: Load the Rules
 
 ```bash
@@ -344,11 +346,10 @@ For pre-built security-focused rules, consider:
 
 **STIG (Security Technical Implementation Guide) Rules:**
 
-```bash
-# Download STIG rules
-sudo wget -O /etc/audit/rules.d/90-stig.rules \
-  https://raw.githubusercontent.com/linux-audit/audit-userspace/master/rules/30-stig.rules
-```
+The upstream rules are a multi-file bundle, not a standalone file: `30-stig.rules` depends on `10-base-config.rules` and `99-finalize.rules`. The base file contains `-D`, which deletes the loaded audit rules and watches. Review and pin the complete bundle, treat its use as an intentional replacement of the host ruleset, and test it against the target distribution's security baseline before deployment.
+
+- [Upstream audit-userspace rules](https://github.com/linux-audit/audit-userspace/tree/master/rules)
+- [STIG rules and their dependencies](https://github.com/linux-audit/audit-userspace/blob/master/rules/30-stig.rules)
 
 **Laurel (MITRE ATT&CK Focused):**
 
@@ -363,7 +364,7 @@ sudo wget -O /etc/audit/rules.d/90-stig.rules \
 
 ### Step 3.1: Configure auditd.conf
 
-Edit `/etc/audit/auditd.conf`:
+Edit `/etc/audit/auditd.conf`. Choose `log_group` from a group that exists and matches the distribution policy; `adm` is common on Debian/Ubuntu but may not exist on RHEL-family systems.
 
 ```ini
 #
@@ -476,26 +477,26 @@ port = 60
 transport = tcp
 ```
 
-### Option 3: Filebeat
+### Option 3: Filebeat auditd module
 
-Install Filebeat and configure `/etc/filebeat/filebeat.yml`:
+For current Filebeat releases, use the auditd module rather than the deprecated `log` input. The module groups multiline audit records and parses them as audit events. Enable the module and set the path for your distribution in `modules.d/auditd.yml`:
 
 ```yaml
-filebeat.inputs:
-  - type: log
+- module: auditd
+  log:
     enabled: true
-    paths:
-      - /var/log/audit/audit.log
-    fields:
-      log_type: auditd
-    multiline:
-      pattern: '^type='
-      negate: true
-      match: after
+    var.paths:
+      - /var/log/audit/audit.log*
+```
 
+Enable the module with `filebeat modules enable auditd`, then configure the output for your SIEM, such as Logstash:
+
+```yaml
 output.logstash:
   hosts: ["<SIEM-IP>:5044"]
 ```
+
+See the [Elastic Filebeat auditd module documentation](https://www.elastic.co/docs/reference/beats/filebeat/filebeat-module-auditd) and check the installed Filebeat version's configuration reference.
 
 ### Option 4: Wazuh Agent
 
@@ -536,9 +537,11 @@ sudo yum install -y rsyslog
 
 ### Step 5.3: Configure Local Logging
 
+The following is a Debian/Ubuntu-style example; log files and default rules differ across distributions. Review the active rsyslog configuration and add only needed rules rather than replacing the package-managed defaults. Use RHEL-family destinations such as `/var/log/messages` and `/var/log/secure` where applicable.
+
 Edit `/etc/rsyslog.conf` or create `/etc/rsyslog.d/50-default.conf`:
 
-```bash
+```text
 #
 # Rsyslog Local Logging Configuration
 #
@@ -654,16 +657,7 @@ tail /var/log/syslog | grep TEST
 
 ### Harden Rsyslog
 
-```bash
-# Restrict permissions on log files
-sudo chmod 640 /var/log/syslog
-sudo chmod 640 /var/log/auth.log
-sudo chown root:adm /var/log/*.log
-
-# Restrict rsyslog configuration
-sudo chmod 640 /etc/rsyslog.conf
-sudo chmod 640 /etc/rsyslog.d/*.conf
-```
+Log ownership and group names vary by distribution and logging policy. Avoid applying broad ownership or permission changes to `/var/log/*.log`; they can break services, log rotation, or access controls. Inspect the current owner/mode and apply the platform's approved settings to the specific files and configuration directories.
 
 ### Harden Auditd
 
@@ -831,16 +825,9 @@ sudo augenrules --load
 
 ### High CPU Usage
 
-```bash
-# Check audit backlog
-sudo auditctl -s
+Check `sudo auditctl -s` and monitor the `lost` and `backlog` counters. A growing `lost` value means records were dropped; a larger buffer may absorb bursts but does not solve sustained overload. `sudo auditctl -b 16384` changes the running kernel setting; persist a chosen buffer value in the managed rules file and validate it with the distribution's rule loader. Reduce event volume by tuning specific high-volume rules and measuring the coverage trade-off.
 
-# If backlog is full, increase buffer
-sudo auditctl -b 16384
-
-# Reduce noisy rules
-# Comment out high-volume rules like execve monitoring
-```
+If expected events are missing, inspect `sudo auditctl -l` for a broad `never,task` rule that can bypass syscall rule evaluation. Remove or change it only after checking the distribution's security baseline and testing the impact.
 
 ### Logs Not Forwarding
 
@@ -930,7 +917,7 @@ sudo journalctl --vacuum-time=7d
 | `identity` | User/group file changes |
 | `pam_config` | PAM configuration |
 | `sudo_execution` | sudo usage |
-| `process_execution` | All process execution |
+| `process_execution` | Selected `execve` syscalls for configured architectures |
 | `network_connect` | Network connections |
 | `cron_config` | Scheduled task changes |
 | `time_change` | System time modifications |
