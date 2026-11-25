@@ -97,7 +97,7 @@ The adapter list reflects the guide author's reported tests and current upstream
 
 ## Current nzyme Versions, Radio Coverage & Defensive Setup
 
-**Version check (2026-11-21):** [nzyme 2.0.0-alpha.20](https://www.nzyme.org/news/2026/10/12/release-v200-alpha-20) was released October 12, 2026. Its node/tap configuration, secret-file permission checks, metrics and `nzyme-util` tooling may differ from older installed systems. Treat the existing hardware/Ubuntu example below as a **version-specific reference**, not a promised one-command deployment across releases. Before installation consult [official requirements](https://docs.nzyme.org/getting-started/requirements/), [upgrades](https://docs.nzyme.org/getting-started/upgrading/upgrading/) and **exact release** docs.
+**Source check (2026-11-24):** The linked [nzyme 2.0.0-alpha.20 release notice](https://www.nzyme.org/news/2026/10/12/release-v200-alpha-20) dates that prerelease to October 12, 2026; it does not guarantee that alpha.20 remains the newest build. Check the [official downloads](https://go.nzyme.org/downloads) and the exact release notes before installing. Node/tap configuration, secret-file permission checks, metrics and `nzyme-util` may differ between releases. Treat the hardware/Ubuntu example below as a **version-specific reference**, not a one-command deployment guarantee. Before installation consult [official requirements](https://docs.nzyme.org/getting-started/requirements/) and [upgrade notes](https://docs.nzyme.org/getting-started/upgrading/upgrading/).
 
 | Component | Purpose | Qualifications |
 |---|---|---|
@@ -278,7 +278,7 @@ Repeated oopses clustered right after tap startup = driver instability under cha
 | `rtl8xxxu` | 8812AU | [`8812au-20210820`](https://github.com/morrownr/8812au-20210820) |
 | `rtw88` | 8821AU | [`8821au-20210708`](https://github.com/morrownr/8821au-20210708) |
 
-Out-of-tree WiFi drivers execute in the kernel. Prefer a supported adapter using an in-kernel driver when practical. If a driver change is needed, review the project and exact source before installing, keep a rollback path, and expect to repeat compatibility checks after kernel upgrades.
+Out-of-tree WiFi drivers execute in the kernel. Prefer a supported adapter using an in-kernel driver when practical. If a driver change is needed, review the project's provenance, maintenance, license, install script and DKMS source; select and record the exact tag or commit before running privileged code. Keep a rollback path and expect to repeat compatibility checks after kernel upgrades.
 
 ```bash
 sudo apt update
@@ -288,10 +288,18 @@ sudo apt install -y linux-headers-rpi-v8 dkms git build-essential bc
 
 git clone https://github.com/morrownr/8821au-20210708.git   # match your chipset
 cd 8821au-20210708
+git rev-parse HEAD
+# Review the source and installer first. Check out the exact reviewed tag/commit,
+# if needed, then record the resulting commit with git rev-parse HEAD.
+```
+
+Only after reviewing the exact source revision and install steps above, run the installer:
+
+```bash
 sudo ./install-driver.sh
 ```
 
-`install-driver.sh` blacklists the conflicting in-kernel driver, builds via DKMS, and prompts for reboot — accept defaults, disable power management. After reboot:
+The script blacklists the conflicting in-kernel driver, builds via DKMS, and prompts for reboot — accept defaults, disable power management. After reboot:
 
 ```bash
 lsmod | grep -E "8821|8812|rtw88|rtl8xxxu"
@@ -308,10 +316,29 @@ sudo dpkg -i nzyme-tap_<version>.deb
 sudo nano /etc/nzyme/nzyme-tap.conf
 ```
 
+### Tap-to-node TLS trust
+
+The default nzyme-node certificate is self-signed. nzyme documents two choices: accept that certificate risk with `accept_insecure_certs = true`, or install a certificate the tap can trust. For production, use a properly trusted certificate and leave verification enabled (`false`). Accepting an untrusted certificate still encrypts traffic, but it does not reliably authenticate the node and can allow an on-path attacker to impersonate it. Keep the node listener restricted to the management network either way.
+
+```mermaid
+flowchart TD
+    A[Tap connects to nzyme-node over HTTPS] --> B{Can the tap validate the node certificate?}
+    B -->|Yes: trusted certificate| C[Set accept_insecure_certs = false]
+    C --> D[Encrypted link with certificate validation]
+    B -->|No: default self-signed certificate| E[Install a trusted certificate]
+    E --> C
+    B -->|Temporary isolated lab exception| F[Set true only after accepting the risk]
+    F --> G[Traffic is encrypted, but node identity is not validated]
+    G --> H[Limit exposure; replace with trusted certificate]
+```
+
+The example below uses the self-signed-certificate exception for a restricted lab only. Do not copy that setting into a production or untrusted network; install a trusted certificate and set it to `false`. The [official installation guide](https://docs.nzyme.org/getting-started/installation/ubuntu-server-2404/) describes the same choice.
+
 ```toml
+[general]
 leader_secret = "PASTE_LEADER_SECRET_HERE"
 leader_uri = "https://10.0.1.x:22900/"
-accept_insecure_certs = true
+accept_insecure_certs = true # restricted lab only; use false with a trusted certificate
 ```
 
 Only **one** `[wifi_interfaces.*]` block active per tap — rename the template to your real interface name from `ip link`, and set every other block `active = false`.
