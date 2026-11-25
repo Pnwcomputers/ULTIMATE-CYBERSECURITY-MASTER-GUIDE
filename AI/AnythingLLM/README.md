@@ -142,25 +142,6 @@ Provider requirements depend on the specific endpoint and subscription:
 - **Have I Been Pwned:** Authenticated account, paste, and domain-search operations require the documented headers; operation access varies by subscription. Domain search requires a verified domain. Check current [HIBP API documentation](https://haveibeenpwned.com/scalar/) before configuring a flow. Never put API keys in URLs, prompts, or exported flow definitions.
 - **VirusTotal:** The Public API is limited to non-commercial use and is not permitted for business workflows that do not contribute new files. Its current public quota is 4 requests/minute and 500/day, but quotas and licensed capabilities can change. Do not use a public key for a business assessment; check [VirusTotal's current API terms and limits](https://docs.virustotal.com/reference/public-vs-premium-api) and obtain approved access for the intended use.
 - **Other providers:** Review the provider's current terms, rate limits, retention, and permitted use. Before sending real data, confirm the destination is approved for that data class and minimize inputs.
-## File Structure
-
-```
-/mnt/user-data/outputs/
-├── anythingllm-workflow-examples.md    # Workflow combinations guide
-├── flow-CompanyOSINT.md                # Company intelligence
-├── flow-DomainRecon.md                 # Domain reconnaissance
-├── flow-EmailOSINT.md                  # Email investigation
-├── flow-GitHubSecrets.md               # GitHub credential scanning
-├── flow-BreachChecker.md               # Breach verification
-├── flow-NmapAnalyzer.md                # Nmap scan analysis
-├── flow-ThreatIntelCheck.md            # IP/domain reputation
-├── flow-CVELookup.md                   # CVE intelligence
-├── flow-VulnReportGenerator.md         # Report generation
-└── README-AgentFlows.md                # This file
-```
-
----
-
 ## Repository Layout
 
 - README.md — this flow catalog and setup notes
@@ -197,7 +178,7 @@ Self-hosting places the application under your control. Model providers, embeddi
 - Each flow can be customized
 - Add additional data sources
 - Modify prompts for different output formats
-- Chain with custom flows
+- Build analyst-run sequences; validate any supported automated integration separately
 
 ---
 
