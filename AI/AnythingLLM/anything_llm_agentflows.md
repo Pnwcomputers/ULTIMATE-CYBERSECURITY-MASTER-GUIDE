@@ -1,21 +1,21 @@
 # AnythingLLM AgentFlow Workflow Examples
 
 ## 🎯 Purpose
-Practical workflow examples showing how to chain AnythingLLM AgentFlows for complete security assessment sequences - from initial recon through email OSINT, breach checking, threat intel, and final report generation.
+Analyst-run examples for sequencing AnythingLLM AgentFlows during authorized security work. Each external query and active scan needs its own scope, privacy, and provider-use review.
 
 ## ⚙️ Function
-Demonstrates multi-flow chains: DomainRecon -> EmailOSINT -> BreachChecker -> ThreatIntelCheck -> VulnReportGenerator. Includes example prompts, expected output structures, and guidance on passing data between flows.
+Shows how an analyst may hand off minimized results between DomainRecon, authorized email or breach checks, threat-intelligence lookups, vulnerability research, and reporting. It does not assume automatic flow-to-flow execution.
 
 ## 🏆 Goal
-Enable end-to-end automated security assessments using chained AgentFlows with minimal manual intervention between steps.
+Support repeatable analyst-reviewed workflows with explicit scope, source verification, provider disclosure review, and approval before consequential actions.
 
 ## 📋 When to Use
-Planning an automated recon workflow; combining multiple flows for a comprehensive assessment; understanding how flows connect and hand off data to each other.
+Planning an analyst-run sequence for an authorized assessment; deciding what data can pass between steps; identifying where a human must verify scope, privacy, and evidence.
 
 
 ## Overview
 
-This document provides practical workflow examples using AnythingLLM custom AgentFlows for cybersecurity assessments and penetration testing. These workflows demonstrate how to chain together multiple flows to accomplish common security tasks efficiently.
+This document provides conceptual sequence examples. Unless you configure and validate a supported orchestration mechanism in your deployment, run each flow as a separate analyst-controlled step. Treat all API, web, scan, and model output as untrusted; verify its source and scope before using it as input to another flow.
 
 ### Available AgentFlows
 
@@ -51,7 +51,7 @@ The following custom AgentFlows are referenced in these workflows:
 5. **BreachChecker** → Identify compromised accounts and leaked data
    - Input: `domain`
 
-**Output:** Comprehensive pre-engagement intelligence report
+**Output:** A scoped collection of leads with source, retrieval time, gaps, and uncertainty; do not describe it as comprehensive.
 
 ---
 
@@ -100,14 +100,14 @@ The following custom AgentFlows are referenced in these workflows:
 4. **BreachChecker** → Identify compromised accounts
    - Input: Domain or email addresses
 
-**Output:** Incident analysis with threat actor attribution and impact assessment
+**Output:** An incident investigation summary with corroborated indicators, scope, and uncertainty. A reputation match or model summary alone does not establish threat-actor attribution or impact.
 
 ---
 
 ## Quick Flow Combinations
 
-### Quick Vulnerability Assessment
-**Use Case:** Fast initial security check
+### Analyst-Guided Vulnerability Triage
+**Use Case:** Organize authorized scan evidence and prioritize questions for verification
 
 ```
 Nmap Scan
@@ -177,7 +177,7 @@ Compile into final report
 3. **DomainRecon** → Map complete attack surface including subdomains
 4. **GitHubSecrets** → Identify exposed credentials in public repositories
 
-**Output:** Complete OSINT intelligence package
+**Output:** A bounded report of collected leads, sources, uncertainties, and unsearched areas.
 
 ---
 
@@ -185,11 +185,12 @@ Compile into final report
 
 ### Best Practices
 
-- Always ensure you have **proper authorization** before executing these workflows
-- **Document each step** as you progress through workflows
-- Use **descriptive inputs** for better analysis quality
-- **Chain workflows** based on findings from previous steps
-- **Save outputs** from each flow for final report compilation
+- Confirm written scope and data-handling approval before each query or active scan; discovering a host or account does not authorize testing it.
+- Use synthetic inputs in development and verify each provider destination, API permission, and quota before real-data use.
+- Pass only the minimum necessary data between steps. Treat retrieved text and model output as untrusted and potentially incomplete.
+- Preserve source URL, retrieval time, response status, and analyst verification; distinguish raw evidence from model-generated summary.
+- Pause for analyst review when scope, consent, provider terms, or evidence is unclear. Require separate approval for blocking, account actions, remediation, or report release.
+- Keep credentials in the deployment's supported secret store; do not commit keys or place them in prompts or URLs.
 
 ### Workflow Customization
 
@@ -211,7 +212,7 @@ These workflows can be:
 
 ## Example Complete Engagement
 
-**Scenario:** External penetration test for Acme Corporation
+**Scenario:** Illustrative external assessment of a fictional organization; replace placeholders only with assets and accounts listed in written scope.
 
 ### Phase 1: Reconnaissance (Week 1)
 ```
@@ -247,8 +248,8 @@ Client presentation preparation
 
 ---
 
-**Document Version:** 1.0  
-**Last Updated:** November 2025  
+**Document Version:** 1.1  
+**Reviewed:** 2026-11-24  
 **Author:** Pacific Northwest Computers  
 **Purpose:** AnythingLLM AgentFlow workflow reference guide
 
@@ -260,19 +261,8 @@ Client presentation preparation
 
 ## Analyst-Gated Workflow Map
 
-Chaining flows should not silently expand scope. Treat outputs from one flow as unverified inputs to the next; require a human scope and evidence review at each handoff.
+A sequence of flow examples is not automatically an orchestrated workflow. Unless a supported flow-to-flow mechanism is configured and tested in your release, invoke each step under analyst control. Recheck scope and provider disclosure at every handoff.
 
-```mermaid
-flowchart LR
-    A[Written scope and approved data] --> B[DomainRecon]
-    B --> C[Analyst verifies ownership and asset scope]
-    C --> D[EmailOSINT or BreachChecker]
-    D --> E[Analyst reviews privacy and provider disclosures]
-    E --> F[ThreatIntelCheck]
-    F --> G[Vulnerability research]
-    G --> H[Analyst validates source claims and impact]
-    H --> I[Report with provenance, uncertainty, and evidence]
-    C -. out of scope .-> X[Stop and document]
-    E -. unapproved disclosure .-> X
-    H -. unverified claim .-> X
-```
+![Conceptual workflow: approve scope and data class, query only approved sources, treat results as untrusted, require analyst verification before another flow, and stop when scope, privacy, or evidence checks fail](../../assets/diagrams/anythingllm-analyst-gated-handoffs.svg)
+
+*Conceptual workflow; it does not show a live AnythingLLM deployment or a tested integration.*
