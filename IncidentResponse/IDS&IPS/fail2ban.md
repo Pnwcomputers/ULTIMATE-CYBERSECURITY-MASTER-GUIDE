@@ -104,7 +104,8 @@ Key files, all under `/etc/fail2ban/`:
 | `jail.conf` | Default jail definitions — don't edit |
 | `jail.local` | **Your jail overrides — edit this one** |
 | `filter.d/` | Regex filter definitions (one per service type) |
-| `action.d/` | Ban action definitions (iptables, sendmail, etc.) |
+| `action.d/` | Ban action definitions (firewall, mail, and other response actions) |
+| `jail.d/` | Additional jail overrides, commonly split into `.conf` or `.local` files |
 
 The pattern throughout Fail2Ban's config is the same as much of this repo's other tooling: never edit the `.conf` shipped by the package, always override in the matching `.local` file so package updates don't silently discard your changes.
 
@@ -120,8 +121,9 @@ Baseline `[DEFAULT]` section in `jail.local`:
 
 ```ini
 [DEFAULT]
-# Never ban these — your own management IPs, always
+# Never ban these — include only management addresses you trust
 ignoreip = 127.0.0.1/8 ::1 192.168.1.0/24
+# Replace the example subnet with your actual management IPs/subnets.
 
 # How long a ban lasts (seconds)
 bantime = 3600
@@ -139,26 +141,24 @@ maxretry = 5
 # action = %(action_mwl)s
 ```
 
-**Set `ignoreip` before enabling anything else.** This is the single most important line in the file — get it wrong and you can ban your own management access.
+**Set `ignoreip` before enabling anything else.** Replace the example subnet with only addresses you administer: every address in an ignored range bypasses these jails. A wrong or overly broad range can protect hostile hosts or leave your management access exposed to lockout.
 
 ---
 
 ## 🔒 Protecting SSH
 
-The default, and most common, use case:
+Enable the package-provided `sshd` jail and adjust only the policy values below. This minimal override deliberately inherits the installed package's filter, log backend, and log source; those defaults differ between distributions and package versions.
 
 ```ini
 [sshd]
 enabled = true
 port = ssh
-filter = sshd
-logpath = /var/log/auth.log
 maxretry = 3
 bantime = 3600
 findtime = 600
 ```
 
-> **Distro-specific source:** Check the installed package’s defaults: authentication log locations and backends vary by distribution and version. Use the configured path for file-based monitoring. With the systemd backend, follow the installed filter’s journal matching configuration; upstream documents that `logpath` is not valid with this backend. Do not combine a guessed file path with a journald backend.
+> **Distro-specific source:** Keep the package's `backend` and `logpath` values unless you have verified the host's logging setup. Authentication log locations and backends vary. If you choose the systemd journal backend, it reads journal entries and does not use `logpath`; a file-based backend needs an existing, readable file and a filter that matches its format. Do not combine a guessed file path with a journald backend.
 
 If you moved SSH to a non-standard port (a pattern used elsewhere in this repo's honeypot guides — see [Cowrie](../HoneyPot/cowrie.md) and [OpenCanary](../HoneyPot/opencanary.md)), update `port` to match.
 
@@ -200,7 +200,7 @@ sudo fail2ban-client status sshd
 
 Output shows currently-failed counts, total failures, and the list of currently-banned IPs.
 
-**See the actual firewall rules Fail2Ban created:**
+**Inspect the firewall action:** this example applies only when the configured action uses iptables and creates the `f2b-sshd` chain; names and commands differ with nftables, firewalld, and custom actions.
 
 ```bash
 sudo iptables -L f2b-sshd -n --line-numbers
@@ -221,10 +221,10 @@ sudo fail2ban-client set sshd unbanip "$approved_ip"
 sudo fail2ban-client -d
 ```
 
-**Test a filter's regex against real log lines** before trusting it in production — a bad regex either misses real attacks or bans legitimate users:
+**Test the filter against the actual source** before trusting it in production — a bad regex either misses real attacks or bans legitimate users. This command is for a file-based source; use the installed `fail2ban-regex --help` for journal-backed inputs:
 
 ```bash
-fail2ban-regex /var/log/auth.log /etc/fail2ban/filter.d/sshd.conf
+sudo fail2ban-regex /var/log/auth.log /etc/fail2ban/filter.d/sshd.conf
 ```
 
 ---
@@ -237,7 +237,7 @@ fail2ban-regex /var/log/auth.log /etc/fail2ban/filter.d/sshd.conf
 | Jail shows `enabled = true` but never bans anything | `logpath` points at a file that doesn't exist or isn't being written on this distro (e.g. Ubuntu-style path used on RHEL) | Confirm the actual log path/backend for your specific distro — see the SSH section's distro-specific note above |
 | Edits to `jail.conf` disappear after a package update | `jail.conf` is the package-managed default, meant to be read-only | Always edit `jail.local` (or drop files in `jail.d/`) instead — never `jail.conf` directly |
 | Filter doesn't match despite obviously-failed log lines present | Log format differs slightly from what the bundled filter regex expects (common after a service version upgrade) | Use `fail2ban-regex` against the actual log file and filter to see exactly where the match fails |
-| Bans aren't persistent across service restarts | This is expected default behavior — Fail2Ban's ban list is in-memory unless configured otherwise | Acceptable for most use cases; if persistence matters, look into Fail2Ban's database (`dbfile`) settings rather than assuming this is a bug |
+| An active ban seems to disappear after a restart | Fail2Ban stores state in SQLite by default and restores bans that are still active; the database and retention settings may be customized | Check the configured `dbfile`, `dbpurgeage`, jail `bantime`, service logs, and `fail2ban-client status <jail>`; expired records are not a permanent ban history |
 
 ---
 
