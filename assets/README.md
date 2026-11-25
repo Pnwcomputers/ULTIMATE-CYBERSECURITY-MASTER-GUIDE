@@ -89,6 +89,7 @@ These six original SVG diagrams use descriptive alternative text, avoid external
 |---|---|---|
 | [Parrot CM5 plan and readback](./diagrams/uconsole-parrot-cm5-plan-and-readback.svg) | [Parrot CM5 setup](../uConsole/PARROT-CM5.md#run) | Separates installed-image checks, cached package simulation and physical validation |
 | [OpenClaw gateway access checks](./diagrams/openclaw-gateway-access-checks.svg) | [OpenClaw setup](../AI/OpenClaw/README.md#local-access-before-https) | Shows effective exposure, authenticated access and pairing |
+| [OpenClaw Gateway trust boundary](./diagrams/openclaw-gateway-trust-boundary.svg) | [OpenClaw setup](../AI/OpenClaw/README.md#gateway-trust-boundary) | Distinguishes mutually trusting shared use from adversarial-user isolation |
 | [Cyberdeck qualification evidence gate](./diagrams/cyberdeck-qualification-evidence-gate.svg) | [Cyberdeck acceptance tests](../Cyberdeck/docs/ACCEPTANCE_TESTS.md#completion-definitions) | Connects pass criteria and evidence to capability claims |
 
 ## Computing Setup and Shell Verification

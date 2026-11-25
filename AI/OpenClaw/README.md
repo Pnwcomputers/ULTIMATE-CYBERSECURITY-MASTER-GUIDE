@@ -32,21 +32,21 @@ Get OpenClaw running on TrueNAS SCALE with all four LLM providers verified worki
 
 ## What Is OpenClaw?
 
-OpenClaw is a free, open-source AI agent framework that runs on your own hardware. Think of it as a personal AI assistant - like having a local version of ChatGPT that you control completely, connected to your messaging apps, files, and services.
+OpenClaw is an open-source agent framework that you can self-host. Its Gateway can connect local or hosted models to the messaging channels, files, and services you configure; hosting the Gateway locally does not make every connected service local.
 
 **What it can do:**
 - Chat via Telegram, Discord, WhatsApp, Slack, Signal, and 50+ other platforms from a single agent
-- Read and write files, run shell commands, browse the web, and manage your calendar
+- With corresponding tools and permissions enabled, agents can read or write allowed files, run permitted commands, browse the web, and interact with configured services
 - Connect to multiple AI providers simultaneously (Anthropic, Google, Groq, local Ollama models) and route tasks to the best/cheapest model automatically
 - Remember context across sessions and schedule automated tasks with cron jobs
 - Extend functionality with community-built skills (ClawHub) for homelab management, GitHub, Notion, media servers, and more
-- Run 100% locally with Ollama - no data leaves your network
+- Local Ollama inference is an option, but channels, hosted model routing or fallback, search, tools, plugins, telemetry, logs, and backups can still send data outside your network. Verify every configured data path before treating the deployment as local-only.
 
 **Why self-host it?**
-- Your conversations stay on your hardware
+- Self-hosting can keep conversation data on your hardware when the model, channels, tools, logs, and storage paths also remain local; connected hosted services have their own data handling
 - Compare current model availability, limits, pricing, retention and data-use terms for every provider; do not send sensitive engagement data to a hosted tier until its terms and approvals are checked
 - Integrate with your existing homelab infrastructure
-- Full control over models, tools, and data
+- Choose and constrain models, tools, and data paths; control still depends on the providers and services you connect
 
 ---
 
@@ -76,6 +76,14 @@ This repository includes three guides. Start here, then refer to the others once
 - [Local Access Without HTTPS](#local-access-before-https)
 - [Troubleshooting](#troubleshooting)
 - [Reference: Key Commands](#reference-key-commands)
+
+---
+
+## Gateway Trust Boundary
+
+![OpenClaw treats one Gateway as one trust boundary: mutually trusting users may share its delegated tools, while adversarial users need separate Gateway instances and host isolation](../../assets/diagrams/openclaw-gateway-trust-boundary.svg)
+
+OpenClaw documents one Gateway as a trust boundary: people who can message a tool-enabled agent share that agent's delegated authority. Do not put mutually untrusted or adversarial users behind the same Gateway and assume pairing or separate chat sessions isolate them. Use separate Gateways, and preferably separate OS users or hosts, for adversarial-user isolation. Restrict tools, session visibility, and agent-to-agent access for the trust model you actually need. See the current [OpenClaw security trust model](https://docs.openclaw.ai/gateway/security/trust-model).
 
 ---
 
@@ -325,15 +333,15 @@ proxy_send_timeout 3600s;
 proxy_connect_timeout 60s;
 ```
 
-> ⚠️ The `proxy_http_version 1.1` line is critical. WebSockets require HTTP/1.1 and will fail silently with HTTP/2 or HTTP/3.
+> The config explicitly uses HTTP/1.1 for the upstream's classic WebSocket `Upgrade` handshake and forwards the hop-by-hop `Upgrade` and `Connection` headers. The browser-facing HTTP/2 or HTTP/3 connection is a separate leg; WebSockets can use standardized extended CONNECT mechanisms over those protocols when both ends support them. Do not disable browser-facing HTTP/2 or HTTP/3 solely because the upstream uses WebSockets. Test the exact NPMplus/OpenClaw combination and consult the [Nginx WebSocket proxy guidance](https://nginx.org/en/docs/http/websocket.html), [RFC 8441](https://www.rfc-editor.org/rfc/rfc8441), and [RFC 9220](https://www.rfc-editor.org/rfc/rfc9220).
 
 **TLS tab:**
 | Field | Value |
 |-------|-------|
 | TLS Certificate | Request a new Certificate |
 | Force HTTPS | ✅ Enabled |
-| HTTP/2 Support | ❌ Disabled |
-| HTTP/3 Support | ❌ Disabled |
+| HTTP/2 Support | Optional on the browser-to-proxy connection; test the Gateway WebSocket if enabled |
+| HTTP/3 Support | Optional on the browser-to-proxy connection; test the Gateway WebSocket if enabled |
 | Use DNS Challenge | ✅ Enabled (required for DuckDNS) |
 
 Enable **Use DNS Challenge** and enter your DuckDNS token from `https://www.duckdns.org`.

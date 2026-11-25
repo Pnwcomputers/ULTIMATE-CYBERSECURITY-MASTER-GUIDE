@@ -61,7 +61,7 @@ Get a self-hosted AI agent running (OpenClaw or AnythingLLM) with role-appropria
 
 *Conceptual AI agent architecture showing the orchestration and data/tool boundaries. Specific OpenClaw and AnythingLLM deployments may use different components, permissions and isolation.*
 
-This directory contains **resources, configurations, guides, and methodologies** focused on the intersection of artificial intelligence (AI), machine learning (ML), generative AI (GenAI), and cybersecurity - with an emphasis on **self-hosted, privacy-respecting deployments** that keep your data on your own hardware.
+This directory contains **resources, configurations, guides, and methodologies** focused on the intersection of artificial intelligence (AI), machine learning (ML), generative AI (GenAI), and cybersecurity - with an emphasis on **self-hostable, privacy-conscious deployments**. Whether data stays on your hardware depends on model routing, channels, tools, telemetry, storage and connected services.
 
 **What You'll Find Here:**
 - Self-hosted AI agent frameworks (OpenClaw, AnythingLLM) with full setup guides for TrueNAS SCALE
@@ -166,7 +166,7 @@ These detailed chapters turn a working AI chat or self-hosted model into a **mea
 - **AnythingLLM AgentFlows** - Custom automation flows for incident response, OSINT collection, log analysis, and security audits running inside a self-hosted AnythingLLM instance.
 
 **Key capabilities:**
-- Run 24/7 on your homelab with no cloud dependency
+- Run on a homelab without a cloud model provider when models, channels, tools, telemetry, and delivery paths are also kept local
 - Hosted-provider no-cost access may be available, but models, quotas, eligibility, pricing and data-use terms change; verify them before use
 - Local inference with Ollama can keep prompts on-device when models, tools, telemetry and routing remain local; verify the full data path before using sensitive data
 - Scheduled automations, cron jobs, and event-driven hooks
@@ -276,7 +276,7 @@ These detailed chapters turn a working AI chat or self-hosted model into a **mea
 
 ### For Sensitive / Air-gapped Environments
 - Follow `offline-llm.md` for fully offline deployment
-- Use Ollama as the sole inference backend - no data leaves the machine
+- For an air-gapped setup, follow `offline-llm.md` to disable Ollama cloud features and verify the UI, telemetry, embeddings, tools, storage, backups, and network paths; a local inference backend alone does not prove that no data leaves the machine
 - Apply the `agent_skill_config.md` homelab agent (Homer) for infrastructure management
 
 ### Customization Tips
