@@ -632,9 +632,15 @@ Record the unique marker and verify the configured destination and severity filt
 For the fixed-file loopback example in Part 8, inspect that exact destination:
 
 ```bash
-# Inspect the configured file and search the exact synthetic marker.
-tail -f /var/log/remote/received.log
+# Search the configured file for the exact synthetic marker.
 grep -F "synthetic-marker-001" /var/log/remote/received.log
+```
+
+To watch new records arrive interactively, run this separately; it stays open
+until interrupted and will prevent later commands in the same shell from running:
+
+```bash
+tail -f /var/log/remote/received.log
 ```
 
 Other collectors can use different files or storage backends. A local file match
