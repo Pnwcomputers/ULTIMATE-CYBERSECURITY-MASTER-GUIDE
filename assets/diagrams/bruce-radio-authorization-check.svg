@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+<title id="title">Bruce radio authorization check</title>
+<desc id="desc">A decision flow separates receive-only collection from transmission. Before transmitting, identify jurisdiction, service, frequency, device and mode; confirm legal authorization, equipment compliance, engagement permission and technical limits. Stop and resolve unknowns. U.S. jamming functions are prohibited for consumer use.</desc>
+<defs>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#14263b}
+    .head{font-size:30px;font-weight:700;fill:#fff}
+    .sub{font-size:17px;fill:#dbeafe}
+    .box{fill:#f7fafc;stroke:#42617f;stroke-width:2}
+    .blue{fill:#e5f1ff;stroke:#3372a5;stroke-width:2}
+    .green{fill:#e7f7ec;stroke:#23824b;stroke-width:2}
+    .amber{fill:#fff2d4;stroke:#b7791f;stroke-width:2}
+    .red{fill:#fee8e7;stroke:#b42318;stroke-width:2}
+    .label{font-size:20px;font-weight:700}
+    .body{font-size:16px}
+    .small{font-size:14px}
+    .arrow{stroke:#49657d;stroke-width:3;fill:none;marker-end:url(#arrow)}
+  </style>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#49657d"/></marker>
+</defs>
+<rect width="1200" height="660" rx="22" fill="#edf3f8"/>
+<rect x="0" y="0" width="1200" height="112" rx="22" fill="#173b5e"/>
+<rect x="0" y="88" width="1200" height="24" fill="#173b5e"/>
+<text class="head" x="42" y="51">Before using a Bruce radio feature</text>
+<text class="sub" x="42" y="82">A conceptual checklist; verify current law, device authorization and engagement scope</text>
+
+<rect class="blue" x="410" y="142" width="380" height="72" rx="14"/>
+<text class="label" x="600" y="173" text-anchor="middle">What will the device do?</text>
+<text class="body" x="600" y="198" text-anchor="middle">Receive only, or transmit / replay / broadcast?</text>
+
+<path class="arrow" d="M485 214 C440 244 330 246 290 275"/>
+<path class="arrow" d="M715 214 C760 244 870 246 910 275"/>
+<text class="small" x="350" y="245">Receive only</text>
+<text class="small" x="820" y="245">Any transmission</text>
+
+<rect class="green" x="70" y="278" width="430" height="140" rx="14"/>
+<text class="label" x="285" y="312" text-anchor="middle">Assess collection separately</text>
+<text class="body" x="98" y="347">• Are reception and collection permitted?</text>
+<text class="body" x="98" y="375">• Are recording, use and disclosure allowed?</text>
+<text class="body" x="98" y="402">Receive-only does not answer every privacy</text>
+<text class="body" x="98" y="423">or communications-interception question.</text>
+
+<rect class="amber" x="700" y="278" width="430" height="140" rx="14"/>
+<text class="label" x="915" y="312" text-anchor="middle">Identify the exact operation</text>
+<text class="body" x="728" y="347">Jurisdiction • frequency • radio service</text>
+<text class="body" x="728" y="375">Device • mode • power • antenna • purpose</text>
+<text class="body" x="728" y="402">A feature, license, or written ROE alone</text>
+<text class="body" x="728" y="423">does not establish radio authorization.</text>
+
+<path class="arrow" d="M915 419 L915 461"/>
+<rect class="box" x="700" y="466" width="430" height="112" rx="14"/>
+<text class="label" x="915" y="498" text-anchor="middle">Verify each required gate</text>
+<text class="body" x="728" y="529">Radio authority + compliant device + limits</text>
+<text class="body" x="728" y="554">+ target permission + engagement scope</text>
+
+<path class="arrow" d="M700 523 L570 523"/>
+<rect class="red" x="70" y="466" width="470" height="112" rx="14"/>
+<text class="label" x="305" y="499" text-anchor="middle">If any gate is unknown: STOP</text>
+<text class="body" x="305" y="530" text-anchor="middle">Resolve the requirement before transmitting.</text>
+<text class="small" x="305" y="556" text-anchor="middle">U.S.: consumers may not operate signal jammers.</text>
+
+<text class="small" x="600" y="625" text-anchor="middle">A shielded room or private property is not a general exemption. Laws outside the U.S. differ.</text>
+</svg>
