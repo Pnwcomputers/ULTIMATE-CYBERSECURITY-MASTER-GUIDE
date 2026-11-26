@@ -1264,3 +1264,12 @@ Conceptual checklists for jurisdiction, device, region, configuration, radio aut
 |---|---|
 | [Radio compliance preflight](./diagrams/uconsole-radio-compliance-preflight.svg) | [uConsole RF & Radio Compliance](../uConsole/README.md#rf-and-radio-compliance) |
 | [Bruce radio authorization check](./diagrams/bruce-radio-authorization-check.svg) | [Bruce firmware guide](../Documentation/bruce_firmware.md) |
+
+
+## Curated Security Collections Visual
+
+Original conceptual workflow for using an upstream cybersecurity collection to find a PNWC topic guide, evaluate a downstream project, and confirm authorization before use.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Curated security collection evaluation](./diagrams/curated-security-collection-evaluation.svg) | [Curated GitHub security collections](../Documentation/awesome-hacking-collections-integration.md) |
