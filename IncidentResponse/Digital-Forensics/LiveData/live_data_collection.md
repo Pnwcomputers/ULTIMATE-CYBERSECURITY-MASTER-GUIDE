@@ -937,7 +937,7 @@ As checked on November 25, 2026, AVML v0.21.0 is the current release. Recheck th
 AVML_VERSION=v0.21.0
 wget "https://github.com/microsoft/avml/releases/download/${AVML_VERSION}/avml" -O avml
 EXPECTED_SHA256='<copy the digest published for this exact release asset>'
-printf '%s  %s\\n' "$EXPECTED_SHA256" avml | sha256sum --check - || exit 1
+printf '%s  %s\n' "$EXPECTED_SHA256" avml | sha256sum --check - || exit 1
 
 # Capture memory (root privileges required)
 chmod +x avml
