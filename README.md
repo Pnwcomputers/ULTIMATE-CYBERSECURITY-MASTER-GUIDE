@@ -109,7 +109,78 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 | 🔥 **[Enhanced Cybersecurity Master Guide](./ENHANCED_MASTER_GUIDE.md)** | Extended procedures, reference material and PNWC operational experience; verify environment-specific advice before deployment |
 | 🔥 **[Specialized Topics Guide](./SPECIALIZED_TOPICS_GUIDE.md)** | Deep-dive into specialized/emerging domains: AI & LLM Security, Hardware Hacking, Hardware Testing, uConsole Cyberdeck, Space Security, SDR & RF Security |
 
-**Related PNWC Project:** [Portable Cyberdeck Public Reference](./Cyberdeck/README.md), distinct from the ClockworkPi uConsole setup.
+---
+
+### Operational Sections:
+
+| Section | Description |
+|---|---|
+| 🤖 [AI Cybersecurity Resources](./AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, and AI-powered security workflows |
+| 🛠️ [CAD & 3D Printing](./CAD/README.md) | OpenSCAD design for printable cases, cradles, adapters and replacement parts, with hardware mockups, clash testing, snap fits and a full T-Embed + GPS cradle tutorial |
+| 📋 [Checklists](./Checklists/README.md) | Pre-engagement, testing, and post-engagement checklists |
+| ☁️ [Cloud Security](./Cloud/README.md) | Shared-responsibility models, common misconfigurations, and provider-specific attack surfaces and hardening for AWS, Azure/Entra ID, and GCP |
+| 📋 [Compliance & GRC](./Compliance/README.md) | Governance, risk, and compliance guidance covering NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS Controls, GDPR, HIPAA, CCPA, and control mapping |
+| 📦 [Container & Kubernetes Security](./ContainerSecurity/README.md) | Container image and runtime attack surfaces, container escape techniques, and Kubernetes hardening using RBAC, Pod Security Standards, and network policies |
+| 🔐 [Cryptography](./Cryptography/README.md) | Practical cryptography reference covering current and deprecated algorithms, TLS, password storage, key management, and post-quantum standards including FIPS 203, 204, and 205, plus classical ciphers, leetspeak, and cryptanalysis |
+| 🧳 [Cyberdeck: OTG CybSec Audit Platform](./Cyberdeck/README.md) | Public-safe portable assessment architecture, authorization workflow and offline evidence manifest tool; private portal excluded |
+| 🗄️ [Data Engineering & Pipeline Infrastructure](./Data-Engineering/README.md) | General data engineering learning path, existing infrastructure resources, and a proposed documentation roadmap; start with [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) for TLS, SSH, Git, structured logs, Redis/Memcached, Kafka, and Ansible |
+| 📚 [Documentation](./Documentation/README.md) | Supplemental technical documentation, command references, and cheat sheets |
+| 💾 [Encrypted Drives & USB Storage](./Cryptography/encrypted-storage.md) | BitLocker, LUKS, VeraCrypt, DIY vaults and [PhantomDrive](./Cryptography/phantomdrive-guide.md) research |
+| 🥷 [Hardware Hacking](./HardwareHacking/README.md) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
+| 🔑 [Hardware Security Keys & Passkeys](./Cryptography/security-keys-passkeys.md) | FIDO2/WebAuthn, L1-L3+ certification, [SoloKeys](./Cryptography/solokeys-guide.md), passkeys and recovery workflows |
+| 🧰 [Hardware Testing](./HardwareTesting/README.md) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
+| 🏠 [Homelab Guides](./Homelab/README.md) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
+| 🚨 [Incident Response](./IncidentResponse/README.md) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures — including dedicated [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) (nzyme, Suricata/Zeek) and [Honeypot](./IncidentResponse/HoneyPot/readme.md) (OpenCanary, Cowrie, Dionaea, T-Pot, HoneyPi) deployment guides |
+| 📱 [Mobile Security](./Mobile/README.md) | Kali NetHunter on OnePlus 6, [UserLAnd Linux environments on Android](./Mobile/UserLAnd/readme.md), Android and iOS application pentesting, mobile forensics, and field SOPs |
+| 🥷 [Navigating the DarkWeb](https://navigating-the-darkweb.readthedocs.io/en/latest/) | A Comprehensive Guide to Darknets, Tools, and Intelligence in an online book written by [Sébastien Damaye](https://github.com/sebastiendamaye) |
+| 🔬 [Network Audit Playbook](./PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
+| 📋 [Operational Playbooks](./PlayBooks/cybersecurity_playbooks.md) | Full index of playbooks covering network audits, Wi-Fi assessments, incident response, phishing, and unauthorized-access investigations |
+| 📰 [Press Freedom, Source Protection & Digital Safety](./OPSEC/press-freedom/README.md) | Journalist computer, cellphone, network and confidential-source security; lawful retention and disposal; duress and device seizure preparation |
+| 🔴 [OPSEC](./OPSEC/README.md) | Operational security practices covering anonymity workflows, isolated virtual machines, identity separation, and personal rules for professionals |
+| 🔍 [OSINT Guide, Tools & Techniques](./OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology with 400+ categorized tools, investigation workflows, and automated VM setup |
+| 📄 [PDF Resources](./PDF/README.md) | Curated PDF references and guides |
+| 📚 [Playbooks Collection](./PlayBooks/README.md) | Simple, detailed, and multi-script Purple Team, Blue Team, Red Team, and incident-response exercises and procedures |
+| 🔬 [Reverse Engineering](./ReverseEngineering/README.md) | Ghidra installation, binary analysis, scripting, headless workflows, version comparison, and safe malware sourcing via vx-underground |
+| 💻 [Scripts](./Scripts/README.md) | Security automation scripts, exploitation tools, reconnaissance utilities, payloads, and general-purpose programs |
+| 📻 [SDR](./SDR/README.md) | Software Defined Radio theory, security assessment techniques, practical workflows and applications; RF, NFC/RFID, SubGhz |
+| 📊 [SIEM Deployment Guides](./IncidentResponse/SIEM/README.md) | ELK Stack, Wazuh, Splunk, and Graylog deployment, setup, and configuration guides |
+| 🎣 [SOP: Phishing Analysis Playbook](./PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing-email triage and analysis |
+| 👾 [Space Security](./SpaceSecurity/README.md) | Offensive and defensive security across the space, ground, and communications segments of modern space systems |
+| 🗡️ [Tradecraft](./Tradecraft/README.md) | Red Team, Blue Team, and Purple Team tradecraft covering Active Directory, C2 frameworks, AV/EDR evasion, LOLBins, threat intelligence, detection logic, and defensive countermeasures |
+| 📟 [uConsole](./uConsole/README.md) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck |
+| 🚷 [Unauthorized Access Investigation Playbook](./PlayBooks/unauth_access.md) | Playbook for investigating suspected or confirmed unauthorized-access incidents |
+| 📍 [Wardriving & Wireless Surveying](./Wardriving/README.md) | GNSS-tagged Wi-Fi/BLE inventory, Flipper/ESP32-C5 hardware, mobile and Kismet guides, field procedures, and private log handling |
+| 🕸️ [Web Application Security](./WebAppSecurity/README.md) | OWASP Top 10 guidance and a complete web-application pentesting methodology covering reconnaissance, Burp Suite, injection, access control, and API testing |
+
+
+### Subsection Indexes & Focused Entry Points
+
+| Parent Area | Subsection / Guide | Coverage |
+|---|---|---|
+| AI | [AnythingLLM AgentFlows](./AI/AnythingLLM/README.md) | Configured security research and analysis flows |
+| AI | [OpenClaw](./AI/OpenClaw/README.md) | Self-hosted agent setup on TrueNAS SCALE |
+| Data Engineering | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) | Secure transport, parsing, enrichment, streaming, and deployment labs |
+| Hardware Testing | [Python Diagnostic Suite](./HardwareTesting/py/README.md) | Automated hardware tests and result reporting |
+| Incident Response | [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md) | Sysmon, Linux audit/syslog, and Osquery telemetry |
+| Incident Response | [SIEM](./IncidentResponse/SIEM/README.md) | Centralized search and security monitoring guides |
+| Incident Response | [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) | Wireless and wired intrusion detection guides |
+| Incident Response | [Honeypots](./IncidentResponse/HoneyPot/readme.md) | Raspberry Pi, Proxmox VM, ESP32-S3, OpenCanary, Cowrie and Wazuh reporting, with direct project guides |
+| Incident Response | [Digital Forensics](./IncidentResponse/Digital-Forensics/README.md) | Memory, disk, and live-response references |
+| Incident Response | [Tsurugi Bento Portable DFIR](./IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) | Windows field-response toolkit, live triage, Sysinternals, evidence export, RAM/disk acquisition decisions and integrity verification |
+| Incident Response | [OpenBSD PF Firewall](./IncidentResponse/Firewalls/openbsd_pf.md) | Rulesets, network-edge deployment, monitoring, and lab validation |
+| Reverse Engineering | [REMnux Malware Analysis](./ReverseEngineering/remnux-malware-analysis-guide.md) | Isolated malware-analysis workstation, Proxmox installation, offline triage, PE/PDF and network evidence workflows |
+| Tradecraft | [Pentoo Linux](./Tradecraft/pentoo-linux-guide.md) | Gentoo-based penetration-testing platform, scoped assessments and wireless tool workflows |
+| Reverse Engineering | [Ghidra Master Guide](./ReverseEngineering/ghidra-guide-index.md) | Five parts and 23 chapters; start with the section index |
+| Reverse Engineering | [vx-underground](./ReverseEngineering/vx-underground.md) | Malware samples, source, APT reports, and a lab-only intake workflow |
+| OPSEC | [Whonix + Kicksecure USB](./OPSEC/whonix-kicksecure-usb-guide.md) · [Tails USB](./OPSEC/tails-usb-setup-guide.md) | Distinct host/guest, persistence, installation, and validation workflows |
+| SDR | [NanoVNA Field Guide](./SDR/nanovna/README.md) · [HackRF Audit Playbook](./PlayBooks/HackRFAuditPlayBook.md) | Antenna/RF measurements and spectrum-survey engagement procedures |
+| Mobile | [UserLAnd](./Mobile/UserLAnd/readme.md) | Linux userspace on Android, with distribution-specific material |
+| OSINT | [Investigator Playbook](./OSINT/Playbook/README.md) | Investigation workflow entry point |
+| Scripts | [Bash Bunny](./Scripts/Bash/BashBunny/README.md) | Payload setup, USB device-control validation & five authorized labs |
+| Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation & six authorized HID assessment labs |
+| Scripts | [Retired Shell and Stager Sources](./Scripts/GO/shells/README.md) | Inert historical filenames; defensive references only |
+| uConsole | [CM4 / CM5 Setup Scripts](./uConsole/scripts/README.md) · [CM4 Safety Review](./uConsole/CM4-SAFETY-REVIEW.md) | Conservative CM4 preflight, CM5/Parrot setup and display recovery; explicit hardware validation required |
+| Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) · [Wi-Fi Deauthentication Detection](./Documentation/wifi-deauthentication-detection.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
 
 ---
 
@@ -257,79 +328,6 @@ These are source-attributed references, not claims that every upstream tool is i
 | **[Wireshark Master Filter List](./Documentation/wireshark-master-filters.md)** | 133 indexed display filters, safe capture/BPF examples, TShark and defensive packet triage |
 | **[Wireshark Field Cheat Sheet](./Documentation/wireshark-cheatsheet.md)** | Fast reference for TCP/DNS/DHCP/TLS/QUIC/802.11 and troubleshooting |
 | [OSINT Cheat Sheet](./OSINT/OSINT_CHEATSHEET.md) | Quick-reference OSINT cheat sheet |
-
----
-
-### Operational Sections:
-
-| Section | Description |
-|---|---|
-| 🤖 [AI Cybersecurity Resources](./AI/README.md) | Self-hosted AI agents (OpenClaw, AnythingLLM), LLM prompting for security, offline AI deployment, and AI-powered security workflows |
-| 🛠️ [CAD & 3D Printing](./CAD/README.md) | OpenSCAD design for printable cases, cradles, adapters and replacement parts, with hardware mockups, clash testing, snap fits and a full T-Embed + GPS cradle tutorial |
-| 📋 [Checklists](./Checklists/README.md) | Pre-engagement, testing, and post-engagement checklists |
-| ☁️ [Cloud Security](./Cloud/README.md) | Shared-responsibility models, common misconfigurations, and provider-specific attack surfaces and hardening for AWS, Azure/Entra ID, and GCP |
-| 📋 [Compliance & GRC](./Compliance/README.md) | Governance, risk, and compliance guidance covering NIST CSF 2.0, ISO 27001, SOC 2, PCI DSS, CIS Controls, GDPR, HIPAA, CCPA, and control mapping |
-| 📦 [Container & Kubernetes Security](./ContainerSecurity/README.md) | Container image and runtime attack surfaces, container escape techniques, and Kubernetes hardening using RBAC, Pod Security Standards, and network policies |
-| 🔐 [Cryptography](./Cryptography/README.md) | Practical cryptography reference covering current and deprecated algorithms, TLS, password storage, key management, and post-quantum standards including FIPS 203, 204, and 205, plus classical ciphers, leetspeak, and cryptanalysis |
-| 🧳 [Cyberdeck: OTG CybSec Audit Platform](./Cyberdeck/README.md) | Public-safe portable assessment architecture, authorization workflow and offline evidence manifest tool; private portal excluded |
-| 🗄️ [Data Engineering & Pipeline Infrastructure](./Data-Engineering/README.md) | General data engineering learning path, existing infrastructure resources, and a proposed documentation roadmap; start with [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) for TLS, SSH, Git, structured logs, Redis/Memcached, Kafka, and Ansible |
-| 📚 [Documentation](./Documentation/README.md) | Supplemental technical documentation, command references, and cheat sheets |
-| 💾 [Encrypted Drives & USB Storage](./Cryptography/encrypted-storage.md) | BitLocker, LUKS, VeraCrypt, DIY vaults and [PhantomDrive](./Cryptography/phantomdrive-guide.md) research |
-| 🥷 [Hardware Hacking](./HardwareHacking/README.md) | Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware |
-| 🔑 [Hardware Security Keys & Passkeys](./Cryptography/security-keys-passkeys.md) | FIDO2/WebAuthn, L1-L3+ certification, [SoloKeys](./Cryptography/solokeys-guide.md), passkeys and recovery workflows |
-| 🧰 [Hardware Testing](./HardwareTesting/README.md) | Diagnostic, benchmarking, and reliability stress-testing guides and scripts for PC test benches |
-| 🏠 [Homelab Guides](./Homelab/README.md) | Building and maintaining safe, isolated labs for offensive and defensive security practice |
-| 🚨 [Incident Response](./IncidentResponse/README.md) | Blue Team operations covering threat detection, log aggregation, artifact analysis, and standardized incident-response procedures — including dedicated [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) (nzyme, Suricata/Zeek) and [Honeypot](./IncidentResponse/HoneyPot/readme.md) (OpenCanary, Cowrie, Dionaea, T-Pot, HoneyPi) deployment guides |
-| 📱 [Mobile Security](./Mobile/README.md) | Kali NetHunter on OnePlus 6, [UserLAnd Linux environments on Android](./Mobile/UserLAnd/readme.md), Android and iOS application pentesting, mobile forensics, and field SOPs |
-| 🥷 [Navigating the DarkWeb](https://navigating-the-darkweb.readthedocs.io/en/latest/) | A Comprehensive Guide to Darknets, Tools, and Intelligence in an online book written by [Sébastien Damaye](https://github.com/sebastiendamaye) |
-| 🔬 [Network Audit Playbook](./PlayBooks/NetworkAuditPlayBook.md) | Field-ready professional network security audit procedure |
-| 📋 [Operational Playbooks](./PlayBooks/cybersecurity_playbooks.md) | Full index of playbooks covering network audits, Wi-Fi assessments, incident response, phishing, and unauthorized-access investigations |
-| 📰 [Press Freedom, Source Protection & Digital Safety](./OPSEC/press-freedom/README.md) | Journalist computer, cellphone, network and confidential-source security; lawful retention and disposal; duress and device seizure preparation |
-| 🔴 [OPSEC](./OPSEC/README.md) | Operational security practices covering anonymity workflows, isolated virtual machines, identity separation, and personal rules for professionals |
-| 🔍 [OSINT Guide, Tools & Techniques](./OSINT/OSINT_GUIDE.md) | Comprehensive OSINT methodology with 400+ categorized tools, investigation workflows, and automated VM setup |
-| 📄 [PDF Resources](./PDF/README.md) | Curated PDF references and guides |
-| 📚 [Playbooks Collection](./PlayBooks/README.md) | Simple, detailed, and multi-script Purple Team, Blue Team, Red Team, and incident-response exercises and procedures |
-| 🔬 [Reverse Engineering](./ReverseEngineering/README.md) | Ghidra installation, binary analysis, scripting, headless workflows, version comparison, and safe malware sourcing via vx-underground |
-| 💻 [Scripts](./Scripts/README.md) | Security automation scripts, exploitation tools, reconnaissance utilities, payloads, and general-purpose programs |
-| 📻 [SDR](./SDR/README.md) | Software Defined Radio theory, security assessment techniques, practical workflows and applications; RF, NFC/RFID, SubGhz |
-| 📊 [SIEM Deployment Guides](./IncidentResponse/SIEM/README.md) | ELK Stack, Wazuh, Splunk, and Graylog deployment, setup, and configuration guides |
-| 🎣 [SOP: Phishing Analysis Playbook](./PlayBooks/sop_phishing_analysis.md) | Standard operating procedure for phishing-email triage and analysis |
-| 👾 [Space Security](./SpaceSecurity/README.md) | Offensive and defensive security across the space, ground, and communications segments of modern space systems |
-| 🗡️ [Tradecraft](./Tradecraft/README.md) | Red Team, Blue Team, and Purple Team tradecraft covering Active Directory, C2 frameworks, AV/EDR evasion, LOLBins, threat intelligence, detection logic, and defensive countermeasures |
-| 📟 [uConsole](./uConsole/README.md) | Configuration, portable pentesting setups, and operational workflows optimized for the [ClockworkPi](https://www.clockworkpi.com/) [uConsole](https://www.clockworkpi.com/uconsole) cyberdeck |
-| 🚷 [Unauthorized Access Investigation Playbook](./PlayBooks/unauth_access.md) | Playbook for investigating suspected or confirmed unauthorized-access incidents |
-| 📍 [Wardriving & Wireless Surveying](./Wardriving/README.md) | GNSS-tagged Wi-Fi/BLE inventory, Flipper/ESP32-C5 hardware, mobile and Kismet guides, field procedures, and private log handling |
-| 🕸️ [Web Application Security](./WebAppSecurity/README.md) | OWASP Top 10 guidance and a complete web-application pentesting methodology covering reconnaissance, Burp Suite, injection, access control, and API testing |
-
-
-### Subsection Indexes & Focused Entry Points
-
-| Parent Area | Subsection / Guide | Coverage |
-|---|---|---|
-| AI | [AnythingLLM AgentFlows](./AI/AnythingLLM/README.md) | Configured security research and analysis flows |
-| AI | [OpenClaw](./AI/OpenClaw/README.md) | Self-hosted agent setup on TrueNAS SCALE |
-| Data Engineering | [Secure Data Pipelines](./Data-Engineering/data_pipelines.md) | Secure transport, parsing, enrichment, streaming, and deployment labs |
-| Hardware Testing | [Python Diagnostic Suite](./HardwareTesting/py/README.md) | Automated hardware tests and result reporting |
-| Incident Response | [Endpoint Visibility](./IncidentResponse/Endpoint-Visibility/README.md) | Sysmon, Linux audit/syslog, and Osquery telemetry |
-| Incident Response | [SIEM](./IncidentResponse/SIEM/README.md) | Centralized search and security monitoring guides |
-| Incident Response | [IDS & IPS](./IncidentResponse/IDS%26IPS/readme.md) | Wireless and wired intrusion detection guides |
-| Incident Response | [Honeypots](./IncidentResponse/HoneyPot/readme.md) | Raspberry Pi, Proxmox VM, ESP32-S3, OpenCanary, Cowrie and Wazuh reporting, with direct project guides |
-| Incident Response | [Digital Forensics](./IncidentResponse/Digital-Forensics/README.md) | Memory, disk, and live-response references |
-| Incident Response | [Tsurugi Bento Portable DFIR](./IncidentResponse/Digital-Forensics/tsurugi-bento-portable-dfir-guide.md) | Windows field-response toolkit, live triage, Sysinternals, evidence export, RAM/disk acquisition decisions and integrity verification |
-| Incident Response | [OpenBSD PF Firewall](./IncidentResponse/Firewalls/openbsd_pf.md) | Rulesets, network-edge deployment, monitoring, and lab validation |
-| Reverse Engineering | [REMnux Malware Analysis](./ReverseEngineering/remnux-malware-analysis-guide.md) | Isolated malware-analysis workstation, Proxmox installation, offline triage, PE/PDF and network evidence workflows |
-| Tradecraft | [Pentoo Linux](./Tradecraft/pentoo-linux-guide.md) | Gentoo-based penetration-testing platform, scoped assessments and wireless tool workflows |
-| Reverse Engineering | [Ghidra Master Guide](./ReverseEngineering/ghidra-guide-index.md) | Five parts and 23 chapters; start with the section index |
-| Reverse Engineering | [vx-underground](./ReverseEngineering/vx-underground.md) | Malware samples, source, APT reports, and a lab-only intake workflow |
-| OPSEC | [Whonix + Kicksecure USB](./OPSEC/whonix-kicksecure-usb-guide.md) · [Tails USB](./OPSEC/tails-usb-setup-guide.md) | Distinct host/guest, persistence, installation, and validation workflows |
-| SDR | [NanoVNA Field Guide](./SDR/nanovna/README.md) · [HackRF Audit Playbook](./PlayBooks/HackRFAuditPlayBook.md) | Antenna/RF measurements and spectrum-survey engagement procedures |
-| Mobile | [UserLAnd](./Mobile/UserLAnd/readme.md) | Linux userspace on Android, with distribution-specific material |
-| OSINT | [Investigator Playbook](./OSINT/Playbook/README.md) | Investigation workflow entry point |
-| Scripts | [Bash Bunny](./Scripts/Bash/BashBunny/README.md) | Payload setup, USB device-control validation & five authorized labs |
-| Scripts | [USB Rubber Ducky](./Scripts/Ducky/README.md) | DuckyScript compilation & six authorized HID assessment labs |
-| Scripts | [Retired Shell and Stager Sources](./Scripts/GO/shells/README.md) | Inert historical filenames; defensive references only |
-| uConsole | [CM4 / CM5 Setup Scripts](./uConsole/scripts/README.md) · [CM4 Safety Review](./uConsole/CM4-SAFETY-REVIEW.md) | Conservative CM4 preflight, CM5/Parrot setup and display recovery; explicit hardware validation required |
-| Wardriving | [Field Workflow](./Wardriving/field-workflow.md) · [Data Handling](./Wardriving/data-handling.md) · [Wi-Fi Deauthentication Detection](./Documentation/wifi-deauthentication-detection.md) | Authorization, GPS-quality tests, archived results, WiGLE disclosure decisions |
 
 ---
 
