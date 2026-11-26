@@ -112,7 +112,7 @@ The goal for this sub-project is to help bring the portable field-assessment arc
 
 ---
 
-## Operational Sections:
+## Operational Sections
 ### _A grouped map of the whole repository_
 
 | Section | Description |
