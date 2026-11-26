@@ -81,8 +81,6 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 | [Wireless/Wardriving](./Wardriving/README.md) | Authorized wireless surveys |
 | [PNWC Cyberdeck Public Reference](./Cyberdeck/README.md) | Portable assessment design, manual workflows and offline evidence inventory |
 
-### A grouped map of the whole repository:
-
 | Area | Start here | Also in this area |
 |------|-----------|-------------------|
 | 🚀 **Start & Master Guides** | [START_HERE.md](./START_HERE.md) | [Ultimate](./ultimate_cybersecurity_master_guide.md) · [Enhanced](./ENHANCED_MASTER_GUIDE.md) · [Specialized Topics](./SPECIALIZED_TOPICS_GUIDE.md) · [Cliff Notes](./cybersecurity_cliff_notes.md) |
@@ -104,6 +102,7 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 <a id="primary-master-guides"></a>
 
 ## 📚 Primary Master Guides:
+### _A grouped map of the whole repository_
 
 | Guide | Description |
 |---|---|
