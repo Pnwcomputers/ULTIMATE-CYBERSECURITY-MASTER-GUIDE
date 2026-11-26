@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<title id="title">How to evaluate a cybersecurity collection</title>
+<desc id="desc">Start with an upstream collection, follow its topic route to a PNWC guide, independently verify any downstream project, then use it only within an authorized and controlled scope. Stop when provenance, license, status, or permissions are unclear.</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#376b86"/></marker>
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill: #17384d; }
+    .head { font-size: 23px; font-weight: 700; }
+    .body { font-size: 18px; }
+    .small { font-size: 16px; }
+  </style>
+</defs>
+<rect width="1200" height="560" fill="#f5f8fa"/>
+<text x="40" y="52" font-size="32" font-weight="700">From collection to safe, scoped use</text>
+<text x="40" y="84" font-size="18">A collection is a starting point; each linked project needs its own review.</text>
+<rect x="40" y="130" width="235" height="205" rx="16" fill="#e5eff5" stroke="#91afc0" stroke-width="2"/>
+<text x="60" y="170" class="head">1 · Browse</text>
+<text x="60" y="210" class="body">Awesome-Hacking</text>
+<text x="60" y="241" class="body">h4cker</text>
+<text x="60" y="272" class="body">Other curated lists</text>
+<text x="60" y="310" class="small">Find a topic, not an endorsement.</text>
+<path d="M 283 232 L 322 232" stroke="#376b86" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="335" y="130" width="235" height="205" rx="16" fill="#e5eff5" stroke="#91afc0" stroke-width="2"/>
+<text x="355" y="170" class="head">2 · Route</text>
+<text x="355" y="210" class="body">Choose a topic</text>
+<text x="355" y="241" class="body">Open the matching</text>
+<text x="355" y="268" class="body">PNWC guide</text>
+<text x="355" y="310" class="small">Use the table on this page.</text>
+<path d="M 578 232 L 617 232" stroke="#376b86" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="630" y="130" width="270" height="205" rx="16" fill="#fff3d8" stroke="#d2ac59" stroke-width="2"/>
+<text x="650" y="170" class="head">3 · Verify</text>
+<text x="650" y="210" class="body">Maintainer and release</text>
+<text x="650" y="241" class="body">License and provenance</text>
+<text x="650" y="272" class="body">Dependencies and scope</text>
+<text x="650" y="310" class="small">Review the specific project.</text>
+<path d="M 908 232 L 947 232" stroke="#376b86" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="960" y="130" width="200" height="205" rx="16" fill="#e4f2e9" stroke="#8eb49a" stroke-width="2"/>
+<text x="980" y="170" class="head">4 · Use</text>
+<text x="980" y="210" class="body">Authorized</text>
+<text x="980" y="239" class="body">and controlled</text>
+<text x="980" y="268" class="body">environment</text>
+<text x="980" y="310" class="small">Record limits and results.</text>
+<rect x="40" y="385" width="1120" height="105" rx="14" fill="#fce9e7" stroke="#d7a09a" stroke-width="2"/>
+<text x="64" y="426" font-size="21" font-weight="700" fill="#7d2e29">STOP if provenance, permissions, maintenance status, or license is unclear.</text>
+<text x="64" y="461" class="body">A root collection’s license or reputation does not automatically apply to downstream projects.</text>
+</svg>
