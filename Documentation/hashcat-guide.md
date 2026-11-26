@@ -11,6 +11,11 @@ _Reference review: 2026-11-21. Examples use generated synthetic test data; no GP
 
 This is the **canonical general Hashcat guide**. For WPA/WPA2-PBKDF2 PMKID/EAPOL material in mode 22000, use [HCXTools & Hashcat](./hcxtoolshashcat.md); WPA3-SAE-only and enterprise EAP are not general mode-22000 inputs.
 
+![Authorized offline password-audit workflow: confirm approved hash provenance and scope, verify format and parameters, test only approved candidates, validate exact matches, then report safely and restrict or remove sensitive artifacts](../assets/diagrams/hashcat-authorized-audit-workflow.svg)
+
+*Conceptual workflow: keep testing offline, use only approved material, and avoid exposing recovered plaintext or potfiles.*
+
+
 ## Setup & Device Verification
 
 Obtain Hashcat from the [upstream releases](https://hashcat.net/hashcat/) or a maintained package. Verify the executable, drivers and compute backend before using any real material.
