@@ -478,9 +478,11 @@ cat smb_mapping.log | zeek-cut path | grep -i "admin\$\|c\$\|ipc\$"
 cat kerberos.log | zeek-cut id.orig_h request_type cipher service \
   | awk '$2 == "TGS" && $3 == "rc4-hmac" {print}'
 
-# AS-REP Roasting: AS-REQ without pre-auth
-cat kerberos.log | zeek-cut id.orig_h request_type error_msg \
-  | awk '$2 == "AS" && $3 == "KDC_ERR_PREAUTH_REQUIRED" {print}'
+# Review domain-controller Event 4768 records with Pre-Authentication Type 0.
+# Type 0 means the TGT request used no pre-authentication; verify the account setting
+# and context before treating it as an AS-REP Roasting exposure.
+# KDC_ERR_PREAUTH_REQUIRED means the KDC requires additional pre-authentication;
+# it is not evidence that an account permits requests without pre-authentication.
 
 # Golden Ticket: Kerberos ticket with unusually long validity
 # Detect via Windows Event ID 4769 + ticket options analysis
@@ -1159,6 +1161,7 @@ foreach ($event in $events) {
 - [MITRE ATT&CK: Exfiltration Over C2](https://attack.mitre.org/tactics/TA0010/)
 - [Wireshark Display Filter Reference](https://www.wireshark.org/docs/dfref/)
 - [pktmon Documentation (Microsoft)](https://learn.microsoft.com/en-us/windows-server/networking/technologies/pktmon/pktmon)
+- [Microsoft — Event 4768 and Kerberos pre-authentication types](https://learn.microsoft.com/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4768)
 - [NetworkMiner](https://www.netresec.com/?page=NetworkMiner)
 - [Sysmon Network Events - SwiftOnSecurity config](https://github.com/SwiftOnSecurity/sysmon-config)
 - [Microsoft Defender for Endpoint Advanced Hunting](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/advanced-hunting-overview)
