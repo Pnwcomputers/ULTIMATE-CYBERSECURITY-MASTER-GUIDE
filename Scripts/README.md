@@ -35,7 +35,9 @@ Inspect provenance and source before running downloaded scripts.
 > `Bash/hulkscanner.sh` requires an explicit authorization flag and limits checks to
 > ports 1–1024 on one IPv4 address. `Bash/nuclei_web_scanner.sh` requires interactive
 > scope confirmation, an explicitly selected local template, and a 5-request-per-second
-> cap; it prints findings locally and sends no email.
+> cap. It disables Interactsh/OAST and excludes OAST-based templates, keeping that
+> optional callback path out of the default workflow. Review templates for other
+> side effects; the flag is not a guarantee that arbitrary templates are harmless.
 >
 > Additional retired and inert source files include `Bash/profile_hook.sh`, `Bash/web_shell_http_client.sh`, `Bash/BashBunny/cred_harv.txt`, `Bash/BashBunny/network_recon.txt`, `Bash/BashBunny/windows_exfil.txt`, `Ducky/exfil_windowsPC.txt`, and the credential, packet-sniffing, Bluetooth, private-message, process-injection, and password-testing files marked RETIRED below.
 >
@@ -171,7 +173,7 @@ suspending the host.
    • Access low-level system functions
    • Bypass security controls if misused
    • Cause system instability if buggy
-   • Execute with elevated privileges
+   • Run with elevated privileges when launched by a privileged user or configured with setuid/capabilities
    • Directly manipulate memory and processes
 
 MUST be compiled and tested in isolated environments before use.
@@ -439,6 +441,14 @@ The [CFAA statute (18 U.S.C. § 1030)](https://uscode.house.gov/us/usc/119-134/t
 | ICS/SCADA tools | Physical process and safety effects | Do not probe live control systems without owner authorization, engineering review and a safety-approved test plan |
 
 An authorized test can still cause outages or expose data. Use the [script execution workflow](../assets/diagrams/safe-script-execution.svg) to review inputs, target scope, expected effects, monitoring, rollback and output handling before execution.
+
+### Nuclei OAST Traffic Boundary
+
+Nuclei templates may use out-of-band application security testing (OAST). The wrapper adds `-no-interactsh`, which disables the Interactsh server and excludes OAST-based templates. This prevents that specific callback path in the default workflow; it does not guarantee that arbitrary templates have no other external requests or side effects. Review templates and include every target and third-party service in the approved scope.
+
+![Nuclei scan path showing local templates and the authorized target, with the optional Interactsh OAST callback path disabled by the wrapper](../assets/diagrams/nuclei-oast-traffic-boundary.svg)
+
+*Conceptual flow based on ProjectDiscovery's `-no-interactsh` flag; no scan or callback was performed. [ProjectDiscovery Nuclei CLI](https://github.com/projectdiscovery/nuclei/blob/dev/cmd/nuclei/main.go#L417-L425)*
 
 ### Practical checklist
 
