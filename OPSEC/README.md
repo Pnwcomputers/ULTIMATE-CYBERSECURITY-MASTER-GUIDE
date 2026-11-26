@@ -117,7 +117,7 @@ This directory covers **operational security for authorized security work and pr
 | **[Encrypted USB Drives and Removable Storage](../Cryptography/encrypted-storage.md)** | Choose vetted encrypted storage, back up and validate recovery. | BitLocker, LUKS, VeraCrypt, hardware drives, PhantomDrive research limits, and client evidence handling. |
 | **[Hardware Security Keys and Passkeys](../Cryptography/security-keys-passkeys.md)** | Protect accounts used in portable field workflows. | FIDO2, SoloKeys, device-bound/synced passkeys, token custody and recovery. |
 | **[press-freedom/README.md](./press-freedom/README.md)** | Protect journalists, newsrooms and confidential sources. | [Computers/phones/networks](./press-freedom/device-network-protection.md), [retention/disposal](./press-freedom/data-retention-removal.md), and [duress/seizure response](./press-freedom/duress-seizure-response.md). |
-| **[anonymity-layering.md](./anonymity-layering.md)** | Layer non-attribution on top of a baseline VPN for OSINT and active engagements. | Threat-model-driven layering, self-owned VPS exits, paid residential proxy workflows, proxychains-ng leak prevention. |
+| **[anonymity-layering.md](./anonymity-layering.md)** | Choose network routes and compartments by task and threat model; VPN use is optional. | Threat-model-driven layering, self-owned VPS exits, paid residential proxy workflows, proxychains-ng leak prevention. |
 
 | **[Proxy types and Froxy research](./proxy-reference-froxy.md)** | Understand HTTP/HTTPS/SOCKS, DNS leaks and free-list discovery risks. | Lab-only Froxy library review; why untrusted proxies are inappropriate for client evidence and source protection. |
 
@@ -138,7 +138,7 @@ For journalists, newsroom security and confidential sources, use the dedicated [
 4. Complete that guide's acceptance checks before sensitive use.
 5. Recheck upstream documentation when versions or hardware change.
 
-**Repository recommendation:** Keep a trusted, properly configured VPN connected whenever practical, including on ordinary operating systems and the Kicksecure host used for Whonix. Apply the environment-specific guidance below. NAT is not malware containment, and Tor Browser should not receive arbitrary fingerprinting modifications.
+**Repository recommendation:** Treat VPN use as optional and threat-model dependent. Use one when a specific requirement or organizational policy justifies the additional provider and routing dependency. The Tor Project generally advises against combining a VPN with Tor unless you understand the configuration and tradeoffs. Whonix documents an optional VPN-before-Tor setup; it is not a default requirement or automatic privacy improvement. NAT is not malware containment, and Tor Browser should not receive arbitrary fingerprinting modifications.
 
 ---
 
@@ -198,7 +198,7 @@ Tails starts from a temporary-session model, with selected persistence added whe
 | Maintenance | Maintain host, hypervisor, Gateway, and Workstation. | Follow the Tails upgrade process and maintain persistence backups. |
 | Local network identifier | Physical MAC-address policy belongs on the host; changing a guest MAC does not change it. | MAC address anonymization is enabled by default, subject to hardware support. |
 | Identity separation | Separate Workstations can help organize contexts; shared accounts, host, and Gateway still matter. | Restart between contexts; separate USBs may be appropriate where persistent data must stay apart. |
-| VPN recommendation | Keep a host-level VPN connected before starting Whonix; verify its routing and disconnect behavior. | Do not install a conventional VPN client inside Tails. An upstream VPN router is an optional, separately managed configuration; see below. |
+| VPN recommendation | Use the supplied Workstation → Gateway → Tor route by default. Add VPN-before-Tor only for a defined need and after reviewing the configuration tradeoffs. | Keep Tails' supported Tor configuration. An upstream VPN router is optional and separately managed; see below. |
 | Tor performance | Subject to Tor latency, service blocking, and protocol limitations. | Subject to the same Tor tradeoffs. |
 | Likely best fit | An ongoing research workspace with retained tools and controlled VM separation. | Portable browsing or document work with limited retained state. |
 
@@ -240,22 +240,26 @@ Architecture and retention details: [Whonix design](https://www.whonix.org/wiki/
 <a id="vpn-recommendations"></a>
 ## 🌐 VPN Recommendations By Environment
 
-**Keep a trusted VPN connected at all times when practical and compatible with the task.** This is the repository's operational preference for ordinary operating systems, research workstations, and the Kicksecure host in this guide. It is not a claim that Whonix or Tails requires a VPN or that adding one guarantees stronger anonymity.
+**A VPN is optional.** Use one only when your threat model or organizational policy identifies a specific benefit and accounts for the provider, routing, and failure risks. A VPN does not inherently improve Tor anonymity; the Tor Project generally does not recommend combining VPN and Tor except for advanced users who understand the configuration and tradeoffs. [^tor-vpn]
 
 A correctly configured full-tunnel VPN encrypts traffic between the device and the VPN endpoint and reduces direct exposure to the local network and ISP. The provider becomes another party you must trust. Continue using HTTPS, supported updates, endpoint protections, and identity separation.
 
 | Environment | Recommended Approach | Important Qualification |
 |-------------|----------------------|-------------------------|
-| **Windows, macOS, and general-purpose Linux** | Keep a trusted VPN active whenever practical, including at home and on public networks. Enable automatic connection and a kill switch where supported. | Verify DNS, IPv6, and application routing. A VPN does not disable OS telemetry or prevent account-based tracking. |
+| **Windows, macOS, and general-purpose Linux** | Use a maintained VPN when a defined threat-model or organizational need calls for one; otherwise keep the OS and applications maintained and use HTTPS. | A VPN shifts trust to its provider. Verify DNS, IPv6, application routing, and interruption behavior; it does not prevent account-based tracking. |
 | **Ordinary research VMs** | Prefer a host VPN covering the intended VM egress, or an explicitly configured VPN gateway. | Verify actual traffic: bridged networking, split tunneling, and VPN exclusions can bypass the intended path. |
-| **Whonix on Kicksecure** | Connect the host VPN before launching Whonix and keep it connected during use. Preserve the supplied Gateway/Workstation isolation. | Treat this as VPN-before-Tor; do not add a direct Workstation adapter or an arbitrary Workstation VPN. |
+| **Whonix on Kicksecure** | Keep the supplied Workstation-to-Gateway Tor path. VPN-before-Tor is an optional advanced configuration for a defined need. | Follow Whonix's current configuration guidance and preserve Gateway/Workstation isolation. Do not add a direct Workstation adapter or arbitrary Workstation VPN. |
 | **Tails booted directly from USB** | Keep Tails' standard Tor configuration. If a VPN layer is desired and feasible, manage it on an upstream router. | Tails does not support a conventional VPN client inside the OS. Router VPN operation is separate from Tails and must be verified independently. |
 | **Client and business environments** | Use the organization's approved VPN and routing policy. | A commercial privacy VPN must not conflict with required access, monitoring, or approved testing source IPs. |
 | **Malware labs** | Consider an approved VPN only at controlled egress when Internet access is authorized. | Keep samples isolated from the host, LAN, and business VPN; containment takes priority over tunnel availability. |
 
-### Whonix: Put The VPN Before Tor
+### Optional Whonix VPN-before-Tor Configuration
 
-The intended external connection order is **your computer → VPN server → Tor network → destination**. Configure the VPN on Kicksecure, outside the VMs. Host applications use the VPN; Whonix application traffic still uses Tor. Follow the [Whonix VPN-before-Tor documentation](https://www.whonix.org/wiki/Tunnels/Connecting_to_a_VPN_before_Tor), which is community-supported guidance.
+The default Whonix Workstation path uses the Gateway and Tor; a host VPN is not required. If a specific threat model calls for VPN-before-Tor, the external path can be **computer → VPN server → Tor network → destination**. Configure it only using the [Whonix VPN-before-Tor documentation](https://www.whonix.org/wiki/Tunnels/Connecting_to_a_VPN_before_Tor), which describes an optional configuration and its tradeoffs. Host applications use the VPN path, while Workstation applications use Tor through the Gateway; the host VPN does not route host applications through Tor.
+
+![Whonix and Kicksecure USB network and storage boundaries](../assets/diagrams/whonix-kicksecure-usb-boundaries.svg)
+
+*The diagram shows the Whonix Gateway and Workstation path. A host VPN is an optional upstream layer; assess provider trust and failure behavior before adding it. See also the [Tails network and storage boundaries](../assets/diagrams/tails-storage-and-network-boundaries.svg), where Unsafe Browser is a direct-network exception.*
 
 The ISP sees the VPN connection; the VPN provider can associate your source connection with Tor use. Websites reached through Tor still see a Tor exit, not the VPN server. If the VPN fails without effective blocking, Tor may reconnect directly through the ISP. That is a failure of the intended VPN layer even if Workstation traffic still uses Tor. Review the [tunnel tradeoffs](https://www.whonix.org/wiki/Tunnels/Introduction).
 
@@ -270,7 +274,7 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 - Test DNS and IPv6 handling as well as the visible public IP; a browser IP check alone cannot validate every application or VM.
 - Test controlled VPN interruption, reconnection, network changes, and reboot using non-sensitive activity. Confirm covered Internet traffic remains blocked when the tunnel is unavailable; account for necessary tunnel/bootstrap traffic.
 - For Whonix, check the host VPN and Gateway egress separately from the Workstation's Tor check. A Tor exit address alone does not prove VPN-before-Tor is working.
-- When a captive portal or an authorized workflow requires an exception, pause sensitive activity, keep the exception narrow, and restore and recheck the VPN afterward.
+- When a captive portal or authorized workflow requires a routing exception, pause sensitive activity, keep the change narrow, and restore and recheck the intended route before continuing.
 
 ---
 
@@ -291,7 +295,7 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 ### 2. Defense In Depth
 
 - Combine verified software, supported updates, encryption, restricted networking, and secure communications.
-- Keep a trusted VPN connected whenever practical, following the [environment-specific recommendations](#vpn-recommendations). Configure automatic connection and a tested kill switch where supported.
+- Add a VPN only for a defined threat-model or organizational need; treat the provider and routing configuration as additional trust dependencies and verify failure behavior.
 - A VPN shifts trust to its operator; it does not automatically improve Tor anonymity, replace HTTPS, or conceal account identity.
 - Avoid ad hoc VPN/Tor/proxy chains. Review the chosen project's supported configuration and test the resulting routing.
 
@@ -344,7 +348,7 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 
 - Keep research accounts, recovery contacts, and browser state separate from personal identities.
 - Select Tails, Whonix, or an ordinary isolated research VM based on the task.
-- Keep a trusted VPN active on ordinary research hosts whenever practical. For Whonix, use the host VPN before Tor and verify that VM egress follows it; apply the Tails exception below.
+- Choose a VPN only when a specific research requirement or policy justifies it. For Whonix, the Gateway-to-Tor route is the default; VPN-before-Tor is optional. For Tails, follow its supported network design and the exception below.
 - Use Tor Browser as supplied when Tor browsing is needed; ordinary privacy browsers do not provide an equivalent anonymity model.
 - Treat account identifiers, writing patterns, uploaded documents, and behavioral overlap as potential links.
 - Do not assume frequent IP changes, extra proxy hops, or a new browser identity erase earlier links.
