@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 500" role="img" aria-labelledby="title desc">
+<title id="title">Authorized assessment lifecycle</title>
+<desc id="desc">An assessment begins by confirming written scope and stop conditions, then performs permitted discovery and approved validation, preserves relevant evidence, and reports findings and remediation. Retesting requires approval under scope that covers the retest.</desc>
+<defs><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#183247}.title{font-size:30px;font-weight:700}.head{font-size:20px;font-weight:700}.body{font-size:16px}.small{font-size:14px}
+.box{stroke:#47657b;stroke-width:2;rx:14}.arrow{stroke:#47657b;stroke-width:3;fill:none;marker-end:url(#arr)}
+</style><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#47657b"/></marker></defs>
+<rect width="1280" height="500" fill="#f5f8fb"/>
+<text class="title" x="640" y="48" text-anchor="middle">Authorized assessment lifecycle</text>
+<rect class="box" x="35" y="110" width="220" height="155" fill="#e7eef8"/>
+<text class="head" x="145" y="150" text-anchor="middle">1. Scope &amp; approve</text>
+<text class="body" x="145" y="184" text-anchor="middle">assets · methods · time</text>
+<text class="body" x="145" y="209" text-anchor="middle">contacts · stop conditions</text>
+<path class="arrow" d="M260 187L290 187"/>
+<rect class="box" x="300" y="110" width="220" height="155" fill="#fff0d7"/>
+<text class="head" x="410" y="150" text-anchor="middle">2. Discover</text>
+<text class="body" x="410" y="184" text-anchor="middle">permitted sources</text>
+<text class="body" x="410" y="209" text-anchor="middle">record collection limits</text>
+<path class="arrow" d="M525 187L555 187"/>
+<rect class="box" x="565" y="110" width="220" height="155" fill="#e7f4ed"/>
+<text class="head" x="675" y="150" text-anchor="middle">3. Validate</text>
+<text class="body" x="675" y="184" text-anchor="middle">approved checks only</text>
+<text class="body" x="675" y="209" text-anchor="middle">stop if scope is uncertain</text>
+<path class="arrow" d="M790 187L820 187"/>
+<rect class="box" x="830" y="110" width="190" height="155" fill="#efe9fb"/>
+<text class="head" x="925" y="150" text-anchor="middle">4. Preserve</text>
+<text class="body" x="925" y="184" text-anchor="middle">relevant evidence</text>
+<text class="body" x="925" y="209" text-anchor="middle">with handling context</text>
+<path class="arrow" d="M1025 187L1055 187"/>
+<rect class="box" x="1065" y="110" width="180" height="155" fill="#f4e7e5"/>
+<text class="head" x="1155" y="150" text-anchor="middle">5. Report</text>
+<text class="body" x="1155" y="184" text-anchor="middle">findings · fixes</text>
+<text class="body" x="1155" y="209" text-anchor="middle">approved retest</text>
+<rect class="box" x="165" y="335" width="950" height="90" fill="#e8f0f5"/>
+<text class="head" x="640" y="371" text-anchor="middle">Scope is a continuing gate</text>
+<text class="body" x="640" y="400" text-anchor="middle">Pause and reconfirm before expanding targets, changing methods, or retesting.</text>
+<text class="small" x="640" y="466" text-anchor="middle" fill="#526b7d">Conceptual teaching aid — adapt to written authorization and local requirements</text>
+</svg>
