@@ -1,5 +1,7 @@
 # Portable Wireless & Field Device Operations for the PNWC Cyberdeck
 
+[Portable Device Checkouts](../../Documentation/portable-device-checkouts.md) · [Flipper Firmware Comparison](../../Documentation/flipper-firmware-comparison.md) · [SD Card Data & Resources](../../Documentation/portable-device-sd-data.md)
+
 > [!CAUTION]
 > **Written authorization & passive-first use.** This is a field workflow for equipment the operator owns or has permission to survey. Nearby wireless networks and users do not automatically become in scope. Radio interference, deauthentication, impersonation, credential capture, unsolicited connection attempts and replay are **not** part of the default process. Review [Legal Terms](../../LEGAL.md), [Wardriving Privacy](../../Wardriving/data-handling.md) and the signed rules of engagement.
 

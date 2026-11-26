@@ -1,5 +1,7 @@
 # 📡 Microcontroller-Assisted Wireless Assessment Workflow
 
+[Device Setup & Defensive Checkout](./portable-device-checkouts.md#oui-spy-unified-blue) · [SD Card Data & Resources](./portable-device-sd-data.md)
+
 ## Firmware Selection For The Lab
 
 Choose the firmware by the required observation and its evidence output before

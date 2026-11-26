@@ -1,5 +1,7 @@
 # Device-First Firmware List
 
+[Portable Device Checkouts](./portable-device-checkouts.md) · [Flipper Firmware Comparison](./flipper-firmware-comparison.md) · [SD Card Data & Resources](./portable-device-sd-data.md)
+
 > [!CAUTION]
 > **Authorized use only.** Identify the exact board revision, chip, flash size,
 > display and radio peripherals before selecting an image. Read [LEGAL.md](../LEGAL.md).
@@ -60,7 +62,7 @@ Generic development libraries require a build; they are not complete appliance i
 | ESP32-C5 DevKit / JCMK host board | C5, 2.4/5 GHz Wi-Fi/BLE | [C5 Wardriver](../Wardriving/esp32-c5-wardriver.md), Biscuit DIY named target, GhostESP C5; selected Marauder target | Exact DevKit revision and carrier power/jumper rules matter. One radio does not scan both bands simultaneously. |
 | LilyGo T-Dongle C5 | C5 plus onboard display/SD | C5 Wardriver T-Dongle build, [Piglet](../Wardriving/piglet.md) T-Dongle variant, [Biscuit DIY](../Wardriving/biscuit.md) | Do not flash a DevKit image merely because both use C5. Verify GPS/SD pin assignments. |
 | Seeed XIAO ESP32-C5 | C5 | Piglet, ChimeraBLE `xiao_esp32c5`, Biscuit DIY, selected Marauder target | Biscuit docs specify 8 MB flash and label XIAO SD support beta; inspect the actual board. |
-| Seeed XIAO S3 / C3 / C6 | Distinct chips; these Wi-Fi builds are 2.4 GHz | Piglet's named build/profile; [OUI-SPY Unified Blue](./microcontroller_wifi_testing.md#oui-spy-unified-blue--authorized-detection-labs) for documented XIAO ESP32-S3 | Do not flash a C5 image onto S3; OUI-SPY selector AP may transmit even when detection is receive-only. |
+| Seeed XIAO S3 / C3 / C6 | Distinct chips; these Wi-Fi builds are 2.4 GHz | Piglet's named build/profile; [OUI-Spy Unified Blue](./portable-device-checkouts.md#oui-spy-unified-blue) for documented XIAO ESP32-S3 | Do not flash a C5 image onto S3; OUI-SPY selector AP may transmit even when detection is receive-only. |
 | LAB5 MonsterC5 + Flipper | ESP32-C5 external Wi-Fi board with Flipper FAP UI | [LAB5 JanOS firmware + Lab_C5 FAP](./microcontroller_wifi_testing.md#lab5-c5-monster--projectzero-janos-field-assessment) | Distinct JanOS C5 image and Flipper FAP; verify firmware/API/UART and the vendor FAP's stated Flipper firmware support. |
 | Flipper official Wi-Fi Dev Board | ESP32-S2 accessory | Marauder Flipper/S2 target, GhostESP S2, FlipperHTTP S2 | S2 has no Bluetooth. Flipper firmware/FAP updates and ESP image updates are separate. |
 | PINGEQUA Scout Lite | C5 + GPS + microSD | [Vendor SigRoam/Marauder modes](../Wardriving/sigroam-scout-lite.md); supported Biscuit reflash workflow | Use vendor target and matched controller. GPS and log destination change with firmware/mode. |
@@ -77,7 +79,7 @@ Generic development libraries require a build; they are not complete appliance i
 | Device | Software Choices | Installation Format | Limits |
 |---|---|---|---|
 | Pi Zero 2 W / Pi 3 / 4 / 5 | [jayofelony Pwnagotchi](https://github.com/jayofelony/pwnagotchi), documented [Bjorn](./bjorn_pi.md) hardware/OS combinations | Selected SD image or Linux application setup | Projects have separate OS/architecture/display requirements. Current Pwnagotchi `noai` differs from legacy AI descriptions; not inherently passive. |
-| Pi Zero 2 W + compatible LCD/Ethernet HAT | [RaspyJack](../Homelab/workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow) | Raspberry Pi OS Lite + reviewed root-installed Python/Linux services | Privileged WebUI and payload collection: isolate, audit installer and do not assume Pi onboard radio supports monitor mode. |
+| Pi Zero 2 W + compatible LCD/Ethernet HAT | [RaspyJack](./portable-device-checkouts.md#raspyjack-raspijack) | Raspberry Pi OS Lite + reviewed root-installed Python/Linux services | Privileged WebUI and payload collection: isolate, audit installer and do not assume Pi onboard radio supports monitor mode. |
 | Original Pi Zero W | Legacy Pwnagotchi builds; supported Bjorn setup as documented | 32-bit legacy image/application dependencies | Current Pwnagotchi upstream does not promise new releases for the old Zero W. Do not install a 64-bit Zero 2 W image. |
 | Pi running a compatible Pwnagotchi fork | [FancyGotchi 2.0](./fancygotchi-pwnagotchi.md) | Theme/plugin manager on an existing OS | Not a standalone firmware image. Check fork, display and Python compatibility; Pi Zero W/Pi 4 caveats remain. |
 | Pico / Pico W / Pico 2 / Pico 2 W | [pico-ducky](../HardwareHacking/pico-ducky-lab.md); named FlipperHTTP Pico variants | Matching CircuitPython UF2 plus files, or project-specific image | USB HID, runtime Wi-Fi UI and an ESP browser flasher are different workflows. |

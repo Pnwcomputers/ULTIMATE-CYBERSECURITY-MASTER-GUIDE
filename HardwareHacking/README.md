@@ -1,5 +1,7 @@
 # 🔧 Hardware Hacking
 
+[Portable Device Checkouts](../Documentation/portable-device-checkouts.md#other-listed-platforms) · [SD Card Data & Resources](../Documentation/portable-device-sd-data.md)
+
 <div align="center">
 
 **Physical and electronic attack techniques against embedded systems, microcontrollers, SoCs, and cryptographic hardware**

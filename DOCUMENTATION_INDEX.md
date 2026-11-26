@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**448 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**451 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -21,7 +21,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Cryptography | 16 | [Open section](#cryptography) |
 | Cyberdeck | 14 | [Open section](#cyberdeck) |
 | Data-Engineering | 18 | [Open section](#data-engineering) |
-| Documentation | 75 | [Open section](#documentation) |
+| Documentation | 78 | [Open section](#documentation) |
 | HardwareHacking | 16 | [Open section](#hardwarehacking) |
 | HardwareTesting | 3 | [Open section](#hardwaretesting) |
 | Homelab | 4 | [Open section](#homelab) |
@@ -321,6 +321,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [fancygotchi-pwnagotchi.md](./Documentation/fancygotchi-pwnagotchi.md) | `Documentation/fancygotchi-pwnagotchi.md` |
 | [fern-wifi-cracker-guide.md](./Documentation/fern-wifi-cracker-guide.md) | `Documentation/fern-wifi-cracker-guide.md` |
 | [firmware-web-flashers.md](./Documentation/firmware-web-flashers.md) | `Documentation/firmware-web-flashers.md` |
+| [flipper-firmware-comparison.md](./Documentation/flipper-firmware-comparison.md) | `Documentation/flipper-firmware-comparison.md` |
 | [flipper_zero_guide.md](./Documentation/flipper_zero_guide.md) | `Documentation/flipper_zero_guide.md` |
 | [ghostesp-revival.md](./Documentation/ghostesp-revival.md) | `Documentation/ghostesp-revival.md` |
 | [hashcat-guide.md](./Documentation/hashcat-guide.md) | `Documentation/hashcat-guide.md` |
@@ -334,6 +335,8 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [network-taps-and-packet-visibility.md](./Documentation/network-taps-and-packet-visibility.md) | `Documentation/network-taps-and-packet-visibility.md` |
 | [nmap-guide.md](./Documentation/nmap-guide.md) | `Documentation/nmap-guide.md` |
 | [pixiewps-guide.md](./Documentation/pixiewps-guide.md) | `Documentation/pixiewps-guide.md` |
+| [portable-device-checkouts.md](./Documentation/portable-device-checkouts.md) | `Documentation/portable-device-checkouts.md` |
+| [portable-device-sd-data.md](./Documentation/portable-device-sd-data.md) | `Documentation/portable-device-sd-data.md` |
 | [pwnagotchi_cheatsheet.md](./Documentation/pwnagotchi_cheatsheet.md) | `Documentation/pwnagotchi_cheatsheet.md` |
 | [python.md](./Documentation/python.md) | `Documentation/python.md` |
 | [rainbow-tables-guide.md](./Documentation/rainbow-tables-guide.md) | `Documentation/rainbow-tables-guide.md` |

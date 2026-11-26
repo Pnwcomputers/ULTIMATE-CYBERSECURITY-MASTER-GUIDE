@@ -1,5 +1,7 @@
 # 🛡️ Ultimate Cybersecurity Master Guide
 
+[Portable Device Checkouts](./Documentation/portable-device-checkouts.md) · [Flipper Firmware Comparison](./Documentation/flipper-firmware-comparison.md) · [SD Card Data & Resources](./Documentation/portable-device-sd-data.md)
+
 <p align="center">
   <img src="./assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>
 </p>

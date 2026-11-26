@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="428" viewBox="0 0 940 428" role="img" aria-labelledby="title desc">
+<title id="title">Flipper Zero firmware migration</title><desc id="desc">Four checkpoints from baseline through selective restore.</desc>
+<rect width="940" height="428" rx="18" fill="#101e2f"/>
+<text x="32" y="48" font-family="sans-serif" font-size="25" font-weight="bold" fill="#eef6ff">Flipper Zero firmware migration</text>
+<rect x="30" y="74" width="880" height="64" rx="9" fill="#1d3347"/>
+<text x="48" y="112" font-family="sans-serif" font-size="18" font-weight="bold" fill="#87e3d5">1 · Baseline</text>
+<text x="311" y="112" font-family="sans-serif" font-size="16" fill="#eef6ff">Record official release, app versions and a known-good boot</text>
+<rect x="30" y="156" width="880" height="64" rx="9" fill="#243c50"/>
+<text x="48" y="194" font-family="sans-serif" font-size="18" font-weight="bold" fill="#87e3d5">2 · Two backups</text>
+<text x="311" y="194" font-family="sans-serif" font-size="16" fill="#eef6ff">Save the internal backup and independently copy microSD files</text>
+<rect x="30" y="238" width="880" height="64" rx="9" fill="#1d3347"/>
+<text x="48" y="276" font-family="sans-serif" font-size="18" font-weight="bold" fill="#87e3d5">3 · Spare card test</text>
+<text x="311" y="276" font-family="sans-serif" font-size="16" fill="#eef6ff">Install the exact firmware bundle and qualify one app at a time</text>
+<rect x="30" y="320" width="880" height="64" rx="9" fill="#243c50"/>
+<text x="48" y="358" font-family="sans-serif" font-size="18" font-weight="bold" fill="#87e3d5">4 · Restore or repair</text>
+<text x="311" y="358" font-family="sans-serif" font-size="16" fill="#eef6ff">Restore selected data or return to official release with qFlipper</text>
+</svg>

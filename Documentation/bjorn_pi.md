@@ -1,5 +1,7 @@
 # Bjorn: An Autonomous Network-Service Attacker on the Raspberry Pi
 
+[Portable Device Checkouts](./portable-device-checkouts.md#other-listed-platforms) · [SD Card Data & Resources](./portable-device-sd-data.md)
+
 ## 🎯 Purpose
 Technical guide for Bjorn - an open-source autonomous network attacker running as a Python daemon on a Raspberry Pi that performs network discovery, vulnerability scanning, brute-force authentication attacks, and file/data exfiltration against network services (SSH, SMB, FTP, RDP, Telnet, SQL).
 

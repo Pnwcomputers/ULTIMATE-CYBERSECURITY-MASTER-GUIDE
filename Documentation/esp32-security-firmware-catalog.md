@@ -1,5 +1,7 @@
 # ESP32 & Related Security Firmware Master Catalog
 
+[Portable Device Checkouts](./portable-device-checkouts.md#other-listed-platforms) · [SD Card Data & Resources](./portable-device-sd-data.md)
+
 > [!CAUTION]
 > **Authorized use only.** Use these projects for education, defensive research and
 > testing on systems you own or have explicit written permission to test.

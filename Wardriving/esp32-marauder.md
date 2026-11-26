@@ -1,5 +1,7 @@
 # ESP32 Marauder: Wardriving with GPS and WiGLE
 
+[Device Setup & Defensive Checkout](../Documentation/portable-device-checkouts.md#marauder-v8) · [SD Card Data & Resources](../Documentation/portable-device-sd-data.md)
+
 _Last reviewed: 2026-10-22_
 
 > [!CAUTION]

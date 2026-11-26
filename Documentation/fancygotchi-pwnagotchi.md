@@ -1,5 +1,7 @@
 # FancyGotchi & Pwnagotchi: Image, Theme & CYD Project Boundaries
 
+[Portable Device Checkouts](./portable-device-checkouts.md#other-listed-platforms) · [SD Card Data & Resources](./portable-device-sd-data.md)
+
 > [!CAUTION]
 > **Authorized use only.** Use owned hardware and explicitly scoped lab devices.
 > Review the [legal notice](../LEGAL.md), radio limits and data-sharing settings.

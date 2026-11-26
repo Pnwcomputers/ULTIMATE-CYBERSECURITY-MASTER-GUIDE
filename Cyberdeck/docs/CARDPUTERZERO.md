@@ -1,5 +1,7 @@
 # M5Stack CardputerZero Field Guide
 
+[Device Setup & Defensive Checkout](../../Documentation/portable-device-checkouts.md#raspyjack-raspijack) · [SD Card Data & Resources](../../Documentation/portable-device-sd-data.md)
+
 [Main Repository](../../README.md) · [Cyberdeck Home](../README.md) · [Device & Firmware Catalog](../../Documentation/device-firmware-list.md) · [Evidence & Privacy](EVIDENCE_AND_PRIVACY.md) · [Wireshark Filters](../../Documentation/wireshark-master-filters.md)
 
 Use the CardputerZero as a pocket Linux terminal for network troubleshooting, supervised administration, offline packet review and field notes. Procedures below target the M5Stack CardputerZero image and use an isolated lab or a known, authorized endpoint. Hardware controls were checked against M5Stack documentation. The labs require validation on your image and hardware before field deployment.
