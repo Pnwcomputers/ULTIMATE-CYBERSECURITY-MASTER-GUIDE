@@ -1,32 +1,19 @@
-# 🔄 Change Log - November 25, 2026
+# 🔄 Change Log - November 26, 2026
 
 ## 📊 Quick Stats
-- **Commits Analyzed**: 2166
-- **Files Modified**: 4242
-- **New Files**: 1389
+- **Commits Analyzed**: 2208
+- **Files Modified**: 4337
+- **New Files**: 1401
 - **Deleted Files**: 124
 
 ## 📝 Detailed Changes
 
-### 📜 KAPE license note
-- Replace the outdated blanket KAPE non-commercial-use statement with Kroll's current permitted-use categories and third-party/paid-engagement restriction.
-
-### 🔐 WinPmem CLI correction
-- Correct the WinPmem Mini invocation and add the upstream prerelease/signing caveat to live-memory acquisition guidance.
-
-### 🔎 Review follow-up
-- Clarify jurisdiction- and device-dependent RF compliance guidance in uConsole; add a regional configuration preflight diagram.
-- Require successful process exit codes for both `stress-ng` and `fio` before a hardware soak report can pass; replace fixed 16 GB memtester guidance with the memory-aware RAM test workflow.
-- Correct the stress-soak report version label to v1.1; reconcile `full_hw_suite.py` v2.0 behavior and tool references across the Python and specialized guides; replace unsupported uConsole CM4/CM5 buying claims with compatibility checks.
-
-### ⚖️ Bruce RF legal scope
-- Replace categorical legal claims and unsupported enforcement predictions with jurisdiction- and conduct-dependent guidance; add a pre-transmission authorization decision diagram and primary U.S. statute/FCC references.
-- Update the latest-release reference to upstream Bruce 1.17 and label the retained hardware/feature matrices as release 1.15 snapshots; note security-relevant fixes from the 1.17 release notes.
-
-### 🔗 PCI DSS navigation
-- Link the scoping field guide and blank evidence worksheet from the root README so the documentation fixture and readers can discover them.
-
 ### ✨ New Content
+- docs: add curated collection evaluation diagram (`99d888c`)
+- Add authorized Hashcat audit workflow diagram (#777) (`c72df13`)
+- Add rainbow-table time-memory tradeoff diagram (#776) (`b0608f3`)
+- Qualify locksport legal guidance and add statutes (#774) (`e1d4af2`)
+- Add bounded validation workflow diagram to Nmap guide (#773) (`e646c82`)
 - docs: add WinPE recovery decision diagram (#749) (`7668abe`)
 - Add Cyberdeck implementation roadmap diagram (`29e2ba4`)
 - Add Data Engineering Phase 3 operations loop (`1b9a7d2`)
@@ -620,11 +607,16 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
-- Correct NetHunter Pro installation-model description and add an indexed Android-versus-Pro diagram.
-- Update Linux AVML capture commands to the current subcommand CLI and pin the example to a verified release.
-- Bound Python port-scanner work queues; disable Nuclei Interactsh/OAST in the safe wrapper; clarify process privilege context in the Scripts guide.
-- Qualify Flipper Zero legal warnings and replace secondary statute links with official U.S. Code sources.
-- Clarify that VPN use is optional and threat-model dependent in OPSEC guides; embed existing Whonix and Tails network-boundary diagrams in the comparison.
+- docs: correct C2 detection examples (#794) (`dd4d1d2`)
+- docs: correct network detection examples (#793) (`f661232`)
+- Fix formatting in README.md for Operational Sections (`15209cf`)
+- Fix formatting of featured project section in README (`ed38bd9`)
+- docs(bruce): correct legal scope and release notes (#787) (`7a43ee1`)
+- docs(forensics): correct WinPmem CLI and signing guidance (#786) (`a66495c`)
+- docs(mobile): correct NetHunter Pro installation model (#783) (`c059edf`)
+- fix(incident-response): update AVML acquisition commands (#782) (`5a703bd`)
+- fix(scripts): bound scanner work and disable Nuclei OAST (#781) (`f20a634`)
+- Correct FCC radio-law guidance in Bruce firmware guide (#769) (`6ae0329`)
 - fix: correct installer architecture and hardware guide commands (#760) (`c68b98e`)
 - docs: correct master guide OPSEC and setup guidance (#761) (`8daf852`)
 - docs: correct AD escalation and C2 checklist guidance (#753) (`3672e2f`)
@@ -913,6 +905,12 @@
 - Correct link formatting for ESP32-S2 section (`89aebe1`)
 
 ### ♻️ Updates & Refactors
+- docs: clarify Snowden MYSTIC attribution and update PCLOB source (#791) (`0fa4028`)
+- Update header for Operational Sections in README (`2193de9`)
+- Update README with operational sections description (`f55d949`)
+- Update README to remove outdated links (`e0f72fe`)
+- Update README for consistency in search instructions (`32758a1`)
+- Update README.md (`04f11cd`)
 - docs: remove placeholder ATT&CK links from checklists (#759) (`7c85646`)
 - Remove inline password from Splunk app install command (#733) (`0733214`)
 - Remove inline password from Linux forwarder example (#732) (`70c172f`)
@@ -1589,6 +1587,23 @@
 - Update README.md (`c8e58fc`)
 
 ### 📚 Documentation
+- docs: refresh malware-analysis tooling guidance (#792) (`5d328b1`)
+- docs: qualify Carbanak impact estimate (`9a92719`)
+- docs: clarify SolarWinds exposure counts (`d29bd61`)
+- Change heading from '###' to '##' in README.md (`2e72312`)
+- Enhance README with routing and repository map sections (`adee48e`)
+- Enhance README with operational sections and indexes (`d293af4`)
+- docs: qualify radio rules and hardware soak verdicts (#785) (`b73b7a3`)
+- docs(flipper): qualify legal warning and cite statutes (#780) (`3a845b9`)
+- docs(opsec): make VPN use optional and threat-model driven (#779) (`43170e0`)
+- Qualify CFAA technique warnings in PDF guide (#778) (`c4de994`)
+- Clarify legal framework in master guide (#771) (`a7e7e5d`)
+- docs: qualify legal notices in tool guides (#768) (`843d6af`)
+- docs: qualify local LLM privacy and isolation claims (#767) (`5d87839`)
+- docs: align authorization wording across guides (#766) (`e1d921e`)
+- docs: diagram the HackRF audit evidence workflow (#765) (`684b98b`)
+- docs: qualify syscall detection visibility (#764) (`a321f3a`)
+- docs: diagram Biscuit and Scout Lite wardriving flows (#762) (`d8931d9`)
 - docs: diagram ESP32 honeypot trust boundaries (#758) (`7b598af`)
 - docs: map microcontroller wireless tool roles (#756) (`32e4317`)
 - docs: diagram Bluetooth adapter capture boundaries (#757) (`d655474`)
@@ -1827,6 +1842,10 @@
 - Delete Deep_learning_with_python--develop_deep.pdf (`60cac26`)
 
 ### ⚡ Other Changes
+- Restore grouped map of the whole repository (`de68fe4`)
+- Clarify Cliff Notes assessment lifecycle and non-repudiation (#775) (`fd62fb1`)
+- Import shutil in file organization example (#772) (`fa12a5b`)
+- Qualify packet capture legal guidance (#770) (`b25c2eb`)
 - Clarify Unicode confusable skeleton handling (`b8ff608`)
 - Make the classical testing warning jurisdiction-aware (`25208ae`)
 - Clarify Splunk Web TLS certificate requirements (#734) (`a003622`)
@@ -2213,20 +2232,79 @@
 <details>
 <summary>Click to view full file list</summary>
 
+- `Tradecraft/c2-frameworks.md`
+- `Tradecraft/network-detection.md`
+- `ENHANCED_MASTER_GUIDE.md`
+- `Documentation/awesome-hacking-collections-integration.md`
+- `assets/README.md`
+- `assets/diagrams/curated-security-collection-evaluation.svg`
+- `README.md`
+- `CHANGELOG.md`
+- `Documentation/bruce_firmware.md`
+- `REVIEW_2026-11-19.md`
+- `assets/diagrams/bruce-radio-authorization-check.svg`
+- `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
+- `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
+- `HardwareTesting/Manjaro_Intel_TestBench.md`
+- `HardwareTesting/py/README.md`
+- `HardwareTesting/py/stress_soak.py`
+- `SPECIALIZED_TOPICS_GUIDE.md`
+- `assets/diagrams/uconsole-radio-compliance-preflight.svg`
+- `uConsole/README.md`
+- `Mobile/OnePlus_A6003/Kali_NetHunter.md`
+- `assets/diagrams/nethunter-android-vs-pro-install-model.svg`
+- `Scripts/Bash/nuclei_web_scanner.sh`
+- `Scripts/Python/port_scanner.py`
+- `Scripts/README.md`
+- `assets/diagrams/nuclei-oast-traffic-boundary.svg`
+- `Documentation/flipper_zero_guide.md`
+- `OPSEC/README.md`
+- `OPSEC/anonymity-layering.md`
+- `PDF/README.md`
+- `Documentation/hashcat-guide.md`
+- `assets/diagrams/hashcat-authorized-audit-workflow.svg`
+- `Documentation/rainbow-tables-guide.md`
+- `assets/diagrams/rainbow-chain-time-memory-tradeoff.svg`
+- `assets/diagrams/authorized-assessment-lifecycle.svg`
+- `cybersecurity_cliff_notes.md`
+- `Documentation/Locksport.md`
+- `Documentation/nmap-guide.md`
+- `assets/diagrams/nmap-bounded-validation-workflow.svg`
+- `ultimate_cybersecurity_master_guide.md`
+- `Documentation/wireshark.md`
+- `Documentation/Aircrack-ng_Commands.md`
+- `Documentation/WiFiMarauder_Guide.md`
+- `Documentation/WifiMarauder_CheatSheet.md`
+- `Documentation/hcxtoolshashcat.md`
+- `PlayBooks/BlueTeam_IncResp_Enhanced.md`
+- `PlayBooks/BlueTeam_IncResp_Simple.md`
+- `PlayBooks/GitHubPlaybooks.md`
+- `PlayBooks/PurpleTeam_Multi-Scrip.md`
+- `PlayBooks/PurpleTeam_Simple.md`
+- `Cloud/README.md`
+- `LEGAL.md`
+- `STYLE_GUIDE.md`
+- `Scripts/Ducky/README.md`
+- `SpaceSecurity/PartII.md`
+- `SpaceSecurity/PartIII.md`
+- `SpaceSecurity/PartIV.md`
+- `PlayBooks/HackRFAuditPlayBook.md`
+- `assets/diagrams/hackrf-audit-evidence-workflow.svg`
+- `Tradecraft/av-edr-evasion.md`
+- `Wardriving/biscuit.md`
+- `Wardriving/sigroam-scout-lite.md`
+- `assets/diagrams/biscuit-hardware-and-data-roles.svg`
+- `assets/diagrams/sigroam-scout-lite-data-paths.svg`
 - `HardwareHacking/BitPirate.md`
 - `HardwareHacking/GreatFETone.md`
 - `installer.sh`
-- `ENHANCED_MASTER_GUIDE.md`
-- `ultimate_cybersecurity_master_guide.md`
 - `Checklists/Domain-Escalation.md`
 - `Checklists/Windows-Privilege-Escalation.md`
 - `IncidentResponse/HoneyPot/esp32-s3-honeypots.md`
 - `Documentation/microcontroller_wifi_testing.md`
 - `Documentation/bluetooth-radio-adapter-guide.md`
-- `OPSEC/anonymity-layering.md`
 - `Checklists/command-and-control.md`
 - `SDR/evil-crow-rf-v2.md`
-- `CHANGELOG.md`
 - `WebAppSecurity/methodology.md`
 - `OSINT/OSINT_TOOLS_CATALOG.md`
 - `OSINT/README.md`
@@ -2247,7 +2325,6 @@
 - `Documentation/wireshark-master-filters.md`
 - `HardwareHacking/README.md`
 - `IncidentResponse/Digital-Forensics/README.md`
-- `README.md`
 - `ReverseEngineering/README.md`
 - `START_HERE.md`
 - `WebAppSecurity/README.md`
@@ -2273,7 +2350,6 @@
 - `IncidentResponse/IDS&IPS/nzyme-wazuh/nzyme-wazuh-bridge.service`
 - `IncidentResponse/IDS&IPS/unified-network-visibility-architecture.md`
 - `Documentation/network-segmentation-dmz-acl-vlan.md`
-- `assets/README.md`
 - `assets/diagrams/network-segmentation-enforcement-and-visibility.svg`
 - `Documentation/netalertx-device-discovery-monitoring.md`
 - `Documentation/network-device-discovery-comparison.md`
@@ -2298,7 +2374,6 @@
 - `Documentation/device-firmware-list.md`
 - `Documentation/esp32-security-firmware-catalog.md`
 - `Documentation/firmware-web-flashers.md`
-- `REVIEW_2026-11-19.md`
 - `Documentation/ArchLinux_CheatSheet.md`
 - `Documentation/LinuxCheatSheet.md`
 - `ReverseEngineering/ghidra-guide-index.md`
@@ -2306,9 +2381,7 @@
 - `Scripts/tool_pins.conf`
 - `HardwareHacking/pico-ducky-lab.md`
 - `Documentation/wifi-adapter-selection-guide.md`
-- `Documentation/WiFiMarauder_Guide.md`
 - `Documentation/bjorn_pi.md`
-- `Documentation/hcxtoolshashcat.md`
 - `AI/offline-llm.md`
 - `AI/ai-workspaces-notebooks-and-assistants.md`
 - `AI/ai-usage-interaction-guide.md`
@@ -2337,8 +2410,6 @@
 - `Scripts/PINNING.md`
 - `Scripts/lib/safe_install.sh`
 - `assets/diagrams/script-pin-validation-flow.svg`
-- `Tradecraft/c2-frameworks.md`
-- `Documentation/Aircrack-ng_Commands.md`
 - `assets/diagrams/wifi-capture-mode-boundaries.svg`
 - `ContainerSecurity/software-supply-chain-assessment.md`
 - `assets/diagrams/supply-chain-attestation-layers.svg`
@@ -2346,7 +2417,6 @@
 - `assets/diagrams/detection-evidence-verification-gates.svg`
 - `Mobile/mobile_pentest_sop.md`
 - `Compliance/pci-dss-scoping.md`
-- `Documentation/wireshark.md`
 - `Documentation/dns-hijacking-secure-dns.md`
 - `assets/diagrams/dns-resolution-trust-path.svg`
 - `Documentation/mitm-detection-prevention.md`
@@ -2355,7 +2425,6 @@
 - `Documentation/network-taps-and-packet-visibility.md`
 - `assets/diagrams/tap-observation-method-selection.svg`
 - `tools/search_docs.py`
-- `Documentation/awesome-hacking-collections-integration.md`
 - `Documentation/sbc-radio-addon-compatibility.md`
 - `HardwareTesting/README.md`
 - `assets/cc1101-reference-cheatsheet.jpg`
@@ -2363,11 +2432,9 @@
 - `assets/mac-startup-reset-cheatsheet.png`
 - `assets/pc-mac-maintenance-guide.jpg`
 - `IncidentResponse/README.md`
-- `PDF/README.md`
 - `assets/diagrams/pdf-safe-reference-use-flow.svg`
 - `Scripts/Bash/BashBunny/README.md`
 - `assets/diagrams/bashbunny-defensive-policy-validation.svg`
-- `Scripts/Ducky/README.md`
 - `assets/diagrams/ducky-safe-validation-flow.svg`
 - `CAD/OpenSCAD/01-fundamentals.md`
 - `CAD/OpenSCAD/images/openscad-modeling-recipe.svg`
@@ -2403,7 +2470,6 @@
 - `SDR/nanovna/tools/README.md`
 - `SDR/nanovna/tools/s1pdiff.py`
 - `tools/tests/test_review_fixes.py`
-- `Cloud/README.md`
 - `Cyberdeck/README.md`
 - `Cyberdeck/docs/ARCHITECTURE.md`
 - `Cyberdeck/docs/HARDWARE_AND_STATUS.md`
@@ -2413,7 +2479,6 @@
 - `OSINT/OSINT_socialmedia.md`
 - `PlayBooks/README.md`
 - `SDR/sdr.md`
-- `HardwareTesting/py/README.md`
 - `HardwareTesting/py/full_hw_suite.py`
 - `Data-Engineering/Phase3/pipeline_observability.md`
 - `Documentation/LAB-VERIFICATION-MATRIX.md`
@@ -2421,18 +2486,14 @@
 - `uConsole/CM4-SAFETY-REVIEW.md`
 - `uConsole/CM4-SETUP.md`
 - `uConsole/CM5-SETUP.md`
-- `uConsole/README.md`
 - `uConsole/scripts/uconsole-cm5-setup.sh`
 - `uConsole/tests/test_cm5_setup.py`
 - `Documentation/wireless-toolkit-reference.md`
 - `OSINT/Playbook/tools_api.md`
 - `CAD/OpenSCAD/06-keyboard-shortcuts.md`
 - `SDR/nanovna/11-worksheet-and-exercises.md`
-- `Scripts/README.md`
 - `Documentation/HTTP-LINKS-CLASSIFICATION.md`
 - `Documentation/bluemaho-guide.md`
-- `Documentation/bruce_firmware.md`
-- `Documentation/rainbow-tables-guide.md`
 - `Documentation/spooftooph-guide.md`
 - `OSINT/Playbook/README.md`
 - `Documentation/CANARY-DETECTION-VALIDATOR.md`
@@ -2446,17 +2507,13 @@
 - `OSINT/scripts/Email_OSINT.md`
 - `PlayBooks/cybersecurity_playbooks.md`
 - `PlayBooks/unauth_access.md`
-- `SPECIALIZED_TOPICS_GUIDE.md`
-- `Tradecraft/network-detection.md`
 - `Data-Engineering/Phase1/data_engineering_fundamentals.md`
 - `Data-Engineering/Phase1/data_quality_schema_contracts.md`
 - `Homelab/HomeLab_Setup.md`
-- `IncidentResponse/Digital-Forensics/Disks/autopsy_kape.md`
 - `IncidentResponse/Digital-Forensics/Memory/volatility_cheatsheet.md`
 - `IncidentResponse/HoneyPot/cowrie.md`
 - `IncidentResponse/HoneyPot/opencanary.md`
 - `IncidentResponse/HoneyPot/tpot.md`
-- `cybersecurity_cliff_notes.md`
 - `IncidentResponse/SIEM/elk_stack.md`
 - `Scripts/Bash/bash_scripting_cheat-sheet.md`
 - `SDR/nanovna/03-calibration.md`
@@ -2497,7 +2554,6 @@
 - `assets/diagrams/anythingllm-flow-readiness.svg`
 - `Cyberdeck/docs/PUBLISHING_AND_RELEASE.md`
 - `Cyberdeck/docs/images/cyberdeck-safe-publication.svg`
-- `HardwareTesting/Manjaro_Intel_TestBench.md`
 - `assets/diagrams/hardware-storage-benchmark-target-evidence.svg`
 - `assets/diagrams/hardware-thermal-soak-evidence.svg`
 - `Compliance/frameworks.md`
@@ -2519,8 +2575,6 @@
 - `Documentation/evil_m5.md`
 - `Documentation/fancygotchi-pwnagotchi.md`
 - `Documentation/fern-wifi-cracker-guide.md`
-- `Documentation/hashcat-guide.md`
-- `Documentation/nmap-guide.md`
 - `Documentation/pixiewps-guide.md`
 - `Documentation/pwnagotchi_cheatsheet.md`
 - `Documentation/wifi-deauthentication-detection.md`
@@ -2553,7 +2607,6 @@
 - `assets/diagrams/uconsole-cm4-preserve-working-image.svg`
 - `assets/diagrams/opencanary-alert-validation.svg`
 - `Documentation/TOR.md`
-- `SpaceSecurity/PartIV.md`
 - `assets/diagrams/tor-browser-download-verification.svg`
 - `Scripts/Python/dump_recyclebin.py`
 - `tools/audit_visual_coverage.py`
@@ -2587,8 +2640,6 @@
 - `Compliance/README.md`
 - `Cloud/m365-scuba-assessment.md`
 - `SpaceSecurity/Appendices.md`
-- `SpaceSecurity/PartIII.md`
-- `SpaceSecurity/PartII.md`
 - `SpaceSecurity/README.md`
 - `uConsole/CM5-DISPLAY-RECOVERY.md`
 - `CAD/README.md`
@@ -2643,8 +2694,6 @@
 - `assets/diagrams/ai-model-routing-policy.svg`
 - `assets/diagrams/openscad-preset-to-export.svg`
 - `AI/verification-and-ai-audits.md`
-- `PlayBooks/BlueTeam_IncResp_Enhanced.md`
-- `PlayBooks/BlueTeam_IncResp_Simple.md`
 - `assets/diagrams/ai-audit-claims-tools-and-outcomes.svg`
 - `assets/diagrams/bash-script-input-validation-and-dry-run-gates.svg`
 - `assets/diagrams/classical-cipher-frequency-vigenere-ic-analysis.svg`
@@ -2660,7 +2709,6 @@
 - `HardwareTesting/install_testbench_tools.sh`
 - `Checklists/AppLocker.md`
 - `Checklists/microsoft-exchange.md`
-- `Mobile/OnePlus_A6003/Kali_NetHunter.md`
 - `Mobile/OnePlus_A6003/Rooting.md`
 - `OSINT/Playbook/api_keys.conf`
 - `OSINT/Playbook/osint_investigator.sh`
@@ -2673,14 +2721,11 @@
 - `OSINT/docs/FAQ.md`
 - `OSINT/docs/INSTALLATION.md`
 - `OSINT/scripts/Phone_OSINT.md`
-- `PlayBooks/PurpleTeam_Multi-Scrip.md`
-- `Tradecraft/av-edr-evasion.md`
 - `Tradecraft/lolbins-lolbas.md`
 - `.gitignore`
 - `AUDIT_FINDINGS.md`
 - `AUDIT_REPORT.md`
 - `OSINT/Playbook/scripts/crypto_audit.sh`
-- `STYLE_GUIDE.md`
 - `Scripts/Bash/admin-panel-sniffer.sh`
 - `Scripts/Bash/arp-spoofing-detect.sh`
 - `Scripts/Bash/attack.sh`
@@ -2742,7 +2787,6 @@
 - `Cyberdeck/tools/evidence_manifest.py`
 - `HardwareHacking/Chapter3.md`
 - `HardwareTesting/py/standalone_gpu_tester.py`
-- `HardwareTesting/py/stress_soak.py`
 - `OSINT/Playbook/investigation_guide.md`
 - `PlayBooks/NetworkAuditPlayBook.md`
 - `Scripts/Bash/BashBunny/cred_harv.txt`
@@ -2777,7 +2821,6 @@
 - `Scripts/SQL/add_wordpress_admin.sql`
 - `Scripts/YAML/git_finder.yaml`
 - `Wardriving/esp32-marauder.md`
-- `Wardriving/sigroam-scout-lite.md`
 - `Mobile/OnePlus_A6003/Nethunter_SOP.md`
 - `Scripts/GO/shells/README.md`
 - `Scripts/GO/shells/bypass.c`
@@ -2797,9 +2840,7 @@
 - `.github/workflows/auto_changelog.yml`
 - `Checklists/Domain-Persistence.md`
 - `Scripts/GO/scan/do_proxy_chains.py`
-- `LEGAL.md`
 - `Scripts/Bash/hulkscanner.sh`
-- `Scripts/Bash/nuclei_web_scanner.sh`
 - `Scripts/Bash/ssh_brute.sh`
 - `Scripts/Python/ssh_brute.py`
 - `Scripts/Python/ssh_brutekey.py`
@@ -2828,7 +2869,6 @@
 - `assets/diagrams/linux-privilege-risk-and-vendor-patch-triage.svg`
 - `assets/diagrams/osint-cti-source-quality-to-detection.svg`
 - `assets/diagrams/voip-sip-signaling-vs-rtp-media-security.svg`
-- `Documentation/Locksport.md`
 - `Wardriving/esp32-c5-wardriver.md`
 - `assets/diagrams/esp32-c5-wardriver-normal-node-core.svg`
 - `assets/diagrams/hardware-bench-inventory-stress-storage-safety.svg`
@@ -2879,7 +2919,6 @@
 - `assets/diagrams/honeypot-wazuh-telemetry-evidence-path.svg`
 - `assets/diagrams/recovery-point-rpo-rto-replay-timeline.svg`
 - `assets/diagrams/webapp-object-authorization-role-matrix.svg`
-- `IncidentResponse/Digital-Forensics/LiveData/live_data_collection.md`
 - `assets/diagrams/graylog-data-node-ingest-architecture.svg`
 - `assets/diagrams/live-response-volatility-evidence-gates.svg`
 - `Wardriving/field-workflow.md`
@@ -3135,7 +3174,6 @@
 - `CAD/OpenSCAD/images/test-coupons.png`
 - `GLOSSARY.md`
 - `assets/cyberdeckandgear.png`
-- `Documentation/flipper_zero_guide.md`
 - `Cyberdeck/templates/ASSESSMENT_REPORT.example.md`
 - `Cyberdeck/templates/QUALIFICATION_RECORD.example.md`
 - `Cyberdeck/tests/test_verify_manifest.py`
@@ -3150,7 +3188,6 @@
 - `Cyberdeck/templates/EVIDENCE_RECORD.example.json`
 - `Cyberdeck/tests/test_evidence_manifest.py`
 - `Wardriving/awok-dual-c5-biscuit.md`
-- `Wardriving/biscuit.md`
 - `firmware-hardware-compatibility.md`
 - `Documentation/fixtures/lab-canary-cases.jsonl`
 - `Documentation/fixtures/lab-canary-observations.jsonl`
@@ -3162,7 +3199,6 @@
 - `Documentation/MARKDOWN-EMPTY-CELL-REVIEW-2026-11-11.md`
 - `IncidentResponse/HoneyPot/lab/honeypot_rules.xml`
 - `IncidentResponse/IDS&IPS/kismet-wazuh/kismet_wids_rules.xml`
-- `PlayBooks/PurpleTeam_Simple.md`
 - `SDR/nanovna/01-hardware-and-setup.md`
 - `tools/tests/test_audit_manifests.py`
 - `tools/tests/test_wazuh_rule_contracts.py`
@@ -3196,7 +3232,6 @@
 - `HardwareHacking/firmware-web-flashers.md`
 - `Data-Engineering/Phase1/README.md`
 - `IncidentResponse/HoneyPot/readme.md`
-- `OPSEC/README.md`
 - `OPSEC/press-freedom/README.md`
 - `SDR/nanovna/README.md`
 - `Documentation/INTEGRATION-QUALITY-REVIEW-2026-11-03.md`
@@ -3244,7 +3279,6 @@
 - `uConsole/scripts/uconsole-repair.sh`
 - `uConsole/tests/test_cm4_setup.py`
 - `uConsole/tests/test_repair_safety.py`
-- `Documentation/WifiMarauder_CheatSheet.md`
 - `.github/workflows/wireshark-filters.yml`
 - `Documentation/wireshark-filter-catalog.tsv`
 - `tools/check_wireshark_filters.py`
@@ -3306,7 +3340,6 @@
 - `SDR/nanovna/testdata/same_2m.s1p`
 - `SDR/nanovna/testdata/uhf_70cm.s1p`
 - `SDR/nanovna/testdata/wet_2m.s1p`
-- `PlayBooks/HackRFAuditPlayBook.md`
 - `PlayBooks/hackrfauditplaybook.md`
 - `uConsole/ParrotOS/README.md`
 - `uConsole/scripts/PARROT-CM5.md`
@@ -3354,7 +3387,6 @@
 - `Mobile/Kali_NetHunter.md`
 - `Checklists/Microsoft Exchange.md`
 - `Checklists/VoIP Checklist.md`
-- `PlayBooks/GitHubPlaybooks.md`
 - `FIRMWARE&HARDWARE_COMPATIBILITY.md`
 - `osint`
 - `.github/ISSUE_TEMPLATE/content_suggestion.md`
@@ -3603,7 +3635,6 @@
 - `Scripts/Bash/Examples/if_else.sh`
 - `Scripts/Bash/Examples/user_input.sh`
 - `Scripts/PowerShell/system_enum.ps1`
-- `Scripts/Python/port_scanner.py`
 - `Scripts/Python/simple_file_fuzzer.py`
 - `Scripts/PowerShell/System_enum.ps1`
 - `Scripts/Bash/OS_command_inj.sh`
