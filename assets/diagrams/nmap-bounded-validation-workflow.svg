@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+<title id="title">Nmap bounded validation workflow</title>
+<desc id="desc">A defensive Nmap workflow begins by confirming written scope and a permitted target. The analyst records a baseline, performs a bounded scan, treats the output as observations, corroborates those observations with host and network evidence, and reports findings with limitations. If scope is not confirmed, scanning stops.</desc>
+<defs><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#183247}.title{font-size:30px;font-weight:700}.head{font-size:21px;font-weight:700}.body{font-size:16px}.small{font-size:14px}
+.box{stroke:#47657b;stroke-width:2;rx:14}.arrow{stroke:#47657b;stroke-width:3;fill:none;marker-end:url(#arr)}
+</style><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#47657b"/></marker></defs>
+<rect width="1280" height="560" fill="#f5f8fb"/>
+<text class="title" x="640" y="48" text-anchor="middle">A scan is one observation in a validation process</text>
+<rect class="box" x="35" y="120" width="185" height="145" fill="#e7eef8"/>
+<text class="head" x="127" y="158" text-anchor="middle">1. Confirm scope</text>
+<text class="body" x="127" y="192" text-anchor="middle">target · method</text>
+<text class="body" x="127" y="217" text-anchor="middle">ports · time window</text>
+<path class="arrow" d="M225 190L260 190"/>
+<rect class="box" x="270" y="120" width="185" height="145" fill="#fff0d7"/>
+<text class="head" x="362" y="158" text-anchor="middle">2. Baseline</text>
+<text class="body" x="362" y="192" text-anchor="middle">expected services</text>
+<text class="body" x="362" y="217" text-anchor="middle">host logs · config</text>
+<path class="arrow" d="M460 190L495 190"/>
+<rect class="box" x="505" y="120" width="185" height="145" fill="#e7f4ed"/>
+<text class="head" x="597" y="158" text-anchor="middle">3. Scan narrowly</text>
+<text class="body" x="597" y="192" text-anchor="middle">approved target</text>
+<text class="body" x="597" y="217" text-anchor="middle">bounded ports/rate</text>
+<path class="arrow" d="M695 190L730 190"/>
+<rect class="box" x="740" y="120" width="185" height="145" fill="#efe9fb"/>
+<text class="head" x="832" y="158" text-anchor="middle">4. Interpret</text>
+<text class="body" x="832" y="192" text-anchor="middle">open · closed</text>
+<text class="body" x="832" y="217" text-anchor="middle">filtered · uncertain</text>
+<path class="arrow" d="M930 190L965 190"/>
+<rect class="box" x="975" y="120" width="270" height="145" fill="#f4e7e5"/>
+<text class="head" x="1110" y="158" text-anchor="middle">5. Corroborate &amp; report</text>
+<text class="body" x="1110" y="192" text-anchor="middle">host sockets · ACLs · logs</text>
+<text class="body" x="1110" y="217" text-anchor="middle">limits · evidence · remediation</text>
+<rect class="box" x="85" y="330" width="315" height="112" fill="#fde8e7"/>
+<text class="head" x="242" y="370" text-anchor="middle">No confirmed scope?</text>
+<text class="body" x="242" y="402" text-anchor="middle">Stop and clarify authorization.</text>
+<path class="arrow" d="M127 268L127 308"/>
+<rect class="box" x="445" y="330" width="800" height="112" fill="#e8f0f5"/>
+<text class="head" x="845" y="370" text-anchor="middle">A scan result is not a complete inventory or vulnerability verdict</text>
+<text class="body" x="845" y="402" text-anchor="middle">Non-response may reflect filtering, routing, rate limits, or probe coverage. Verify independently.</text>
+<text class="small" x="640" y="510" text-anchor="middle" fill="#526b7d">Conceptual teaching aid — no live scan or target data is shown</text>
+</svg>
