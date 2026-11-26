@@ -31,6 +31,10 @@ The reserved TEST-NET address `192.0.2.10` below is a **placeholder**. Replace i
 
 ## A Bounded Lab Workflow
 
+![Nmap validation workflow: confirm written scope, baseline the authorized host, run a bounded scan, corroborate observations with host and network evidence, then report limitations and findings](../assets/diagrams/nmap-bounded-validation-workflow.svg)
+
+*Conceptual workflow: scan observations are evidence to verify, not proof that a host or service is absent, vulnerable, or safe.*
+
 1. **Scope:** Record exact permitted IPs, protocols, ports, time window & expected scan rates.
 2. **Baseline:** Snapshot the lab VM, enable server logs and record the host's expected listening ports.
 3. **Discover:** Try a bounded port selection first, with an explicit target, then widen only if approved.
