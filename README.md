@@ -155,7 +155,7 @@ The goal for this sub-project is to help bring the portable field-assessment arc
 | 🕸️ [Web Application Security](./WebAppSecurity/README.md) | OWASP Top 10 guidance and a complete web-application pentesting methodology covering reconnaissance, Burp Suite, injection, access control, and API testing |
 
 
-### Subsection Indexes & Focused Entry Points
+## Subsection Indexes & Focused Entry Points
 
 | Parent Area | Subsection / Guide | Coverage |
 |---|---|---|
