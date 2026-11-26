@@ -1,6 +1,6 @@
 # Complete Documentation Index
 
-**447 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
+**448 Markdown documents indexed.** Generated from the tracked repository tree as of this revision. This index links all documentation pages, including nested guides that may not appear in a section README.
 
 Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](README.md) for topic navigation, or the [PNWC Cyberdeck Public Reference](Cyberdeck/README.md) for the portable assessment project.
 
@@ -19,7 +19,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | Compliance | 5 | [Open section](#compliance) |
 | ContainerSecurity | 5 | [Open section](#containersecurity) |
 | Cryptography | 16 | [Open section](#cryptography) |
-| Cyberdeck | 13 | [Open section](#cyberdeck) |
+| Cyberdeck | 14 | [Open section](#cyberdeck) |
 | Data-Engineering | 18 | [Open section](#data-engineering) |
 | Documentation | 75 | [Open section](#documentation) |
 | HardwareHacking | 16 | [Open section](#hardwarehacking) |
@@ -241,6 +241,7 @@ Prefer [Start Here](START_HERE.md) for a curated learning route, [Main README](R
 | [docs/ARCHITECTURE.md](./Cyberdeck/docs/ARCHITECTURE.md) | `Cyberdeck/docs/ARCHITECTURE.md` |
 | [docs/ASSESSMENT_WORKFLOW.md](./Cyberdeck/docs/ASSESSMENT_WORKFLOW.md) | `Cyberdeck/docs/ASSESSMENT_WORKFLOW.md` |
 | [docs/BUILD_AND_OPERATIONS.md](./Cyberdeck/docs/BUILD_AND_OPERATIONS.md) | `Cyberdeck/docs/BUILD_AND_OPERATIONS.md` |
+| [docs/CARDPUTERZERO.md](./Cyberdeck/docs/CARDPUTERZERO.md) | `Cyberdeck/docs/CARDPUTERZERO.md` |
 | [docs/EVIDENCE_AND_PRIVACY.md](./Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md) | `Cyberdeck/docs/EVIDENCE_AND_PRIVACY.md` |
 | [docs/HARDWARE_AND_STATUS.md](./Cyberdeck/docs/HARDWARE_AND_STATUS.md) | `Cyberdeck/docs/HARDWARE_AND_STATUS.md` |
 | [docs/IMPLEMENTATION_ROADMAP.md](./Cyberdeck/docs/IMPLEMENTATION_ROADMAP.md) | `Cyberdeck/docs/IMPLEMENTATION_ROADMAP.md` |

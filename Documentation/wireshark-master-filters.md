@@ -15,6 +15,7 @@
 | Need | Go here | How |
 | --- | --- | --- |
 | Searchable master list of usable display expressions | [Filter catalog](./wireshark-filter-catalog.tsv) | 133 named filters grouped into 9 categories, plus usage caveats |
+| Review a short capture on a handheld Linux terminal | [CardputerZero offline TShark lab](../Cyberdeck/docs/CARDPUTERZERO.md#lab-3--review-a-small-packet-capture-offline) | Read a saved capture and confirm DNS response fields on a workstation |
 | Short everyday reference | [Field cheat sheet](./wireshark-cheatsheet.md) | Top filters, capture BPF, CLI and GUI workflows |
 | Detailed remote capture, Bluetooth, Zigbee and router operations | [Existing advanced guide](./wireshark.md) | Longer procedure reference; review hardware/version caveats |
 | Verify syntax against your installed Wireshark | [Catalog test tool](../tools/check_wireshark_filters.py) | No-packet-data validation with TShark; CI runs on changes |
