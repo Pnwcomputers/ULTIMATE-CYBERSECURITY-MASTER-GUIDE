@@ -19,6 +19,9 @@
 - Require successful process exit codes for both `stress-ng` and `fio` before a hardware soak report can pass; replace fixed 16 GB memtester guidance with the memory-aware RAM test workflow.
 - Correct the stress-soak report version label to v1.1; reconcile `full_hw_suite.py` v2.0 behavior and tool references across the Python and specialized guides; replace unsupported uConsole CM4/CM5 buying claims with compatibility checks.
 
+### ⚖️ Bruce RF legal scope
+- Replace categorical legal claims and unsupported enforcement predictions with jurisdiction- and conduct-dependent guidance; add a pre-transmission authorization decision diagram and primary U.S. statute/FCC references.
+
 ### ✨ New Content
 - docs: add WinPE recovery decision diagram (#749) (`7668abe`)
 - Add Cyberdeck implementation roadmap diagram (`29e2ba4`)
