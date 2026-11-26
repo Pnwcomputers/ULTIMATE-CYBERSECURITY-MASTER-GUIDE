@@ -8,6 +8,9 @@
 
 ## 📝 Detailed Changes
 
+### 📜 KAPE license note
+- Replace the outdated blanket KAPE non-commercial-use statement with Kroll's current permitted-use categories and third-party/paid-engagement restriction.
+
 ### 🔐 WinPmem CLI correction
 - Correct the WinPmem Mini invocation and add the upstream prerelease/signing caveat to live-memory acquisition guidance.
 
