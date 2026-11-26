@@ -111,7 +111,7 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 
 ---
 
-### Operational Sections:
+## Operational Sections:
 ### _A grouped map of the whole repository_
 
 | Section | Description |
