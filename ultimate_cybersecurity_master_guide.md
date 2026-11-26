@@ -1248,6 +1248,7 @@ flowchart LR
 ### File System Automation
 ```python
 import os
+import shutil
 from pathlib import Path
 
 def organize_files(directory):
