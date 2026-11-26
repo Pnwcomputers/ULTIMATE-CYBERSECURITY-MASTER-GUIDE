@@ -897,18 +897,16 @@ sudo ./linux_live_response.sh IR-2024-001
 
 ### Windows Memory Acquisition
 
-#### WinPMEM
+#### WinPmem
+
+Use the exact command syntax for the selected WinPmem build. The upstream [Mini CLI instructions](https://github.com/Velocidex/WinPmem#winpmem_mini_x64exe-standalone-executable) document a positional output filename:
 
 ```powershell
-# Download WinPMEM
-# https://github.com/Velocidex/WinPmem/releases
-
-# Capture memory
-.\winpmem_mini_x64.exe output.raw
-
-# With extended options
-.\winpmem_mini_x64.exe --format raw --output E:\Cases\memory.raw
+# Raw-only Mini example; confirm the selected build and target Windows support.
+.\winpmem_mini_x64.exe E:\Cases\memory.raw
 ```
+
+**Build and signing status matter.** As checked November 25, 2026, the upstream releases page lists v4.1.dev1 as a pre-release and says its driver is test-signed; that release requires enabling Windows test-signing mode. The same page directs production use to the signed `go-winpmem_amd64_1.0-rc2_signed.exe` asset. Check the [upstream release notes](https://github.com/Velocidex/WinPmem/releases) immediately before use, follow the organization's acquisition policy, and do not change a target's boot configuration merely to load a pre-release driver. Confirm the selected binary's signature/hash and use its own help for version-specific options.
 
 #### DumpIt
 

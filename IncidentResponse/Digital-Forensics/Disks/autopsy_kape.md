@@ -67,10 +67,12 @@ KAPE is a triage tool designed to:
 
 ## 📥 KAPE Installation
 
-### Step 1: Download KAPE
+### Step 1: Confirm permission, then download KAPE
 
-KAPE is free for non-commercial use. Download from:
-- [Kroll KAPE Download](https://www.kroll.com/en/services/cyber-risk/incident-response-litigation-support/kroll-artifact-parser-extractor-kape)
+> [!IMPORTANT]
+> **Check Kroll's current license before using KAPE.** As checked November 25, 2026, Kroll says free use is available to government agencies, for education/research, and for internal company use; it is **not available for commercial use on a third-party network or as part of a paid engagement**. If the planned use is outside those stated categories, do not proceed unless Kroll's current terms or a separate written license authorize it. This repository is not a substitute for reviewing the [current KAPE End User License Agreement](https://www.kroll.com/en/kape-license-agreement).
+
+- [Kroll KAPE usage and download page](https://www.kroll.com/en/services/cyber/reactive-services/kroll-artifact-parser-and-extractor-kape)
 
 ### Step 2: Extract and Organize
 

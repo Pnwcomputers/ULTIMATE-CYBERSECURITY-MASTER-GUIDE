@@ -8,6 +8,12 @@
 
 ## 📝 Detailed Changes
 
+### 📜 KAPE license note
+- Replace the outdated blanket KAPE non-commercial-use statement with Kroll's current permitted-use categories and third-party/paid-engagement restriction.
+
+### 🔐 WinPmem CLI correction
+- Correct the WinPmem Mini invocation and add the upstream prerelease/signing caveat to live-memory acquisition guidance.
+
 ### 🔎 Review follow-up
 - Clarify jurisdiction- and device-dependent RF compliance guidance in uConsole; add a regional configuration preflight diagram.
 - Require successful process exit codes for both `stress-ng` and `fio` before a hardware soak report can pass; replace fixed 16 GB memtester guidance with the memory-aware RAM test workflow.
