@@ -50,7 +50,6 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 
 | I Want To... | Start Here |
 |---|---|
-| Explore The PNWC Cyberdeck Project | [Cyberdeck Public Reference & Project Index](./Cyberdeck/README.md) |
 | Browse Every Documentation Page | [Complete Documentation Index](./DOCUMENTATION_INDEX.md) |
 | Search Guide Text on GitHub | [Open repository code search](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/search?type=code) — enter your topic in the search box; GitHub sign-in is required |
 | Search Wiki Pages | [Open the project Wiki](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE/wiki) and use its search field |
