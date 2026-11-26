@@ -4,6 +4,10 @@ _Reviewed November 24, 2026 · [Documentation](README.md) · [Main guide](../REA
 
 This directory is a **de-duplicated gateway** to relevant projects found in three major indexes, not a copied mega-list, malware collection or automatic installer. A listing alone does not establish maintenance, safe operation, licensing of downstream projects or compatibility with PNWC labs.
 
+![A four-step workflow for routing from curated cybersecurity collections to a verified project used within an authorized scope](../assets/diagrams/curated-security-collection-evaluation.svg)
+
+*Original conceptual workflow. A collection helps readers discover resources; it does not validate downstream maintenance, licensing, safety, or permission to use a project.*
+
 **Upstream collection roles:** [Awesome-Hacking](https://github.com/Hack-with-Github/Awesome-Hacking) is a broad index of specialized security lists. [h4cker](https://github.com/The-Art-of-Hacking/h4cker) organizes references, labs, tools, certifications and AI security material by domain. Use this page's topic routing to find the related PNWC guide, then evaluate each downstream project, release, license and scope independently.
 
 | Original collection | Contribution | Root license |
