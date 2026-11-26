@@ -1258,8 +1258,9 @@ Conceptual guide to choosing the local helper, GitHub code search, Wiki search, 
 
 ## Radio Compliance Preflight
 
-Conceptual checklist for radio device, region, configuration and authorization before an RF transmission.
+Conceptual checklists for jurisdiction, device, region, configuration, radio authorization and engagement scope before an RF transmission.
 
 | Diagram | Embedded guide |
 |---|---|
 | [Radio compliance preflight](./diagrams/uconsole-radio-compliance-preflight.svg) | [uConsole RF & Radio Compliance](../uConsole/README.md#rf-and-radio-compliance) |
+| [Bruce radio authorization check](./diagrams/bruce-radio-authorization-check.svg) | [Bruce firmware guide](../Documentation/bruce_firmware.md) |

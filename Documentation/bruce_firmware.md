@@ -27,15 +27,15 @@ chip alone does not validate display pins, USB HID or an attached radio module.
 Operational guide to Bruce firmware - the multi-radio ESP32 platform covering sub-GHz (CC1101), NFC/RFID (PN532), IR, FM, NRF24, BLE/HID, and WiFi attack capabilities across M5Cardputer, LilyGo, and Bruce open-hardware boards.
 
 ## ⚙️ Function
-Covers: what Bruce is and where it sits vs. Evil-M5, the expanded FCC/regulatory framework for multi-band RF transmission, per-module operational guides (WiFi, sub-GHz, NFC/RFID, IR, BLE, FM, JavaScript automaton), supported hardware matrix, flashing workflow, a pre-engagement checklist, and an appendix of further resources.
+Covers Bruce’s differences from Evil-M5, a U.S.-focused overview of radio rules and authorization boundaries, per-module operational guidance, supported hardware, flashing, pre-engagement checks, and further resources.
 
 ## 🏆 Goal
-Enable red-team operators to safely and legally extend beyond WiFi-only capability into RF, NFC/RFID, and IR attack surfaces - with a clear understanding of the dramatically expanded FCC enforcement exposure that multi-band transmission entails.
+Help authorized security practitioners understand Bruce’s additional interfaces and capabilities, and check applicable radio rules, device requirements, collection limits, and engagement scope before use.
 
 ## 📋 When to Use
 - Physical and wireless red-team engagements requiring sub-GHz replay (garage doors, gate openers), NFC/RFID badge cloning, IR control injection, or BLE HID attacks
 - When an engagement needs capabilities beyond what Evil-M5 WiFi-only provides
-- Authorized FCC-licensed amateur radio operations on sub-GHz bands (Part 97)
+- Amateur-radio activities only when the specific mode, frequency, purpose, equipment, and operator comply with Part 97; a ham license does not authorize every Bruce feature
 - Security research on ISM-band protocols in a lab environment with proper authorization
 
 > **Reader prerequisites.** This chapter assumes the foundational material from the previous chapter on the M5Cardputer and Evil-M5Project. Bruce runs on the same Cardputer hardware (and many others), targets the same broad threat-modeling space, but goes much wider - into Sub-GHz, NFC/RFID, IR, FM, and 2.4 GHz NRF24 - which substantially expands the legal and regulatory surface. Working familiarity with FCC Part 15 unlicensed operation, basic ISM-band concepts, ham radio rules where applicable, and the wireless attack primitives covered in the Evil-M5 chapter are assumed.
@@ -46,7 +46,9 @@ Enable red-team operators to safely and legally extend beyond WiFi-only capabili
 
 If Evil-M5Project is the Wi-Fi specialist, **Bruce** is the multi-radio swiss army knife. The same Cardputer that runs Evil-M5 can be reflashed with Bruce and gain - among other things - sub-GHz transmit and replay (with a CC1101), 13.56 MHz NFC read/clone (with a PN532), 125 kHz RFID, IR transmit/receive, FM broadcast, NRF24-based 2.4 GHz operations, BLE spoofing and HID, and a JavaScript interpreter for automating attack sequences.
 
-Bruce is open source under the **AGPL-3.0**, maintained by pr3y with extensive contributions from bmorcelli (cross-device porting and core), IncursioHack (RF/RFID), and a wide contributor base. The project's official home is `https://bruce.computer` and the canonical repository is `github.com/BruceDevices/firmware` (previously `github.com/pr3y/Bruce` - that path now permanently redirects to BruceDevices). As of May 2026 the current release is **Bruce 1.15**, and the project ships frequent point releases.
+Bruce is open source under the **AGPL-3.0**, maintained by pr3y with extensive contributions from bmorcelli (cross-device porting and core), IncursioHack (RF/RFID), and a wide contributor base. The project's official home is `https://bruce.computer` and the canonical repository is `github.com/BruceDevices/firmware` (previously `github.com/pr3y/Bruce` - that path now permanently redirects to BruceDevices). As checked on 2026-11-25, the latest published release is **Bruce 1.17**, released on 2026-11-12. Check the [upstream releases](https://github.com/BruceDevices/firmware/releases) before installation because this project changes frequently.
+
+Release 1.17's notes include fixes for unintended continuous 2.4 GHz transmissions and unauthenticated ESP-NOW command execution. Use a current upstream build and review its security-relevant release notes before connecting a device to a network or enabling radio features.
 
 Where Evil-M5 is wiki-driven and feature-stable, Bruce is release-driven, ships a polished **official Web Flasher** (`https://bruce.computer/flasher`), maintains an active Discord, and has its own ecosystem of open-hardware boards (Smoochiee V2, Bruce RF Reaper). For the practicing security professional, the practical implication is:
 
@@ -59,7 +61,7 @@ The two firmwares are not mutually exclusive - flashing back and forth takes a c
 
 ## 2. Legal and regulatory framework - read before you flash
 
-The Evil-M5 chapter discussed CFAA and 47 USC § 333 as the dominant federal statutes for Wi-Fi attacks. Bruce dramatically widens the regulatory exposure because it exposes the operator to **deliberate RF transmission** on bands beyond 2.4 GHz Wi-Fi. The applicable statutes, with citations:
+The Evil-M5 chapter discusses computer-access and interference law. Bruce also includes transmit-capable features across additional interfaces. Which rules apply depends on the frequency, service, device, technique, conduct, and jurisdiction; a feature being present in firmware does not establish that its use is authorized. The references below are a U.S.-focused starting point, not a determination that a particular use is lawful:
 
 - **47 U.S.C. § 301** - Establishes the general federal licensing framework for radio transmission. FCC rules also provide limited paths for operation without an individual license, including compliant Part 15 devices; a radio's ability to transmit on a frequency does not itself authorize operation. See [47 U.S.C. § 301](https://uscode.house.gov/us/usc/119-120/t47/s301/) and [47 CFR § 15.1](https://www.ecfr.gov/current/title-47/section-15.1).
 - **47 U.S.C. § 302a** - Authorizes FCC rules on devices capable of causing harmful interference; subsection (b) restricts specified dealings in and use of devices that do not comply with applicable FCC rules. It is not a blanket statutory ban on every unlicensed transmitter. See [47 U.S.C. § 302a](https://uscode.house.gov/us/usc/119-120/t47/s302a/).
@@ -70,15 +72,17 @@ The Evil-M5 chapter discussed CFAA and 47 USC § 333 as the dominant federal sta
 - **47 CFR Part 73 / Part 15** - FM broadcast stations operate under Part 73 authorization. Separately, [§ 15.239](https://www.ecfr.gov/current/title-47/section-15.239) provides a narrow low-power path in 88-108 MHz for compliant intentional radiators meeting its 200 kHz bandwidth, field-strength, out-of-band, and other applicable requirements. Do not assume a Bruce-compatible module or build meets those conditions or has required equipment authorization.
 - **State analogues** - Washington's RCW chapter 9A.90 (Washington Cybercrime Act, including 9A.90.060 Electronic Data Service Interference) and Oregon's ORS 164.377 (computer crime) cover the digital-side attacks just as for Evil-M5.
 
-A practical rule of thumb: **treat every transmit, replay, jammer, and broadcast feature as high risk.** Before transmitting, verify the applicable FCC authority, service and equipment rules, target-system authorization, and engagement scope. Feature names do not determine legality; neither ownership of the receiver nor an isolated or shielded location alone establishes compliance. FCC penalties depend on the applicable statute, violation category, facts, and procedure.
+![Decision flow for checking radio authorization, equipment rules, target permission, and engagement scope before using Bruce transmit features.](../assets/diagrams/bruce-radio-authorization-check.svg)
 
-You may use Bruce legally in the following contexts, with the noted caveats:
+A practical check before any transmission: identify the exact frequency and service, confirm a rule or license authorizes that device and mode, verify equipment authorization and technical limits, and confirm the engagement permits the target-system activity. Permission from a system owner does not replace radio authorization; a shielded room or private property is not a general FCC exemption. If a requirement is uncertain, do not transmit until it is resolved. For the United States, the FCC says consumers may not operate signal jammers; do not use Bruce’s jammer functions. See the [FCC consumer enforcement advisory](https://docs.fcc.gov/public/attachments/DA-12-1642A1.pdf).
+
+The following contexts may reduce some risks, but do not by themselves establish that an operation is lawful:
 
 1. **For receive-only work**, limit collection to communications you are permitted to receive, and handle, use, and disclose captured data lawfully. Receiving does not itself authorize retransmission; interception restrictions can still apply. For transmission, separately verify a valid FCC rule or service authorization, equipment compliance, and permission to test the target system. See [18 U.S.C. § 2511](https://uscode.house.gov/us/usc/t18/s2511/).
 2. **Under a signed ROE that explicitly enumerates the radio bands and techniques** - many ROE templates address WiFi but say nothing about sub-GHz or NFC. If you intend to clone a 125 kHz badge or replay a 433 MHz rolling code, the ROE must say so.
 3. **In a shielded or attenuated lab**, containment can reduce unintended emissions and exposure, but it is not automatically an FCC exemption or a substitute for required authority, compliant equipment, and target authorization. Validate the setup and applicable rules before any transmission.
 
-A blanket personal rule: **the antenna goes on the device only after the scope, the ROE band list, and the physical location have all been verified.** Develop the muscle memory of leaving the CC1101 / NRF24 / FM modules disconnected until they are about to be used.
+A practical control: leave transmit-capable modules disconnected unless the planned operation has passed the radio-rule, equipment, target authorization, and scope checks. For receive-only collection, separately assess whether interception, recording, use, or disclosure is permitted.
 
 The Bruce authors publish the firmware for legal red-team and educational use under the AGPL and disclaim responsibility for misuse. So do I. So should you in any deliverable you produce.
 
@@ -90,7 +94,7 @@ A compliance checklist tailored to Bruce's broader regulatory surface appears in
 
 ### 3.1 Compatible devices
 
-Bruce runs on a substantially wider set of hardware than Evil-M5. The official compatibility matrix as of release 1.15:
+Bruce runs on a substantially wider set of hardware than Evil-M5. The compatibility snapshot below is based on release 1.15; it is not a guarantee that every listed feature is unchanged or supported in 1.17. Verify the exact board and peripheral against the current [upstream release notes](https://github.com/BruceDevices/firmware/releases) and compatibility docs before buying or flashing hardware:
 
 | Device | CC1101 (Sub-GHz) | NRF24 (2.4 GHz) | FM Radio | PN532 (NFC) | Mic | BadUSB | RGB | Speaker | Notes |
 |---|---|---|---|---|---|---|---|---|---|
@@ -133,7 +137,7 @@ The Lilygo T-Embed CC1101 includes the CC1101 on the same PCB as the ESP32-S3, e
 
 ### 4.1 Feature inventory (Cardputer + full module set)
 
-Bruce organizes features into top-level radio domains, plus utility categories. From the project's README and wiki as of release 1.15:
+Bruce organizes features into top-level radio domains, plus utility categories. The inventory below is a release 1.15 snapshot, not a complete 1.17 feature list; check the [current upstream release notes](https://github.com/BruceDevices/firmware/releases) and project docs before relying on a particular feature:
 
 **WiFi (overlaps significantly with Evil-M5)**
 - Connect to WiFi / WiFi AP / Disconnect
@@ -808,7 +812,7 @@ If any line is unchecked for the operations you intend to run, the affected modu
 
 ---
 
-*This chapter is provided for educational and authorized red-team use only. The Bruce firmware authors, the manufacturers of M5Stack and Lilygo hardware, and the author of this chapter accept no responsibility for misuse. Operating transmitters without authorization, intentionally interfering with licensed radio communications, and accessing computer systems without authorization are crimes in every U.S. state and in most jurisdictions worldwide. The expanded RF feature set in Bruce relative to Evil-M5 dramatically expands the practitioner's exposure to FCC enforcement action. Treat every transmit feature as a regulated activity requiring affirmative authorization before use.*
+*This chapter is for education and authorized security work. Laws and radio rules depend on jurisdiction and facts. In the United States, 47 U.S.C. § 301 establishes a licensing framework for radio transmissions, subject to authorizations and exceptions in FCC rules; § 333 addresses willful or malicious interference with specified radio communications. Computer-access and communications-interception laws have their own elements and exceptions. Do not infer legality from device ownership, a written engagement scope, or a lab enclosure alone. Confirm applicable requirements before collection or transmission, and obtain qualified legal advice for a specific operation. See [47 U.S.C. § 301](https://uscode.house.gov/us/usc/119-124/t47/s301/), [47 U.S.C. § 333](https://uscode.house.gov/us/usc/119-124/t47/s333/), [18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-136/t18/s1030/), and [18 U.S.C. § 2511](https://uscode.house.gov/us/usc/119-136/t18/s2511/).*
 
 ## Related Files
 - [README.md](README.md) - Documentation section index: all guides and cheat sheets in this directory

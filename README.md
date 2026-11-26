@@ -188,6 +188,14 @@ A grouped map of the whole repository. Prefer routing by **role/goal**? Use
 
 ## 📖 Supporting Guides & Reference Material:
 
+### PCI DSS Scoping & Segmentation
+
+| Guide | Description |
+|---|---|
+| [PCI DSS 4.0.1 Scoping & Segmentation Field Guide](./Compliance/pci-dss-scoping.md) | Evidence-based scope review for payment-data flows, connected-to and security-impacting systems, segmentation, service providers, and recurring review |
+| [Blank PCI DSS Scope Review Worksheet](./Compliance/pci-scope-review-template.md) | Privacy-conscious template for recording scope decisions and evidence; not a compliance certification |
+
+
 ### Focused Security Tool Guides
 
 | Tool Guide | Focus |
