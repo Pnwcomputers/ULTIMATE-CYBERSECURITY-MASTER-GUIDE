@@ -9,6 +9,9 @@
 ## 📝 Detailed Changes
 
 ### 🔎 Review follow-up
+- Correct the WinPmem Mini invocation and add the upstream prerelease/signing caveat to live-memory acquisition guidance.
+
+### 🔎 Review follow-up
 - Clarify jurisdiction- and device-dependent RF compliance guidance in uConsole; add a regional configuration preflight diagram.
 - Require successful process exit codes for both `stress-ng` and `fio` before a hardware soak report can pass; replace fixed 16 GB memtester guidance with the memory-aware RAM test workflow.
 - Correct the stress-soak report version label to v1.1; reconcile `full_hw_suite.py` v2.0 behavior and tool references across the Python and specialized guides; replace unsupported uConsole CM4/CM5 buying claims with compatibility checks.
