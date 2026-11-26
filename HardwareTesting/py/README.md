@@ -278,7 +278,7 @@ Runs first with dedicated RAM. Any `FAILED` line is flagged immediately. If `mem
 - `stress-ng --vm 2 --vm-bytes 60%` - two RAM workers running bit-flip patterns simultaneously.
 - `fio` - 4K random read/write on storage, running alongside CPU/RAM stress.
 - `glmark2 --run-forever` - continuous GPU render loop. **(v1.1: GPU execution is properly routed under the original desktop user to bypass root display-server blocks.)**
-- **v1.1:** Adds strict return-code checks for `fio` and `stress-ng`.
+- **v1.1:** The report requires both bounded workloads to exit with code 0; a process that only launched, failed, or was stopped early does not pass. The report includes separate `stress-ng` and `fio` results.
 
 **Phase 3 - Cooldown monitoring**
 Post-stress thermal monitoring. Compare cooldown with the idle baseline and
