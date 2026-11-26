@@ -7,6 +7,10 @@ _Reference review: 2026-11-21. No real-user tables were generated or distributed
 
 ## Purpose & Theory
 
+![Rainbow-chain precomputation stores chain starts and endpoints rather than every intermediate pair; lookup extends a candidate chain, checks for an endpoint, then regenerates and verifies a matching chain](../assets/diagrams/rainbow-chain-time-memory-tradeoff.svg)
+
+*Conceptual model: the reduction step maps a hash back to a candidate; it is not a hash inverse. A unique salt requires salt-specific work and prevents useful reuse of an unsalted table.*
+
 A **rainbow table** is a **time–memory tradeoff** approach for password-hash recovery over a known search space. It builds chains of candidate generation, hashing and reduction; storing chain endpoints can save memory compared with storing every candidate and hash pair. Reconstructing chains at lookup time trades compute time for reduced storage. Tables cannot reliably cover arbitrary passwords or algorithm parameters, and collisions create additional lookup work.
 
 A rainbow table is **not** a wordlist, an offline password dictionary, an exhaustive database or Hashcat's newer *table attack* candidate generator. See the [Wordlist Guide](./wordlists-password-auditing.md).

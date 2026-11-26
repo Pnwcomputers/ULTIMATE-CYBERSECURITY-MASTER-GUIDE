@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img" aria-labelledby="title desc">
+<title id="title">Rainbow chains trade storage for computation</title>
+<desc id="desc">During precomputation, a starting candidate is repeatedly hashed and reduced to the next candidate. The table stores each chain start and endpoint, not every intermediate hash-candidate pair. During lookup, operations are continued from a target hash to test for a stored endpoint. On a hit, the chain is regenerated from its start and the target hash is verified. A unique salt requires different work, so unsalted precomputation cannot be reused directly.</desc>
+<defs><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#183247}.title{font-size:30px;font-weight:700}.sub{font-size:21px;font-weight:700}.head{font-size:17px;font-weight:700}.body{font-size:15px}.small{font-size:14px}
+.box{stroke:#47657b;stroke-width:2;rx:12}.arrow{stroke:#47657b;stroke-width:3;fill:none;marker-end:url(#arr)}
+</style><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#47657b"/></marker></defs>
+<rect width="1280" height="640" fill="#f5f8fb"/>
+<text class="title" x="640" y="46" text-anchor="middle">Rainbow chains: less stored data, more lookup work</text>
+<rect class="box" x="35" y="80" width="1210" height="215" fill="#eef4f8"/>
+<text class="sub" x="65" y="116">Precomputation</text>
+<rect class="box" x="65" y="145" width="145" height="72" fill="#e7eef8"/>
+<text class="head" x="137" y="174" text-anchor="middle">Start</text><text class="body" x="137" y="199" text-anchor="middle">candidate C₀</text>
+<path class="arrow" d="M215 181L245 181"/>
+<rect class="box" x="255" y="145" width="145" height="72" fill="#fff0d7"/>
+<text class="head" x="327" y="174" text-anchor="middle">Hash</text><text class="body" x="327" y="199" text-anchor="middle">H(C₀)</text>
+<path class="arrow" d="M405 181L435 181"/>
+<rect class="box" x="445" y="145" width="155" height="72" fill="#e7f4ed"/>
+<text class="head" x="522" y="174" text-anchor="middle">Reduce</text><text class="body" x="522" y="199" text-anchor="middle">to candidate C₁</text>
+<path class="arrow" d="M605 181L635 181"/>
+<rect class="box" x="645" y="145" width="145" height="72" fill="#fff0d7"/>
+<text class="head" x="717" y="174" text-anchor="middle">Hash</text><text class="body" x="717" y="199" text-anchor="middle">H(C₁)</text>
+<path class="arrow" d="M795 181L825 181"/>
+<rect class="box" x="835" y="145" width="165" height="72" fill="#e7f4ed"/>
+<text class="head" x="917" y="174" text-anchor="middle">Reduce</text><text class="body" x="917" y="199" text-anchor="middle">repeat chain</text>
+<path class="arrow" d="M1005 181L1035 181"/>
+<rect class="box" x="1045" y="135" width="165" height="92" fill="#efe9fb"/>
+<text class="head" x="1127" y="168" text-anchor="middle">Store</text><text class="body" x="1127" y="192" text-anchor="middle">start + endpoint</text><text class="small" x="1127" y="212" text-anchor="middle">not every pair</text>
+<text class="small" x="640" y="265" text-anchor="middle">Hashing is one-way; reduction selects a new candidate and does not reverse the hash.</text>
+<rect class="box" x="35" y="315" width="1210" height="225" fill="#f8f4ec"/>
+<text class="sub" x="65" y="351">Lookup and verification</text>
+<rect class="box" x="65" y="382" width="170" height="82" fill="#f4e7e5"/>
+<text class="head" x="150" y="414" text-anchor="middle">Target hash</text><text class="body" x="150" y="440" text-anchor="middle">test chain positions</text>
+<path class="arrow" d="M240 423L275 423"/>
+<rect class="box" x="285" y="382" width="210" height="82" fill="#fff0d7"/>
+<text class="head" x="390" y="414" text-anchor="middle">Continue operations</text><text class="body" x="390" y="440" text-anchor="middle">hash / reduce to endpoint</text>
+<path class="arrow" d="M500 423L535 423"/>
+<rect class="box" x="545" y="382" width="190" height="82" fill="#e7eef8"/>
+<text class="head" x="640" y="414" text-anchor="middle">Endpoint match?</text><text class="body" x="640" y="440" text-anchor="middle">table lookup</text>
+<path class="arrow" d="M740 423L775 423"/>
+<rect class="box" x="785" y="382" width="200" height="82" fill="#e7f4ed"/>
+<text class="head" x="885" y="414" text-anchor="middle">Regenerate chain</text><text class="body" x="885" y="440" text-anchor="middle">from stored start</text>
+<path class="arrow" d="M990 423L1025 423"/>
+<rect class="box" x="1035" y="382" width="175" height="82" fill="#efe9fb"/>
+<text class="head" x="1122" y="414" text-anchor="middle">Verify hash</text><text class="body" x="1122" y="440" text-anchor="middle">confirm candidate</text>
+<rect class="box" x="150" y="565" width="980" height="48" fill="#fde8e7"/>
+<text class="body" x="640" y="595" text-anchor="middle">Unique salts require salt-specific work; modern salted password KDFs make broad precomputation costly and hard to reuse.</text>
+<text class="small" x="640" y="630" text-anchor="middle" fill="#526b7d">Conceptual teaching aid — no credential data or operational table is shown</text>
+</svg>
