@@ -1,5 +1,7 @@
 # Staged Cyberdeck Assessment Workflow
 
+For an optional handheld console, see [CardputerZero field preflight and known-endpoint checks](CARDPUTERZERO.md#daily-controls--preflight).
+
 [Cyberdeck Home](../README.md) · [Portable Wireless Field Operations](PORTABLE_WIRELESS_FIELD_DEVICES.md) · [Architecture](ARCHITECTURE.md) · [Example Plan](../templates/ENGAGEMENT_PLAN.example.md)
 
 This workflow is a **manual reference**, not a command queue, automated scanning orchestration service or legal authorization instrument. The operator must document exact authorization, assessed systems and results.

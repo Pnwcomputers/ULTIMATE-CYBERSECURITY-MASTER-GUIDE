@@ -1,5 +1,7 @@
 # Comprehensive Wireless Lab Security Assessment: Master Playbook
 
+[Device Setup & Defensive Checkout](../../Documentation/portable-device-checkouts.md#raspyjack-raspijack) · [SD Card Data & Resources](../../Documentation/portable-device-sd-data.md)
+
 This document combines a **Device Operational Guide**, **Red Team (Offensive) Plan**, and **Blue Team (Defensive) Assessment** for an authorized, self-hosted wireless lab.
 
 ## 🎯 Purpose

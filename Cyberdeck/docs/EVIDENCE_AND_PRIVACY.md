@@ -11,6 +11,8 @@
 
 Use one authorized case directory per engagement **outside** source control. Protect it with actual encryption-at-rest, least-privilege access, documented backups and pre-agreed retention. Raw captures, signed agreements and customer identifiers **never** belong in this public repository.
 
+For a handheld workflow using a short review copy and SHA-256 verification, see [CardputerZero offline capture review](CARDPUTERZERO.md#lab-3--review-a-small-packet-capture-offline).
+
 | Field | Reason |
 | --- | --- |
 | Case identifier | Separate client evidence without disclosing names in public source control |

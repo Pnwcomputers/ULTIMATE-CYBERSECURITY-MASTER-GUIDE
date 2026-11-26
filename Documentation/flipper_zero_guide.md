@@ -1,5 +1,7 @@
 # 🐬 Flipper Zero: Ultimate Field Guide
 
+[Firmware Comparison & Migration](flipper-firmware-comparison.md) · [SD Card Data & Resources](portable-device-sd-data.md)
+
 **PNWC Cyberdeck field operations:** [Flipper, WiFi Pineapple, Bruce & Marauder workflow](../Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) explains companion firmware, scoped surveys, evidence transfer and qualification, not hardware-hacking bench techniques.
 
 ## FlipperHTTP Network Companion

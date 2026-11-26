@@ -1,5 +1,7 @@
 # Piglet Wardriver: Standalone & Mesh Survey Setup
 
+[Portable Device Checkouts](../Documentation/portable-device-checkouts.md#other-listed-platforms) · [SD Card Data & Resources](../Documentation/portable-device-sd-data.md)
+
 > [!CAUTION]
 > **Authorized use only.** Use owned devices or an explicitly authorized lab.
 > Define permitted collection, transmissions and data retention before testing.

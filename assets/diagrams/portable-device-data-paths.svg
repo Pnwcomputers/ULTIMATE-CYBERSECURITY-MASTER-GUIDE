@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="346" viewBox="0 0 940 346" role="img" aria-labelledby="title desc">
+<title id="title">Where portable devices save data</title><desc id="desc">Three distinct storage paths and their backup checkpoints.</desc>
+<rect width="940" height="346" rx="18" fill="#101e2f"/>
+<text x="32" y="48" font-family="sans-serif" font-size="25" font-weight="bold" fill="#eef6ff">Where portable devices save data</text>
+<rect x="30" y="74" width="880" height="64" rx="9" fill="#1d3347"/>
+<text x="48" y="112" font-family="sans-serif" font-size="18" font-weight="bold" fill="#87e3d5">Marauder V8</text>
+<text x="311" y="112" font-family="sans-serif" font-size="16" fill="#eef6ff">Onboard microSD → stop recording → copy and verify the file</text>
+<rect x="30" y="156" width="880" height="64" rx="9" fill="#243c50"/>
+<text x="48" y="194" font-family="sans-serif" font-size="18" font-weight="bold" fill="#87e3d5">OUI-Spy PCAP</text>
+<text x="311" y="194" font-family="sans-serif" font-size="16" fill="#eef6ff">Volatile memory → browser download before reboot → verify file</text>
+<rect x="30" y="238" width="880" height="64" rx="9" fill="#1d3347"/>
+<text x="48" y="276" font-family="sans-serif" font-size="18" font-weight="bold" fill="#87e3d5">CardputerZero / Pi</text>
+<text x="311" y="276" font-family="sans-serif" font-size="16" fill="#eef6ff">Bootable microSD → retain OS image and separately export data</text>
+</svg>

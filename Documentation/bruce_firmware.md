@@ -1,5 +1,7 @@
 # Bruce Firmware: A Multi-Radio Offensive Platform for ESP32 Hardware
 
+[Portable Device Checkouts](./portable-device-checkouts.md#other-listed-platforms) · [SD Card Data & Resources](./portable-device-sd-data.md)
+
 **PNWC Cyberdeck field operations:** [Bruce & M5StickC Plus2 wireless assessment workflow](../Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md#6-m5stickc-plus2-with-bruce-or-an-alternative-firmware) covers non-disruptive observations, firmware selection, exports and evidence. Hardware-hacking bench operations are outside that Cyberdeck guide.
 
 ## Current Installation & Alternative Firmware

@@ -1,5 +1,7 @@
 # The M5Cardputer & Evil-M5Project
 
+[Portable Device Checkouts](./portable-device-checkouts.md#other-listed-platforms) · [SD Card Data & Resources](./portable-device-sd-data.md)
+
 ## Official Web Installation & Companion Workflows
 
 The current [Evil-M5Project README](https://github.com/7h30th3r0n3/Evil-M5Project)

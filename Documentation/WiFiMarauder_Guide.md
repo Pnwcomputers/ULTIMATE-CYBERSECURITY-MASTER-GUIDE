@@ -1,5 +1,7 @@
 # WiFi Marauder Guide
 
+[Device Setup & Defensive Checkout](./portable-device-checkouts.md#marauder-v8) · [SD Card Data & Resources](./portable-device-sd-data.md)
+
 **PNWC Cyberdeck field operations:** [Standalone/Flipper Marauder, Bruce & Pineapple integration](../Cyberdeck/docs/PORTABLE_WIRELESS_FIELD_DEVICES.md) distinguishes radios, FAP controllers, logs, scope and safe manual import.
 
 ## Current Installer & Survey Alternatives

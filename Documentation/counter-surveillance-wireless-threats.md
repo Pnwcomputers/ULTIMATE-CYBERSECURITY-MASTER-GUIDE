@@ -116,3 +116,28 @@ The files and commands are examples. For missing files, create them from a contr
 ---
 
 [Documentation Index](./README.md) | [Incident Response](../IncidentResponse/README.md) | [Legal Notice](../LEGAL.md)
+
+## Portable Hardware & Project References
+
+| Hardware or project | Defensive use and limits |
+| --- | --- |
+| [OUI-Spy Unified Blue](https://github.com/colonelpanichacks/oui-spy-unified-blue) | Compare known BLE fixtures and document false matches. Names, OUIs and RSSI are weak identification evidence. |
+| [Marauder V8](https://github.com/justcallmekoko/ESP32Marauder/wiki/Marauder-v8), [Kismet](https://www.kismetwireless.net/docs/) and [nzyme](https://www.nzyme.org/) | Compare an approved lab observation with known AP and sensor logs. Coverage depends on channel, band and time. |
+| [CardputerZero](../Cyberdeck/docs/CARDPUTERZERO.md) and [RaspyJack](https://github.com/7h30th3r0n3/Raspyjack) | A handheld Linux console can check its own network path and review saved evidence. |
+| [Flipper Zero](https://docs.flipper.net/zero) and [Biscuit/Piglet](../Wardriving/README.md) | Check exact hardware and firmware before interpreting results. Accessory radios and phone exports have separate capabilities. |
+| [Portable device checkout procedures](portable-device-checkouts.md) and [SD/export reference](portable-device-sd-data.md) | Verify which sensor produced the observation and where the evidence was written. |
+
+For a controlled survey comparison, [Signal Sleuth](portable-device-checkouts.md#signal-sleuth) can document whether the lab AP appears in the survey record, and [Cerberus with Sentinel](portable-device-checkouts.md#cerberus-and-sentinel) can cross-check the known channel. Compare with the AP controller before attributing an observation to a device. Neither workflow establishes camera ownership, recording, or retention from an RF observation.
+
+## Flock Safety Cameras & ALPR Privacy Review
+
+Flock Safety automatic license plate readers (ALPRs) capture plate images and vehicle attributes together with time and camera location, according to the vendor. A plate read or vehicle description can be wrong. Repeated observations can reveal travel patterns even when a system collects no driver identity field. Flock's evidence policy describes a seven-day default and exceptions. Verify the actual operator's policy, contract and settings for the deployment under review.
+
+![ALPR collection, access, sharing and retention review](../assets/diagrams/alpr-privacy-review.svg)
+
+1. Establish the system and operator using the asset inventory, procurement records, program documentation or published transparency report. Identify the stated purpose, the data fields collected and whether other camera products are in scope.
+2. Ask for the operator's written retention and sharing policy, the recipient categories, access approval and revocation procedures, and the audit review schedule. Distinguish routine expiration from evidence holds and exported copies.
+3. With authorization, validate the controls using a synthetic record or a training environment. Have an approved reviewer check that the event has an accountable user, timestamp and reason. Verify deletion or expiry against approved test data and record any gaps.
+4. Summarize findings without publishing plate identifiers or images. A radio observation alone cannot establish the camera model, ownership, recording state, network path or data retention.
+
+[Flock data privacy and collection](https://www.flocksafety.com/trust/data-privacy) · [Flock evidence and retention policy](https://www.flocksafety.com/legal/flock-evidence-policy) · [Flock LPR policy](https://www.flocksafety.com/legal/lpr-policy)
