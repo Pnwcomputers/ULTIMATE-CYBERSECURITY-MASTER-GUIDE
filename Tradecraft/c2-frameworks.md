@@ -162,35 +162,93 @@ This is a candidate count, **not a beacon-jitter detector**. `stddev(interval)` 
 
 ### Host-Based Detections
 
+Event 4688 can help review process creation when the relevant audit policy is enabled. Read the named event fields rather than relying on a fixed property index. This example surfaces suspicious process names for investigation; a name match alone does not establish C2 activity or process injection.
+
 ```powershell
-# Hunt for common CS injection patterns
-Get-Process | Where-Object {
-    $_.MainWindowTitle -eq "" -and
-    $_.Modules.Count -lt 5 -and
-    $_.WorkingSet -gt 10MB
-}
-
-# Detect fork-and-run (CS default behavior)
-# Look for short-lived child processes spawned by beacon's spawnto
 Get-WinEvent -LogName Security -FilterXPath "*[System[EventID=4688]]" |
-    Where-Object { $_.Properties[5].Value -match "WerFault|rundll32|gpupdate" }
+    ForEach-Object {
+        [xml]$eventXml = $_.ToXml()
+        $fields = @{}
+        foreach ($field in $eventXml.Event.EventData.Data) {
+            if ($field.Name) {
+                $fields[$field.Name] = [string]$field.'#text'
+            }
+        }
+
+        [pscustomobject]@{
+            TimeCreated       = $_.TimeCreated
+            Computer          = $_.MachineName
+            NewProcessName    = $fields.NewProcessName
+            ParentProcessName = $fields.ParentProcessName
+            CommandLine       = $fields.CommandLine
+        }
+    } |
+    Where-Object {
+        $_.NewProcessName -match '\\(WerFault|rundll32|gpupdate)\.exe### Sliver-Specific Detections
+
+- mTLS sessions: Look for certificate pinning failures in proxy logs
+- Implant binary: Go binaries have identifiable section layouts (`.gopclntab`)
+- Default canary domain callbacks during sandbox analysis
+
+### Havoc-Specific Detections
+
+- Demon implant default user-agent strings
+- Indirect syscall patterns in memory (gadget chains in non-standard modules)
+- Sleep obfuscation: encrypted RX memory regions that flip permissions
+
+---
+
+## Defensive Countermeasures
+
+### Network Controls
+
+- Ingest reputable threat-intelligence feeds only after validating source, freshness, licensing, and false-positive handling; use DNS Response Policy Zones (RPZ) where supported by the resolver.
+- Apply egress allowlists by workload and environment, with explicit DNS, proxy, update, and management dependencies.
+- Stage firewall changes with out-of-band access, a tested rollback path, and monitoring. A blanket default-deny OUTPUT rule can interrupt DNS, updates, remote administration, and incident-response access if dependencies are not explicitly allowed.
+
+### Endpoint Controls
+
+- **EDR tuning:** Alert on `CreateRemoteThread`, `VirtualAllocEx`, `WriteProcessMemory` API calls from non-standard processes
+- **AMSI/ETW:** Ensure AMSI and ETW providers are not disabled (common evasion step)
+- **LOLBin monitoring:** Alert on unusual parent-child process relationships (e.g., Word spawning PowerShell)
+- **Memory scanning:** Use tools like PE-sieve, Moneta, or Volatility to detect injected implants
+
+### Detection Engineering Priorities
+
+| Priority | Detection | Coverage |
+|---|---|---|
+| High | Fork-and-run process spawning | CS default behavior |
+| High | In-memory .NET assembly execution | execute-assembly |
+| High | LSASS access from non-standard processes | Credential dumping |
+| Medium | Regular interval outbound connections | Beacon heartbeat |
+| Medium | DNS TXT record volume spikes | DNS C2 |
+| Low | Go binary section signatures | Sliver implants |
+
+---
+
+## References
+
+- [Cobalt Strike Documentation](https://hstechdocs.helpsystems.com/manuals/cobaltstrike/current/userguide/)
+- [Sliver Wiki](https://github.com/BishopFox/sliver/wiki)
+- [Havoc Framework](https://github.com/HavocFramework/Havoc)
+- [Malleable C2 Profiles](https://github.com/rsmudge/Malleable-C2-Profiles)
+- [MITRE ATT&CK: C2](https://attack.mitre.org/tactics/TA0011/)
+- [C2 Matrix](https://howto.thec2matrix.com/)
+
+## Related Files
+- [README.md](README.md) - Tradecraft section index
+- [active-directory.md](active-directory.md) - Post-exploitation via C2 in AD environments
+- [av-edr-evasion.md](av-edr-evasion.md) - Evasion techniques for C2 payload delivery
+- [network-detection.md](network-detection.md) - Detecting C2 traffic at the network layer
+- [../Checklists/command-and-control.md](../Checklists/command-and-control.md) - C2 technique checklist
+- [../Mobile/mobile_pentest_sop.md](../Mobile/mobile_pentest_sop.md) - Mobile pentest SOP (Metasploit post-exploitation from NetHunter device)
+
+    }
 ```
 
-**YARA rule for Cobalt Strike Beacon:**
+Review matches with parent/child context, user, command line (if policy captures it), signer, and endpoint telemetry. Event 4688 records process creation; it does not by itself confirm fork-and-run, injection, or maliciousness. The example may need adjustment for event versions and local logging policy.
 
-```yara
-rule CobaltStrike_Beacon_Generic {
-    meta:
-        description = "Detects common CS Beacon artifacts"
-    strings:
-        $s1 = "%s (admin)" ascii
-        $s2 = "beacon.dll" ascii nocase
-        $s3 = { 68 65 61 70 61 70 69 }  // "heapapi"
-        $mz = { 4D 5A }
-    condition:
-        $mz at 0 and 2 of ($s*)
-}
-```
+Avoid using generic strings or a short byte pattern as a standalone Cobalt Strike YARA signature. Beacon artifacts vary by version, build, configuration, and packing, while generic strings create false positives. Build and validate rules against documented, version-pinned samples and benign corpora before deploying them; treat any hit as a triage lead.
 
 ### Sliver-Specific Detections
 
