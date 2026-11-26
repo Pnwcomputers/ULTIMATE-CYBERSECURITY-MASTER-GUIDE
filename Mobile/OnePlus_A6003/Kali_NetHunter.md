@@ -28,7 +28,11 @@ This guide assumes you're starting from where you are now: bootloader unlocked, 
 
 NetHunter is Kali Linux's mobile penetration testing platform. On a rooted Android device like yours it runs as an overlay: a full Kali filesystem ("chroot") living alongside Android, controlled through the **NetHunter app**. That app is the control panel for everything - starting/stopping Kali services, launching attack tools (HID, BadUSB, Bluetooth Arsenal, Wardriving, MITM, etc.), and getting a Kali terminal.
 
-There's a second, different product called **NetHunter Pro**, which replaces Android's kernel entirely and boots straight into full desktop Kali (no root/TWRP needed, uses an A/B boot-slot swap instead). It's supported on the OnePlus 6 too, but it's a different install path than what's below. Since you're already rooted with TWRP, standard NetHunter is the natural fit and is what this guide covers. NetHunter Pro is mentioned briefly at the end for completeness.
+There's a second, different product called **NetHunter Pro**: a separate pure Kali Linux build, not an Android overlay. Kali lists OnePlus 6 (enchilada) as supported. Its current QCOM instructions write a Kali root filesystem image to `userdata` and flash a device-specific boot image; devices with A/B partitions may need a slot selected during flashing. A/B slot selection is an optional device detail, not the defining NetHunter Pro installation method. Follow the current official steps for the exact device and image. Since you're already rooted with TWRP, the standard Android-based NetHunter path is the one this guide covers. [Kali NetHunter Pro installation guide](https://www.kali.org/docs/nethunter-pro/).
+
+![Comparison of the rooted Android NetHunter overlay with NetHunter Pro's pure Kali rootfs and device-specific boot image installation](../../assets/diagrams/nethunter-android-vs-pro-install-model.svg)
+
+*Conceptual installation-model comparison based on Kali's current documentation. Partition layout, image name, slot selection, and flashing steps are device-specific; this diagram is not a flashing recipe.*
 
 ---
 
