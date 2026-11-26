@@ -13,7 +13,7 @@ _Last reviewed: 2026-10-09_
 > [18 U.S.C. § 1030](https://uscode.house.gov/us/usc/119-124/t18/s1030/), and the
 > [DOJ CFAA charging policy](https://www.justice.gov/jm/jm-9-48000-computer-fraud).
 
-**Prerequisites:** A working baseline VPN and VM compartmentalization. See the
+**Prerequisites:** A defined network threat model and suitable compartmentalization. A VPN is optional; do not add one to Tor/Whonix by default. See the
 [General OPSEC Guide](./OPSEC_guide.md), [VPN setup](../Documentation/VPN.md), and
 [Tor Browser](../Documentation/TOR.md) for the fundamentals this guide builds on.
 
@@ -60,9 +60,9 @@ Match egress and isolation to the task, document the expected route, and validat
 
 ---
 
-## Baseline: A VPN's role in the trust model
+## Optional VPN: Its role in the trust model
 
-Before adding another network provider, identify what your current VPN hides and what remains visible.
+A VPN is one possible routing control, not a baseline requirement. Before adding another network provider, identify what a VPN would hide and what would remain visible.
 A correctly configured VPN hides the direct connection to destination services from the local network; the network can still see the VPN endpoint and traffic patterns. Destination services see the VPN exit address. Trust shifts to the VPN provider, which can observe connection metadata; HTTPS separately protects web content in transit. A VPN does not protect identity-bearing logins, browser fingerprints, or traffic from apps outside the tunnel. Provider features, server availability, and settings change; consult the provider's current documentation. [Mullvad's current app guide](https://mullvad.net/en/help/using-mullvad-vpn-app) documents its own options, including DAITA and multihop, with configuration and availability caveats.
 
 Provider features, including port forwarding, can change; check current documentation when a task depends on them. Adding another VPN changes which providers and networks you trust, but does not by itself establish anonymity.
