@@ -8,6 +8,11 @@
 
 ## 📝 Detailed Changes
 
+### 🔎 Review follow-up
+- Clarify jurisdiction- and device-dependent RF compliance guidance in uConsole; add a regional configuration preflight diagram.
+- Require successful process exit codes for both `stress-ng` and `fio` before a hardware soak report can pass; replace fixed 16 GB memtester guidance with the memory-aware RAM test workflow.
+- Correct the stress-soak report version label to v1.1.
+
 ### ✨ New Content
 - docs: add WinPE recovery decision diagram (#749) (`7668abe`)
 - Add Cyberdeck implementation roadmap diagram (`29e2ba4`)
