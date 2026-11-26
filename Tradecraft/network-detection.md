@@ -868,7 +868,7 @@ The sections above are Linux/NSM-stack heavy. This section covers the native Win
 
 ### Netsh - Built-in Packet Capture
 
-`netsh trace` is a built-in Windows packet capture mechanism, no install required. Output is `.etl` format, convertible to PCAP.
+`netsh trace` is a built-in Windows packet-capture mechanism that writes `.etl` files. Convert the output to pcapng before opening it in Wireshark, and retain the original ETL when packet-drop or component-path details matter.
 
 ```powershell
 # Start a capture - no third-party tools needed
@@ -952,7 +952,7 @@ winget install Microsoft.Sysinternals.TCPView
 Microsoft Defender for Endpoint captures network events per-process. Hunt via the Advanced Hunting console in the M365 Defender portal.
 
 ```kusto
-// Find processes making connections to unusual ports
+// Review unusual-port activity; connection records need corroboration with alerts and endpoint context.
 DeviceNetworkEvents
 | where Timestamp > ago(24h)
 | where RemotePort !in (80, 443, 53, 8080, 8443)
@@ -1070,23 +1070,23 @@ Get-WinEvent -LogName "Microsoft-Windows-DNS-Client/Operational" |
 
 ### Sysmon Network Events
 
-Sysmon Event ID 3 captures every TCP/UDP connection with process context. Far more useful than raw firewall logs for correlation.
+Sysmon Event ID 3 can record configured TCP/UDP connections with process context. It is disabled by default, and coverage depends on the installed version and configuration.
 
 ```xml
 <!-- Sysmon config for network event capture -->
 <!-- Add to your sysmon config XML under EventFiltering -->
 
-<!-- Event 3: Network connections - capture outbound, filter noise -->
+<!-- Event 3: Network connections. Validate the resulting coverage and filter semantics. -->
 <NetworkConnect onmatch="exclude">
-    <!-- Exclude known-good system processes -->
+    <!-- This excludes only the matching image AND destination-port combination. -->
     <Image condition="is">C:\Windows\System32\svchost.exe</Image>
     <DestinationPort condition="is">443</DestinationPort>
     <!-- Add your own exclusions for known-good apps -->
 </NetworkConnect>
 
-<!-- Capture DNS queries via Event 22 -->
+<!-- Event 22: enable and tune DNS query collection for the required coverage. -->
 <DnsQuery onmatch="include">
-    <QueryName condition="contains">.</QueryName>  <!-- all queries -->
+    <QueryName condition="contains">.</QueryName>  <!-- dotted names only; single-label queries are not included -->
 </DnsQuery>
 ```
 
