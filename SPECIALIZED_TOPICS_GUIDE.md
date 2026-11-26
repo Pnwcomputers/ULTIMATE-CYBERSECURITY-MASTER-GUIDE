@@ -1436,7 +1436,7 @@ The testing scripts live under `HardwareTesting/py/`; start at the [Hardware Tes
 
 | Script | What It Does | Sudo | Primary Tools Used |
 |---|---|---|---|
-| `full_hw_suite.py` | Full sequential diagnostic: system info → CPU → RAM → storage → glmark2 GPU | ✅ | inxi, memtester, fio, smartctl, nvme-cli, glmark2 |
+| `full_hw_suite.py` | Full sequential diagnostic: system info → CPU → RAM → storage → glmark2 GPU | ✅ | inxi, memtester, fio, smartctl, nvme, glmark2 |
 | `standalone_gpu_tester.py` | Universal GPU first-pass: Vulkan/OpenGL, VRAM test, kernel fault scan | ❌ | vulkaninfo, vkmark, glmark2, memtest_vulkan |
 | `amd_gpu_tester.py` | AMD Radeon deep diagnostic with amdgpu telemetry | ❌ | amd-smi, amdgpu_top, vkmark |
 | `nvidia_gpu_tester.py` | NVIDIA deep diagnostic with nvidia-smi, optional gpu-burn | ❌ | nvidia-smi, gpu-burn, vkmark |
