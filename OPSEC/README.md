@@ -247,7 +247,7 @@ A correctly configured full-tunnel VPN encrypts traffic between the device and t
 | Environment | Recommended Approach | Important Qualification |
 |-------------|----------------------|-------------------------|
 | **Windows, macOS, and general-purpose Linux** | Use a maintained VPN when a defined threat-model or organizational need calls for one; otherwise keep the OS and applications maintained and use HTTPS. | A VPN shifts trust to its provider. Verify DNS, IPv6, application routing, and interruption behavior; it does not prevent account-based tracking. |
-| **Ordinary research VMs** | Prefer a host VPN covering the intended VM egress, or an explicitly configured VPN gateway. | Verify actual traffic: bridged networking, split tunneling, and VPN exclusions can bypass the intended path. |
+| **Ordinary research VMs** | Use a VPN only when a defined threat-model or organizational need calls for it; otherwise document and verify the intended VM egress. | Bridged networking, split tunneling, and VPN exclusions can bypass an intended route. A VPN adds provider trust and does not replace VM isolation. |
 | **Whonix on Kicksecure** | Keep the supplied Workstation-to-Gateway Tor path. VPN-before-Tor is an optional advanced configuration for a defined need. | Follow Whonix's current configuration guidance and preserve Gateway/Workstation isolation. Do not add a direct Workstation adapter or arbitrary Workstation VPN. |
 | **Tails booted directly from USB** | Keep Tails' standard Tor configuration. If a VPN layer is desired and feasible, manage it on an upstream router. | Tails does not support a conventional VPN client inside the OS. Router VPN operation is separate from Tails and must be verified independently. |
 | **Client and business environments** | Use the organization's approved VPN and routing policy. | A commercial privacy VPN must not conflict with required access, monitoring, or approved testing source IPs. |
@@ -261,7 +261,7 @@ The default Whonix Workstation path uses the Gateway and Tor; a host VPN is not 
 
 *The diagram shows the Whonix Gateway and Workstation path. A host VPN is an optional upstream layer; assess provider trust and failure behavior before adding it. See also the [Tails network and storage boundaries](../assets/diagrams/tails-storage-and-network-boundaries.svg), where Unsafe Browser is a direct-network exception.*
 
-The ISP sees the VPN connection; the VPN provider can associate your source connection with Tor use. Websites reached through Tor still see a Tor exit, not the VPN server. If the VPN fails without effective blocking, Tor may reconnect directly through the ISP. That is a failure of the intended VPN layer even if Workstation traffic still uses Tor. Review the [tunnel tradeoffs](https://www.whonix.org/wiki/Tunnels/Introduction).
+When this optional configuration is active, the ISP sees the VPN connection and the VPN provider can associate your source connection with Tor use. Websites reached through Tor still see a Tor exit, not the VPN server. If the VPN fails without effective blocking, Tor may reconnect directly through the ISP. That is a failure of the intended VPN layer even if Workstation traffic still uses Tor. Review the [tunnel tradeoffs](https://www.whonix.org/wiki/Tunnels/Introduction).
 
 ### Tails: Respect Its Supported Network Design
 
