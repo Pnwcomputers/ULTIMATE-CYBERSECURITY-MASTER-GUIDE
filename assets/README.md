@@ -1263,4 +1263,4 @@ Conceptual checklists for jurisdiction, device, region, configuration, radio aut
 | Diagram | Embedded guide |
 |---|---|
 | [Radio compliance preflight](./diagrams/uconsole-radio-compliance-preflight.svg) | [uConsole RF & Radio Compliance](../uConsole/README.md#rf-and-radio-compliance) |
-| [Bruce radio authorization check](./diagrams/bruce-radio-authorization-check.svg) | [Bruce firmware legal and regulatory framework](../Documentation/bruce_firmware.md#2-legal-and-regulatory-framework--read-before-you-flash) |
+| [Bruce radio authorization check](./diagrams/bruce-radio-authorization-check.svg) | [Bruce firmware guide](../Documentation/bruce_firmware.md) |
