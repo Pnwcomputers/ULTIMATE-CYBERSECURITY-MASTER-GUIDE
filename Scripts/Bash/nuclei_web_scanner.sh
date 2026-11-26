@@ -30,6 +30,6 @@ if ! command -v nuclei >/dev/null 2>&1; then
 fi
 
 for target in "$@"; do
-  printf 'Scanning %s with the selected local templates at up to 5 requests per second. Results stay in this terminal.\n' "$target"
-  nuclei -u "$target" -t "$NUCLEI_TEMPLATE_PATH" -silent -severity high,critical -rate-limit 5
+  printf 'Scanning %s with the selected local templates at up to 5 requests per second; OAST/Interactsh is disabled. Results stay in this terminal.\n' "$target"
+  nuclei -u "$target" -t "$NUCLEI_TEMPLATE_PATH" -silent -severity high,critical -rate-limit 5 -no-interactsh
 done

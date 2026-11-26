@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 540" role="img" aria-labelledby="title desc">
+  <title id="title">Nuclei OAST traffic boundary</title>
+  <desc id="desc">Local reviewed templates send requests to an authorized target. The optional OAST path sends a callback to an Interactsh service and returns an observation to Nuclei. The safe wrapper disables this path with no-interactsh, which also excludes OAST templates.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f4e79"/></marker>
+    <marker id="arrow-muted" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b45309"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#172b4d}
+      .title{font-size:30px;font-weight:700}
+      .head{font-size:20px;font-weight:700}
+      .body{font-size:16px}
+      .small{font-size:14px}
+      .node{fill:#f4f7fb;stroke:#315a7d;stroke-width:2}
+      .target{fill:#e8f5ee;stroke:#2f855a;stroke-width:2}
+      .optional{fill:#fff7ed;stroke:#c2410c;stroke-width:2}
+      .disabled{fill:#f3f4f6;stroke:#6b7280;stroke-width:2;stroke-dasharray:8 6}
+    </style>
+  </defs>
+  <rect width="1100" height="540" fill="#ffffff"/>
+  <text x="48" y="58" class="title">Nuclei: target requests and optional OAST callbacks</text>
+  <rect x="44" y="104" width="1012" height="196" rx="18" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="68" y="140" class="head">Default wrapper path</text>
+  <rect x="78" y="174" width="250" height="88" rx="12" class="node"/>
+  <text x="203" y="207" text-anchor="middle" class="head">Reviewed local</text>
+  <text x="203" y="234" text-anchor="middle" class="body">template set</text>
+  <rect x="426" y="174" width="250" height="88" rx="12" class="node"/>
+  <text x="551" y="207" text-anchor="middle" class="head">Nuclei wrapper</text>
+  <text x="551" y="234" text-anchor="middle" class="small">-no-interactsh</text>
+  <rect x="774" y="174" width="230" height="88" rx="12" class="target"/>
+  <text x="889" y="207" text-anchor="middle" class="head">Authorized</text>
+  <text x="889" y="234" text-anchor="middle" class="body">target</text>
+  <path d="M328 218H415" stroke="#1f4e79" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="372" y="201" text-anchor="middle" class="small">select checks</text>
+  <path d="M676 218H763" stroke="#1f4e79" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="720" y="201" text-anchor="middle" class="small">in-scope probes</text>
+  <text x="550" y="284" text-anchor="middle" class="small">OAST templates excluded; this does not certify other template behavior.</text>
+  <rect x="44" y="326" width="1012" height="166" rx="18" fill="#fffaf5" stroke="#fed7aa"/>
+  <text x="68" y="361" class="head">Optional OAST path — disabled by this wrapper</text>
+  <rect x="90" y="390" width="300" height="76" rx="12" class="disabled"/>
+  <text x="240" y="420" text-anchor="middle" class="head">OAST-enabled template</text>
+  <text x="240" y="445" text-anchor="middle" class="small">not loaded with -no-interactsh</text>
+  <rect x="700" y="390" width="300" height="76" rx="12" class="optional"/>
+  <text x="850" y="420" text-anchor="middle" class="head">Interactsh service</text>
+  <text x="850" y="445" text-anchor="middle" class="small">external DNS / HTTP callback endpoint</text>
+  <path d="M394 428H690" stroke="#b45309" stroke-width="3" stroke-dasharray="10 8" marker-end="url(#arrow-muted)"/>
+  <path d="M850 382V307H560V271" fill="none" stroke="#b45309" stroke-width="2" stroke-dasharray="8 7" marker-end="url(#arrow-muted)"/>
+  <text x="548" y="318" text-anchor="middle" class="small" fill="#9a3412">callback observation returns to scanner</text>
+  <text x="550" y="520" text-anchor="middle" class="small">Every destination and external service used by a template must fit the authorized scope.</text>
+</svg>

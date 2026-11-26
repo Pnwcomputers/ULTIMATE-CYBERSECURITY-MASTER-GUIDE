@@ -602,6 +602,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Bound Python port-scanner work queues; disable Nuclei Interactsh/OAST in the safe wrapper; clarify process privilege context in the Scripts guide.
 - Qualify Flipper Zero legal warnings and replace secondary statute links with official U.S. Code sources.
 - Clarify that VPN use is optional and threat-model dependent in OPSEC guides; embed existing Whonix and Tails network-boundary diagrams in the comparison.
 - fix: correct installer architecture and hardware guide commands (#760) (`c68b98e`)
