@@ -59,6 +59,10 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 
 *Use the offline helper when you have a local copy; otherwise use GitHub code search, the Wiki, or the documentation index.*
 
+### Prefer routing by **role/goal**? Use [START_HERE.md](./START_HERE.md). 
+
+### Looking for section and guide listings? See [Supporting Guides & Reference](#supporting-guides) below.
+
 ---
 
 ## 🧭 Navigate By Area:
@@ -77,9 +81,7 @@ The three [primary master guides](#primary-master-guides) contain technical mate
 | [Wireless/Wardriving](./Wardriving/README.md) | Authorized wireless surveys |
 | [PNWC Cyberdeck Public Reference](./Cyberdeck/README.md) | Portable assessment design, manual workflows and offline evidence inventory |
 
-A grouped map of the whole repository. Prefer routing by **role/goal**? Use
-[START_HERE.md](./START_HERE.md). Looking for section and guide listings? See
-[Supporting Guides & Reference](#supporting-guides) below.
+### A grouped map of the whole repository:
 
 | Area | Start here | Also in this area |
 |------|-----------|-------------------|
