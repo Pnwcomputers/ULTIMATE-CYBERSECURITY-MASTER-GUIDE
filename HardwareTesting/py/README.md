@@ -17,7 +17,7 @@ Automate the full hardware qualification test suite so results are reproducible,
 
 Python orchestration scripts for diagnostics, benchmarking, and reliability stress testing on Manjaro Linux test benches. Designed for Z790/i9 platforms but works on any modern PC hardware.
 
-These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `vkmark`, `memtester`, `sysbench`, etc.), stream their output live so you always see progress, and compile results into clean client-facing Markdown reports with a clear **PASS / FAIL verdict**.
+These scripts wrap CLI tools (`stress-ng`, `fio`, `glmark2`, `vkmark`, `memtester`, `sysbench`, etc.) and generate client-facing Markdown reports. Progress output and verdicts vary by script; some produce explicit PASS/FAIL or PASS/FAIL/REVIEW results, while `full_hw_suite.py` reports diagnostic errors without an overall verdict.
 
 > Part of the [PNWC ULTIMATE-CYBERSECURITY-MASTER-GUIDE](https://github.com/Pnwcomputers/ULTIMATE-CYBERSECURITY-MASTER-GUIDE) · Pacific Northwest Computers · Vancouver, WA
 
