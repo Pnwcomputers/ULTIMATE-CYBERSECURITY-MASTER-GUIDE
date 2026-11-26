@@ -76,7 +76,7 @@ The Evil-M5 chapter discusses computer-access and interference law. Bruce also i
 
 A practical check before any transmission: identify the exact frequency and service, confirm a rule or license authorizes that device and mode, verify equipment authorization and technical limits, and confirm the engagement permits the target-system activity. Permission from a system owner does not replace radio authorization; a shielded room or private property is not a general FCC exemption. If a requirement is uncertain, do not transmit until it is resolved. For the United States, the FCC says consumers may not operate signal jammers; do not use Bruce’s jammer functions. See the [FCC consumer enforcement advisory](https://docs.fcc.gov/public/attachments/DA-12-1642A1.pdf).
 
-You may use Bruce legally in the following contexts, with the noted caveats:
+The following contexts may reduce some risks, but do not by themselves establish that an operation is lawful:
 
 1. **For receive-only work**, limit collection to communications you are permitted to receive, and handle, use, and disclose captured data lawfully. Receiving does not itself authorize retransmission; interception restrictions can still apply. For transmission, separately verify a valid FCC rule or service authorization, equipment compliance, and permission to test the target system. See [18 U.S.C. § 2511](https://uscode.house.gov/us/usc/t18/s2511/).
 2. **Under a signed ROE that explicitly enumerates the radio bands and techniques** - many ROE templates address WiFi but say nothing about sub-GHz or NFC. If you intend to clone a 125 kHz badge or replay a 433 MHz rolling code, the ROE must say so.
