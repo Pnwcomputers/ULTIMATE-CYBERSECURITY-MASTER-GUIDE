@@ -136,16 +136,16 @@ See [SBC & Radio Add-On Compatibility](../Documentation/sbc-radio-addon-compatib
 | **Serial Console** | Remove `console=serial0,115200` from cmdline.txt | No change needed (`serial0` is the debug UART); remove only `console=ttyAMA0` if present |
 | **SPI Conflict** | Disable `devterm-printer.service` | Disable `devterm-printer.service` |
 | **Onboard Wi-Fi** | Depends on image/driver; CM4 uConsole support unverified | Depends on image/driver; CM5 uConsole support unverified |
-| **Community Maturity** | Most tested, most stable | Newer, improving rapidly |
+| **Compatibility check** | Confirm support for the exact module, board revision, image, and peripherals | Confirm support for the exact module, board revision, image, and peripherals |
 | **PCIe** | Gen 2 (via adapter board) | Gen 2 default via adapter board; `dtparam=pciex1` required (edit any existing `=off`) |
 | **NVMe Boot** | Depends on carrier, EEPROM boot order and bootable media | Needs `BOOT_ORDER` with NVMe (e.g. `0xf416`). Set `PCIE_PROBE=1` for a non-HAT+ board |
 | **Internal RTC** | None (uses AIO v2's PCF85063A) | Has internal RTC (must disable for AIO v2's RTC) |
 
 ### Which Should I Buy?
 
-**Choose CM4 if:** You want the most stable, community-tested configuration with the fewest surprises. Best for first-time uConsole builders.
+**Choose CM4 if:** The exact uConsole board and OS image support that module, and USB 2.0 performance meets your needs.
 
-**Choose CM5 if:** You want USB 3.0 for external adapters, native PCIe for NVMe, and the newer BCM2712 SoC. Better long-term investment, but occasional rough edges.
+**Choose CM5 if:** The exact board revision and OS image support it, and you need the Upgrade Kit's USB 3.0 or the available PCIe/NVMe path. Check current maintainer notes and peripheral compatibility before buying; this guide has not physically validated these combinations.
 
 ---
 
@@ -274,9 +274,17 @@ This platform includes tools and capabilities for:
 <a id="rf-and-radio-compliance"></a>
 ### RF & Radio Compliance
 
-- **LoRa / Meshtastic**: Operates on ISM band (915 MHz US). No license required for low-power operation within FCC Part 15 limits.
-- **RTL-SDR**: Receive-only device. Legal to receive in most jurisdictions, but intercepting certain communications (cellular, encrypted, private) may violate wiretapping laws.
-- **WiFi Pentesting**: Monitor mode and packet injection are legal ONLY on networks you own or have explicit written authorization to test.
+Radio rules depend on the jurisdiction, device authorization, firmware/region settings, antenna, frequency, power, and transmission pattern. A band described as “license-exempt” does not mean every transmitter or configuration may operate there.
+
+- **LoRa / Meshtastic**: Select the regional plan supported where the device is operating; see [Meshtastic regional parameters](https://meshtastic.org/docs/configuration/region-by-country/). In the United States, some devices may operate without an individual operator license under applicable FCC Part 15 rules, but the device and actual configuration must meet the relevant requirements. The 902–928 MHz rules in [47 CFR § 15.247](https://www.ecfr.gov/current/title-47/section-15.247) are conditional; Part 15 operation also must accept interference and stop if FCC staff require it to address harmful interference ([47 CFR § 15.5](https://www.ecfr.gov/current/title-47/section-15.5)). Confirm the product's authorization and supported antenna, channel, power, and firmware settings before transmitting.
+- **RTL-SDR**: The listed device is receive-only, but receiving, recording, using, or sharing communications can raise privacy or interception issues under the law that applies. Do not assume every signal is lawful to monitor.
+- **Wi-Fi**: Monitor mode is a receive function; privacy and interception rules can still apply to captured traffic. Packet injection and deauthentication actively transmit. Perform active testing only within a clearly authorized scope, and ensure the adapter, power, channel, and location comply with local radio rules. Network ownership alone does not authorize interference with other users or systems.
+
+Use this as a starting point, not a jurisdiction-specific legal conclusion. Check current regulator and vendor guidance for the device and location.
+
+![Radio compliance preflight: confirm jurisdiction, regional plan, device and antenna configuration, transmission limits, and test authorization before transmitting](../assets/diagrams/uconsole-radio-compliance-preflight.svg)
+
+*Conceptual compliance preflight, not legal advice or a substitute for the applicable radio rules.*
 
 ### Warranty Disclaimer
 

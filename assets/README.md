@@ -1254,3 +1254,12 @@ Conceptual guide to choosing the local helper, GitHub code search, Wiki search, 
 | Diagram | Embedded guide |
 |---|---|
 | [Repository search paths](./diagrams/repository-search-paths.svg) | [Main README](../README.md) |
+
+
+## Radio Compliance Preflight
+
+Conceptual checklist for radio device, region, configuration and authorization before an RF transmission.
+
+| Diagram | Embedded guide |
+|---|---|
+| [Radio compliance preflight](./diagrams/uconsole-radio-compliance-preflight.svg) | [uConsole RF & Radio Compliance](../uConsole/README.md#rf-and-radio-compliance) |
