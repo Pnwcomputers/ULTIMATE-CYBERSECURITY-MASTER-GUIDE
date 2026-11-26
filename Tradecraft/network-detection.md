@@ -617,7 +617,8 @@ cat conn.log | zeek-cut id.orig_h id.resp_h id.resp_p service \
 
 ### Windows Event Log Correlation
 
- \`\`\`powershell
+
+```powershell
 # Review NTLM network logons; these events do not prove pass-the-hash.
 $events = Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624; StartTime=(Get-Date).AddHours(-24)}
 foreach ($event in $events) {
@@ -641,7 +642,7 @@ foreach ($event in $events) {
 # Review service-install events; event 7045 is not specific to PsExec.
 Get-WinEvent -FilterHashtable @{LogName='System'; Id=7045; StartTime=(Get-Date).AddHours(-24)} |
     Select-Object TimeCreated, Message
-\`\`\`
+```
 
 ---
 
