@@ -265,7 +265,7 @@ The ISP sees the VPN connection; the VPN provider can associate your source conn
 
 ### Tails: Respect Its Supported Network Design
 
-Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does not work with VPNs directly. Do not retrofit a VPN client or alter its firewall to force this recommendation. A separately configured upstream VPN router can provide the VPN-before-Tor layer, but Tails cannot verify or enforce that router's tunnel. Tor bridges are another documented option when direct Tor access is blocked.
+Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does not work with VPNs directly. Do not retrofit a VPN client or alter its firewall to add a VPN layer. A separately configured upstream VPN router can provide the VPN-before-Tor layer, but Tails cannot verify or enforce that router's tunnel. Tor bridges are another documented option when direct Tor access is blocked.
 
 ### Verify The VPN Layer
 
@@ -273,7 +273,7 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 - Prefer full-tunnel routing for the intended coverage. Document any split-tunnel or LAN-access exceptions.
 - Test DNS and IPv6 handling as well as the visible public IP; a browser IP check alone cannot validate every application or VM.
 - Test controlled VPN interruption, reconnection, network changes, and reboot using non-sensitive activity. Confirm covered Internet traffic remains blocked when the tunnel is unavailable; account for necessary tunnel/bootstrap traffic.
-- For Whonix, check the host VPN and Gateway egress separately from the Workstation's Tor check. A Tor exit address alone does not prove VPN-before-Tor is working.
+- If you intentionally configure VPN-before-Tor for Whonix, check the host VPN and Gateway egress separately from the Workstation's Tor check. A Tor exit address alone does not prove the optional VPN layer is working.
 - When a captive portal or authorized workflow requires a routing exception, pause sensitive activity, keep the change narrow, and restore and recheck the intended route before continuing.
 
 ---
@@ -369,7 +369,7 @@ Tails' [VPN FAQ](https://tails.net/support/faq/index.en.html#vpn) says it does n
 ### Defensive Operations
 
 - Separate management, sensor, and analysis networks.
-- Prefer an organization-approved VPN for remote administration. On analyst workstations, keep a trusted VPN active when practical and compatible with organizational policy; do not reroute sensor collection or production traffic indiscriminately.
+- Use an organization-approved VPN for remote administration where policy requires it. Follow approved egress policy on analyst workstations; treat a privacy VPN as optional, and do not reroute sensor collection or production traffic indiscriminately.
 - Protect SIEM and monitoring administration with least privilege and strong authentication.
 - Encrypt sensitive telemetry and backups; define retention and access auditing.
 - Monitor the monitoring infrastructure itself.
@@ -508,6 +508,7 @@ Neither is a substitute for Whonix/Tails identity separation, nor does encryptio
 [^whonix-live]: [Whonix: Live Mode](https://www.whonix.org/wiki/Live_Mode). Host/guest distinction, default persistence, and initial Gateway setup.
 [^tails-persistence]: [Tails: Persistent Storage](https://tails.net/doc/persistent_storage/index.en.html). Selective encrypted storage and its visibility.
 [^tails-warnings]: [Tails: Warnings](https://tails.net/doc/about/warnings/index.en.html). Identity exposure, Tor limitations, and hardware/firmware threats.
+[^tor-vpn]: [Tor Project: Tor Browser with VPN](https://support.torproject.org/tor-browser/general/vpn-with-tor/). VPN/Tor configuration tradeoffs and recommendation.
 [^unsafe-browser]: [Tails: Unsafe Browser](https://tails.net/doc/anonymous_internet/unsafe_browser/index.en.html). Direct connectivity and intended uses.
 [^virtualbox]: [VirtualBox: Virtual Networking](https://www.virtualbox.org/manual/ch06.html). NAT, internal networking, and host-only networking boundaries.
 
