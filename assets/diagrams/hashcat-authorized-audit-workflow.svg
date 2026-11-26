@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 560" role="img" aria-labelledby="title desc">
+<title id="title">Authorized offline password-audit workflow</title>
+<desc id="desc">The audit starts with documented authorization and approved test material. The analyst verifies hash provenance, format, salt and work factor, selects a bounded offline candidate test, validates any exact match against a synthetic or authorized fixture, then reports aggregate results and restricts or removes sensitive files. If authorization or provenance is uncertain, stop.</desc>
+<defs><style>
+text{font-family:Arial,Helvetica,sans-serif;fill:#183247}.title{font-size:29px;font-weight:700}.head{font-size:19px;font-weight:700}.body{font-size:15px}.small{font-size:14px}
+.box{stroke:#47657b;stroke-width:2;rx:13}.arrow{stroke:#47657b;stroke-width:3;fill:none;marker-end:url(#arr)}
+</style><marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6Z" fill="#47657b"/></marker></defs>
+<rect width="1280" height="560" fill="#f5f8fb"/>
+<text class="title" x="640" y="48" text-anchor="middle">Authorized offline password audit</text>
+<rect class="box" x="35" y="115" width="220" height="155" fill="#e7eef8"/>
+<text class="head" x="145" y="153" text-anchor="middle">1. Approve &amp; scope</text>
+<text class="body" x="145" y="187" text-anchor="middle">written authority</text>
+<text class="body" x="145" y="211" text-anchor="middle">approved source/material</text>
+<path class="arrow" d="M260 192L290 192"/>
+<rect class="box" x="300" y="115" width="220" height="155" fill="#fff0d7"/>
+<text class="head" x="410" y="153" text-anchor="middle">2. Verify format</text>
+<text class="body" x="410" y="187" text-anchor="middle">algorithm · encoding</text>
+<text class="body" x="410" y="211" text-anchor="middle">salt · work factor</text>
+<path class="arrow" d="M525 192L555 192"/>
+<rect class="box" x="565" y="115" width="220" height="155" fill="#e7f4ed"/>
+<text class="head" x="675" y="153" text-anchor="middle">3. Test offline</text>
+<text class="body" x="675" y="187" text-anchor="middle">bounded candidates</text>
+<text class="body" x="675" y="211" text-anchor="middle">no live login attempts</text>
+<path class="arrow" d="M790 192L820 192"/>
+<rect class="box" x="830" y="115" width="190" height="155" fill="#efe9fb"/>
+<text class="head" x="925" y="153" text-anchor="middle">4. Verify</text>
+<text class="body" x="925" y="187" text-anchor="middle">confirm exact match</text>
+<text class="body" x="925" y="211" text-anchor="middle">record limits</text>
+<path class="arrow" d="M1025 192L1055 192"/>
+<rect class="box" x="1065" y="115" width="180" height="155" fill="#f4e7e5"/>
+<text class="head" x="1155" y="153" text-anchor="middle">5. Report safely</text>
+<text class="body" x="1155" y="187" text-anchor="middle">aggregate results</text>
+<text class="body" x="1155" y="211" text-anchor="middle">restrict / remove files</text>
+<rect class="box" x="110" y="340" width="410" height="105" fill="#fde8e7"/>
+<text class="head" x="315" y="377" text-anchor="middle">Unknown source or scope?</text>
+<text class="body" x="315" y="409" text-anchor="middle">Stop; do not use or circulate the material.</text>
+<rect class="box" x="565" y="340" width="610" height="105" fill="#e8f0f5"/>
+<text class="head" x="870" y="377" text-anchor="middle">A match is scoped evidence</text>
+<text class="body" x="870" y="409" text-anchor="middle">It does not prove online access or broader account compromise.</text>
+<text class="small" x="640" y="510" text-anchor="middle" fill="#526b7d">Conceptual teaching aid — synthetic or explicitly approved offline material only</text>
+</svg>
