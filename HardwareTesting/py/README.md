@@ -4,7 +4,7 @@
 Python orchestration scripts for automated hardware diagnostics, benchmarking, and reliability stress testing on Manjaro Linux test benches (Z790/i9 platform, broadly compatible).
 
 ## ⚙️ Function
-Documents the Python test suite: automated CPU/memory/storage/GPU test orchestration, result logging and comparison, thermal monitoring during tests, pass/fail thresholds, and HTML report generation for test results.
+Documents CPU, memory, storage and GPU test orchestration, per-script logging and Markdown report formats, thermal monitoring, and the different verdict rules each tool uses.
 
 ## 🏆 Goal
 Automate the full hardware qualification test suite so results are reproducible, logged, and comparable across systems without manual command-by-command execution.
@@ -27,7 +27,7 @@ These scripts wrap robust CLI tools (`stress-ng`, `fio`, `glmark2`, `vkmark`, `m
 
 | Script | Purpose | Requires sudo |
 | :--- | :--- | :---: |
-| [`full_hw_suite.py`](#full_hw_suitepy-v21) | Full diagnostic pass - system info, CPU, RAM, storage, GPU | ✅ |
+| [`full_hw_suite.py`](#full_hw_suitepy-v20) | Full diagnostic pass - system info, CPU, RAM, storage, GPU | ✅ |
 | [`standalone_gpu_tester.py`](#standalone_gpu_testerpy-v21) | Universal GPU benchmark (OpenGL/Vulkan validation, memtest, kernel fault scanning) | ❌ |
 | [`amd_gpu_tester.py`](#vendor-gpu-testers-amd_gpu_testerpy--nvidia_gpu_testerpy) | AMD Radeon GPU diagnostic with amdgpu telemetry & Vulkan/OpenGL testing | ❌ |
 | [`nvidia_gpu_tester.py`](#vendor-gpu-testers-amd_gpu_testerpy--nvidia_gpu_testerpy) | NVIDIA GPU diagnostic with nvidia-smi telemetry & Vulkan/OpenGL testing | ❌ |
@@ -108,9 +108,9 @@ Any `❌ NOT FOUND` line means that tool needs to be installed before running th
 
 ---
 
-## `full_hw_suite.py` (V2.1)
+## `full_hw_suite.py` (V2.0)
 
-Runs a complete diagnostic pass sequentially: System info → CPU benchmark → RAM (bandwidth + stability) → Storage (SMART + fio IOPS) → GPU benchmark. Produces a single Markdown report with a report-level verdict.
+Runs a sequential system, CPU, RAM, storage, and `glmark2` GPU diagnostic and writes a Markdown report. The source identifies this script as v2.0; its behavior should not be confused with the separate standalone GPU, RAM, or stress-soak testers.
 
 **Run from the mount point of the drive you want to test.**
 
@@ -120,14 +120,12 @@ sudo python3 full_hw_suite.py --client "Client Name"
 
 **Output:** `Full_Hardware_Report_YYYYMMDD_HHMMSS.md` in the current working directory. When a report already exists at that timestamp, the new file gets a numbered suffix. Omit `--client` to enter the name interactively.
 
-**Key v2.1 improvements:**
-- Safer timeout and process-group handling to prevent zombie processes.
-- Better storage testing using temporary `fio` files rather than repo-folder test files.
-- Deep SMART analysis via `smartctl`.
-- Renderer validation for both Vulkan and OpenGL environments.
-- Proper desktop GPU command handling when running under `sudo` (avoids display server blocks).
-- Kernel hardware error snapshots embedded directly in the report.
-- Clear report-level **PASS / FAIL verdict**.
+**Behavior confirmed in the v2.0 source:**
+- Uses process-group cleanup for timed subprocesses.
+- Runs `fio` in a temporary directory under the current working directory; choose a working directory on the intended test drive.
+- Collects NVMe/SATA SMART output with `nvme smart-log` and `smartctl` where available.
+- Runs `glmark2` and gathers supported vendor snapshots; it does not validate Vulkan or snapshot kernel-journal faults.
+- Records diagnostics and errors in the Markdown report, but does not calculate an overall PASS/FAIL verdict. Use the dedicated GPU/RAM/stress scripts for their additional checks and verdicts.
 
 ---
 
@@ -308,7 +306,8 @@ The report opens with a verdict table - one row per check. A single ❌ flags th
 | ✅ | CPU Temperature | Peak 74.2°C (limit 100°C) |
 | ❌ | CPU Throttle Events | 12 events detected (threshold: 5) |
 | ✅ | Hardware Errors | None detected |
-| ✅ | stress-ng Stability | Completed full duration |
+| ✅ | stress-ng Stability | Completed full duration (exit 0) |
+| ✅ | fio Storage Workload | Completed full duration (exit 0) |
 | ✅ | GPU Stability (glmark2) | FPS stable (max drop: 3.1%) |
 
 ### Interrupt Handling
