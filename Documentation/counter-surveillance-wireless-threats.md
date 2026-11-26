@@ -127,6 +127,8 @@ The files and commands are examples. For missing files, create them from a contr
 | [Flipper Zero](https://docs.flipper.net/zero) and [Biscuit/Piglet](../Wardriving/README.md) | Check exact hardware and firmware before interpreting results. Accessory radios and phone exports have separate capabilities. |
 | [Portable device checkout procedures](portable-device-checkouts.md) and [SD/export reference](portable-device-sd-data.md) | Verify which sensor produced the observation and where the evidence was written. |
 
+For a controlled survey comparison, [Signal Sleuth](portable-device-checkouts.md#signal-sleuth) can document whether the lab AP appears in the survey record, and [Cerberus with Sentinel](portable-device-checkouts.md#cerberus-and-sentinel) can cross-check the known channel. Compare with the AP controller before attributing an observation to a device. Neither workflow establishes camera ownership, recording, or retention from an RF observation.
+
 ## Flock Safety Cameras & ALPR Privacy Review
 
 Flock Safety automatic license plate readers (ALPRs) capture plate images and vehicle attributes together with time and camera location, according to the vendor. A plate read or vehicle description can be wrong. Repeated observations can reveal travel patterns even when a system collects no driver identity field. Flock's evidence policy describes a seven-day default and exceptions. Verify the actual operator's policy, contract and settings for the deployment under review.

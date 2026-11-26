@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-labelledby="title desc">
+<title id="title">Signal Sleuth and Cerberus data paths</title>
+<desc id="desc">Signal Sleuth combines radio observations and GNSS in survey logs. Cerberus sends C5 observations to S3 and can save data to microSD. The USB installer report is a separate browser download.</desc>
+<rect width="900" height="300" rx="16" fill="#102035"/>
+<g font-family="sans-serif" fill="#f2f8ff">
+<text x="30" y="42" font-size="24" font-weight="bold">From sensor to saved evidence</text>
+<rect x="28" y="61" width="844" height="83" rx="8" fill="#214059"/>
+<text x="48" y="91" font-size="20" font-weight="bold">Signal Sleuth v1.1</text>
+<text x="48" y="121" font-size="17">ESP32 + BW16 + GNSS → survey record → SPI microSD → workstation copy</text>
+<rect x="28" y="158" width="844" height="116" rx="8" fill="#214059"/>
+<text x="48" y="187" font-size="20" font-weight="bold">Cerberus with Sentinel</text>
+<text x="48" y="217" font-size="17">C5 radio → S3 controller → microSD → workstation copy</text>
+<text x="48" y="248" font-size="17">USB installer → browser diagnostics → separate report download</text>
+</g>
+</svg>

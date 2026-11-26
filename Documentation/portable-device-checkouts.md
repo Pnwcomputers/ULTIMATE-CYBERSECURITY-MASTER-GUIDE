@@ -36,6 +36,30 @@ Use these procedures to qualify hardware, confirm its observation limits and gen
 
 [Official RaspyJack project and hardware matrix](https://github.com/7h30th3r0n3/Raspyjack) · [Project installation wiki](https://github.com/7h30th3r0n3/Raspyjack/wiki/Installation) · [CardputerZero Field Guide](../Cyberdeck/docs/CARDPUTERZERO.md) · [Repository RaspyJack notes](../Homelab/workflows/self-hosted_network_attacks.md#raspyjack--raspberry-pi-portable-assessment-workflow)
 
+![Signal Sleuth and Cerberus hardware roles and evidence paths](../assets/diagrams/463n7-device-data-paths.svg)
+
+## Signal Sleuth
+
+463N7's Signal Sleuth v1.1 is a revision of Joseph Hewitt's Wardriver. The v1.1 PCB parts list calls for two ESP32-DevKitC V4 boards with ESP32-WROOM-32U modules, a BW16 for 5 GHz, an ATGM336H GNSS module and an SPI microSD reader. The I²C display is optional. Check the actual kit revision and populated parts before using the v1.1 list.
+
+1. With power removed, compare each module, header orientation, and antenna connection against the exact board revision. Mark the two ESP32s so they can be matched to their firmware roles during troubleshooting. Keep the original firmware and configuration record. Verify any replacement image against 463N7's revision-specific instructions before flashing. Joseph Hewitt's Rev3 documentation describes the A/B design, but the pin map and BW16 build need confirmation for Signal Sleuth.
+2. Use a spare card for first boot. 463N7 recommends 16 GB or less for this PCB, and the inherited Rev3 firmware expects FAT32. Confirm the installed build's card requirements before formatting. Check that the card is recognized and, if you fitted the display, confirm scan and GNSS status. Keep network uploads disabled for the bench run.
+3. In an RF lab, use one owned AP with documented 2.4 and 5 GHz channels. Start with the 2.4 GHz test fixture, then compare with a 5 GHz fixture supported by the installed BW16 build. Open the saved survey file locally, compare its observations to the AP console, and check timestamps and coordinate fields. Mark missing GNSS fixes as missing and keep raw location records private.
+4. If no file appears, check the card and SPI reader before changing firmware. If 2.4 GHz works but 5 GHz is absent, check the BW16 board, antenna and release profile separately. If observations appear with blank coordinates, check the GNSS antenna and fix status separately from Wi-Fi reception.
+
+[463N7 project](https://github.com/463N7/SignalSleuth) · [v1.1 parts list and case resources](https://463n7.io/products/signal-sleuth-pcb) · [Joseph Hewitt Rev3 source and linked wiki](https://github.com/JosephHewitt/wardriver_rev3/) · [SD storage and recovery](portable-device-sd-data.md)
+
+## Cerberus And Sentinel
+
+The Cerberus Dev Board is the hardware. Its ESP32-S3 manages the touchscreen and storage, while the onboard ESP32-C5 provides wireless capability. Sentinel is 463N7's published firmware for the production board. The hardware reference describes optional add-ons separately and marks them as under test. Confirm each peripheral against the reference for your board.
+
+1. Record the board revision and installed firmware before changing either processor's image. Back up the microSD and note any settings needed for restoration. Use a USB data cable and the official Sentinel installer in desktop Chrome or Edge. Select the matched package for your production board.
+2. Follow the installer's staged prompts. It uses a temporary USB bridge to program the C5, then returns to the S3 loader for the main firmware and the startup check. The browser may ask you to choose the USB device again when its identity changes. Follow the official BOOT/RESET recovery instructions if the loader does not reappear.
+3. On first boot, check touchscreen response, the C5 startup diagnostic and microSD detection individually. Use an isolated lab and a single known 2.4 GHz or 5 GHz AP for a short read-only observation with Sentinel. Compare frequency and channel with the AP's own management screen. Confirm any export can be reopened on the workstation and record format, firmware version and vantage point.
+4. If touch works but the radio test fails, inspect the C5 startup result before replacing the S3 image. If display and radio work but export fails, check the card using a known-good spare and the matching firmware's storage instructions. The installer report is a separate workstation download that can contain board MAC addresses. The Sentinel dashboard uses local HTTP and the documented SD data is unencrypted, so keep diagnostics and exports within the bench scope.
+
+[463N7 hardware and pinout reference](https://github.com/463N7/Cerberus-Dev-Board) · [Developer guide](https://463n7.github.io/Cerberus-Dev-Board/) · [Official Sentinel installer](https://463n7.github.io/Cerberus-Flasher/) · [Installer documentation and release history](https://github.com/463N7/Cerberus-Flasher) · [SD storage and recovery](portable-device-sd-data.md)
+
 ## Other Listed Platforms
 
 | Platform | Repeatable bench test | Existing procedure and upstream reference |

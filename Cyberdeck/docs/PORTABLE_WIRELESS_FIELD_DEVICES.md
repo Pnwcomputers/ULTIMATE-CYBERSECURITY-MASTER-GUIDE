@@ -1,5 +1,7 @@
 # Portable Wireless & Field Device Operations for the PNWC Cyberdeck
 
+[463N7 Signal Sleuth](../../Documentation/portable-device-checkouts.md#signal-sleuth) · [463N7 Cerberus and Sentinel](../../Documentation/portable-device-checkouts.md#cerberus-and-sentinel)
+
 [Portable Device Checkouts](../../Documentation/portable-device-checkouts.md) · [Flipper Firmware Comparison](../../Documentation/flipper-firmware-comparison.md) · [SD Card Data & Resources](../../Documentation/portable-device-sd-data.md)
 
 > [!CAUTION]

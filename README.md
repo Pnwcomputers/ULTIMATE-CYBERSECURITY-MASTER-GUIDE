@@ -1,6 +1,6 @@
 # 🛡️ Ultimate Cybersecurity Master Guide
 
-[Portable Device Checkouts](./Documentation/portable-device-checkouts.md) · [Flipper Firmware Comparison](./Documentation/flipper-firmware-comparison.md) · [SD Card Data & Resources](./Documentation/portable-device-sd-data.md)
+[Portable Device Checkouts](./Documentation/portable-device-checkouts.md) · [Signal Sleuth](./Documentation/portable-device-checkouts.md#signal-sleuth) · [Cerberus and Sentinel](./Documentation/portable-device-checkouts.md#cerberus-and-sentinel) · [Flipper Firmware Comparison](./Documentation/flipper-firmware-comparison.md) · [SD Card Data & Resources](./Documentation/portable-device-sd-data.md)
 
 <p align="center">
   <img src="./assets/cybersecurityguide.png" alt="PNWC Ultimate Cybersecurity Master Guide" width="600"/>

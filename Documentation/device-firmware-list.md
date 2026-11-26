@@ -1,5 +1,7 @@
 # Device-First Firmware List
 
+[463N7 Signal Sleuth](./portable-device-checkouts.md#signal-sleuth) · [463N7 Cerberus and Sentinel](./portable-device-checkouts.md#cerberus-and-sentinel)
+
 [Portable Device Checkouts](./portable-device-checkouts.md) · [Flipper Firmware Comparison](./flipper-firmware-comparison.md) · [SD Card Data & Resources](./portable-device-sd-data.md)
 
 > [!CAUTION]

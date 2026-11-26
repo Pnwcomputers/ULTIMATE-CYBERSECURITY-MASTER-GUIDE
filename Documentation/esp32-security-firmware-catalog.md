@@ -1,5 +1,7 @@
 # ESP32 & Related Security Firmware Master Catalog
 
+[463N7 Signal Sleuth](./portable-device-checkouts.md#signal-sleuth) · [463N7 Cerberus and Sentinel](./portable-device-checkouts.md#cerberus-and-sentinel)
+
 [Portable Device Checkouts](./portable-device-checkouts.md#other-listed-platforms) · [SD Card Data & Resources](./portable-device-sd-data.md)
 
 > [!CAUTION]
