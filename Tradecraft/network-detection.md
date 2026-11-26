@@ -478,9 +478,11 @@ cat smb_mapping.log | zeek-cut path | grep -i "admin\$\|c\$\|ipc\$"
 cat kerberos.log | zeek-cut id.orig_h request_type cipher service \
   | awk '$2 == "TGS" && $3 == "rc4-hmac" {print}'
 
-# AS-REP Roasting: AS-REQ without pre-auth
-cat kerberos.log | zeek-cut id.orig_h request_type error_msg \
-  | awk '$2 == "AS" && $3 == "KDC_ERR_PREAUTH_REQUIRED" {print}'
+# Review domain-controller Event 4768 records with Pre-Authentication Type 0.
+# Type 0 means the TGT request used no pre-authentication; verify the account setting
+# and context before treating it as an AS-REP Roasting exposure.
+# KDC_ERR_PREAUTH_REQUIRED means the KDC requires additional pre-authentication;
+# it is not evidence that an account permits requests without pre-authentication.
 
 # Golden Ticket: Kerberos ticket with unusually long validity
 # Detect via Windows Event ID 4769 + ticket options analysis
@@ -617,19 +619,31 @@ cat conn.log | zeek-cut id.orig_h id.resp_h id.resp_p service \
 
 ### Windows Event Log Correlation
 
-```powershell
-# Detect pass-the-hash (NTLM logon type 3 from workstation to workstation)
-Get-WinEvent -LogName Security -FilterXPath `
-  "*[System[EventID=4624] and EventData[Data[@Name='LogonType']='3'] and EventData[Data[@Name='AuthenticationPackageName']='NTLM']]" |
-  Where-Object { $_.Properties[18].Value -notlike '*$' } |
-  Select-Object TimeCreated, @{n='Source';e={$_.Properties[19].Value}},
-                @{n='TargetUser';e={$_.Properties[5].Value}}
 
-# Detect service installation on remote host (PsExec indicator)
-Get-WinEvent -ComputerName TARGET -LogName System -FilterXPath `
-  "*[System[EventID=7045]]" |
-  Select-Object TimeCreated, @{n='ServiceName';e={$_.Properties[0].Value}},
-                @{n='ServiceFile';e={$_.Properties[1].Value}}
+```powershell
+# Review NTLM network logons; these events do not prove pass-the-hash.
+$events = Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624; StartTime=(Get-Date).AddHours(-24)}
+foreach ($event in $events) {
+    [xml]$xml = $event.ToXml()
+    $fields = @{}
+    foreach ($item in @($xml.Event.EventData.Data)) {
+        $fields[[string]$item.Name] = [string]$item.InnerText
+    }
+    if ($fields.LogonType -eq '3' -and
+        $fields.AuthenticationPackageName -eq 'NTLM') {
+        [pscustomobject]@{
+            Time         = $event.TimeCreated
+            SourceIP     = $fields.IpAddress
+            Workstation  = $fields.WorkstationName
+            TargetUser   = $fields.TargetUserName
+            LogonProcess = $fields.LogonProcessName
+        }
+    }
+}
+
+# Review service-install events; event 7045 is not specific to PsExec.
+Get-WinEvent -FilterHashtable @{LogName='System'; Id=7045; StartTime=(Get-Date).AddHours(-24)} |
+    Select-Object TimeCreated, Message
 ```
 
 ---
@@ -856,7 +870,7 @@ The sections above are Linux/NSM-stack heavy. This section covers the native Win
 
 ### Netsh - Built-in Packet Capture
 
-`netsh trace` is a built-in Windows packet capture mechanism, no install required. Output is `.etl` format, convertible to PCAP.
+`netsh trace` is a built-in Windows packet-capture mechanism that writes `.etl` files. Convert the output to pcapng before opening it in Wireshark, and retain the original ETL when packet-drop or component-path details matter.
 
 ```powershell
 # Start a capture - no third-party tools needed
@@ -873,12 +887,12 @@ netsh trace stop
 
 # Convert .etl to .pcap for Wireshark analysis
 # Method 1: etl2pcapng (Microsoft tool)
-etl2pcapng.exe capture.etl capture.pcap
+etl2pcapng.exe capture.etl capture.pcapng
 
 # Method 2: pktmon (Windows 10 2004+ built-in)
 pktmon start --capture --file C:\Temp\pktmon.etl
 pktmon stop
-pktmon etl2pcap C:\Temp\pktmon.etl --out C:\Temp\capture.pcap
+pktmon etl2pcap C:\Temp\pktmon.etl --out C:\Temp\capture.pcapng
 ```
 
 ### pktmon - Windows Packet Monitor
@@ -906,7 +920,7 @@ pktmon start --capture --pkt-size 0 --log-mode real-time
 
 # Stop and convert
 pktmon stop
-pktmon etl2pcap pktmon.etl --out capture.pcap
+pktmon etl2pcap pktmon.etl --out capture.pcapng
 pktmon etl2txt pktmon.etl          # Human-readable text output
 
 # Show current filters
@@ -940,7 +954,7 @@ winget install Microsoft.Sysinternals.TCPView
 Microsoft Defender for Endpoint captures network events per-process. Hunt via the Advanced Hunting console in the M365 Defender portal.
 
 ```kusto
-// Find processes making connections to unusual ports
+// Review unusual-port activity; connection records need corroboration with alerts and endpoint context.
 DeviceNetworkEvents
 | where Timestamp > ago(24h)
 | where RemotePort !in (80, 443, 53, 8080, 8443)
@@ -950,19 +964,18 @@ DeviceNetworkEvents
 | where count_ > 5
 | order by count_ desc
 
-// Hunt for beacon timing - low jitter regular connections
+// Hunt for recurring connections; a timing pattern is only a review lead.
 DeviceNetworkEvents
-| where Timestamp > ago(1h)
-| where ActionType == "ConnectionSuccess"
+| where Timestamp > ago(1h) and ActionType == "ConnectionSuccess"
 | summarize
     ConnectionCount = count(),
     FirstSeen = min(Timestamp),
     LastSeen = max(Timestamp)
     by DeviceName, InitiatingProcessFileName, RemoteIP, RemotePort
-| extend DurationMinutes = datetime_diff('minute', LastSeen, FirstSeen)
-| extend ConnectionsPerMinute = ConnectionCount * 1.0 / DurationMinutes
-| where ConnectionCount > 10 and DurationMinutes > 5
-| where ConnectionsPerMinute between (0.5 .. 5.0)   // 1 connection per 12-120 sec = beacon range
+| extend DurationSeconds = datetime_diff('second', LastSeen, FirstSeen)
+| where ConnectionCount > 10 and DurationSeconds > 300
+| extend ConnectionsPerMinute = ConnectionCount * 60.0 / DurationSeconds
+| where ConnectionsPerMinute between (0.5 .. 5.0)
 | order by ConnectionCount desc
 
 // Find DNS queries to high-entropy / DGA-like domains
@@ -974,15 +987,20 @@ DeviceEvents
 | summarize QueryCount=count() by DeviceName, DnsQuery, InitiatingProcessFileName
 | order by QueryCount desc
 
-// Find processes with unusual network + process injection combo
-DeviceEvents
+// Correlate endpoint events on device, process identity, and a narrow time window.
+let injections = DeviceEvents
 | where ActionType == "CreateRemoteThreadApiCall"
-| join kind=inner (
-    DeviceNetworkEvents
-    | where RemotePort !in (80, 443)
-) on $left.InitiatingProcessId == $right.InitiatingProcessId
-| project Timestamp, DeviceName, InitiatingProcessFileName,
-          TargetProcessFileName=tostring(AdditionalFields.TargetProcessName),
+| project DeviceName, InitiatingProcessId, InitiatingProcessCreationTime,
+          InjectionTime = Timestamp, InitiatingProcessFileName;
+let connections = DeviceNetworkEvents
+| where RemotePort !in (80, 443)
+| project DeviceName, InitiatingProcessId, InitiatingProcessCreationTime,
+          ConnectionTime = Timestamp, RemoteIP, RemotePort;
+injections
+| join kind=inner connections on DeviceName, InitiatingProcessId,
+                                      InitiatingProcessCreationTime
+| where abs(datetime_diff('second', ConnectionTime, InjectionTime)) <= 300
+| project InjectionTime, DeviceName, InitiatingProcessFileName,
           RemoteIP, RemotePort
 ```
 
@@ -1054,51 +1072,61 @@ Get-WinEvent -LogName "Microsoft-Windows-DNS-Client/Operational" |
 
 ### Sysmon Network Events
 
-Sysmon Event ID 3 captures every TCP/UDP connection with process context. Far more useful than raw firewall logs for correlation.
+Sysmon Event ID 3 can record configured TCP/UDP connections with process context. It is disabled by default, and coverage depends on the installed version and configuration.
 
 ```xml
 <!-- Sysmon config for network event capture -->
 <!-- Add to your sysmon config XML under EventFiltering -->
 
-<!-- Event 3: Network connections - capture outbound, filter noise -->
+<!-- Event 3: Network connections. Validate the resulting coverage and filter semantics. -->
 <NetworkConnect onmatch="exclude">
-    <!-- Exclude known-good system processes -->
+    <!-- This excludes only the matching image AND destination-port combination. -->
     <Image condition="is">C:\Windows\System32\svchost.exe</Image>
     <DestinationPort condition="is">443</DestinationPort>
     <!-- Add your own exclusions for known-good apps -->
 </NetworkConnect>
 
-<!-- Capture DNS queries via Event 22 -->
+<!-- Event 22: enable and tune DNS query collection for the required coverage. -->
 <DnsQuery onmatch="include">
-    <QueryName condition="contains">.</QueryName>  <!-- all queries -->
+    <QueryName condition="contains">.</QueryName>  <!-- dotted names only; single-label queries are not included -->
 </DnsQuery>
 ```
 
 ```powershell
-# Hunt Sysmon network events via PowerShell
-Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -FilterXPath `
-    "*[System[EventID=3] and EventData[Data[@Name='DestinationPort']!='443' and Data[@Name='DestinationPort']!='80']]" |
-    ForEach-Object {
-        [PSCustomObject]@{
-            Time    = $_.TimeCreated
-            Process = $_.Properties[4].Value
-            DstIP   = $_.Properties[14].Value
-            DstPort = $_.Properties[15].Value
-        }
-    } | Format-Table -AutoSize
+# Parse named EventData fields; numeric property positions vary by event schema/version.
+$events = Get-WinEvent -LogName 'Microsoft-Windows-Sysmon/Operational' -FilterXPath "*[System[EventID=3]]"
+foreach ($event in $events) {
+    [xml]$xml = $event.ToXml()
+    $fields = @{}
+    foreach ($item in @($xml.Event.EventData.Data)) {
+        $fields[[string]$item.Name] = [string]$item.InnerText
+    }
+    [pscustomobject]@{
+        Time            = $event.TimeCreated
+        Process         = $fields.Image
+        SourceIP        = $fields.SourceIp
+        DestinationIP   = $fields.DestinationIp
+        DestinationPort = $fields.DestinationPort
+    }
+}
 
-# Hunt DNS events (Sysmon Event 22)
-Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -FilterXPath `
-    "*[System[EventID=22]]" |
-    ForEach-Object {
-        [PSCustomObject]@{
-            Time    = $_.TimeCreated
-            Process = $_.Properties[4].Value
-            Query   = $_.Properties[0].Value
-            Result  = $_.Properties[1].Value
+# Hunt Sysmon DNS events using the documented field names.
+$events = Get-WinEvent -LogName 'Microsoft-Windows-Sysmon/Operational' -FilterXPath "*[System[EventID=22]]"
+foreach ($event in $events) {
+    [xml]$xml = $event.ToXml()
+    $fields = @{}
+    foreach ($item in @($xml.Event.EventData.Data)) {
+        $fields[[string]$item.Name] = [string]$item.InnerText
+    }
+    if ($fields.QueryName.Length -gt 40) {
+        [pscustomobject]@{
+            Time    = $event.TimeCreated
+            Process = $fields.Image
+            Query   = $fields.QueryName
+            Result  = $fields.QueryResults
         }
-    } | Where-Object { $_.Query.Length -gt 40 } |   # long domains = DGA/tunnel
-    Format-Table -AutoSize
+    }
+}
 ```
 
 ### Tool Platform Summary
@@ -1133,6 +1161,7 @@ Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -FilterXPath `
 - [MITRE ATT&CK: Exfiltration Over C2](https://attack.mitre.org/tactics/TA0010/)
 - [Wireshark Display Filter Reference](https://www.wireshark.org/docs/dfref/)
 - [pktmon Documentation (Microsoft)](https://learn.microsoft.com/en-us/windows-server/networking/technologies/pktmon/pktmon)
+- [Microsoft — Event 4768 and Kerberos pre-authentication types](https://learn.microsoft.com/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4768)
 - [NetworkMiner](https://www.netresec.com/?page=NetworkMiner)
 - [Sysmon Network Events - SwiftOnSecurity config](https://github.com/SwiftOnSecurity/sysmon-config)
 - [Microsoft Defender for Endpoint Advanced Hunting](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/advanced-hunting-overview)
