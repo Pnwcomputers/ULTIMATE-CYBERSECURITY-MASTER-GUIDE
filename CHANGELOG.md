@@ -21,6 +21,7 @@
 
 ### ⚖️ Bruce RF legal scope
 - Replace categorical legal claims and unsupported enforcement predictions with jurisdiction- and conduct-dependent guidance; add a pre-transmission authorization decision diagram and primary U.S. statute/FCC references.
+- Update the latest-release reference to upstream Bruce 1.17 and label the retained hardware/feature matrices as release 1.15 snapshots; note security-relevant fixes from the 1.17 release notes.
 
 ### ✨ New Content
 - docs: add WinPE recovery decision diagram (#749) (`7668abe`)
