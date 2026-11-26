@@ -47,7 +47,7 @@ Enable IT professionals and penetration testers to use the Flipper Zero effectiv
 
 ---
 
-> ⚠️ **Legal Disclaimer**: All techniques in this guide are for use only on systems and devices you own or have **explicit written authorization** to test. Unauthorized interception, cloning, or access of wireless signals, access control systems, or computer systems violates the Computer Fraud and Abuse Act (CFAA), the Electronic Communications Privacy Act (ECPA), and applicable state laws. PNWC accepts no liability for misuse of the information contained herein.
+> ⚠️ **Legal and Authorization Note:** For active testing, device interaction, or transmission, use assets you own or have explicit permission to assess, and define the permitted scope. Written authorization is a strong engagement safeguard; applicable legal requirements depend on the conduct, device, and jurisdiction. The CFAA addresses specified computer-access conduct, while the ECPA's interception provisions apply to defined communications and conduct. Their application is fact-specific; neither label makes every act of receiving, copying, cloning, or testing a radio or access-control signal automatically lawful or unlawful. Radio-transmission, access-device, privacy, and state/local rules may also apply. Check the rules for the exact protocol and activity before proceeding. See the [CFAA](https://uscode.house.gov/us/usc/t18/s1030/) and [18 U.S.C. §§ 2510–2523](https://uscode.house.gov/us/usc/t18/s2511/). PNWC accepts no liability for misuse of the information contained herein.
 
 ---
 
@@ -1627,8 +1627,8 @@ github.com/UberGuidoZ/Flipper/tree/main/NFC
 
 ### Legal References
 
-- [Computer Fraud and Abuse Act (CFAA) - 18 U.S.C. § 1030](https://www.law.cornell.edu/uscode/text/18/1030)
-- [Electronic Communications Privacy Act (ECPA)](https://www.law.cornell.edu/uscode/text/18/part-I/chapter-119)
+- [Computer Fraud and Abuse Act (CFAA) - 18 U.S.C. § 1030](https://uscode.house.gov/us/usc/t18/s1030/)
+- [18 U.S.C. §§ 2510–2523 - Wire and Electronic Communications Interception and related provisions](https://uscode.house.gov/us/usc/t18/s2511/)
 - [Washington State RCW 9A.90 - Washington Cybercrime Act](https://app.leg.wa.gov/RCW/default.aspx?cite=9A.90) (RCW 9A.52.110 was repealed in 2016; current law is RCW 9A.90.040 computer trespass 1st degree, RCW 9A.90.050 2nd degree)
 - [FCC Part 15 - Unlicensed RF devices](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-A/part-15)
 

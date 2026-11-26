@@ -602,6 +602,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Qualify Flipper Zero legal warnings and replace secondary statute links with official U.S. Code sources.
 - Clarify that VPN use is optional and threat-model dependent in OPSEC guides; embed existing Whonix and Tails network-boundary diagrams in the comparison.
 - fix: correct installer architecture and hardware guide commands (#760) (`c68b98e`)
 - docs: correct master guide OPSEC and setup guidance (#761) (`8daf852`)
