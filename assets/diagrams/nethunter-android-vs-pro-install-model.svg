@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 560" role="img" aria-labelledby="title desc">
+  <title id="title">Android NetHunter and NetHunter Pro installation models</title>
+  <desc id="desc">The rooted Android NetHunter path combines Android, a Kali root filesystem and NetHunter app, with a device-specific custom kernel where supported. NetHunter Pro is a separate pure Kali system that flashes a root filesystem to userdata and a device-specific boot image. A/B slot selection is conditional on device partition design.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#315a7d"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#17324d}
+      .title{font-size:30px;font-weight:700}
+      .head{font-size:21px;font-weight:700}
+      .body{font-size:17px}
+      .small{font-size:14px}
+      .node{fill:#eff6fb;stroke:#315a7d;stroke-width:2}
+      .android{fill:#eef8f0;stroke:#37804f;stroke-width:2}
+      .pro{fill:#f4f0fb;stroke:#6f4ba8;stroke-width:2}
+      .note{fill:#fff8e7;stroke:#cc8b18;stroke-width:2}
+    </style>
+  </defs>
+  <rect width="1120" height="560" fill="#fff"/>
+  <text x="52" y="58" class="title">Two different NetHunter installation models</text>
+  <rect x="40" y="90" width="500" height="380" rx="18" fill="#f8fcf8" stroke="#a9c9ae" stroke-width="2"/>
+  <rect x="580" y="90" width="500" height="380" rx="18" fill="#faf8fd" stroke="#c3b4dc" stroke-width="2"/>
+  <text x="290" y="130" text-anchor="middle" class="head">Standard rooted Android NetHunter</text>
+  <text x="830" y="130" text-anchor="middle" class="head">NetHunter Pro</text>
+  <rect x="150" y="158" width="280" height="70" rx="12" class="android"/>
+  <text x="290" y="188" text-anchor="middle" class="head">Android OS</text>
+  <text x="290" y="211" text-anchor="middle" class="small">host system remains Android-based</text>
+  <path d="M290 230V260" stroke="#315a7d" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="110" y="270" width="360" height="72" rx="12" class="node"/>
+  <text x="290" y="299" text-anchor="middle" class="head">Kali rootfs (chroot)</text>
+  <text x="290" y="323" text-anchor="middle" class="small">integrated with Android userspace</text>
+  <rect x="110" y="360" width="170" height="58" rx="10" class="node"/>
+  <text x="195" y="385" text-anchor="middle" class="body">NetHunter app</text>
+  <text x="195" y="405" text-anchor="middle" class="small">management interface</text>
+  <rect x="300" y="360" width="170" height="58" rx="10" class="node"/>
+  <text x="385" y="385" text-anchor="middle" class="body">Custom kernel</text>
+  <text x="385" y="405" text-anchor="middle" class="small">device / edition dependent</text>
+  <text x="290" y="448" text-anchor="middle" class="small">This guide follows the rooted Android setup.</text>
+  <rect x="650" y="158" width="360" height="72" rx="12" class="pro"/>
+  <text x="830" y="188" text-anchor="middle" class="head">Pure Kali root filesystem</text>
+  <text x="830" y="212" text-anchor="middle" class="small">flashed to userdata in current QCOM steps</text>
+  <path d="M830 232V260" stroke="#315a7d" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="650" y="270" width="360" height="72" rx="12" class="pro"/>
+  <text x="830" y="299" text-anchor="middle" class="head">Device-specific boot image</text>
+  <text x="830" y="323" text-anchor="middle" class="small">follow exact model and release instructions</text>
+  <rect x="650" y="360" width="360" height="58" rx="10" class="note"/>
+  <text x="830" y="385" text-anchor="middle" class="body">A/B slot selection is conditional</text>
+  <text x="830" y="405" text-anchor="middle" class="small">only when the device uses A/B partitions</text>
+  <text x="560" y="515" text-anchor="middle" class="small">Conceptual comparison only. Do not use this figure as a partition map or flashing procedure.</text>
+</svg>
