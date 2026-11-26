@@ -602,6 +602,7 @@
 - Initial commit (`29ba5d2`)
 
 ### 🐛 Fixes
+- Correct NetHunter Pro installation-model description and add an indexed Android-versus-Pro diagram.
 - Update Linux AVML capture commands to the current subcommand CLI and pin the example to a verified release.
 - Bound Python port-scanner work queues; disable Nuclei Interactsh/OAST in the safe wrapper; clarify process privilege context in the Scripts guide.
 - Qualify Flipper Zero legal warnings and replace secondary statute links with official U.S. Code sources.
