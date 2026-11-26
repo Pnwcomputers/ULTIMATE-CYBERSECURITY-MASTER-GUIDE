@@ -1205,7 +1205,7 @@ WannaCry Kill Chain:
 **Target:** Financial institutions worldwide  
 **Year:** 2013-2015 (primary activity)  
 **Type:** Advanced Persistent Threat  
-**Impact estimate:** Kaspersky reported up to $1 billion in losses and attacks on up to 100 banks, e-payment systems, and other financial institutions in about 30 countries; these were estimates, not a final audited total.
+**Impact estimate:** Kaspersky's 2015 report described up to 100 targets and potential cumulative losses of up to $1 billion, based on information from victims and law enforcement. These were estimates, not a final audited total; the report identified affected institutions across several regions.
 
 ### Attack Methodology
 
