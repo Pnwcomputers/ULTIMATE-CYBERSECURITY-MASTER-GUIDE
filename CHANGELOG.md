@@ -8,7 +8,7 @@
 
 ## 📝 Detailed Changes
 
-### 🔎 Review follow-up
+### 🔐 WinPmem CLI correction
 - Correct the WinPmem Mini invocation and add the upstream prerelease/signing caveat to live-memory acquisition guidance.
 
 ### 🔎 Review follow-up
