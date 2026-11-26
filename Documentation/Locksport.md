@@ -276,30 +276,21 @@ The locksport community (particularly /r/lockpicking and associated discord comm
 
 **United States:**
 
-Lock picks are legal to own in most US states. A small number of states have more restrictive statutes:
+Lock and tool laws vary by state. These examples illustrate how specific statutes are framed; they are not a nationwide survey or legal advice.
 
-| State | Status | Notes |
-|-------|--------|-------|
-| Most states | Legal to own | No restrictions beyond intent |
-| Virginia | Restricted | Possession with intent to commit burglary is the key statute; lawful possession for locksport is generally accepted |
-| Ohio | Possession can be prima facie evidence | Context and intent critical |
-| Nevada | Restricted | Possession is presumed for unlawful purposes unless rebutted |
-| Mississippi | Some restrictions | Verify current statute |
+| State | Statutory example |
+|-------|-------------------|
+| Virginia | [Code § 18.2-94](https://law.lis.virginia.gov/vacode/title18.2/chapter7/section18.2-94/) addresses possession of tools with intent to commit burglary, robbery, or larceny; possession by a person other than a licensed dealer is prima facie evidence of that intent. |
+| Ohio | [Revised Code § 2923.24](https://codes.ohio.gov/ohio-revised-code/section-2923.24) prohibits possessing or controlling an instrument with purpose to use it criminally; specified circumstances may be prima facie evidence of criminal purpose. |
+| Nevada | [NRS 205.080](https://www.leg.state.nv.us/nrs/nrs-205.html) addresses making or possessing listed instruments under circumstances evincing criminal intent; subsection (2) states a prima facie-evidence rule and specifies an exception for certain tradespeople in an established shop open to public view. |
 
-> **Always verify current local law.** Statutes change. Being a known and active locksport hobbyist (community membership, purchased locks, competition history) establishes legitimate intent.
+These records may help document lawful activity, but club membership, receipts, practice logs, and competition history do not establish legal permission or guarantee a defense. Verify current law for the specific place and activity, including purchase, possession, transport, and use; seek qualified legal advice where needed.
 
 **International:**
 
-| Country / Region | Status |
-|-----------------|--------|
-| UK | Legal; possession alone not an offense |
-| Canada | Legal to own; unlawful to possess for criminal purpose |
-| Germany | Legal to own |
-| Japan | Restricted; lock picks are controlled tools requiring professional justification |
-| Australia | Varies by state; some states require locksmith license |
-| Netherlands | Legal to own |
+Rules on purchasing, possessing, carrying, importing, and using lock tools vary by country and may also differ within a country. This guide does not provide a country-by-country legal summary. Consult current official law for each jurisdiction involved, including transit and customs requirements.
 
-**The rule that applies everywhere:** Only pick locks you own or have explicit permission to pick. The "in your possession" test is the universal ethical standard regardless of local law.
+**Ethical baseline for this guide:** Pick only locks you own or have explicit permission to pick. This is a safety and ethics rule, not a substitute for applicable law.
 
 ---
 
