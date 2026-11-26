@@ -930,17 +930,24 @@ sudo ./linux_live_response.sh IR-2024-001
 
 #### AVML (Microsoft)
 
+As checked on November 25, 2026, AVML v0.21.0 is the current release. Recheck the release page before reuse, and pin a version rather than relying on the mutable `latest` URL. Where feasible, pre-stage the binary through the approved acquisition process and record its version and hash. Compare the downloaded file's SHA-256 against the digest for the exact asset on the [official v0.21.0 release page](https://github.com/microsoft/avml/releases/tag/v0.21.0); do not run it if the digest does not match.
+
 ```bash
-# Download AVML
-wget https://github.com/microsoft/avml/releases/latest/download/avml
+# Example pinned release; verify its published SHA-256 before execution.
+AVML_VERSION=v0.21.0
+wget "https://github.com/microsoft/avml/releases/download/${AVML_VERSION}/avml" -O avml
+EXPECTED_SHA256='<copy the digest published for this exact release asset>'
+printf '%s  %s\n' "$EXPECTED_SHA256" avml | sha256sum --check - || exit 1
 
-# Capture memory
+# Capture memory (root privileges required)
 chmod +x avml
-sudo ./avml memory.lime
+sudo ./avml acquire memory.lime
 
-# With compression
-sudo ./avml --compress memory.lime.compressed
+# Capture with compression
+sudo ./avml acquire --compress memory.lime.compressed
 ```
+
+The commands follow the current [AVML v0.21.0 usage](https://github.com/microsoft/avml/blob/v0.21.0/README.md#capturing-an-uncompressed-memory-image). Memory acquisition changes the live system; follow the incident plan, preserve provenance, and record the tool version and hash alongside the capture.
 
 #### LiME
 
