@@ -617,20 +617,31 @@ cat conn.log | zeek-cut id.orig_h id.resp_h id.resp_p service \
 
 ### Windows Event Log Correlation
 
-```powershell
-# Detect pass-the-hash (NTLM logon type 3 from workstation to workstation)
-Get-WinEvent -LogName Security -FilterXPath `
-  "*[System[EventID=4624] and EventData[Data[@Name='LogonType']='3'] and EventData[Data[@Name='AuthenticationPackageName']='NTLM']]" |
-  Where-Object { $_.Properties[18].Value -notlike '*$' } |
-  Select-Object TimeCreated, @{n='Source';e={$_.Properties[19].Value}},
-                @{n='TargetUser';e={$_.Properties[5].Value}}
+ \`\`\`powershell
+# Review NTLM network logons; these events do not prove pass-the-hash.
+$events = Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624; StartTime=(Get-Date).AddHours(-24)}
+foreach ($event in $events) {
+    [xml]$xml = $event.ToXml()
+    $fields = @{}
+    foreach ($item in @($xml.Event.EventData.Data)) {
+        $fields[[string]$item.Name] = [string]$item.InnerText
+    }
+    if ($fields.LogonType -eq '3' -and
+        $fields.AuthenticationPackageName -eq 'NTLM') {
+        [pscustomobject]@{
+            Time         = $event.TimeCreated
+            SourceIP     = $fields.IpAddress
+            Workstation  = $fields.WorkstationName
+            TargetUser   = $fields.TargetUserName
+            LogonProcess = $fields.LogonProcessName
+        }
+    }
+}
 
-# Detect service installation on remote host (PsExec indicator)
-Get-WinEvent -ComputerName TARGET -LogName System -FilterXPath `
-  "*[System[EventID=7045]]" |
-  Select-Object TimeCreated, @{n='ServiceName';e={$_.Properties[0].Value}},
-                @{n='ServiceFile';e={$_.Properties[1].Value}}
-```
+# Review service-install events; event 7045 is not specific to PsExec.
+Get-WinEvent -FilterHashtable @{LogName='System'; Id=7045; StartTime=(Get-Date).AddHours(-24)} |
+    Select-Object TimeCreated, Message
+\`\`\`
 
 ---
 
@@ -873,12 +884,12 @@ netsh trace stop
 
 # Convert .etl to .pcap for Wireshark analysis
 # Method 1: etl2pcapng (Microsoft tool)
-etl2pcapng.exe capture.etl capture.pcap
+etl2pcapng.exe capture.etl capture.pcapng
 
 # Method 2: pktmon (Windows 10 2004+ built-in)
 pktmon start --capture --file C:\Temp\pktmon.etl
 pktmon stop
-pktmon etl2pcap C:\Temp\pktmon.etl --out C:\Temp\capture.pcap
+pktmon etl2pcap C:\Temp\pktmon.etl --out C:\Temp\capture.pcapng
 ```
 
 ### pktmon - Windows Packet Monitor
@@ -906,7 +917,7 @@ pktmon start --capture --pkt-size 0 --log-mode real-time
 
 # Stop and convert
 pktmon stop
-pktmon etl2pcap pktmon.etl --out capture.pcap
+pktmon etl2pcap pktmon.etl --out capture.pcapng
 pktmon etl2txt pktmon.etl          # Human-readable text output
 
 # Show current filters
@@ -950,19 +961,18 @@ DeviceNetworkEvents
 | where count_ > 5
 | order by count_ desc
 
-// Hunt for beacon timing - low jitter regular connections
+// Hunt for recurring connections; a timing pattern is only a review lead.
 DeviceNetworkEvents
-| where Timestamp > ago(1h)
-| where ActionType == "ConnectionSuccess"
+| where Timestamp > ago(1h) and ActionType == "ConnectionSuccess"
 | summarize
     ConnectionCount = count(),
     FirstSeen = min(Timestamp),
     LastSeen = max(Timestamp)
     by DeviceName, InitiatingProcessFileName, RemoteIP, RemotePort
-| extend DurationMinutes = datetime_diff('minute', LastSeen, FirstSeen)
-| extend ConnectionsPerMinute = ConnectionCount * 1.0 / DurationMinutes
-| where ConnectionCount > 10 and DurationMinutes > 5
-| where ConnectionsPerMinute between (0.5 .. 5.0)   // 1 connection per 12-120 sec = beacon range
+| extend DurationSeconds = datetime_diff('second', LastSeen, FirstSeen)
+| where ConnectionCount > 10 and DurationSeconds > 300
+| extend ConnectionsPerMinute = ConnectionCount * 60.0 / DurationSeconds
+| where ConnectionsPerMinute between (0.5 .. 5.0)
 | order by ConnectionCount desc
 
 // Find DNS queries to high-entropy / DGA-like domains
@@ -974,15 +984,20 @@ DeviceEvents
 | summarize QueryCount=count() by DeviceName, DnsQuery, InitiatingProcessFileName
 | order by QueryCount desc
 
-// Find processes with unusual network + process injection combo
-DeviceEvents
+// Correlate endpoint events on device, process identity, and a narrow time window.
+let injections = DeviceEvents
 | where ActionType == "CreateRemoteThreadApiCall"
-| join kind=inner (
-    DeviceNetworkEvents
-    | where RemotePort !in (80, 443)
-) on $left.InitiatingProcessId == $right.InitiatingProcessId
-| project Timestamp, DeviceName, InitiatingProcessFileName,
-          TargetProcessFileName=tostring(AdditionalFields.TargetProcessName),
+| project DeviceName, InitiatingProcessId, InitiatingProcessCreationTime,
+          InjectionTime = Timestamp, InitiatingProcessFileName;
+let connections = DeviceNetworkEvents
+| where RemotePort !in (80, 443)
+| project DeviceName, InitiatingProcessId, InitiatingProcessCreationTime,
+          ConnectionTime = Timestamp, RemoteIP, RemotePort;
+injections
+| join kind=inner connections on DeviceName, InitiatingProcessId,
+                                      InitiatingProcessCreationTime
+| where abs(datetime_diff('second', ConnectionTime, InjectionTime)) <= 300
+| project InjectionTime, DeviceName, InitiatingProcessFileName,
           RemoteIP, RemotePort
 ```
 
@@ -1075,30 +1090,40 @@ Sysmon Event ID 3 captures every TCP/UDP connection with process context. Far mo
 ```
 
 ```powershell
-# Hunt Sysmon network events via PowerShell
-Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -FilterXPath `
-    "*[System[EventID=3] and EventData[Data[@Name='DestinationPort']!='443' and Data[@Name='DestinationPort']!='80']]" |
-    ForEach-Object {
-        [PSCustomObject]@{
-            Time    = $_.TimeCreated
-            Process = $_.Properties[4].Value
-            DstIP   = $_.Properties[14].Value
-            DstPort = $_.Properties[15].Value
-        }
-    } | Format-Table -AutoSize
+# Parse named EventData fields; numeric property positions vary by event schema/version.
+$events = Get-WinEvent -LogName 'Microsoft-Windows-Sysmon/Operational' -FilterXPath "*[System[EventID=3]]"
+foreach ($event in $events) {
+    [xml]$xml = $event.ToXml()
+    $fields = @{}
+    foreach ($item in @($xml.Event.EventData.Data)) {
+        $fields[[string]$item.Name] = [string]$item.InnerText
+    }
+    [pscustomobject]@{
+        Time            = $event.TimeCreated
+        Process         = $fields.Image
+        SourceIP        = $fields.SourceIp
+        DestinationIP   = $fields.DestinationIp
+        DestinationPort = $fields.DestinationPort
+    }
+}
 
-# Hunt DNS events (Sysmon Event 22)
-Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -FilterXPath `
-    "*[System[EventID=22]]" |
-    ForEach-Object {
-        [PSCustomObject]@{
-            Time    = $_.TimeCreated
-            Process = $_.Properties[4].Value
-            Query   = $_.Properties[0].Value
-            Result  = $_.Properties[1].Value
+# Hunt Sysmon DNS events using the documented field names.
+$events = Get-WinEvent -LogName 'Microsoft-Windows-Sysmon/Operational' -FilterXPath "*[System[EventID=22]]"
+foreach ($event in $events) {
+    [xml]$xml = $event.ToXml()
+    $fields = @{}
+    foreach ($item in @($xml.Event.EventData.Data)) {
+        $fields[[string]$item.Name] = [string]$item.InnerText
+    }
+    if ($fields.QueryName.Length -gt 40) {
+        [pscustomobject]@{
+            Time    = $event.TimeCreated
+            Process = $fields.Image
+            Query   = $fields.QueryName
+            Result  = $fields.QueryResults
         }
-    } | Where-Object { $_.Query.Length -gt 40 } |   # long domains = DGA/tunnel
-    Format-Table -AutoSize
+    }
+}
 ```
 
 ### Tool Platform Summary
