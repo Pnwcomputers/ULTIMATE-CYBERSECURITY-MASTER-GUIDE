@@ -136,16 +136,16 @@ See [SBC & Radio Add-On Compatibility](../Documentation/sbc-radio-addon-compatib
 | **Serial Console** | Remove `console=serial0,115200` from cmdline.txt | No change needed (`serial0` is the debug UART); remove only `console=ttyAMA0` if present |
 | **SPI Conflict** | Disable `devterm-printer.service` | Disable `devterm-printer.service` |
 | **Onboard Wi-Fi** | Depends on image/driver; CM4 uConsole support unverified | Depends on image/driver; CM5 uConsole support unverified |
-| **Community Maturity** | Most tested, most stable | Newer, improving rapidly |
+| **Compatibility check** | Confirm support for the exact module, board revision, image, and peripherals | Confirm support for the exact module, board revision, image, and peripherals |
 | **PCIe** | Gen 2 (via adapter board) | Gen 2 default via adapter board; `dtparam=pciex1` required (edit any existing `=off`) |
 | **NVMe Boot** | Depends on carrier, EEPROM boot order and bootable media | Needs `BOOT_ORDER` with NVMe (e.g. `0xf416`). Set `PCIE_PROBE=1` for a non-HAT+ board |
 | **Internal RTC** | None (uses AIO v2's PCF85063A) | Has internal RTC (must disable for AIO v2's RTC) |
 
 ### Which Should I Buy?
 
-**Choose CM4 if:** You want the most stable, community-tested configuration with the fewest surprises. Best for first-time uConsole builders.
+**Choose CM4 if:** The exact uConsole board and OS image support that module, and USB 2.0 performance meets your needs.
 
-**Choose CM5 if:** You want USB 3.0 for external adapters, native PCIe for NVMe, and the newer BCM2712 SoC. Better long-term investment, but occasional rough edges.
+**Choose CM5 if:** The exact board revision and OS image support it, and you need the Upgrade Kit's USB 3.0 or the available PCIe/NVMe path. Check current maintainer notes and peripheral compatibility before buying; this guide has not physically validated these combinations.
 
 ---
 
