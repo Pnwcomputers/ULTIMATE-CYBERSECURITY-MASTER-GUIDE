@@ -2377,74 +2377,41 @@ Useful primary references: Microsoft's [Protected Users group](https://learn.mic
 *Full reference: [Tradecraft/av-edr-evasion.md - Analysis Environments & Tooling Reference](Tradecraft/av-edr-evasion.md#analysis-environments--tooling-reference)*
  
 ### Windows - FLARE VM (Mandiant)
- 
-Complete Windows malware-analysis workstation. Install only on a clean, disposable
-Windows VM after taking a snapshot. Follow the current
-[Mandiant FLARE-VM instructions](https://github.com/mandiant/flare-vm). Download
-the installer from the official repository, inspect its source and origin, and
-keep any execution-policy change scoped to the current PowerShell process:
 
-```powershell
-Set-ExecutionPolicy Unrestricted -Scope Process -Force
-Unblock-File .\install.ps1
-.\install.ps1
-```
- 
-**Key tools installed:** x64dbg, IDA Free, Ghidra, PE-bear, CFF Explorer, Detect-It-Easy,
-Process Monitor, Process Hacker, VMMap, Regshot, FakeNet-NG, CyberChef, dnSpy, de4dot, Wireshark
- 
+Use FLARE-VM only in a disposable Windows virtual machine. The project changes its package list and requirements over time; follow the current [official FLARE-VM README](https://github.com/mandiant/flare-vm) and installer instructions rather than copying commands from an older guide. Take a clean snapshot before installation and keep the analysis VM isolated from production and personal networks.
+
+The installed tool set depends on the current configuration and package availability. Use the repository's current configuration as the source of truth; older tool names or package lists should not be treated as guaranteed to install.
+
 ### Linux - REMnux
- 
-Ubuntu-based Linux malware analysis distro. Use alongside FLARE VM.
- 
-```bash
-curl -O https://REMnux.org/remnux          # verify SHA256 against docs.remnux.org
-chmod +x remnux && sudo mv remnux /usr/local/bin
-sudo remnux install
-```
- 
-**Key tools installed:** Volatility 3, YARA, radare2/Cutter, Ghidra, pestudio, ssdeep,
-oledump, pdfid/pdf-parser, vmonkey, NetworkMiner, Wireshark, FakeNet-NG, inetsim
- 
+
+REMnux is an Ubuntu-based malware-analysis distribution. Its current documentation supports x86/amd64 and specifies the supported Ubuntu release. For a lab, the prebuilt [virtual appliance](https://docs.remnux.org/install-distro/get-virtual-appliance) is the simplest route. For a from-scratch install, follow the [official installation steps](https://docs.remnux.org/install-distro/install-from-scratch), including comparing the installer’s SHA-256 value with the value published in those instructions before running it. Do not rely on an unverified download or a comment that says verification was performed.
+
+**Tooling note:** Installed analysis tools and package names change. Check the chosen distribution's current requirements and project documentation, and record the image version and source.
+
 ### Cross-Platform Tool Reference
- 
-| Tool | Windows | Linux | Purpose |
-|---|---|---|---|
-| **Ghidra** | `ghidraRun.bat` | `./ghidraRun` | NSA decompiler, full RE |
-| **Volatility 3** | `python vol.py` | `python3 vol.py` | Memory forensics |
-| **CyberChef** | Browser/Electron | Browser/Node | Decode obfuscated content |
-| **YARA** | `yara64.exe` | `apt install yara` | Pattern matching |
-| **Wireshark** | GUI installer | `apt install wireshark` | PCAP analysis |
-| **Sigma** | Python/sigmac | Python/sigmac | Detection rule format |
-| **Atomic Red Team** | PowerShell module | Bash executor | Purple team testing |
-| **Impacket** | `pip install impacket` | `pip3 install impacket` | Windows protocol toolkit |
-| **CrackMapExec** | `pip install cme` | `apt install cme` | SMB/AD testing |
-| **Hashcat** | `hashcat.exe` | `hashcat` | Hash cracking |
-| **PE-sieve** | Native Windows | ❌ | Process injection scanner |
-| **Moneta** | Native Windows | ❌ | In-memory IOC scanner |
-| **Zeek** | Limited | ✅ primary | Protocol log generation |
-| **pktmon** | Built-in Win10+ | ❌ | Windows packet capture |
-| **tcpdump** | ❌ (use pktmon) | ✅ native | Live capture/scripting |
- 
+
+Prefer current project documentation and supported package sources over copied installation commands. Platform support and command names can change; the table is a starting point for research, not an installation recipe.
+
+| Tool or format | Typical context | Reference and handling note |
+|---|---|---|
+| Ghidra | Cross-platform reverse engineering | [Official installation guide](https://github.com/NationalSecurityAgency/ghidra/blob/master/InstallationGuide.html); verify the release requirements before installation. |
+| Volatility 3 | Memory forensics on supported Python platforms | [Official documentation](https://volatility3.readthedocs.io/en/latest/); use plugins appropriate to the image and record acquisition context. |
+| YARA | Cross-platform pattern matching | [Official documentation](https://yara.readthedocs.io/); a rule match is a lead, not a malware verdict. |
+| Wireshark | Packet analysis on Windows, Linux, and macOS | [Official documentation](https://www.wireshark.org/docs/); captures may contain credentials and personal data. |
+| Zeek and Suricata | Network monitoring and offline analysis | Use the [Zeek](https://docs.zeek.org/) and [Suricata](https://docs.suricata.io/) docs for supported platforms and configuration. |
+| Sigma | Portable detection-rule format and backend conversion | Use current [Sigma documentation](https://sigmahq.io/docs/) and [pySigma](https://github.com/SigmaHQ/pySigma). The older sigmac toolchain is legacy; backend support must be checked. |
+| NetExec (nxc) | Authorized Windows and Active Directory assessment | NetExec is the maintained continuation of CrackMapExec; see its [project repository](https://github.com/Pennyw0rth/NetExec) and [Kali package information](https://www.kali.org/tools/netexec/). Use only within written scope. |
+| Hashcat | Approved password-storage audits | Use the [official documentation](https://hashcat.net/wiki/) and an approved, controlled dataset; never test real user credentials outside an authorized audit. |
+| Impacket | Windows protocol research and assessment | Use the [project documentation](https://github.com/fortra/impacket); tools can make active network requests and require explicit authorization. |
+
 ### Quick Environment Selection
- 
-```
-Analyzing Windows malware?
-  → FLARE VM (static) + Process Monitor (dynamic) + PE-sieve (memory)
- 
-Analyzing Linux ELF?
-  → REMnux + pwndbg + rizin/Cutter + strace/ltrace
- 
-Decoding obfuscated script?
-  → CyberChef (any platform, browser-based)
- 
-Full behavioral analysis?
-  → CAPE Sandbox (self-hosted Ubuntu) - auto-extracts C2 configs
- 
-Memory forensics?
-  → Volatility 3 (either platform) + pe-sieve (Windows live process)
-```
- 
+
+- Static analysis of a Windows sample: use a disposable FLARE-VM image and consult current Mandiant setup guidance.
+- Static analysis of Linux or Windows artifacts: use a maintained REMnux appliance or another approved analysis environment; verify platform compatibility first.
+- Memory forensics: use Volatility 3 with the correct symbols and acquisition context.
+- Dynamic sample analysis: use a maintained sandbox only in a disposable, isolated environment, following that project's current containment and handling guidance.
+- Network evidence: use Wireshark, Zeek, or Suricata against an authorized capture or sensor feed.
+
 [Return to Table of Contents](#table-of-contents---enhanced-edition)
 
 **END OF ENHANCED CYBERSECURITY MASTER GUIDE**
