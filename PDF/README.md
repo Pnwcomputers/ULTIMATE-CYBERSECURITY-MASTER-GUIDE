@@ -476,7 +476,7 @@ circumstances. Do not infer a legal conclusion from a tool label or checklist.
 LEGAL CONSIDERATIONS:
    • Unauthorized domain enumeration may violate CFAA
    • Credential theft is a serious criminal offense
-   • Pass-the-hash attacks constitute unauthorized access
+   • Pass-the-hash is an authentication technique; using it to access systems or data without required authorization may violate the CFAA or other laws depending on the conduct, statutory elements, and jurisdiction ([18 U.S.C. § 1030](https://uscode.house.gov/us/usc/t18/s1030/))
    • Domain privilege escalation outside approved scope may violate applicable law, contract, or policy
 
 REQUIRED AUTHORIZATION:
@@ -501,7 +501,7 @@ LEGAL CONSIDERATIONS:
    • Web application testing outside approved scope may violate applicable law, contract, or policy
    • WAF bypass may violate terms of service
    • Testing an IDOR outside approved scope may expose unauthorized data or violate applicable rules
-   • Zero-day exploitation without permission is criminal
+   • Using an exploit to access systems or data without required authorization may violate applicable law; the analysis depends on the conduct, authorization, statutory elements, and jurisdiction. A vulnerability's “zero-day” status does not itself determine legality.
 
 REQUIRED AUTHORIZATION:
    ✓ Written permission from application owner
