@@ -900,6 +900,14 @@ Original conceptual figures; source links and evidence limits appear in the guid
 | [azure security logging coverage](./diagrams/azure-security-logging-coverage.svg) | [Guide](../Cloud/azure.md) |
 | [azure security role planes](./diagrams/azure-security-role-planes.svg) | [Guide](../Cloud/azure.md) |
 
+## NetHunter Installation Model Visual
+
+Original conceptual comparison based on Kali's NetHunter and NetHunter Pro documentation; device-specific flashing steps are deliberately omitted.
+
+| Diagram | Embedded guide |
+|---|---|
+| [NetHunter Android vs Pro installation model](./diagrams/nethunter-android-vs-pro-install-model.svg) | [OnePlus 6 NetHunter guide](../Mobile/OnePlus_A6003/Kali_NetHunter.md#1-what-kali-nethunter-is) |
+
 ## Mobile Penetration Testing SOP Visuals
 
 Original conceptual diagrams that summarize authorization gates and evidence handling.
