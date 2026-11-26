@@ -667,7 +667,8 @@ These 19 newly authored diagrams provide short conceptual overviews beside the r
 | [Mobile security layers](./diagrams/mobile-security-boundaries.svg) | [Mobile/README.md](../Mobile/README.md) | Device, account, app, network and backups |
 | [Incident response stages](./diagrams/incident-response-cycle.svg) | [IncidentResponse/README.md](../IncidentResponse/README.md) | Preparation through recovery and improvement |
 | [Assessment checklist lifecycle](./diagrams/checklist-assessment-quality.svg) | [Checklists](../Checklists/README.md) | Authorization, coverage, evidence, QA and closure |
-| [Safe script execution](./diagrams/safe-script-execution.svg) | [Scripts](../Scripts/README.md) | Code review, scope approval, rollback and results |\n| [Nuclei OAST traffic boundary](./diagrams/nuclei-oast-traffic-boundary.svg) | [Nuclei wrapper](../Scripts/Bash/nuclei_web_scanner.sh) and [Scripts guide](../Scripts/README.md#nuclei-oast-traffic-boundary) | Separates in-scope target requests from optional Interactsh callbacks, disabled by the wrapper |
+| [Safe script execution](./diagrams/safe-script-execution.svg) | [Scripts](../Scripts/README.md) | Code review, scope approval, rollback and results |
+| [Nuclei OAST traffic boundary](./diagrams/nuclei-oast-traffic-boundary.svg) | [Nuclei wrapper](../Scripts/Bash/nuclei_web_scanner.sh) and [Scripts guide](../Scripts/README.md#nuclei-oast-traffic-boundary) | Separates in-scope target requests from optional Interactsh callbacks, disabled by the wrapper |
 | [CM5 AIO v2 and NVMe validation](./diagrams/uconsole-cm5-aio-nvme-validation.svg) | [CM5 Setup](../uConsole/CM5-SETUP.md) | Boot-file settings, live peripheral checks, and optional NVMe startup validation |
 | [uConsole cautious setup](./diagrams/uconsole-six-phase-setup.svg) | [uConsole](../uConsole/README.md) | Model-aware, opt-in six-phase CM5 workflow |
 
