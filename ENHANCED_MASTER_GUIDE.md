@@ -1373,7 +1373,7 @@ For a tabletop, use synthetic records only. Discuss detection of unexpected raw-
 | Upstream collection | A separate pathway acquired communications as they transited the communications backbone. The PCLOB report discusses distinct targeting and filtering rules; do not merge it with provider delivery. |
 | XKEYSCORE | An intelligence analysis tool used to search and analyze collected data. Legal authority and safeguards depend on the collection and query context; the tool name does not establish a blanket “no warrant required” rule. |
 | MUSCULAR | Contemporary reporting based on Snowden documents described NSA/GCHQ interception of traffic on private links between Google and Yahoo data centers. This is distinct from PRISM and is not accurately summarized as generic “undersea cable tapping.” |
-| MYSTIC / RETRO | Reporting described a 30-day rolling recording of calls in the Bahamas and one unnamed country, with RETRO retrieval within that window. This was a report about specific deployments, not a claim that every target country had all calls recorded. |
+| MYSTIC / RETRO | Contemporary reporting described a 30-day rolling call buffer in the Bahamas and a second country whose name The Intercept withheld. WikiLeaks later identified that country as Afghanistan; keep that identification attributed to WikiLeaks rather than presenting it as part of the original reporting. These were reported deployments, not a claim that every MYSTIC target had all calls recorded. |
 | BULLRUN | A reported NSA effort to obtain access to encrypted communications through technical operations and other means. The disclosures do not establish that all modern encryption was broken or that every commercial product contained a backdoor. |
 
 ### Technical Capabilities and Evidence Limits
@@ -1395,9 +1395,11 @@ The exact number and scope of files remain disputed. Treat official damage estim
 
 - [PCLOB — July 2014 Section 702 report](https://www.intelligence.gov/assets/documents/702-documents/702-Report-2_OCR.pdf), including PRISM and upstream collection.
 - [PCLOB — 2023 Section 702 report](https://documents.pclob.gov/prod/Documents/OversightReport/8ca320e5-01d3-4d6a-8106-3384aad6ff31/2023%20PCLOB%20702%20Report%20-%20Nov%2017%202023%20-%201446.pdf), describing current terminology for downstream and upstream pathways.
+- [PCLOB — April 2026 Section 702 staff report](https://documents.pclob.gov/prod/Documents/OversightReport/315fe19c-07f3-4cc6-986a-ff199ce5b616/Unclassified%20PCLOB%20702%20Report%202026.pdf), updating developments since 2023, including changes under the 2024 RISAA; it is current context, not a source for the 2013 historical claims.
 - [PCLOB — XKEYSCORE oversight reports](https://www.pclob.gov/Oversight).
 - [The Washington Post — MUSCULAR data-center-link reporting](https://www.washingtonpost.com/world/national-security/nsa-infiltrates-links-to-yahoo-google-data-centers-worldwide-snowden-documents-say/2013/10/30/e51d661e-4166-11e3-8b74-d89d714ca4dd_story.html).
 - [The Washington Post — MYSTIC and RETRO reporting](https://www.washingtonpost.com/world/national-security/nsa-surveillance-program-reaches-into-the-past-to-retrieve-replay-phone-calls/2014/03/18/226d2646-ade9-11e3-a49e-76adc9210f19_story.html).
+- [The Washington Post — later reporting that WikiLeaks identified the initially unnamed MYSTIC country as Afghanistan](https://www.washingtonpost.com/world/national-security/top-spy-bemoans-loss-of-key-intelligence-program/2015/09/09/a214bda4-5717-11e5-abe9-27d53f250b11_story.html).
 - [NIST — Cryptographic standards and the Dual_EC_DRBG controversy](https://csrc.nist.gov/nist-cyber-history/cryptography/chapter).
 - [DIA Director — 1.7 million document estimate](https://www.dia.mil/Articles/Speeches-and-Testimonies/Article/567078/dia-director-flynn-unauthorized-disclosures-have-caused-grave-damage-to-our-nat/).
 
