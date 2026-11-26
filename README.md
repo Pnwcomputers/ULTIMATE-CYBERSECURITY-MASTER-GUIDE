@@ -35,10 +35,6 @@ Each section link below opens its **readable README index directly**, not GitHub
 
 Use [START_HERE.md](./START_HERE.md) to navigate by role or goal. 
 
-The [Diagram & Image Asset Index](./assets/README.md) links to original figures in their topic guides, including detection-validation, Cyberdeck zone, and packet-capture diagrams. 
-
-For payment systems, see [PCI DSS 4.0.1 Scoping & Segmentation](./Compliance/pci-dss-scoping.md) and its [reusable review worksheet](./Compliance/pci-scope-review-template.md). 
-
 The three [primary master guides](#primary-master-guides) contain technical material; this page helps you find it.
 
 <h1 align="center"><strong>THANK YOU FOR CHECKING THIS OUT!</strong></h1>
