@@ -274,9 +274,17 @@ This platform includes tools and capabilities for:
 <a id="rf-and-radio-compliance"></a>
 ### RF & Radio Compliance
 
-- **LoRa / Meshtastic**: Operates on ISM band (915 MHz US). No license required for low-power operation within FCC Part 15 limits.
-- **RTL-SDR**: Receive-only device. Legal to receive in most jurisdictions, but intercepting certain communications (cellular, encrypted, private) may violate wiretapping laws.
-- **WiFi Pentesting**: Monitor mode and packet injection are legal ONLY on networks you own or have explicit written authorization to test.
+Radio rules depend on the jurisdiction, device authorization, firmware/region settings, antenna, frequency, power, and transmission pattern. A band described as “license-exempt” does not mean every transmitter or configuration may operate there.
+
+- **LoRa / Meshtastic**: Select the regional plan supported where the device is operating; see [Meshtastic regional parameters](https://meshtastic.org/docs/configuration/region-by-country/). In the United States, some devices may operate without an individual operator license under applicable FCC Part 15 rules, but the device and actual configuration must meet the relevant requirements. The 902–928 MHz rules in [47 CFR § 15.247](https://www.ecfr.gov/current/title-47/section-15.247) are conditional; Part 15 operation also must accept interference and stop if FCC staff require it to address harmful interference ([47 CFR § 15.5](https://www.ecfr.gov/current/title-47/section-15.5)). Confirm the product's authorization and supported antenna, channel, power, and firmware settings before transmitting.
+- **RTL-SDR**: The listed device is receive-only, but receiving, recording, using, or sharing communications can raise privacy or interception issues under the law that applies. Do not assume every signal is lawful to monitor.
+- **Wi-Fi**: Monitor mode is a receive function; privacy and interception rules can still apply to captured traffic. Packet injection and deauthentication actively transmit. Perform active testing only within a clearly authorized scope, and ensure the adapter, power, channel, and location comply with local radio rules. Network ownership alone does not authorize interference with other users or systems.
+
+Use this as a starting point, not a jurisdiction-specific legal conclusion. Check current regulator and vendor guidance for the device and location.
+
+![Radio compliance preflight: confirm jurisdiction, regional plan, device and antenna configuration, transmission limits, and test authorization before transmitting](../assets/diagrams/uconsole-radio-compliance-preflight.svg)
+
+*Conceptual compliance preflight, not legal advice or a substitute for the applicable radio rules.*
 
 ### Warranty Disclaimer
 
