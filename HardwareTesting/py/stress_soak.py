@@ -684,7 +684,24 @@ def run_combined_stress(stress_s: int, poller: SensorPoller,
 
     # ── Graceful shutdown ─────────────────────────────────────────────────────
     active = list(filter(None, [stress_proc, fio_proc, gpu_proc]))
+
+    # The CPU/storage tools have their own bounded runtime. At a normal
+    # deadline, allow their final reporting/flush to finish before stopping any
+    # process that remains. On thermal cutoff or interruption, stop promptly.
+    if (time.time() >= deadline and not _interrupted
+            and not result.get("thermal_cutoff")):
+        for proc in (stress_proc, fio_proc):
+            if proc is not None:
+                try:
+                    proc.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    pass
+                except Exception:
+                    pass
+
     for proc in active:
+        if proc.poll() is not None:
+            continue
         try:
             proc.terminate()
         except Exception:
