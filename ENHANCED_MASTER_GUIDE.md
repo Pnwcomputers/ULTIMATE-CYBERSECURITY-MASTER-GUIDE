@@ -1176,7 +1176,7 @@ WannaCry Kill Chain:
 - **Build compromise:** The attackers inserted SUNBURST into the Orion build process, outside the ordinary source-code repository workflow described by SolarWinds.
 - **Signed distribution:** Affected updates were digitally signed and distributed through the vendor channel. The signature established the signing identity and file integrity after signing, not the safety of the build contents.
 - **Delayed and selective activity:** CISA reported a 12–14 day delay before SUNBURST execution. The backdoor used DNS for command-and-control and selected victims for additional activity.
-- **Different outcome by environment:** SolarWinds reported that fewer than 18,000 customers had an installation of an affected Orion version. Download, installation, backdoor activation, and hands-on follow-on compromise are distinct states; the number of affected builds is not a count of confirmed intrusions.
+- **Different outcome by environment:** SolarWinds initially said up to 18,000 customers could potentially have been vulnerable, based on downloads of affected Orion versions. It later estimated that fewer than 100 customers were hacked through SUNBURST. These are different stages: a download does not establish installation or backdoor activation, and the vendor's estimate of customers hacked is not a count of all affected downloads.
 - **Multiple initial-access paths:** CISA also documented initial-access vectors beyond Orion. Do not attribute every compromise associated with the broader campaign to SUNBURST alone.
 
 ### Detection & Response
