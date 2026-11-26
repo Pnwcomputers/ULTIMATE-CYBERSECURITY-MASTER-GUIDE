@@ -57,17 +57,21 @@ During security reviews, defensive study, or authorized assessments when you nee
 - **Gray Hat**: Operate in between, sometimes without authorization but without malicious intent
 
 ### Ethical Hacking Phases
-1. **Reconnaissance**: Information gathering
-2. **Scanning**: Identifying live systems and open ports
-3. **Gaining Access**: Exploiting vulnerabilities
-4. **Attacker persistence behaviors**: Study persistence indicators to improve prevention and detection; do not establish persistence during an assessment unless explicitly authorized.
-5. **Evidence preservation and response**: Preserve logs and artifacts. Treat attempts to conceal activity as behaviors to detect, not routine assessment steps.
+1. **Scope and authorization**: Confirm approved assets, methods, timing, and stop conditions.
+2. **Permitted discovery**: Gather only in-scope information and note collection limits.
+3. **Approved validation**: Use agreed checks; stop if scope or service availability is uncertain.
+4. **Evidence preservation**: Save relevant logs and artifacts with handling context.
+5. **Reporting and remediation**: Separate observations from conclusions and document fixes and retest approval.
+
+![Authorized assessment lifecycle: confirm written scope, perform permitted discovery and approved validation, preserve relevant evidence, then report findings and remediation; obtain renewed approval before retesting](assets/diagrams/authorized-assessment-lifecycle.svg)
+
+*Conceptual workflow: a prior approval does not automatically authorize new targets, methods, or retesting.*
 
 ### Key Principles
 - **Confidentiality**: Information accessible only to authorized parties
 - **Integrity**: Data remains unaltered
 - **Availability**: Systems remain accessible when needed
-- **Non-Repudiation**: Actions cannot be denied
+- **Non-repudiation**: Evidence can support attribution of specific actions and help rebut false denial; it is not absolute and depends on trustworthy identity, key control, and records ([NIST glossary](https://csrc.nist.gov/glossary/term/non_repudiation)).
 
 ---
 
